@@ -1,0 +1,34 @@
+{
+  "name": "mastorscdn",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MastorsCDN is a lightweight SCSS mixin and CSS utility library designed for CDN delivery and static usage.",
+  "keywords": [
+    "css",
+    "scss",
+    "sass",
+    "cdn",
+    "utility",
+    "mixin",
+    "frontend",
+    "static"
+  ],
+  "author": "KEHEM-IT",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KEHEM-IT/MastorsCDN"
+  },
+  "scripts": {
+    "scss:build": "sass styles/mastorscdn.scss styles/mastorscdn.css",
+    "scss:watch": "sass --watch styles/mastorscdn.scss:styles/mastorscdn.css",
+    "ts:build": "tsc",
+    "ts:watch": "tsc --watch",
+    "build": "npm run scss:build && npm run ts:build",
+    "watch": "npm run scss:watch & npm run ts:watch"
+  },
+  "devDependencies": {
+    "sass": "^1.69.0",
+    "typescript": "^5.3.3"
+  }
+}
