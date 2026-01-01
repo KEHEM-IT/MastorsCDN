@@ -21,9 +21,4 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
         script: |
-          cd /var/www/html/mastorscdn
-          git config --global --add safe.directory /var/www/html/mastorscdn
-          git pull origin main
-          # run build if needed
-          # npm install
-          # restart service (pm2/systemd/docker)
+          cd /var/www/html/mastorscdn git config --global --add safe.directory /var/www/html/mastorscdn git pull origin main
