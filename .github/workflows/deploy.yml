@@ -22,6 +22,7 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         script: |
           cd /var/www/html/mastorscdn
+          git config --global --add safe.directory /var/www/html/mastorscdn
           git pull origin main
           # run build if needed
           # npm install
