@@ -1,0 +1,15 @@
+/// Fluid size utility
+/// @param {String} $property - CSS property (padding, margin, height, etc.)
+/// @param {Number} $min - Minimum size (mobile)
+/// @param {Number} $max - Maximum size (desktop)
+/// @param {Number} $min-vw - Minimum viewport width
+/// @param {Number} $max-vw - Maximum viewport width
+@mixin fluid-size($property,
+    $min,
+    $max,
+    $min-vw: 320px,
+    $max-vw: 1440px) {
+    #{$property}: clamp(#{$min},
+        calc(#{$min} + (#{$max} - #{$min}) * ((100vw - #{$min-vw}) / (#{$max-vw} - #{$min-vw}))),
+        #{$max});
+}

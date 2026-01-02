@@ -1,0 +1,69 @@
+```markdown
+mastorsCDN/
+├─ index.html
+├─ about.html
+├─ styles/
+├─ _variables.scss
+└─ mastorscdn.scss
+└─ mastorscdn.css 
+├─ scripts/
+│  ├─ script.ts
+│  └─ script.js
+├─ assets/
+│  └─ logo.png
+├─ package.json
+└─ tsconfig.json
+```
+
+
+```json
+{
+  "name": "mastorscdn",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MastorsCDN is a lightweight SCSS mixin and CSS utility library designed for CDN delivery and static usage.",
+  "keywords": [
+    "css",
+    "scss",
+    "sass",
+    "cdn",
+    "utility",
+    "mixin",
+    "frontend",
+    "static"
+  ],
+  "author": "KEHEM-IT",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KEHEM-IT/MastorsCDN"
+  },
+  "scripts": {
+    "scss:build": "sass styles/mastorscdn.scss styles/mastorscdn.css",
+    "scss:watch": "sass --watch styles/mastorscdn.scss:styles/mastorscdn.css",
+    "ts:build": "tsc",
+    "ts:watch": "tsc --watch",
+    "build": "npm run scss:build && npm run ts:build",
+    "watch": "npm run scss:watch & npm run ts:watch"
+  },
+  "devDependencies": {
+    "sass": "^1.69.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "mastors-fluider": "^1.5.0",
+    "mastors-gridder": "^1.0.0"
+  }
+}
+```
+
+I want to design my root website mastorscdn (Logo: https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg). This is a frontend css and sass mixin utility library. Please read the documentation  for mastors-fluider and gridder here:
+https://kehem-it.github.io/Mastors-Fluider/
+https://kehem-it.github.io/Mastors-Gridder/
+I installed those mixins scss utility. You needs to use those to design the mastorscdn root webpage html. If you needs you can create scss file inside styles.
+Write ts file for scripts.
+Dark is the primary bg. Use fontawesome, prism for code view, if needs slider you can use carousal slider js cdn's or npm libraries.
+Here are the logo of two libraries:
+https://kehem-it.github.io/Mastors-Gridder/assets/gridder-logo.png
+https://kehem-it.github.io/Mastors-Fluider/assets/Mastors-Fluider-Logo.png
+You needs to create stunning webpage for MastorsCDN. Do as you needs that is standard for displaying a huge frontend style library Mastorscdn.

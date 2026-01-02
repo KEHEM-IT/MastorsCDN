@@ -3,14 +3,629 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>My Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="MastorsCDN - A powerful, lightweight SCSS mixin and CSS utility library for modern web development">
+    <title>MastorsCDN - Modern CSS Utility Library</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Prism CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <!-- Main Styles -->
     <link rel="stylesheet" href="styles/mastorscdn.css">
 </head>
 
 <body>
-    <h1>Welcome to My Site!</h1>
-    <button id="myBtn">Click Me</button>
-    <a href="about.html">Go to About</a>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="#" class="navbar-brand">
+                    <img src="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg"
+                        alt="MastorsCDN Logo" class="navbar-logo">
+                </a>
+
+                <ul class="navbar-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#libraries" class="nav-link">Libraries</a></li>
+                    <li><a href="#documentation" class="nav-link">Docs</a></li>
+                    <li><a href="#showcase" class="nav-link">Showcase</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                </ul>
+
+                <div class="navbar-actions">
+                    <a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank" class="btn btn-outline">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
+                    <a href="#get-started" class="btn btn-primary">
+                        Get Started
+                    </a>
+                    <button class="navbar-toggle" id="navToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="hero-grid"></div>
+            <div class="hero-gradient"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-sparkles"></i>
+                    v1.0.0 Now Available
+                </div>
+
+                <h1 class="hero-title">
+                    Build Stunning Interfaces with
+                    <span class="gradient-text">MastorsCDN</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    A powerful, lightweight SCSS mixin and CSS utility library designed for CDN delivery.
+                    Create beautiful, responsive designs with minimal effort.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#get-started" class="btn btn-primary btn-lg">
+                        <i class="fas fa-rocket"></i>
+                        Get Started
+                    </a>
+                    <a href="#documentation" class="btn btn-outline btn-lg">
+                        <i class="fas fa-book"></i>
+                        Documentation
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">50KB</div>
+                        <div class="stat-label">Minified Size</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">100+</div>
+                        <div class="stat-label">Utility Classes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">Core Libraries</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">MIT</div>
+                        <div class="stat-label">Open Source</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="code-window-header">
+                        <div class="code-window-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="code-window-title">styles.scss</div>
+                    </div>
+                    <div class="code-window-content">
+                        <pre><code class="language-scss">@import 'mastors-fluider';
+@import 'mastors-gridder';
+
+.hero {
+  @include fluid-size(padding, 2rem, 4rem);
+  @include grid-container(12, 1rem);
+  
+  .title {
+    @include fluid-font(2rem, 4rem);
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-bolt"></i>
+                    Features
+                </div>
+                <h2 class="section-title">Everything You Need to Build Amazing UIs</h2>
+                <p class="section-subtitle">
+                    Powerful utilities and mixins that streamline your development workflow
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-feather"></i>
+                    </div>
+                    <h3 class="feature-title">Lightweight</h3>
+                    <p class="feature-description">
+                        Only 50KB minified. Zero dependencies. Lightning-fast load times for optimal performance.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-screen"></i>
+                    </div>
+                    <h3 class="feature-title">Fully Responsive</h3>
+                    <p class="feature-description">
+                        Mobile-first approach with fluid typography and responsive grid systems that adapt to any
+                        screen.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3 class="feature-title">Modular Design</h3>
+                    <p class="feature-description">
+                        Import only what you need. Tree-shakeable modules keep your bundle size minimal.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title">Theming System</h3>
+                    <p class="feature-description">
+                        Built-in dark mode support with customizable color schemes and design tokens.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="feature-title">SCSS Mixins</h3>
+                    <p class="feature-description">
+                        Powerful mixins for common patterns. Write less code, maintain consistency effortlessly.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="feature-title">CDN Ready</h3>
+                    <p class="feature-description">
+                        Drop-in via CDN or install via NPM. Get started in seconds with zero configuration.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Libraries Section -->
+    <section class="libraries" id="libraries">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-layer-group"></i>
+                    Core Libraries
+                </div>
+                <h2 class="section-title">Powerful Tools in Your Arsenal</h2>
+                <p class="section-subtitle">
+                    Two specialized libraries working in perfect harmony
+                </p>
+            </div>
+
+            <div class="libraries-grid">
+                <div class="library-card">
+                    <div class="library-header">
+                        <img src="https://kehem-it.github.io/Mastors-Fluider/assets/Mastors-Fluider-Logo.png"
+                            alt="Mastors Fluider" class="library-logo">
+                        <h3 class="library-name">Mastors Fluider</h3>
+                    </div>
+
+                    <p class="library-description">
+                        Create fluid, responsive typography and spacing that scales beautifully across all screen sizes
+                        with mathematical precision.
+                    </p>
+
+                    <div class="library-features">
+                        <div class="library-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Fluid Typography</span>
+                        </div>
+                        <div class="library-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Dynamic Spacing</span>
+                        </div>
+                        <div class="library-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Viewport-based Scaling</span>
+                        </div>
+                        <div class="library-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>CSS clamp() Support</span>
+                        </div>
+                    </div>
+
+                    <div class="library-code">
+                        <pre><code class="language-scss">@include fluid-font(1rem, 2rem);
+@include fluid-size(padding, 1rem, 3rem);</code></pre>
+                    </div>
+
+                    <div class="library-actions">
+                        <a href="https://kehem-it.github.io/Mastors-Fluider/" target="_blank" class="btn btn-outline">
+                            <i class="fas fa-book"></i>
+                            Documentation
+                        </a>
+                        <a href="https://www.npmjs.com/package/mastors-fluider" target="_blank" class="btn btn-primary">
+                            <i class="fab fa-npm"></i>
+                            NPM Package
+                        </a>
+                    </div>
+                </div>
+
+                <div class="library-card">
+                    <div class="library-header">
+                        <img src="https://kehem-it.github.io/Mastors-Gridder/assets/gridder-logo.png"
+                            alt="Mastors Gridder" class="library-logo">
+                        <h3 class="library-name">Mastors Gridder</h3>
+                    </div>
+
+                    <p class="library-description">
+                        Advanced CSS Grid system with powerful mixins for creating complex, responsive layouts with
+                        minimal code.
+                    </p>
+
+                    <div class="library-features">
+                        <div class="library-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>12-Column Grid System</span>
+                        </div>
+                        <div class="library-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Flexbox Utilities</span>
+                        </div>
+                        <div class="library-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Auto-placement</span>
+                        </div>
+                        <div class="library-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Gap Controls</span>
+                        </div>
+                    </div>
+
+                    <div class="library-code">
+                        <pre><code class="language-scss">@include grid-container(12, 1.5rem);
+@include grid-item(1, 4, 1, 2);</code></pre>
+                    </div>
+
+                    <div class="library-actions">
+                        <a href="https://kehem-it.github.io/Mastors-Gridder/" target="_blank" class="btn btn-outline">
+                            <i class="fas fa-book"></i>
+                            Documentation
+                        </a>
+                        <a href="https://www.npmjs.com/package/mastors-gridder" target="_blank" class="btn btn-primary">
+                            <i class="fab fa-npm"></i>
+                            NPM Package
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Started Section -->
+    <section class="get-started" id="get-started">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-download"></i>
+                    Installation
+                </div>
+                <h2 class="section-title">Get Started in Seconds</h2>
+                <p class="section-subtitle">
+                    Choose your preferred installation method
+                </p>
+            </div>
+
+            <div class="install-methods">
+                <div class="install-card">
+                    <div class="install-icon">
+                        <i class="fab fa-npm"></i>
+                    </div>
+                    <h3 class="install-title">NPM Installation</h3>
+                    <p class="install-description">Install via NPM for use in your build process</p>
+                    <div class="install-code">
+                        <pre><code class="language-bash">npm install mastorscdn</code></pre>
+                        <button class="copy-btn" data-copy="npm install mastorscdn">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="install-card">
+                    <div class="install-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3 class="install-title">CDN Link</h3>
+                    <p class="install-description">Quick drop-in via CDN for static projects</p>
+                    <div class="install-code">
+                        <pre><code class="language-html">&lt;link href="https://cdn.mastorscdn.com/mastorscdn.css" rel="stylesheet"&gt;</code></pre>
+                        <button class="copy-btn"
+                            data-copy='<link href="https://cdn.mastorscdn.com/mastorscdn.css" rel="stylesheet">'>
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-example">
+                <h3 class="usage-title">Usage Example</h3>
+                <div class="code-tabs">
+                    <button class="code-tab active" data-tab="scss">SCSS</button>
+                    <button class="code-tab" data-tab="css">CSS</button>
+                    <button class="code-tab" data-tab="html">HTML</button>
+                </div>
+                <div class="code-content">
+                    <div class="code-panel active" data-panel="scss">
+                        <pre><code class="language-scss">@import 'mastors-fluider';
+@import 'mastors-gridder';
+
+.container {
+  @include grid-container(12, 1.5rem);
+  @include fluid-size(padding, 1rem, 3rem);
+  
+  .card {
+    @include grid-item(1, 4, 1, 2);
+    @include fluid-size(padding, 1rem, 2rem);
+    background: var(--bg-elevated);
+    border-radius: var(--radius-lg);
+    
+    h2 {
+      @include fluid-font(1.5rem, 2.5rem);
+      color: var(--text-primary);
+    }
+  }
+}</code></pre>
+                    </div>
+                    <div class="code-panel" data-panel="css">
+                        <pre><code class="language-css">.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+  padding: clamp(1rem, 2vw + 1rem, 3rem);
+}
+
+.card {
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+  padding: clamp(1rem, 1vw + 1rem, 2rem);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+}
+
+.card h2 {
+  font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
+  color: var(--text-primary);
+}</code></pre>
+                    </div>
+                    <div class="code-panel" data-panel="html">
+                        <pre><code class="language-html">&lt;div class="container"&gt;
+  &lt;div class="card"&gt;
+    &lt;h2&gt;Card Title&lt;/h2&gt;
+    &lt;p&gt;Beautiful, responsive card with fluid sizing.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="card"&gt;
+    &lt;h2&gt;Another Card&lt;/h2&gt;
+    &lt;p&gt;Scales perfectly across all devices.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase Section -->
+    <section class="showcase" id="showcase">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-star"></i>
+                    Showcase
+                </div>
+                <h2 class="section-title">Built with MastorsCDN</h2>
+                <p class="section-subtitle">
+                    See what's possible with our library
+                </p>
+            </div>
+
+            <div class="swiper showcase-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="showcase-card">
+                            <div class="showcase-image">
+                                <div class="showcase-placeholder">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                            </div>
+                            <div class="showcase-content">
+                                <h3 class="showcase-title">E-Commerce Platform</h3>
+                                <p class="showcase-description">Modern shopping experience with fluid layouts and
+                                    responsive grids</p>
+                                <div class="showcase-tags">
+                                    <span class="tag">Fluider</span>
+                                    <span class="tag">Gridder</span>
+                                    <span class="tag">Dark Mode</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="showcase-card">
+                            <div class="showcase-image">
+                                <div class="showcase-placeholder">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                            </div>
+                            <div class="showcase-content">
+                                <h3 class="showcase-title">Analytics Dashboard</h3>
+                                <p class="showcase-description">Data visualization with adaptive typography and grid
+                                    layouts</p>
+                                <div class="showcase-tags">
+                                    <span class="tag">Responsive</span>
+                                    <span class="tag">Gridder</span>
+                                    <span class="tag">Utilities</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="showcase-card">
+                            <div class="showcase-image">
+                                <div class="showcase-placeholder">
+                                    <i class="fas fa-blog"></i>
+                                </div>
+                            </div>
+                            <div class="showcase-content">
+                                <h3 class="showcase-title">Blog Platform</h3>
+                                <p class="showcase-description">Beautiful content presentation with fluid typography</p>
+                                <div class="showcase-tags">
+                                    <span class="tag">Fluider</span>
+                                    <span class="tag">Typography</span>
+                                    <span class="tag">Minimal</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Build Something Amazing?</h2>
+                <p class="cta-subtitle">Join developers worldwide using MastorsCDN to create beautiful interfaces</p>
+                <div class="cta-actions">
+                    <a href="#get-started" class="btn btn-primary btn-lg">
+                        <i class="fas fa-rocket"></i>
+                        Start Building Now
+                    </a>
+                    <a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank" class="btn btn-outline btn-lg">
+                        <i class="fab fa-github"></i>
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg"
+                        alt="MastorsCDN" class="footer-logo">
+                    <p class="footer-tagline">Build stunning interfaces with ease</p>
+                    <div class="footer-social">
+                        <a href="https://github.com/KEHEM-IT" target="_blank" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" target="_blank" class="social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Product</h4>
+                        <ul class="footer-list">
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#libraries">Libraries</a></li>
+                            <li><a href="#documentation">Documentation</a></li>
+                            <li><a href="#showcase">Showcase</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-list">
+                            <li><a href="https://kehem-it.github.io/Mastors-Fluider/" target="_blank">Fluider Docs</a>
+                            </li>
+                            <li><a href="https://kehem-it.github.io/Mastors-Gridder/" target="_blank">Gridder Docs</a>
+                            </li>
+                            <li><a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank">GitHub</a></li>
+                            <li><a href="#">Examples</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Company</h4>
+                        <ul class="footer-list">
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2026 MastorsCDN by KEHEM-IT. Released under the MIT License.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-scss.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="scripts/script.js"></script>
 </body>
 

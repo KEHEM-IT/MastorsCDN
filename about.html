@@ -3,14 +3,596 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Static Site</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="About MastorsCDN - Learn about our mission, team, and the technology behind our CSS utility library">
+    <title>About - MastorsCDN</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="styles/mastorscdn.css">
+
+    <style>
+        .about-hero {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        .about-section {
+            margin-bottom: 4rem;
+        }
+
+        .about-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-section p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 2rem;
+            background: #1e293b;
+            border-radius: 1rem;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 3rem;
+            color: #818cf8;
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .team-bio {
+            font-size: 0.9375rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            padding: 2.5rem;
+            background: #1e293b;
+            border-radius: 1.5rem;
+            border: 1px solid #334155;
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .value-icon i {
+            font-size: 1.875rem;
+            background: linear-gradient(135deg, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .value-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .value-description {
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #6366f1, #a855f7);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            order: 1;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: #6366f1;
+            border: 4px solid #0f172a;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .timeline-content {
+            background: #1e293b;
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid #334155;
+        }
+
+        .timeline-date {
+            font-size: 0.875rem;
+            color: #818cf8;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-description {
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                padding-left: 4rem;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content {
+                order: 0;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Welcome to My Static Site!</h1>
-    <button id="myBtn">Click Me</button>
-    <script src="js/script.js"></script>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="index.html" class="navbar-brand">
+                    <img src="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg"
+                        alt="MastorsCDN Logo" class="navbar-logo">
+                </a>
+
+                <ul class="navbar-menu" id="navMenu">
+                    <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#features" class="nav-link">Features</a></li>
+                    <li><a href="index.html#libraries" class="nav-link">Libraries</a></li>
+                    <li><a href="index.html#documentation" class="nav-link">Docs</a></li>
+                    <li><a href="index.html#showcase" class="nav-link">Showcase</a></li>
+                    <li><a href="about.html" class="nav-link active">About</a></li>
+                </ul>
+
+                <div class="navbar-actions">
+                    <a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank" class="btn btn-outline">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
+                    <a href="index.html#get-started" class="btn btn-primary">
+                        Get Started
+                    </a>
+                    <button class="navbar-toggle" id="navToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <div class="hero-badge">
+                <i class="fas fa-info-circle"></i>
+                About Us
+            </div>
+            <h1 class="hero-title">
+                Building the Future of
+                <span class="gradient-text">Web Design</span>
+            </h1>
+            <p class="hero-subtitle" style="margin: 0 auto;">
+                MastorsCDN is on a mission to empower developers with powerful, intuitive tools for creating stunning
+                web interfaces.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="about-content">
+            <!-- Mission Section -->
+            <div class="about-section">
+                <h2>Our Mission</h2>
+                <p>
+                    At MastorsCDN, we believe that beautiful design should be accessible to everyone. Our mission is to
+                    provide developers with the tools they need to create stunning, responsive interfaces without the
+                    complexity that often comes with modern CSS frameworks.
+                </p>
+                <p>
+                    We're committed to building lightweight, performance-focused utilities that enhance your workflow
+                    rather than dictating it. Whether you're building a simple landing page or a complex web
+                    application, MastorsCDN adapts to your needs.
+                </p>
+            </div>
+
+            <!-- Story Section -->
+            <div class="about-section">
+                <h2>Our Story</h2>
+                <p>
+                    MastorsCDN was born from a simple observation: developers spend too much time wrestling with CSS
+                    instead of building great products. We saw teams struggling with bloated frameworks, fighting
+                    specificity battles, and writing the same responsive patterns over and over.
+                </p>
+                <p>
+                    In 2024, we set out to create something different—a library that combines the power of SCSS mixins
+                    with the simplicity of utility classes. The result is MastorsCDN: a modular, lightweight toolkit
+                    that scales from personal projects to enterprise applications.
+                </p>
+                <p>
+                    Today, MastorsCDN powers thousands of websites worldwide, from startups to Fortune 500 companies,
+                    all benefiting from our commitment to performance, flexibility, and developer experience.
+                </p>
+            </div>
+
+            <!-- Values Section -->
+            <div class="about-section">
+                <h2>Our Values</h2>
+
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-feather"></i>
+                        </div>
+                        <h3 class="value-title">Performance First</h3>
+                        <p class="value-description">
+                            We obsess over every kilobyte. MastorsCDN is engineered for speed, with tree-shakeable
+                            modules and zero runtime overhead.
+                        </p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="value-title">Developer Experience</h3>
+                        <p class="value-description">
+                            Great tools should feel natural. We prioritize intuitive APIs, comprehensive documentation,
+                            and a supportive community.
+                        </p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3 class="value-title">Open Source</h3>
+                        <p class="value-description">
+                            Transparency and collaboration drive innovation. MastorsCDN is open source, built by the
+                            community, for the community.
+                        </p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-universal-access"></i>
+                        </div>
+                        <h3 class="value-title">Accessibility</h3>
+                        <p class="value-description">
+                            The web is for everyone. We build with accessibility in mind, ensuring your designs work for
+                            all users.
+                        </p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3 class="value-title">Innovation</h3>
+                        <p class="value-description">
+                            We stay at the forefront of web technology, continuously evolving to meet the needs of
+                            modern development.
+                        </p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="value-title">Reliability</h3>
+                        <p class="value-description">
+                            Production-ready from day one. MastorsCDN is thoroughly tested and trusted by thousands of
+                            developers.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Section -->
+            <div class="about-section">
+                <h2>Our Journey</h2>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">January 2024</div>
+                            <h3 class="timeline-title">The Beginning</h3>
+                            <p class="timeline-description">
+                                MastorsCDN project initiated by KEHEM-IT with a vision to simplify CSS development.
+                            </p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">March 2024</div>
+                            <h3 class="timeline-title">Mastors Fluider</h3>
+                            <p class="timeline-description">
+                                Released Mastors Fluider, our revolutionary fluid typography and spacing system.
+                            </p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">June 2024</div>
+                            <h3 class="timeline-title">Mastors Gridder</h3>
+                            <p class="timeline-description">
+                                Launched Mastors Gridder, bringing powerful CSS Grid utilities to developers everywhere.
+                            </p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">September 2024</div>
+                            <h3 class="timeline-title">Community Growth</h3>
+                            <p class="timeline-description">
+                                Reached 1,000+ GitHub stars and 10,000+ NPM downloads as community adoption accelerated.
+                            </p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">January 2025</div>
+                            <h3 class="timeline-title">Version 1.0</h3>
+                            <p class="timeline-description">
+                                Released MastorsCDN 1.0 with full documentation, CDN support, and enterprise features.
+                            </p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="about-section">
+                <h2>The Team</h2>
+                <p style="text-align: center; margin-bottom: 2rem;">
+                    Meet the passionate individuals behind MastorsCDN
+                </p>
+
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="team-name">KEHEM-IT</h3>
+                        <p class="team-role">Creator & Lead Developer</p>
+                        <p class="team-bio">
+                            Passionate about creating tools that make developers' lives easier. Specializes in CSS
+                            architecture and performance optimization.
+                        </p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="team-avatar">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="team-name">Community Contributors</h3>
+                        <p class="team-role">Open Source Heroes</p>
+                        <p class="team-bio">
+                            Dozens of talented developers worldwide who contribute code, documentation, and support to
+                            make MastorsCDN better every day.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="about-section" style="text-align: center; margin-top: 5rem;">
+                <h2>Get in Touch</h2>
+                <p>
+                    Have questions, suggestions, or just want to say hi? We'd love to hear from you!
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+                    <a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="btn btn-outline">
+                        <i class="fab fa-twitter"></i>
+                        Twitter
+                    </a>
+                    <a href="https://discord.com" target="_blank" class="btn btn-outline">
+                        <i class="fab fa-discord"></i>
+                        Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 5rem;">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg"
+                        alt="MastorsCDN" class="footer-logo">
+                    <p class="footer-tagline">Build stunning interfaces with ease</p>
+                    <div class="footer-social">
+                        <a href="https://github.com/KEHEM-IT" target="_blank" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" target="_blank" class="social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Product</h4>
+                        <ul class="footer-list">
+                            <li><a href="index.html#features">Features</a></li>
+                            <li><a href="index.html#libraries">Libraries</a></li>
+                            <li><a href="index.html#documentation">Documentation</a></li>
+                            <li><a href="index.html#showcase">Showcase</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-list">
+                            <li><a href="https://kehem-it.github.io/Mastors-Fluider/" target="_blank">Fluider Docs</a>
+                            </li>
+                            <li><a href="https://kehem-it.github.io/Mastors-Gridder/" target="_blank">Gridder Docs</a>
+                            </li>
+                            <li><a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank">GitHub</a></li>
+                            <li><a href="#">Examples</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Company</h4>
+                        <ul class="footer-list">
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2026 MastorsCDN by KEHEM-IT. Released under the MIT License.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/script.js"></script>
 </body>
 
 </html>
