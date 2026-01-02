@@ -7,6 +7,7 @@
     <meta name="description"
         content="MastorsCDN - A powerful, lightweight SCSS mixin and CSS utility library for modern web development">
     <title>MastorsCDN - Modern CSS Utility Library</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -394,61 +395,76 @@
                     <button class="code-tab active" data-tab="scss">SCSS</button>
                     <button class="code-tab" data-tab="css">CSS</button>
                     <button class="code-tab" data-tab="html">HTML</button>
+                    <button class="code-tab" data-tab="output">Output</button>
                 </div>
                 <div class="code-content">
                     <div class="code-panel active" data-panel="scss">
                         <pre><code class="language-scss">@import 'mastors-fluider';
-@import 'mastors-gridder';
-
-.container {
-  @include grid-container(12, 1.5rem);
-  @include fluid-size(padding, 1rem, 3rem);
-  
-  .card {
-    @include grid-item(1, 4, 1, 2);
-    @include fluid-size(padding, 1rem, 2rem);
-    background: var(--bg-elevated);
-    border-radius: var(--radius-lg);
-    
-    h2 {
-      @include fluid-font(1.5rem, 2.5rem);
-      color: var(--text-primary);
-    }
-  }
-}</code></pre>
+            @import 'mastors-gridder';
+            
+            .container {
+              @include grid-container(12, 1.5rem);
+              @include fluid-size(padding, 1rem, 3rem);
+              
+              .card {
+                @include grid-item(1, 4, 1, 2);
+                @include fluid-size(padding, 1rem, 2rem);
+                background: var(--bg-elevated);
+                border-radius: var(--radius-lg);
+                
+                h2 {
+                  @include fluid-font(1.5rem, 2.5rem);
+                  color: var(--text-primary);
+                }
+              }
+            }</code></pre>
                     </div>
                     <div class="code-panel" data-panel="css">
                         <pre><code class="language-css">.container {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 1.5rem;
-  padding: clamp(1rem, 2vw + 1rem, 3rem);
-}
-
-.card {
-  grid-column: 1 / 4;
-  grid-row: 1 / 2;
-  padding: clamp(1rem, 1vw + 1rem, 2rem);
-  background: var(--bg-elevated);
-  border-radius: var(--radius-lg);
-}
-
-.card h2 {
-  font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
-  color: var(--text-primary);
-}</code></pre>
+              display: grid;
+              grid-template-columns: repeat(12, 1fr);
+              gap: 1.5rem;
+              padding: clamp(1rem, 2vw + 1rem, 3rem);
+            }
+            
+            .card {
+              grid-column: 1 / 4;
+              grid-row: 1 / 2;
+              padding: clamp(1rem, 1vw + 1rem, 2rem);
+              background: var(--bg-elevated);
+              border-radius: var(--radius-lg);
+            }
+            
+            .card h2 {
+              font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
+              color: var(--text-primary);
+            }</code></pre>
                     </div>
                     <div class="code-panel" data-panel="html">
                         <pre><code class="language-html">&lt;div class="container"&gt;
-  &lt;div class="card"&gt;
-    &lt;h2&gt;Card Title&lt;/h2&gt;
-    &lt;p&gt;Beautiful, responsive card with fluid sizing.&lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class="card"&gt;
-    &lt;h2&gt;Another Card&lt;/h2&gt;
-    &lt;p&gt;Scales perfectly across all devices.&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+              &lt;div class="card"&gt;
+                &lt;h2&gt;Card Title&lt;/h2&gt;
+                &lt;p&gt;Beautiful, responsive card with fluid sizing.&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;div class="card"&gt;
+                &lt;h2&gt;Another Card&lt;/h2&gt;
+                &lt;p&gt;Scales perfectly across all devices.&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;</code></pre>
+                    </div>
+                    <div class="code-panel" data-panel="output">
+                        <div class="output-preview">
+                            <div class="preview-container">
+                                <div class="preview-card">
+                                    <h2 class="preview-card-title">Card Title</h2>
+                                    <p class="preview-card-text">Beautiful, responsive card with fluid sizing.</p>
+                                </div>
+                                <div class="preview-card">
+                                    <h2 class="preview-card-title">Another Card</h2>
+                                    <p class="preview-card-text">Scales perfectly across all devices.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
