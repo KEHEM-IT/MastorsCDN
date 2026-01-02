@@ -1,323 +1,76 @@
+<!-- about.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
-    <!-- Load common head content -->
-    <script>
-        fetch('components/head-common.html')
-            .then(res => res.text())
-            .then(html => {
-                const temp = document.createElement('div');
-                temp.innerHTML = html;
-                Array.from(temp.children).forEach(el => {
-                    document.head.appendChild(el);
-                });
-            });
-    </script>
-    <meta name="description" content="About MastorsCDN - Learn more about our CSS utility library">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About MastorsCDN - Learn about our mission and team">
     <title>About - MastorsCDN</title>
+
+    <link rel="preload" href="dist/css/mastorscdn.css" as="style">
+    <link rel="preload" href="dist/js/main.js" as="script">
+    <link rel="stylesheet" href="dist/css/mastorscdn.css">
+    <link rel="icon" type="image/svg+xml"
+        href="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg">
+
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+    </style>
 </head>
 
-
-
 <body>
-    <!-- Header Component -->
-    <div data-component="header"></div>
+    <div id="loading-bar" class="loading-bar">
+        <div class="loading-bar__fill"></div>
+    </div>
 
-    <!-- Hero Section with Particles -->
-    <section class="about-hero">
-        <div class="container">
-            <div class="hero-badge">
-                <i class="fas fa-info-circle"></i>
-                About Us
-            </div>
-            <h1 class="hero-title">
-                Building the Future of
-                <span class="gradient-text">Web Design</span>
-            </h1>
-            <p class="hero-subtitle">
-                MastorsCDN is on a mission to empower developers with powerful, intuitive tools for creating stunning
-                web interfaces. We believe in simplicity, performance, and developer experience.
+    <div id="page-transition" class="page-transition"></div>
+
+    <header id="header-slot"></header>
+    <nav id="nav-slot"></nav>
+
+    <main class="page-content">
+        <section>
+            <h1 class="text-center">About MastorsCDN</h1>
+            <p class="text-center" style="font-size: 1.25rem; max-width: 700px; margin: 0 auto 3rem;">
+                Building the future of CSS utility libraries
             </p>
 
-            <!-- Stats Section -->
-            <div class="stats-section">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-download"></i>
-                    </div>
-                    <div class="stat-number">10000</div>
-                    <div class="stat-label">NPM Downloads</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="stat-number">1000</div>
-                    <div class="stat-label">GitHub Stars</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-number">5000</div>
-                    <div class="stat-label">Active Users</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="stat-number">50</div>
-                    <div class="stat-label">Countries</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <div class="container">
-        <div class="about-content">
-            <!-- Mission Section -->
-            <div class="about-section">
+            <div class="card" style="max-width: 900px; margin: 0 auto;">
                 <h2>Our Mission</h2>
-                <p>
-                    At MastorsCDN, we believe that beautiful design should be accessible to everyone. Our mission is to
-                    provide developers with the tools they need to create stunning, responsive interfaces without the
-                    complexity that often comes with modern CSS frameworks.
-                </p>
-                <p>
-                    We're committed to building lightweight, performance-focused utilities that enhance your workflow
-                    rather than dictating it. Whether you're building a simple landing page or a complex web
-                    application, MastorsCDN adapts to your needs.
-                </p>
-            </div>
+                <p>MastorsCDN was created to solve the common challenges developers face when building modern,
+                    responsive web interfaces. We believe that powerful tools should be simple to use and accessible to
+                    everyone.</p>
 
-            <!-- Story Section -->
-            <div class="about-section">
-                <h2>Our Story</h2>
-                <p>
-                    MastorsCDN was born from a simple observation: developers spend too much time wrestling with CSS
-                    instead of building great products. We saw teams struggling with bloated frameworks, fighting
-                    specificity battles, and writing the same responsive patterns over and over.
-                </p>
-                <p>
-                    In 2024, we set out to create something different—a library that combines the power of SCSS mixins
-                    with the simplicity of utility classes. The result is MastorsCDN: a modular, lightweight toolkit
-                    that scales from personal projects to enterprise applications.
-                </p>
-                <p>
-                    Today, MastorsCDN powers thousands of websites worldwide, from startups to Fortune 500 companies,
-                    all benefiting from our commitment to performance, flexibility, and developer experience.
-                </p>
-            </div>
+                <h2 style="margin-top: 2rem;">What We Do</h2>
+                <p>We provide a comprehensive CSS utility library that combines the best of modern web development
+                    practices with the flexibility developers need. Our two core libraries, Mastors Fluider and Mastors
+                    Gridder, work seamlessly together to create stunning, responsive designs.</p>
 
-            <!-- Values Section -->
-            <div class="about-section">
-                <h2>Our Values</h2>
+                <h2 style="margin-top: 2rem;">Open Source</h2>
+                <p>MastorsCDN is proudly open source and released under the MIT License. We believe in the power of
+                    community and welcome contributions from developers worldwide.</p>
 
-                <div class="values-grid">
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-feather"></i>
-                        </div>
-                        <h3 class="value-title">Performance First</h3>
-                        <p class="value-description">
-                            We obsess over every kilobyte. MastorsCDN is engineered for speed, with tree-shakeable
-                            modules and zero runtime overhead.
-                        </p>
-                    </div>
-
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3 class="value-title">Developer Experience</h3>
-                        <p class="value-description">
-                            Great tools should feel natural. We prioritize intuitive APIs, comprehensive documentation,
-                            and a supportive community.
-                        </p>
-                    </div>
-
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-code-branch"></i>
-                        </div>
-                        <h3 class="value-title">Open Source</h3>
-                        <p class="value-description">
-                            Transparency and collaboration drive innovation. MastorsCDN is open source, built by the
-                            community, for the community.
-                        </p>
-                    </div>
-
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-universal-access"></i>
-                        </div>
-                        <h3 class="value-title">Accessibility</h3>
-                        <p class="value-description">
-                            The web is for everyone. We build with accessibility in mind, ensuring your designs work for
-                            all users.
-                        </p>
-                    </div>
-
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <h3 class="value-title">Innovation</h3>
-                        <p class="value-description">
-                            We stay at the forefront of web technology, continuously evolving to meet the needs of
-                            modern development.
-                        </p>
-                    </div>
-
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3 class="value-title">Reliability</h3>
-                        <p class="value-description">
-                            Production-ready from day one. MastorsCDN is thoroughly tested and trusted by thousands of
-                            developers.
-                        </p>
-                    </div>
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                    <h3>Built by KEHEM-IT</h3>
+                    <p>A team passionate about creating tools that empower developers to build better web experiences.
+                    </p>
+                    <a href="https://github.com/KEHEM-IT" class="button" style="margin-top: 1rem;">Visit our GitHub</a>
                 </div>
             </div>
+        </section>
+    </main>
 
-            <!-- Timeline Section -->
-            <div class="about-section">
-                <h2>Our Journey</h2>
+    <footer id="footer-slot"></footer>
 
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">January 2024</div>
-                            <h3 class="timeline-title">The Beginning</h3>
-                            <p class="timeline-description">
-                                MastorsCDN project initiated by KEHEM-IT with a vision to simplify CSS development and
-                                empower developers worldwide.
-                            </p>
-                        </div>
-                        <div class="timeline-dot"></div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-date">March 2024</div>
-                            <h3 class="timeline-title">Mastors Fluider Launch</h3>
-                            <p class="timeline-description">
-                                Released Mastors Fluider, our revolutionary fluid typography and spacing system that
-                                scales beautifully across all devices.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">June 2024</div>
-                            <h3 class="timeline-title">Mastors Gridder</h3>
-                            <p class="timeline-description">
-                                Launched Mastors Gridder, bringing powerful CSS Grid utilities and advanced layout
-                                systems to developers everywhere.
-                            </p>
-                        </div>
-                        <div class="timeline-dot"></div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-date">September 2024</div>
-                            <h3 class="timeline-title">Community Growth</h3>
-                            <p class="timeline-description">
-                                Reached 1,000+ GitHub stars and 10,000+ NPM downloads as community adoption accelerated
-                                globally.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">January 2025</div>
-                            <h3 class="timeline-title">Version 1.0</h3>
-                            <p class="timeline-description">
-                                Released MastorsCDN 1.0 with full documentation, CDN support, and enterprise-ready
-                                features for production use.
-                            </p>
-                        </div>
-                        <div class="timeline-dot"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Team Section -->
-            <div class="about-section">
-                <h2>The Team</h2>
-                <p class="text-center">
-                    Meet the passionate individuals behind MastorsCDN
-                </p>
-
-                <div class="team-grid">
-                    <div class="team-member">
-                        <div class="team-avatar">
-                            <i class="fas fa-user-astronaut"></i>
-                        </div>
-                        <h3 class="team-name">KEHEM-IT</h3>
-                        <p class="team-role">Creator & Lead Developer</p>
-                        <p class="team-bio">
-                            Passionate about creating tools that make developers' lives easier. Specializes in CSS
-                            architecture, performance optimization, and developer experience.
-                        </p>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="team-avatar">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3 class="team-name">Community Contributors</h3>
-                        <p class="team-role">Open Source Heroes</p>
-                        <p class="team-bio">
-                            Dozens of talented developers worldwide who contribute code, documentation, and support to
-                            make MastorsCDN better every day.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Contact Section -->
-            <div class="about-section">
-                <h2>Get in Touch</h2>
-                <p class="text-center">
-                    Have questions, suggestions, or just want to say hi? We'd love to hear from you!
-                </p><br>
-                <div class="cta-actions">
-                    <a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-github"></i>
-                        GitHub
-                    </a>
-                    <a href="https://twitter.com" target="_blank" class="btn btn-outline">
-                        <i class="fab fa-twitter"></i>
-                        Twitter
-                    </a>
-                    <a href="https://discord.com" target="_blank" class="btn btn-outline">
-                        <i class="fab fa-discord"></i>
-                        Discord
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer Component -->
-    <div data-component="footer"></div>
-    <!-- Core Scripts (Loaded on All Pages) -->
-    <script src="scripts/components.js"></script>
-    <script src="scripts/navbar.js"></script>
-    <!-- About Page Specific Scripts -->
-    <script src="scripts/about.js"></script>
+    <script type="module" src="dist/js/main.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,130 @@
+// src/scss/_transitions.scss
+
+// Fade animations
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+// Slide animations
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+// Scale animations
+@keyframes scaleIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+// Page load animation
+.page-content {
+    animation: fadeIn var(--transition-base) ease-out;
+}
+
+// Component load animations
+#header-slot,
+#nav-slot,
+#footer-slot {
+    &:empty {
+        min-height: 60px;
+        background: var(--bg-secondary);
+        animation: pulse 1.5s ease-in-out infinite;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+// Smooth page transitions
+.page-enter {
+    animation: fadeIn var(--transition-base) ease-out;
+}
+
+.page-leave {
+    animation: fadeOut var(--transition-fast) ease-in;
+}
+
+// Link hover effects
+a {
+    position: relative;
+    transition: color var(--transition-fast);
+
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent-primary);
+        transition: width var(--transition-base);
+    }
+
+    &:hover::before {
+        width: 100%;
+    }
+}
+
+// Reduce motion for accessibility
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -1,234 +1,226 @@
-mastorsCDN/
-├─ index.html
-├─ about.html
-├─ styles/
-├─ _variables.scss
-├─ _mixins.scss
-├─ _utilities.scss
-└─ mastorscdn.scss
-└─ mastorscdn.css 
-├─ scripts/
-│  ├─ script.ts
-│  └─ script.js
-├─ assets/
-│  └─ logo.png
-├─ package.json
-└─ tsconfig.json
+# MastorsCDN - Component Loader Architecture
 
+A production-grade, framework-free component loader system built with TypeScript, SCSS, and static HTML for GitHub Pages deployment.
 
-# MastorsCDN
+## 🚀 Features
 
-A powerful, lightweight SCSS mixin and CSS utility library designed for CDN delivery and modern web development.
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Node.js (v16 or higher)
-- npm or yarn
-
-### Installation
-
-1. **Install Dependencies**
-
-```bash
-npm install
-```
-
-This will install:
-- `mastors-fluider` - Fluid typography and responsive utilities
-- `mastors-gridder` - Advanced grid system
-- `sass` - SCSS compiler
-- `typescript` - TypeScript compiler
-
-2. **Build the Project**
-
-```bash
-# Build SCSS and TypeScript
-npm run build
-
-# Or watch for changes during development
-npm run watch
-```
-
-### Available Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run scss:build` | Compile SCSS to CSS once |
-| `npm run scss:watch` | Watch SCSS files and auto-compile |
-| `npm run ts:build` | Compile TypeScript to JavaScript |
-| `npm run ts:watch` | Watch TS files and auto-compile |
-| `npm run build` | Build both SCSS and TypeScript |
-| `npm run watch` | Watch both SCSS and TypeScript |
+- **Zero FOUC (Flash of Unstyled Content)** - Smooth loading with opacity transitions
+- **Component-Based Architecture** - Reusable header, footer, and navigation components
+- **Hash Router** - SPA-like navigation without page reloads
+- **Smart Prefetching** - Hover-based and viewport-based prefetching
+- **Loading Indicators** - Visual progress bar for component loading
+- **Active Nav States** - Automatic highlighting of current page
+- **Route Guards** - Protect routes with custom validation
+- **TypeScript-First** - Full type safety and auto-completion
+- **Dark Mode Support** - Built-in theme toggle with localStorage persistence
+- **Smooth Transitions** - Page and component load animations
+- **GitHub Pages Ready** - Automated deployment with GitHub Actions
 
 ## 📁 Project Structure
 
 ```
 mastorsCDN/
-├─ index.html           # Homepage
-├─ about.html           # About page
-├─ styles/
-│  ├─ _variables.scss   # Design tokens and variables
-│  ├─ mastorscdn.scss   # Main stylesheet (imports libraries)
-│  └─ mastorscdn.css    # Compiled CSS (generated)
-├─ scripts/
-│  ├─ script.ts         # TypeScript source
-│  └─ script.js         # Compiled JavaScript (generated)
-├─ assets/
-│  └─ logo.png
-├─ package.json
-└─ tsconfig.json
+├── index.html              # Main entry point
+├── about.html              # About page
+├── contact.html            # Contact page
+├── package.json            # Dependencies and scripts
+├── tsconfig.json           # TypeScript configuration
+├── .github/
+│   └── workflows/
+│       └── deploy.yml      # GitHub Actions deployment
+├── src/
+│   ├── ts/
+│   │   ├── main.ts         # App initialization
+│   │   ├── router.ts       # Hash router with transitions
+│   │   ├── component-loader.ts  # Component loading system
+│   │   └── prefetch.ts     # Smart prefetching logic
+│   └── scss/
+│       ├── main.scss       # Main stylesheet
+│       ├── _variables.scss # Design tokens
+│       ├── _components.scss # Component styles
+│       └── _transitions.scss # Animations
+├── components/
+│   ├── header.html         # Header component
+│   ├── footer.html         # Footer component
+│   └── nav.html            # Navigation component
+└── dist/
+    ├── css/
+    │   └── mastorscdn.css        # Compiled CSS (auto-generated)
+    └── js/
+        └── main.js         # Compiled JS (auto-generated)
 ```
 
-## 🎨 SCSS Import Issue Fix
+## 🛠️ Installation
 
-### Problem
-If you see this error:
+```bash
+# Clone the repository
+git clone https://github.com/KEHEM-IT/mastorsCDN.git
+cd mastorsCDN
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
 ```
-Error: Can't find stylesheet to import.
-  @use 'mastors-fluider/mastors-fluider' as *;
-```
-
-### Solution
-The issue is fixed in the updated `package.json`. The scripts now include `--load-path=node_modules`:
-
-```json
-"scss:build": "sass --load-path=node_modules styles/mastorscdn.scss styles/mastorscdn.css",
-"scss:watch": "sass --watch --load-path=node_modules styles/mastorscdn.scss:styles/mastorscdn.css"
-```
-
-This tells Sass where to find the installed npm packages.
-
-### Alternative Approaches
-
-If you still have issues, try one of these:
-
-**Option 1: Use relative paths**
-```scss
-@use '../node_modules/mastors-fluider/mastors-fluider' as *;
-@use '../node_modules/mastors-gridder/mastors-gridder' as *;
-```
-
-**Option 2: Use @import (legacy)**
-```scss
-@import '../node_modules/mastors-fluider/mastors-fluider';
-@import '../node_modules/mastors-gridder/mastors-gridder';
-```
-
-**Option 3: Add includePaths in a config file**
-
-Create `sass-config.json`:
-```json
-{
-  "includePaths": ["node_modules"]
-}
-```
-
-## 🔧 Using the Libraries
-
-### Mastors Fluider
-Fluid typography and responsive spacing:
-
-```scss
-.hero {
-  @include fluid-font(2rem, 4rem);
-  @include fluid-size(padding, 1rem, 3rem);
-}
-```
-
-[Full Documentation](https://kehem-it.github.io/Mastors-Fluider/)
-
-### Mastors Gridder
-Advanced CSS Grid system:
-
-```scss
-.container {
-  @include grid-container(12, 1.5rem);
-}
-
-.card {
-  @include grid-item(1, 4, 1, 2);
-}
-```
-
-[Full Documentation](https://kehem-it.github.io/Mastors-Gridder/)
 
 ## 📝 Development
 
-### Watch Mode
-For active development, use watch mode:
-
 ```bash
-npm run watch
+# Start development with watch mode
+npm run dev
+
+# Watch TypeScript only
+npm run watch:ts
+
+# Watch SCSS only
+npm run watch:scss
+
+# Build for production
+npm run build
 ```
 
-This will:
-- ✅ Auto-compile SCSS when you save `.scss` files
-- ✅ Auto-compile TypeScript when you save `.ts` files
-- ✅ Show errors in the terminal
+## 🚀 Deployment
 
-### TypeScript Configuration
+### Automatic (GitHub Actions)
 
-The `tsconfig.json` is already configured for the project. It compiles:
-- Input: `scripts/script.ts`
-- Output: `scripts/script.js`
-- Target: ES2020 with DOM support
+Push to `main` branch:
 
-## 🌐 Deployment
+```bash
+git add .
+git commit -m "Your message"
+git push origin main
+```
 
-### Build for Production
+The GitHub Action will automatically build and deploy to GitHub Pages.
 
-1. **Compile everything:**
-   ```bash
-   npm run build
-   ```
+### Manual
 
-2. **Files to deploy:**
-   - `index.html`
-   - `about.html`
-   - `styles/mastorscdn.css` (compiled)
-   - `scripts/script.js` (compiled)
-   - `assets/` folder
+```bash
+npm run build
+npm run deploy
+```
 
-### CDN Integration
+## 🎯 Usage
 
-The project uses these external CDNs:
-- **Font Awesome** - Icons
-- **Google Fonts** - Inter font family
-- **Prism.js** - Syntax highlighting
-- **Swiper** - Carousel slider
+### Adding Components
 
-## 🎯 Features
+1. Create HTML file in `components/` directory
+2. Add component slot in HTML:
 
-- ✨ Modern dark theme with gradient accents
-- 📱 Fully responsive (mobile-first approach)
-- ⚡ Lightweight and performant
-- 🎨 Smooth animations and transitions
-- 💻 Syntax highlighting for code examples
-- 🔄 Interactive components (tabs, sliders, copy buttons)
-- ♿ Accessible design
-- 🌙 Dark mode ready
+```html
+<div id="my-component-slot"></div>
+```
 
-## 📚 Documentation
+3. Load component in `src/ts/main.ts`:
 
-- **Mastors Fluider**: https://kehem-it.github.io/Mastors-Fluider/
-- **Mastors Gridder**: https://kehem-it.github.io/Mastors-Gridder/
-- **GitHub Repository**: https://github.com/KEHEM-IT/MastorsCDN
+```typescript
+await this.loader.loadComponents([
+  { selector: '#my-component-slot', path: 'components/my-component.html' }
+]);
+```
+
+### Adding Routes
+
+In `src/ts/main.ts`, register routes:
+
+```typescript
+this.router.register('page-name', {
+  path: 'page-name',
+  title: 'Page Title',
+  guard: () => {
+    // Optional: return false to prevent navigation
+    return true;
+  }
+});
+```
+
+### Styling Components
+
+Add styles to `src/scss/_components.scss`:
+
+```scss
+.my-component {
+  padding: var(--spacing-lg);
+  background: var(--bg-elevated);
+}
+```
+
+## 🎨 Theming
+
+The project includes a built-in dark/light theme system. Customize colors in `src/scss/_variables.scss`:
+
+```scss
+:root {
+  --bg-primary: #ffffff;
+  --text-primary: #1a1a1a;
+  --accent-primary: #6366f1;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0a0a0a;
+  --text-primary: #ffffff;
+}
+```
+
+## ⚡ Performance Features
+
+- **Component Caching** - Components loaded once and cached
+- **Smart Prefetching** - Prefetch on hover with delay
+- **Viewport Prefetching** - Prefetch visible links on idle
+- **Progressive Loading** - Show progress during component load
+- **Optimized Transitions** - Hardware-accelerated CSS transitions
+
+## 🔒 Route Guards
+
+Protect routes with custom logic:
+
+```typescript
+this.router.register('admin', {
+  path: 'admin',
+  title: 'Admin Panel',
+  guard: () => {
+    const isAuthenticated = checkAuth();
+    if (!isAuthenticated) {
+      alert('Please login first');
+      return false;
+    }
+    return true;
+  }
+});
+```
+
+## 📱 Browser Support
+
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
 
 ## 📄 License
 
-MIT License - Free to use in personal and commercial projects.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
+## 🙏 Acknowledgments
 
-**KEHEM-IT**
-- GitHub: [@KEHEM-IT](https://github.com/KEHEM-IT)
+- Built with TypeScript, SCSS, and modern web standards
+- Inspired by modern SPA frameworks but keeping it simple
+- Part of the MastorsCDN ecosystem
+
+## 📞 Support
+
+- 📧 Email: contact@kehem.com
+- 💬 GitHub Issues: [Report a bug](https://github.com/KEHEM-IT/MastorsCDN/issues)
+- 📚 Documentation: [View Docs](https://mastorscdn.kehem.com)
 
 ---
 
-Built with ❤️ for the modern web
+**Made with ❤️ by KEHEM-IT**

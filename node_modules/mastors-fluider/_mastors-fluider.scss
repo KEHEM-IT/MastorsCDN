@@ -160,7 +160,11 @@ $breakpoints: (
         calc(#{$min-size} + (#{$max-size} - #{$min-size}) * ((100vw - #{$min-vw}) / (#{$max-vw} - #{$min-vw}))),
         #{$max-size});
 }
-
+@mixin fluid-font-size($min-size, $max-size, $min-vw: 320px, $max-vw: 1200px) {
+    font-size: clamp($min-size,
+        calc(#{math.div($min-size, 1px)}px + #{math.div($max-size - $min-size, $max-vw - $min-vw)} * (100vw - #{$min-vw})),
+        $max-size );
+}
 // --------- USAGE EXAMPLES --------- //
 
 // Mobile-first (default - recommended)
