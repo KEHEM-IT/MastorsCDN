@@ -156,25 +156,38 @@ npm run watch
 
 ```
 mastorsCDN/
-├─ index.html              # Homepage
-├─ about.html              # About page
-│
-├─ styles/
-│  ├─ _variables.scss      # Design tokens (colors, spacing, etc.)
-│  ├─ mastorscdn.scss      # Main SCSS (imports libraries)
-│  └─ mastorscdn.css       # Compiled CSS ⚙️ AUTO-GENERATED
-│
-├─ scripts/
-│  ├─ globals.d.ts         # TypeScript type declarations
-│  ├─ script.ts            # TypeScript source
-│  └─ script.js            # Compiled JavaScript ⚙️ AUTO-GENERATED
-│
+├─ .github/
 ├─ assets/
-│  └─ logo.png             # Logo and images
-│
-├─ package.json            # npm configuration
-├─ tsconfig.json           # TypeScript configuration
-└─ .sassrc.json            # Sass configuration
+├─ components/
+│  ├─ head-common.html      # Shared <head> markup
+│  └─ header.html           # Site header component
+├─ node_modules/
+├─ scripts/
+│  ├─ about.ts              # About page logic (TS)
+│  ├─ about.js              # Compiled JS ⚙️
+│  ├─ components.ts         # Component loader (TS)
+│  ├─ components.js         # Compiled JS ⚙️
+│  ├─ navbar.ts             # Navbar logic (TS)
+│  ├─ navbar.js             # Compiled JS ⚙️
+│  ├─ script.ts             # Global scripts (TS)
+│  └─ script.js             # Compiled JS ⚙️
+├─ styles/
+│  ├─ _variables.scss       # Global SCSS variables
+│  ├─ _mixins.scss          # SCSS mixins
+│  ├─ _about.scss           # About page styles (partial)
+│  ├─ mastorscdn.scss       # Main SCSS entry
+│  ├─ mastorscdn.css        # Compiled CSS ⚙️
+│  └─ mastorscdn.css.map    # Source map
+├─ index.html               # Main page
+├─ about.html               # About page
+├─ package.json
+├─ package-lock.json
+├─ sass.config.ts           # Sass configuration
+├─ tsconfig.json
+├─ README.md
+├─ QUICK_START.md
+└─ TROUBLESHOOTING.md
+
 ```
 
 **Files you edit:** `.scss`, `.ts`, `.html`  

@@ -1,62 +1,9 @@
 "use strict";
-class NavigationManager {
-    constructor() {
-        this.scrollThreshold = 100;
-        this.navbar = document.getElementById('navbar');
-        this.navToggle = document.getElementById('navToggle');
-        this.navMenu = document.getElementById('navMenu');
-        this.init();
-    }
-    init() {
-        this.handleScroll();
-        this.setupMobileMenu();
-        this.setupSmoothScroll();
-        window.addEventListener('scroll', () => this.handleScroll());
-    }
-    handleScroll() {
-        if (!this.navbar)
-            return;
-        if (window.scrollY > this.scrollThreshold) {
-            this.navbar.classList.add('scrolled');
-        }
-        else {
-            this.navbar.classList.remove('scrolled');
-        }
-    }
-    setupMobileMenu() {
-        if (!this.navToggle || !this.navMenu)
-            return;
-        this.navToggle.addEventListener('click', () => {
-            this.navMenu?.classList.toggle('active');
-            this.navToggle?.classList.toggle('active');
-        });
-        document.addEventListener('click', (e) => {
-            const target = e.target;
-            if (!target.closest('.navbar-content')) {
-                this.navMenu?.classList.remove('active');
-                this.navToggle?.classList.remove('active');
-            }
-        });
-    }
-    setupSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                e.preventDefault();
-                const href = anchor.getAttribute('href');
-                if (!href || href === '#')
-                    return;
-                const target = document.querySelector(href);
-                if (target) {
-                    const offsetTop = target.offsetTop - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    }
-}
+// scripts/about.ts
+// Interactive features for About page
+// ============================================
+// ANIMATED COUNTER
+// ============================================
 class AnimatedCounter {
     constructor() {
         this.counters = [];
@@ -72,12 +19,13 @@ class AnimatedCounter {
                 element: element,
                 target,
                 current: 0,
-                increment: target / 60
+                increment: target / 60 // 60 frames for smooth animation
             });
         });
         this.setupObserver();
     }
     parseNumber(text) {
+        // Remove any non-numeric characters except decimal point
         const cleaned = text.replace(/[^\d.]/g, '');
         return parseFloat(cleaned) || 0;
     }
@@ -100,14 +48,16 @@ class AnimatedCounter {
         }
     }
     animateCounters() {
-        const duration = 2000;
+        const duration = 2000; // 2 seconds
         const startTime = performance.now();
         const animate = (currentTime) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
+            // Easing function (easeOutExpo)
             const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
             this.counters.forEach(counter => {
                 counter.current = counter.target * easeProgress;
+                // Format the number
                 let displayValue;
                 if (counter.target >= 1000) {
                     displayValue = Math.floor(counter.current).toLocaleString() + '+';
@@ -127,6 +77,9 @@ class AnimatedCounter {
         requestAnimationFrame(animate);
     }
 }
+// ============================================
+// FLOATING PARTICLES
+// ============================================
 class ParticleEffect {
     constructor(containerSelector) {
         this.particleCount = 30;
@@ -145,16 +98,23 @@ class ParticleEffect {
             return;
         const particle = document.createElement('div');
         particle.className = 'particle';
+        // Random position
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.top = `${Math.random() * 100}%`;
+        // Random animation delay
         particle.style.animationDelay = `${Math.random() * 20}s`;
+        // Random size
         const size = Math.random() * 4 + 2;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
+        // Random opacity
         particle.style.opacity = `${Math.random() * 0.5 + 0.3}`;
         this.container.appendChild(particle);
     }
 }
+// ============================================
+// SCROLL REVEAL ANIMATIONS
+// ============================================
 class ScrollReveal {
     constructor() {
         this.observer = null;
@@ -190,6 +150,9 @@ class ScrollReveal {
         });
     }
 }
+// ============================================
+// TIMELINE DOT INTERACTIONS
+// ============================================
 class TimelineInteraction {
     constructor() {
         this.init();
@@ -218,25 +181,34 @@ class TimelineInteraction {
         }
     }
 }
+// ============================================
+// INITIALIZE EVERYTHING
+// ============================================
 class AboutPageController {
     constructor() {
         this.init();
     }
     init() {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.initializeComponents());
+        // Wait for components to be loaded first
+        if (document.querySelector('[data-component="header"]')?.innerHTML) {
+            this.initializeComponents();
         }
         else {
-            this.initializeComponents();
+            document.addEventListener('componentsLoaded', () => {
+                this.initializeComponents();
+            });
         }
     }
     initializeComponents() {
-        new NavigationManager();
+        // Initialize about page specific components
+        // Note: Navigation is handled by navbar.js which is loaded globally
         new AnimatedCounter();
         new ParticleEffect('.about-hero');
         new ScrollReveal();
         new TimelineInteraction();
+        // Add reveal animation styles
         this.addRevealStyles();
+        // Log initialization
         console.log('🎨 MastorsCDN About Page initialized');
     }
     addRevealStyles() {
@@ -268,69 +240,27 @@ class AboutPageController {
                 background: #818cf8;
                 pointer-events: none;
                 z-index: 0;
+                animation: float 20s infinite ease-in-out;
             }
 
-            @media (max-width: 768px) {
-                .navbar-menu {
-                    position: fixed;
-                    top: 70px;
-                    right: -100%;
-                    width: 100%;
-                    max-width: 300px;
-                    background: rgba(15, 23, 42, 0.98);
-                    backdrop-filter: blur(20px);
-                    border-left: 1px solid #334155;
-                    padding: 2rem;
-                    transition: right 0.3s ease;
-                    height: calc(100vh - 70px);
-                    flex-direction: column;
+            @keyframes float {
+                0%, 100% {
+                    transform: translate(0, 0);
                 }
-
-                .navbar-menu.active {
-                    right: 0;
+                25% {
+                    transform: translate(10px, -10px);
                 }
-
-                .navbar-toggle {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 6px;
-                    width: 30px;
-                    height: 24px;
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    padding: 0;
+                50% {
+                    transform: translate(-5px, 10px);
                 }
-
-                .navbar-toggle span {
-                    width: 100%;
-                    height: 3px;
-                    background: #f8fafc;
-                    border-radius: 2px;
-                    transition: all 0.3s;
-                }
-
-                .navbar-toggle.active span:nth-child(1) {
-                    transform: rotate(45deg) translate(8px, 8px);
-                }
-
-                .navbar-toggle.active span:nth-child(2) {
-                    opacity: 0;
-                }
-
-                .navbar-toggle.active span:nth-child(3) {
-                    transform: rotate(-45deg) translate(8px, -8px);
-                }
-            }
-
-            @media (min-width: 769px) {
-                .navbar-toggle {
-                    display: none;
+                75% {
+                    transform: translate(5px, 5px);
                 }
             }
         `;
         document.head.appendChild(style);
     }
 }
+// Initialize the about page
 new AboutPageController();
 //# sourceMappingURL=about.js.map

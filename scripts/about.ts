@@ -9,78 +9,6 @@ interface StatCounter {
 }
 
 // ============================================
-// SMOOTH SCROLL & NAVBAR
-// ============================================
-class NavigationManager {
-    private navbar: HTMLElement | null;
-    private navToggle: HTMLElement | null;
-    private navMenu: HTMLElement | null;
-    private scrollThreshold: number = 100;
-
-    constructor() {
-        this.navbar = document.getElementById('navbar');
-        this.navToggle = document.getElementById('navToggle');
-        this.navMenu = document.getElementById('navMenu');
-        this.init();
-    }
-
-    private init(): void {
-        this.handleScroll();
-        this.setupMobileMenu();
-        this.setupSmoothScroll();
-
-        window.addEventListener('scroll', () => this.handleScroll());
-    }
-
-    private handleScroll(): void {
-        if (!this.navbar) return;
-
-        if (window.scrollY > this.scrollThreshold) {
-            this.navbar.classList.add('scrolled');
-        } else {
-            this.navbar.classList.remove('scrolled');
-        }
-    }
-
-    private setupMobileMenu(): void {
-        if (!this.navToggle || !this.navMenu) return;
-
-        this.navToggle.addEventListener('click', () => {
-            this.navMenu?.classList.toggle('active');
-            this.navToggle?.classList.toggle('active');
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-            if (!target.closest('.navbar-content')) {
-                this.navMenu?.classList.remove('active');
-                this.navToggle?.classList.remove('active');
-            }
-        });
-    }
-
-    private setupSmoothScroll(): void {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e: Event) => {
-                e.preventDefault();
-                const href = (anchor as HTMLAnchorElement).getAttribute('href');
-                if (!href || href === '#') return;
-
-                const target = document.querySelector(href);
-                if (target) {
-                    const offsetTop = (target as HTMLElement).offsetTop - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    }
-}
-
-// ============================================
 // ANIMATED COUNTER
 // ============================================
 class AnimatedCounter {
@@ -307,17 +235,19 @@ class AboutPageController {
     }
 
     private init(): void {
-        // Wait for DOM to be fully loaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.initializeComponents());
-        } else {
+        // Wait for components to be loaded first
+        if (document.querySelector('[data-component="header"]')?.innerHTML) {
             this.initializeComponents();
+        } else {
+            document.addEventListener('componentsLoaded', () => {
+                this.initializeComponents();
+            });
         }
     }
 
     private initializeComponents(): void {
-        // Initialize all components
-        new NavigationManager();
+        // Initialize about page specific components
+        // Note: Navigation is handled by navbar.js which is loaded globally
         new AnimatedCounter();
         new ParticleEffect('.about-hero');
         new ScrollReveal();
@@ -359,64 +289,21 @@ class AboutPageController {
                 background: #818cf8;
                 pointer-events: none;
                 z-index: 0;
+                animation: float 20s infinite ease-in-out;
             }
 
-            @media (max-width: 768px) {
-                .navbar-menu {
-                    position: fixed;
-                    top: 70px;
-                    right: -100%;
-                    width: 100%;
-                    max-width: 300px;
-                    background: rgba(15, 23, 42, 0.98);
-                    backdrop-filter: blur(20px);
-                    border-left: 1px solid #334155;
-                    padding: 2rem;
-                    transition: right 0.3s ease;
-                    height: calc(100vh - 70px);
-                    flex-direction: column;
+            @keyframes float {
+                0%, 100% {
+                    transform: translate(0, 0);
                 }
-
-                .navbar-menu.active {
-                    right: 0;
+                25% {
+                    transform: translate(10px, -10px);
                 }
-
-                .navbar-toggle {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 6px;
-                    width: 30px;
-                    height: 24px;
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    padding: 0;
+                50% {
+                    transform: translate(-5px, 10px);
                 }
-
-                .navbar-toggle span {
-                    width: 100%;
-                    height: 3px;
-                    background: #f8fafc;
-                    border-radius: 2px;
-                    transition: all 0.3s;
-                }
-
-                .navbar-toggle.active span:nth-child(1) {
-                    transform: rotate(45deg) translate(8px, 8px);
-                }
-
-                .navbar-toggle.active span:nth-child(2) {
-                    opacity: 0;
-                }
-
-                .navbar-toggle.active span:nth-child(3) {
-                    transform: rotate(-45deg) translate(8px, -8px);
-                }
-            }
-
-            @media (min-width: 769px) {
-                .navbar-toggle {
-                    display: none;
+                75% {
+                    transform: translate(5px, 5px);
                 }
             }
         `;

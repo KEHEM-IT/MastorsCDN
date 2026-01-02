@@ -2,46 +2,36 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Load common head content -->
+    <script>
+        fetch('components/head-common.html')
+            .then(res => res.text())
+            .then(html => {
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                Array.from(temp.children).forEach(el => {
+                    document.head.appendChild(el);
+                });
+            });
+    </script>
+
     <meta name="description"
         content="MastorsCDN - A powerful, lightweight SCSS mixin and CSS utility library for modern web development">
     <title>MastorsCDN - Modern CSS Utility Library</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Prism CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
-
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-
-    <!-- Main Styles -->
-    <link rel="stylesheet" href="styles/mastorscdn.css">
 
     <!-- Primary Meta -->
     <meta name="title" content="MastorsCDN - Modern CSS Utility Library">
     <meta name="description"
         content="MastorsCDN is a powerful, lightweight SCSS mixin and CSS utility library built for modern, scalable web development.">
-    
-    <!-- Open Graph / Facebook / Discord / WhatsApp -->
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://surajit-singha-sisir.github.io/mastorsCDN/">
     <meta property="og:title" content="MastorsCDN - Modern CSS Utility Library">
     <meta property="og:description"
         content="A powerful, lightweight SCSS mixin and CSS utility library for modern web development.">
     <meta property="og:image" content="https://surajit-singha-sisir.github.io/mastorsCDN/assets/banner.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://surajit-singha-sisir.github.io/mastorsCDN/">
@@ -49,56 +39,15 @@
     <meta name="twitter:description"
         content="A powerful, lightweight SCSS mixin and CSS utility library for modern web development.">
     <meta name="twitter:image" content="https://surajit-singha-sisir.github.io/mastorsCDN/assets/banner.jpg">
-    
-    <!-- App / Theme -->
-    <meta name="theme-color" content="#0f172a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- Icons -->
-    <link rel="icon" type="image/svg+xml"
-        href="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg">
-    <link rel="apple-touch-icon"
-        href="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg">
 
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <div class="navbar-content">
-                <a href="#" class="navbar-brand">
-                    <img src="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg"
-                        alt="MastorsCDN Logo" class="navbar-logo">
-                </a>
-
-                <ul class="navbar-menu" id="navMenu">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#features" class="nav-link">Features</a></li>
-                    <li><a href="#libraries" class="nav-link">Libraries</a></li>
-                    <li><a href="#documentation" class="nav-link">Docs</a></li>
-                    <li><a href="#showcase" class="nav-link">Showcase</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                </ul>
-
-                <div class="navbar-actions">
-                    <a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank" class="btn btn-outline">
-                        <i class="fab fa-github"></i>
-                        GitHub
-                    </a>
-                    <a href="#get-started" class="btn btn-primary">
-                        Get Started
-                    </a>
-                    <button class="navbar-toggle" id="navToggle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <!-- Header Component -->
+    <div data-component="header"></div>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -435,57 +384,57 @@
                 <div class="code-content">
                     <div class="code-panel active" data-panel="scss">
                         <pre><code class="language-scss">@import 'mastors-fluider';
-            @import 'mastors-gridder';
-            
-            .container {
-              @include grid-container(12, 1.5rem);
-              @include fluid-size(padding, 1rem, 3rem);
-              
-              .card {
-                @include grid-item(1, 4, 1, 2);
-                @include fluid-size(padding, 1rem, 2rem);
-                background: var(--bg-elevated);
-                border-radius: var(--radius-lg);
-                
-                h2 {
-                  @include fluid-font(1.5rem, 2.5rem);
-                  color: var(--text-primary);
-                }
-              }
-            }</code></pre>
+@import 'mastors-gridder';
+
+.container {
+  @include grid-container(12, 1.5rem);
+  @include fluid-size(padding, 1rem, 3rem);
+  
+  .card {
+    @include grid-item(1, 4, 1, 2);
+    @include fluid-size(padding, 1rem, 2rem);
+    background: var(--bg-elevated);
+    border-radius: var(--radius-lg);
+    
+    h2 {
+      @include fluid-font(1.5rem, 2.5rem);
+      color: var(--text-primary);
+    }
+  }
+}</code></pre>
                     </div>
                     <div class="code-panel" data-panel="css">
                         <pre><code class="language-css">.container {
-              display: grid;
-              grid-template-columns: repeat(12, 1fr);
-              gap: 1.5rem;
-              padding: clamp(1rem, 2vw + 1rem, 3rem);
-            }
-            
-            .card {
-              grid-column: 1 / 4;
-              grid-row: 1 / 2;
-              padding: clamp(1rem, 1vw + 1rem, 2rem);
-              background: var(--bg-elevated);
-              border-radius: var(--radius-lg);
-            }
-            
-            .card h2 {
-              font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
-              color: var(--text-primary);
-            }</code></pre>
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+  padding: clamp(1rem, 2vw + 1rem, 3rem);
+}
+
+.card {
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+  padding: clamp(1rem, 1vw + 1rem, 2rem);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+}
+
+.card h2 {
+  font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
+  color: var(--text-primary);
+}</code></pre>
                     </div>
                     <div class="code-panel" data-panel="html">
                         <pre><code class="language-html">&lt;div class="container"&gt;
-              &lt;div class="card"&gt;
-                &lt;h2&gt;Card Title&lt;/h2&gt;
-                &lt;p&gt;Beautiful, responsive card with fluid sizing.&lt;/p&gt;
-              &lt;/div&gt;
-              &lt;div class="card"&gt;
-                &lt;h2&gt;Another Card&lt;/h2&gt;
-                &lt;p&gt;Scales perfectly across all devices.&lt;/p&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;</code></pre>
+  &lt;div class="card"&gt;
+    &lt;h2&gt;Card Title&lt;/h2&gt;
+    &lt;p&gt;Beautiful, responsive card with fluid sizing.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="card"&gt;
+    &lt;h2&gt;Another Card&lt;/h2&gt;
+    &lt;p&gt;Scales perfectly across all devices.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
                     </div>
                     <div class="code-panel" data-panel="output">
                         <div class="output-preview">
@@ -606,78 +555,20 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg"
-                        alt="MastorsCDN" class="footer-logo">
-                    <p class="footer-tagline">Build stunning interfaces with ease</p>
-                    <div class="footer-social">
-                        <a href="https://github.com/KEHEM-IT" target="_blank" class="social-link">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#" target="_blank" class="social-link">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" target="_blank" class="social-link">
-                            <i class="fab fa-discord"></i>
-                        </a>
-                    </div>
-                </div>
+    <!-- Footer Component -->
+    <div data-component="footer"></div>
 
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Product</h4>
-                        <ul class="footer-list">
-                            <li><a href="#features">Features</a></li>
-                            <li><a href="#libraries">Libraries</a></li>
-                            <li><a href="#documentation">Documentation</a></li>
-                            <li><a href="#showcase">Showcase</a></li>
-                        </ul>
-                    </div>
+    <!-- Core Scripts (Loaded First) -->
+    <script src="scripts/components.js"></script>
+    <script src="scripts/navbar.js"></script>
 
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Resources</h4>
-                        <ul class="footer-list">
-                            <li><a href="https://kehem-it.github.io/Mastors-Fluider/" target="_blank">Fluider Docs</a>
-                            </li>
-                            <li><a href="https://kehem-it.github.io/Mastors-Gridder/" target="_blank">Gridder Docs</a>
-                            </li>
-                            <li><a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank">GitHub</a></li>
-                            <li><a href="#">Examples</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Company</h4>
-                        <ul class="footer-list">
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Careers</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p class="footer-copyright">
-                    &copy; 2026 MastorsCDN by KEHEM-IT. Released under the MIT License.
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
+    <!-- External Libraries for Index Page -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-scss.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="scripts/script.js"></script>
 </body>
 
 </html>

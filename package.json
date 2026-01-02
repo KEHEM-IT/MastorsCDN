@@ -25,9 +25,11 @@
     "ts:build": "tsc",
     "ts:watch": "tsc --watch",
     "build": "npm run scss:build && npm run ts:build",
-    "watch": "npm run scss:watch & npm run ts:watch"
+    "watch": "npm run scss:watch & npm run ts:watch",
+    "dev": "npm run watch"
   },
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "sass": "^1.69.0",
     "typescript": "^5.3.3"
   },
