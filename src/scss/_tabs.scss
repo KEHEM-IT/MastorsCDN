@@ -1,0 +1,301 @@
+// src/scss/_tabs.scss
+@use 'mastors-fluider/mastors-fluider' as *;
+@use 'mastors-gridder/mastors-gridder' as *;
+@use 'variables' as *;
+@use "sass:map";
+
+// ============================================
+// Tab System Styles with Smooth Transitions
+// ============================================
+
+.code-tabs {
+    @include grid-auto(min-content, $spacing-2);
+    grid-auto-flow: column;
+    justify-content: center;
+    margin-block-end: $spacing-6;
+    padding: $spacing-1;
+    background: map.get($dark-mode, bg-tertiary);
+    border-radius: $radius-lg;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: map.get($dark-mode, text-tertiary);
+        border-radius: 2px;
+    }
+}
+
+.code-tab {
+    position: relative;
+    padding: $spacing-2 $spacing-4;
+    background: transparent;
+    border: none;
+    border-radius: $radius-md;
+    color: map.get($dark-mode, text-tertiary);
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    white-space: nowrap;
+    outline: none;
+    transition: all $transition-base $transition-timing;
+
+    &:hover {
+        color: map.get($dark-mode, text-primary);
+        background: rgba(map.get($dark-mode, bg-primary), 0.5);
+    }
+
+    &.active {
+        background: map.get($dark-mode, bg-primary);
+        color: map.get($dark-mode, text-primary);
+        box-shadow: $shadow-sm;
+    }
+
+    // Focus styles for keyboard navigation
+    &:focus-visible {
+        outline: 2px solid $primary;
+        outline-offset: 2px;
+    }
+
+    // Prevent text selection
+    user-select: none;
+}
+
+// Tab Content Container
+.code-content {
+    position: relative;
+    min-height: 200px;
+    overflow: hidden;
+}
+
+// Tab Panels
+.code-panel {
+    display: none;
+    padding: $spacing-6;
+    background: map.get($dark-mode, bg-tertiary);
+    border: 1px solid map.get($dark-mode, border-default);
+    border-radius: $radius-lg;
+    overflow-x: auto;
+
+    // Smooth transition properties
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1),
+        transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.active {
+        display: grid;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    // Transitioning states for smooth animations
+    &.transitioning-in {
+        display: grid;
+    }
+
+    &.transitioning-out {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    // Code block styles
+    pre {
+        margin: 0;
+        background: map.get($dark-mode, bg-primary) !important;
+        border-radius: $radius-md;
+
+        code {
+            font-size: $font-size-sm;
+            line-height: $line-height-relaxed;
+            white-space: pre;
+            display: block;
+            padding: $spacing-4;
+        }
+    }
+}
+
+// Output Preview Styles
+.output-preview {
+    min-height: 300px;
+    background: map.get($dark-mode, bg-primary);
+    border-radius: $radius-lg;
+    padding: $spacing-6;
+
+    // Smooth fade-in animation
+    animation: fadeIn 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.preview-container {
+    @include grid-auto(250px, $spacing-6);
+
+    @include break-up(md) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.preview-card {
+    padding: clamp($spacing-4, 2vw, $spacing-8);
+    background: map.get($dark-mode, bg-elevated);
+    border: 1px solid map.get($dark-mode, border-default);
+    border-radius: $radius-xl;
+    transition: all $transition-base $transition-timing;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: $shadow-lg;
+        border-color: rgba($primary, 0.3);
+    }
+}
+
+.preview-card-title {
+    @include fluid-font($font-size-xl, $font-size-2xl);
+    margin-block-end: $spacing-3;
+    color: map.get($dark-mode, text-primary);
+    font-weight: $font-weight-semibold;
+}
+
+.preview-card-text {
+    color: map.get($dark-mode, text-secondary);
+    line-height: $line-height-relaxed;
+    margin: 0;
+}
+
+// Animation Keyframes
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+// Accessibility: Respect reduced motion preference
+@media (prefers-reduced-motion: reduce) {
+
+    .code-tab,
+    .code-panel {
+        transition: none !important;
+    }
+
+    .code-panel {
+        transform: none !important;
+    }
+
+    .output-preview {
+        animation: none !important;
+    }
+
+    .preview-card {
+        &:hover {
+            transform: none;
+        }
+    }
+}
+
+// Responsive adjustments
+@include break-down(sm) {
+    .code-tab {
+        padding: $spacing-2 $spacing-3;
+        font-size: $font-size-xs;
+    }
+
+    .code-panel {
+        padding: $spacing-4;
+
+        pre code {
+            font-size: $font-size-xs;
+            padding: $spacing-3;
+        }
+    }
+
+    .output-preview {
+        padding: $spacing-4;
+        min-height: 200px;
+    }
+
+    .preview-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Light theme support (if needed)
+[data-theme="light"] {
+    .code-tabs {
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    .code-tab {
+        color: rgba(0, 0, 0, 0.6);
+
+        &:hover {
+            color: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        &.active {
+            background: white;
+            color: rgba(0, 0, 0, 0.9);
+        }
+    }
+
+    .code-panel {
+        background: rgba(0, 0, 0, 0.02);
+        border-color: rgba(0, 0, 0, 0.1);
+
+        pre {
+            background: rgba(0, 0, 0, 0.05) !important;
+        }
+    }
+
+    .output-preview {
+        background: white;
+    }
+
+    .preview-card {
+        background: white;
+        border-color: rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            border-color: rgba($primary, 0.5);
+        }
+    }
+
+    .preview-card-title {
+        color: rgba(0, 0, 0, 0.9);
+    }
+
+    .preview-card-text {
+        color: rgba(0, 0, 0, 0.6);
+    }
+}

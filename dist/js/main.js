@@ -3,10 +3,12 @@ import { Router } from './router.js';
 import { Prefetcher } from './prefetch.js';
 import Navbar from './navbar.js';
 import { CarouselSlider } from './carousel-slider.js';
+import { Tabs } from './tabs.js';
 class App {
     constructor() {
         this.navbar = null;
         this.carousel = null;
+        this.tabs = null;
         this.loader = new ComponentLoader();
         this.router = new Router();
         this.prefetcher = new Prefetcher(150);
@@ -22,9 +24,11 @@ class App {
             ]);
             this.navbar = new Navbar();
             this.initCarousel();
+            this.initTabs();
             this.registerRoutes();
             this.initThemeToggle();
             this.initSmoothScroll();
+            this.initCopyButtons();
             document.body.classList.remove('loading');
             document.body.classList.add('loaded');
             console.log('✓ App initialized successfully');
@@ -34,6 +38,22 @@ class App {
             document.body.classList.remove('loading');
             document.body.classList.add('error');
         }
+    }
+    initTabs() {
+        this.tabs = new Tabs({
+            containerSelector: '.code-tabs',
+            tabSelector: '.code-tab',
+            panelSelector: '.code-panel',
+            activeClass: 'active',
+            transitionDuration: 300,
+        });
+        this.router.on('routeChanged', () => {
+            if (this.tabs) {
+                setTimeout(() => {
+                    this.tabs?.refresh();
+                }, 100);
+            }
+        });
     }
     initCarousel() {
         setTimeout(() => {
@@ -106,13 +126,44 @@ class App {
             }
         });
     }
+    initCopyButtons() {
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            const copyBtn = target.closest('.copy-btn');
+            if (copyBtn) {
+                const textToCopy = copyBtn.dataset.copy || '';
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const icon = copyBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-copy');
+                        icon.classList.add('fa-check');
+                        setTimeout(() => {
+                            icon.classList.remove('fa-check');
+                            icon.classList.add('fa-copy');
+                        }, 2000);
+                    }
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                });
+            }
+        });
+    }
     getCarousel() {
         return this.carousel;
+    }
+    getTabs() {
+        return this.tabs;
     }
     destroyCarousel() {
         if (this.carousel) {
             this.carousel.destroy();
             this.carousel = null;
+        }
+    }
+    destroyTabs() {
+        if (this.tabs) {
+            this.tabs.destroy();
+            this.tabs = null;
         }
     }
 }
@@ -122,3 +173,4 @@ if (document.readyState === 'loading') {
 else {
     new App();
 }
+export default App;

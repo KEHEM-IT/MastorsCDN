@@ -5,6 +5,7 @@ import { Router } from './router.js';
 import { Prefetcher } from './prefetch.js';
 import Navbar from './navbar.js';
 import { CarouselSlider } from './carousel-slider.js';
+import { Tabs } from './tabs.js';
 
 class App {
     private loader: ComponentLoader;
@@ -12,6 +13,7 @@ class App {
     private prefetcher: Prefetcher;
     private navbar: Navbar | null = null;
     private carousel: CarouselSlider | null = null;
+    private tabs: Tabs | null = null;
 
     constructor() {
         this.loader = new ComponentLoader();
@@ -38,12 +40,16 @@ class App {
             // Initialize carousel slider
             this.initCarousel();
 
+            // Initialize tabs
+            this.initTabs();
+
             // Register routes
             this.registerRoutes();
 
             // Initialize features
             this.initThemeToggle();
             this.initSmoothScroll();
+            this.initCopyButtons();
 
             // Remove loading state
             document.body.classList.remove('loading');
@@ -55,6 +61,27 @@ class App {
             document.body.classList.remove('loading');
             document.body.classList.add('error');
         }
+    }
+
+    private initTabs(): void {
+        // Initialize tabs with custom options
+        this.tabs = new Tabs({
+            containerSelector: '.code-tabs',
+            tabSelector: '.code-tab',
+            panelSelector: '.code-panel',
+            activeClass: 'active',
+            transitionDuration: 300,
+            
+        });
+
+        // Reinitialize tabs on route change if needed
+        this.router.on('routeChanged', () => {
+            if (this.tabs) {
+                setTimeout(() => {
+                    this.tabs?.refresh();
+                }, 100);
+            }
+        });
     }
 
     private initCarousel(): void {
@@ -144,15 +171,52 @@ class App {
         });
     }
 
-    // Public methods to control carousel from outside if needed
+    private initCopyButtons(): void {
+        document.addEventListener('click', (e) => {
+            const target = e.target as HTMLElement;
+            const copyBtn = target.closest('.copy-btn') as HTMLButtonElement;
+
+            if (copyBtn) {
+                const textToCopy = copyBtn.dataset.copy || '';
+
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const icon = copyBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-copy');
+                        icon.classList.add('fa-check');
+
+                        setTimeout(() => {
+                            icon.classList.remove('fa-check');
+                            icon.classList.add('fa-copy');
+                        }, 2000);
+                    }
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                });
+            }
+        });
+    }
+
+    // Public methods to control components from outside if needed
     public getCarousel(): CarouselSlider | null {
         return this.carousel;
+    }
+
+    public getTabs(): Tabs | null {
+        return this.tabs;
     }
 
     public destroyCarousel(): void {
         if (this.carousel) {
             this.carousel.destroy();
             this.carousel = null;
+        }
+    }
+
+    public destroyTabs(): void {
+        if (this.tabs) {
+            this.tabs.destroy();
+            this.tabs = null;
         }
     }
 }
@@ -163,3 +227,6 @@ if (document.readyState === 'loading') {
 } else {
     new App();
 }
+
+// Export for potential external use
+export default App;
