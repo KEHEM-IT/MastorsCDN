@@ -75,46 +75,6 @@ header {
     }
 }
 
-// Navigation
-nav {
-    ul {
-        display: flex;
-        gap: var(--spacing-lg);
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 0.9375rem;
-        font-weight: 500;
-        padding: var(--spacing-sm) var(--spacing-md);
-        border-radius: var(--radius-md);
-        transition: color var(--transition-fast), background-color var(--transition-fast);
-        position: relative;
-
-        &:hover {
-            color: var(--text-primary);
-            background: var(--bg-secondary);
-        }
-
-        &.active {
-            color: var(--accent-primary);
-
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: -1px;
-                left: 0;
-                right: 0;
-                height: 2px;
-                background: var(--accent-primary);
-            }
-        }
-    }
-}
 
 // Footer
 footer {

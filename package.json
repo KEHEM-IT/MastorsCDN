@@ -6,9 +6,10 @@
     "dev": "concurrently \"npm run watch:ts\" \"npm run watch:scss\" \"npm run serve\"",
     "watch:ts": "tsc --watch",
     "watch:scss": "sass --watch src/scss:dist/css --style compressed --load-path=node_modules",
-    "build:ts": "tsc",
+    "build:ts": "tsc && npm run generate-loader",
     "build:scss": "sass src/scss:dist/css --style compressed --load-path=node_modules",
     "build": "npm run build:ts && npm run build:scss",
+    "generate-loader": "node build-auto-loader.js",
     "serve": "npx http-server -p 3000 -c-1",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d ."

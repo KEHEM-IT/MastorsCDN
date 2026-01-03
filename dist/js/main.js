@@ -1,10 +1,10 @@
 import { ComponentLoader } from './component-loader.js';
 import { Router } from './router.js';
 import { Prefetcher } from './prefetch.js';
-import { Navbar } from './navbar.js';
-new Navbar();
+import Navbar from './navbar.js';
 class App {
     constructor() {
+        this.navbar = null;
         this.loader = new ComponentLoader();
         this.router = new Router();
         this.prefetcher = new Prefetcher(150);
@@ -18,6 +18,7 @@ class App {
                 { selector: '#nav-slot', path: 'components/nav.html' },
                 { selector: '#footer-slot', path: 'components/footer.html' }
             ]);
+            this.navbar = new Navbar();
             this.registerRoutes();
             this.initThemeToggle();
             this.initSmoothScroll();

@@ -11,6 +11,7 @@
 @use 'transitions' as *;
 @use 'about' as *;
 @use 'base' as *;
+@use 'navbar' as *;
 
 
 // ============================================
@@ -33,125 +34,6 @@
 
     @include break-up(2xl) {
         max-width: $container-2xl;
-    }
-}
-
-// ============================================
-// NAVIGATION
-// ============================================
-
-.navbar,
-#nav-slot {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    background: rgba(map.get($dark-mode, bg-primary), 0.8);
-    backdrop-filter: blur($blur-md);
-    border-block-end: 1px solid map.get($dark-mode, border-default);
-    z-index: $z-sticky;
-    transition: background $transition-base $transition-timing;
-
-    &-content {
-        @include grid-cols(2, $spacing-4);
-        align-items: center;
-        padding-block: $spacing-4;
-
-        @include break-up(lg) {
-            grid-template-columns: auto 1fr auto;
-        }
-
-        @include break-down(md) {
-            grid-template-columns: 1fr 1fr;
-        }
-    }
-
-    &-brand {
-        @include grid-self;
-    }
-
-    &-logo {
-        height: 2.5rem;
-        width: auto;
-
-        @include break-up(md) {
-            height: 3rem;
-        }
-    }
-
-    &-menu {
-        display: none;
-        list-style: none;
-        gap: $spacing-8;
-
-        @include break-up(lg) {
-            display: grid;
-            grid-auto-flow: column;
-            justify-content: center;
-        }
-    }
-
-    &-actions {
-        @include grid-auto(min-content, $spacing-2);
-        grid-auto-flow: column;
-        justify-content: end;
-        align-items: center;
-
-        .btn {
-            display: none;
-
-            @include break-up(md) {
-                display: inline-grid;
-            }
-        }
-    }
-
-    &-toggle {
-        @include grid-gap(5px);
-        width: 24px;
-        height: 24px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-
-        @include break-up(lg) {
-            display: none;
-        }
-
-        span {
-            width: 100%;
-            height: 2px;
-            background: map.get($dark-mode, text-primary);
-            transition: all $transition-base $transition-timing;
-        }
-    }
-}
-
-.nav-link {
-    position: relative;
-    color: map.get($dark-mode, text-secondary);
-    font-weight: $font-weight-medium;
-    font-size: $font-size-sm;
-    transition: color $transition-base $transition-timing;
-
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: $primary;
-        transition: width $transition-base $transition-timing;
-    }
-
-    &:hover,
-    &.active {
-        color: map.get($dark-mode, text-primary);
-
-        &::after {
-            width: 100%;
-        }
     }
 }
 
@@ -757,6 +639,10 @@
     background: map.get($dark-mode, bg-primary);
     border: 1px solid map.get($dark-mode, border-default);
     border-radius: $radius-2xl;
+
+    @include break-down(lg) {
+        padding: $spacing-5;
+    }
 }
 
 .usage-title {
@@ -1062,10 +948,19 @@
 }
 
 .footer-links {
-    @include grid-cols(1, $spacing-8);
+    @include grid-cols(2, $spacing-8);
+
+    & > :nth-child(3) {
+        grid-column: 1 / -1;
+        justify-self: center;
+    }
 
     @include break-up(sm) {
         grid-template-columns: repeat(3, 1fr);
+
+        &> :nth-child(3) {
+            grid-column: auto;
+        }
     }
 }
 

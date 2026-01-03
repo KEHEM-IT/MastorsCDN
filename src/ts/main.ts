@@ -3,14 +3,13 @@
 import { ComponentLoader } from './component-loader.js';
 import { Router } from './router.js';
 import { Prefetcher } from './prefetch.js';
-import { Navbar } from './navbar.js';
-
-new Navbar();
+import Navbar from './navbar.js';
 
 class App {
     private loader: ComponentLoader;
     private router: Router;
     private prefetcher: Prefetcher;
+    private navbar: Navbar | null = null;
 
     constructor() {
         this.loader = new ComponentLoader();
@@ -30,6 +29,9 @@ class App {
                 { selector: '#nav-slot', path: 'components/nav.html' },
                 { selector: '#footer-slot', path: 'components/footer.html' }
             ]);
+
+            // Initialize navbar after nav component is loaded
+            this.navbar = new Navbar();
 
             // Register routes
             this.registerRoutes();
