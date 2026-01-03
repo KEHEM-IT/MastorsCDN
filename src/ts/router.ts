@@ -6,10 +6,13 @@ export interface Route {
     guard?: () => boolean;
 }
 
+type EventCallback = (data?: any) => void;
+
 export class Router {
     private routes: Map<string, Route> = new Map();
     private currentPath: string = '';
     private transitionElement: HTMLElement | null = null;
+    private events: Map<string, EventCallback[]> = new Map();
 
     constructor() {
         this.transitionElement = document.getElementById('page-transition');
@@ -18,6 +21,31 @@ export class Router {
 
     register(path: string, route: Route): void {
         this.routes.set(path, route);
+    }
+
+    // Event emitter methods
+    on(event: string, callback: EventCallback): void {
+        if (!this.events.has(event)) {
+            this.events.set(event, []);
+        }
+        this.events.get(event)?.push(callback);
+    }
+
+    off(event: string, callback: EventCallback): void {
+        const callbacks = this.events.get(event);
+        if (callbacks) {
+            const index = callbacks.indexOf(callback);
+            if (index > -1) {
+                callbacks.splice(index, 1);
+            }
+        }
+    }
+
+    private emit(event: string, data?: any): void {
+        const callbacks = this.events.get(event);
+        if (callbacks) {
+            callbacks.forEach(callback => callback(data));
+        }
     }
 
     private init(): void {
@@ -56,6 +84,9 @@ export class Router {
             return;
         }
 
+        // Emit before route change
+        this.emit('beforeRouteChange', { from: this.currentPath, to: path });
+
         // Start transition
         await this.startTransition();
 
@@ -68,9 +99,15 @@ export class Router {
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
 
-        // End transition
+        // Update current path
+        const previousPath = this.currentPath;
         this.currentPath = path;
+
+        // End transition
         await this.endTransition();
+
+        // Emit after route change
+        this.emit('routeChanged', { from: previousPath, to: path });
     }
 
     private startTransition(): Promise<void> {
@@ -117,5 +154,11 @@ export class Router {
 
     getCurrentPath(): string {
         return this.currentPath;
+    }
+
+    // Cleanup method
+    destroy(): void {
+        this.events.clear();
+        this.routes.clear();
     }
 }

@@ -4,12 +4,14 @@ import { ComponentLoader } from './component-loader.js';
 import { Router } from './router.js';
 import { Prefetcher } from './prefetch.js';
 import Navbar from './navbar.js';
+import { CarouselSlider } from './carousel-slider.js';
 
 class App {
     private loader: ComponentLoader;
     private router: Router;
     private prefetcher: Prefetcher;
     private navbar: Navbar | null = null;
+    private carousel: CarouselSlider | null = null;
 
     constructor() {
         this.loader = new ComponentLoader();
@@ -33,6 +35,9 @@ class App {
             // Initialize navbar after nav component is loaded
             this.navbar = new Navbar();
 
+            // Initialize carousel slider
+            this.initCarousel();
+
             // Register routes
             this.registerRoutes();
 
@@ -50,6 +55,21 @@ class App {
             document.body.classList.remove('loading');
             document.body.classList.add('error');
         }
+    }
+
+    private initCarousel(): void {
+        // Initialize carousel with a slight delay to ensure DOM is ready
+        setTimeout(() => {
+            this.carousel = new CarouselSlider('.showcase-slider');
+        }, 100);
+
+        // Reinitialize carousel on route change if needed
+        this.router.on('routeChanged', () => {
+            const showcaseSection = document.getElementById('showcase');
+            if (showcaseSection && !this.carousel) {
+                this.carousel = new CarouselSlider('.showcase-slider');
+            }
+        });
     }
 
     private registerRoutes(): void {
@@ -122,6 +142,18 @@ class App {
                 }
             }
         });
+    }
+
+    // Public methods to control carousel from outside if needed
+    public getCarousel(): CarouselSlider | null {
+        return this.carousel;
+    }
+
+    public destroyCarousel(): void {
+        if (this.carousel) {
+            this.carousel.destroy();
+            this.carousel = null;
+        }
     }
 }
 

@@ -2,9 +2,11 @@ import { ComponentLoader } from './component-loader.js';
 import { Router } from './router.js';
 import { Prefetcher } from './prefetch.js';
 import Navbar from './navbar.js';
+import { CarouselSlider } from './carousel-slider.js';
 class App {
     constructor() {
         this.navbar = null;
+        this.carousel = null;
         this.loader = new ComponentLoader();
         this.router = new Router();
         this.prefetcher = new Prefetcher(150);
@@ -19,6 +21,7 @@ class App {
                 { selector: '#footer-slot', path: 'components/footer.html' }
             ]);
             this.navbar = new Navbar();
+            this.initCarousel();
             this.registerRoutes();
             this.initThemeToggle();
             this.initSmoothScroll();
@@ -31,6 +34,17 @@ class App {
             document.body.classList.remove('loading');
             document.body.classList.add('error');
         }
+    }
+    initCarousel() {
+        setTimeout(() => {
+            this.carousel = new CarouselSlider('.showcase-slider');
+        }, 100);
+        this.router.on('routeChanged', () => {
+            const showcaseSection = document.getElementById('showcase');
+            if (showcaseSection && !this.carousel) {
+                this.carousel = new CarouselSlider('.showcase-slider');
+            }
+        });
     }
     registerRoutes() {
         this.router.register('home', {
@@ -91,6 +105,15 @@ class App {
                 }
             }
         });
+    }
+    getCarousel() {
+        return this.carousel;
+    }
+    destroyCarousel() {
+        if (this.carousel) {
+            this.carousel.destroy();
+            this.carousel = null;
+        }
     }
 }
 if (document.readyState === 'loading') {

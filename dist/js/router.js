@@ -3,11 +3,33 @@ export class Router {
         this.routes = new Map();
         this.currentPath = '';
         this.transitionElement = null;
+        this.events = new Map();
         this.transitionElement = document.getElementById('page-transition');
         this.init();
     }
     register(path, route) {
         this.routes.set(path, route);
+    }
+    on(event, callback) {
+        if (!this.events.has(event)) {
+            this.events.set(event, []);
+        }
+        this.events.get(event)?.push(callback);
+    }
+    off(event, callback) {
+        const callbacks = this.events.get(event);
+        if (callbacks) {
+            const index = callbacks.indexOf(callback);
+            if (index > -1) {
+                callbacks.splice(index, 1);
+            }
+        }
+    }
+    emit(event, data) {
+        const callbacks = this.events.get(event);
+        if (callbacks) {
+            callbacks.forEach(callback => callback(data));
+        }
     }
     init() {
         window.addEventListener('hashchange', () => this.handleRoute());
@@ -36,12 +58,15 @@ export class Router {
             this.navigate('#home');
             return;
         }
+        this.emit('beforeRouteChange', { from: this.currentPath, to: path });
         await this.startTransition();
         document.title = route.title;
         this.updateActiveNav(path);
         window.scrollTo({ top: 0, behavior: 'instant' });
+        const previousPath = this.currentPath;
         this.currentPath = path;
         await this.endTransition();
+        this.emit('routeChanged', { from: previousPath, to: path });
     }
     startTransition() {
         return new Promise((resolve) => {
@@ -86,5 +111,9 @@ export class Router {
     }
     getCurrentPath() {
         return this.currentPath;
+    }
+    destroy() {
+        this.events.clear();
+        this.routes.clear();
     }
 }
