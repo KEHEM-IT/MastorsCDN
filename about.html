@@ -1,0 +1,76 @@
+<!-- about.html -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About MastorsCDN - Learn about our mission and team">
+    <title>About - MastorsCDN</title>
+
+    <link rel="preload" href="dist/css/mastorscdn.css" as="style">
+    <link rel="preload" href="dist/js/main.js" as="script">
+    <link rel="stylesheet" href="dist/css/mastorscdn.css">
+    <link rel="icon" type="image/svg+xml"
+        href="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg">
+
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loading-bar" class="loading-bar">
+        <div class="loading-bar__fill"></div>
+    </div>
+
+    <div id="page-transition" class="page-transition"></div>
+
+    <header id="header-slot"></header>
+    <nav id="nav-slot"></nav>
+
+    <main class="page-content">
+        <section>
+            <h1 class="text-center">About MastorsCDN</h1>
+            <p class="text-center" style="font-size: 1.25rem; max-width: 700px; margin: 0 auto 3rem;">
+                Building the future of CSS utility libraries
+            </p>
+
+            <div class="card" style="max-width: 900px; margin: 0 auto;">
+                <h2>Our Mission</h2>
+                <p>MastorsCDN was created to solve the common challenges developers face when building modern,
+                    responsive web interfaces. We believe that powerful tools should be simple to use and accessible to
+                    everyone.</p>
+
+                <h2 style="margin-top: 2rem;">What We Do</h2>
+                <p>We provide a comprehensive CSS utility library that combines the best of modern web development
+                    practices with the flexibility developers need. Our two core libraries, Mastors Fluider and Mastors
+                    Gridder, work seamlessly together to create stunning, responsive designs.</p>
+
+                <h2 style="margin-top: 2rem;">Open Source</h2>
+                <p>MastorsCDN is proudly open source and released under the MIT License. We believe in the power of
+                    community and welcome contributions from developers worldwide.</p>
+
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                    <h3>Built by KEHEM-IT</h3>
+                    <p>A team passionate about creating tools that empower developers to build better web experiences.
+                    </p>
+                    <a href="https://github.com/KEHEM-IT" class="button" style="margin-top: 1rem;">Visit our GitHub</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer-slot"></footer>
+
+    <script type="module" src="dist/js/main.js"></script>
+</body>
+
+</html>

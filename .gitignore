@@ -1,0 +1,22 @@
+# .gitignore
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/js/*.js.map
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+.cache/

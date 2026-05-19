@@ -1,0 +1,90 @@
+@use 'mastors-fluider/mastors-fluider' as *;
+@use 'variables' as *;
+@use "sass:map";
+
+// ============================================
+// BASE STYLES
+// ============================================
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: $font-family-base;
+    background: map.get($dark-mode, bg-primary);
+    color: map.get($dark-mode, text-primary);
+    line-height: $line-height-relaxed;
+    @include fluid-font($font-size-base, $font-size-lg);
+    overflow-x: hidden;
+}
+
+// ============================================
+// TYPOGRAPHY
+// ============================================
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $font-family-heading;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    color: map.get($dark-mode, text-primary);
+}
+
+h1 {
+    @include fluid-font($font-size-4xl, $font-size-7xl);
+}
+
+h2 {
+    @include fluid-font($font-size-3xl, $font-size-5xl);
+}
+
+h3 {
+    @include fluid-font($font-size-2xl, $font-size-4xl);
+}
+
+h4 {
+    @include fluid-font($font-size-xl, $font-size-2xl);
+}
+
+h5 {
+    @include fluid-font($font-size-lg, $font-size-xl);
+}
+
+h6 {
+    @include fluid-font($font-size-base, $font-size-lg);
+}
+
+p {
+    margin-block-end: $spacing-4;
+    color: map.get($dark-mode, text-secondary);
+}
+
+a {
+    color: $primary;
+    text-decoration: none;
+    transition: color $transition-base $transition-timing;
+
+    &:hover {
+        color: $primary-light;
+    }
+}
+
+code,
+pre {
+    font-family: $font-family-mono;
+}
