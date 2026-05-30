@@ -189,8 +189,28 @@
 
 <body class="bg-deep text-t1 font-body leading-relaxed antialiased">
 
-    <!-- ═══════ HEADER COMPONENT SLOT ═══════ -->
-    <div id="header-slot"></div>
+    <!-- ═══════ HEADER (inlined — no fetch delay) ═══════ -->
+    <header id="topbar">
+        <a href="index.html" class="topbar-brand">
+            <div class="topbar-logo"><i class="fa-solid fa-layer-group"></i></div>
+            <span class="topbar-name">MastorsCDN</span>
+            <span class="topbar-tag">CSS 2027</span>
+        </a>
+        <button id="topbar-mobile-btn" aria-label="Toggle sidebar" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <nav class="topbar-nav" aria-label="Primary navigation">
+            <a href="#features">Features</a>
+            <a href="#browser-support">Browser Support</a>
+            <a href="#container-queries">Docs</a>
+            <a href="playground/index.html" class="highlight">
+                <i class="fa-solid fa-code"></i> Playground
+            </a>
+            <a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github"></i>
+            </a>
+        </nav>
+    </header>
 
     <!-- ═══════ LAYOUT ═══════ -->
     <div class="flex min-h-screen">
@@ -1629,7 +1649,6 @@ p, .prose {
          */
         (function ComponentLoader() {
             const slots = [
-                { selector: '#header-slot', path: 'components/header.html' },
                 { selector: '#footer-slot', path: 'components/footer.html' }
             ];
 
