@@ -1,9 +1,0 @@
-{
-  "version": "1.0.4",
-  "generatedAt": "2026-05-29T21:39:53.395Z",
-  "framework": "node",
-  "typescript": true,
-  "generatedFiles": [
-    ".mastors-cache.json"
-  ]
-}
