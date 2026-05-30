@@ -1,0 +1,244 @@
+// ══════════════════════════════════════════
+// _code-demo.scss
+// Code block + live demo side-by-side grid
+// ══════════════════════════════════════════
+@use 'variables' as *;
+
+// ── 2-col grid ─────────────────────────────
+.code-demo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 900px) { grid-template-columns: 1fr; }
+}
+
+// ── Code block ─────────────────────────────
+.code-block {
+  border-radius: $radius;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem .85rem;
+  background: #161b22;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.code-lang {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--text-3);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: .2rem .55rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: color .2s, background .2s, border-color .2s;
+
+  &:hover {
+    color: var(--text-1);
+    background: var(--card);
+    border-color: var(--glow);
+  }
+}
+
+// ── Demo panel ─────────────────────────────
+.demo-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: $radius;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  position: relative;
+}
+
+.demo-label {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: .15rem;
+}
+
+// ── Color swatches ─────────────────────────
+.color-swatches {
+  display: flex;
+  gap: .4rem;
+  flex-wrap: wrap;
+}
+
+.swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  transition: transform .2s;
+  &:hover { transform: scale(1.12); }
+}
+
+// ── View-transition demo box ───────────────
+#vt-box {
+  padding: .75rem 1rem;
+  border-radius: 8px;
+  font-size: .82rem;
+  font-weight: 700;
+  font-family: var(--font-head);
+  color: #fff;
+  text-align: center;
+  transition: opacity .22s ease, transform .22s ease;
+}
+
+.vt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: .45rem .85rem;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--text-2);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+  margin-top: .25rem;
+
+  &:hover {
+    background: var(--card);
+    color: var(--text-1);
+    border-color: var(--glow);
+  }
+}
+
+// ── Anchor positioning demo ────────────────
+.ap-host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem 1rem 1rem;
+  width: 100%;
+}
+
+.ap-tip {
+  position: absolute;
+  background: #1e293b;
+  color: var(--text-1);
+  font-size: .72rem;
+  font-weight: 600;
+  padding: .3rem .75rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0,0,0,.4);
+  bottom: calc(100% - 1.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1e293b;
+  }
+}
+
+// ── Logical props demo ─────────────────────
+.lp-box {
+  padding: .75rem .9rem;
+  border-inline-start: 3px solid var(--accent);
+  background: var(--elevated);
+  border-radius: $radius-sm;
+  font-size: .82rem;
+
+  &.rtl { border-inline-start-color: #a78bfa; }
+
+  .lp-label {
+    font-weight: 700;
+    color: var(--text-1);
+    font-size: .82rem;
+    margin-bottom: .2rem;
+  }
+  .lp-desc { color: var(--text-3); font-size: .78rem; }
+}
+
+// ── Subgrid card demo ──────────────────────
+.sg-head {
+  padding: .6rem .75rem;
+  background: var(--elevated);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .84rem;
+  color: var(--text-1);
+  border-bottom: 1px solid var(--border);
+}
+
+.sg-body {
+  padding: .6rem .75rem;
+  font-size: .78rem;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+
+.sg-foot {
+  padding: .5rem .75rem;
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--accent);
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .2s;
+  &:hover { background: rgba(91,141,238,.06); }
+}
+
+// ── Scroll driven demo box ─────────────────
+.sd-scroll-box {
+  height: 180px;
+  overflow-y: auto;
+  background: var(--elevated);
+  border-radius: $radius-sm;
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+.sd-bar {
+  position: sticky;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0;
+  background: var(--accent);
+  border-radius: 9999px;
+  transition: width .05s linear;
+  z-index: 2;
+}

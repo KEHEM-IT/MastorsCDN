@@ -1,0 +1,123 @@
+// ══════════════════════════════════════════
+// _topbar.scss — Fixed top navigation bar
+// ══════════════════════════════════════════
+
+#topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.25rem;
+  background: rgba(7, 12, 24, .85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+
+  // ── Brand ─────────────────────────────
+  .topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    text-decoration: none;
+    margin-right: auto;
+  }
+
+  .topbar-logo {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: .85rem;
+    flex-shrink: 0;
+  }
+
+  .topbar-name {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--text-1);
+    letter-spacing: -.02em;
+  }
+
+  .topbar-tag {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(91, 141, 238, .12);
+    border: 1px solid rgba(91, 141, 238, .25);
+    padding: .15rem .5rem;
+    border-radius: 9999px;
+  }
+
+  // ── Mobile sidebar toggle ─────────────
+  #topbar-mobile-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-2);
+    font-size: 1.1rem;
+    padding: .25rem .4rem;
+    border-radius: 6px;
+    transition: color .2s, background .2s;
+    order: -1;
+
+    &:hover { color: var(--text-1); background: var(--card); }
+  }
+
+  // ── Nav links ─────────────────────────
+  .topbar-nav {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .4rem .75rem;
+      border-radius: 7px;
+      font-size: .875rem;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color .2s, background .2s;
+      white-space: nowrap;
+
+      &:hover { color: var(--text-1); background: var(--card); }
+
+      &.highlight {
+        color: var(--accent);
+        background: rgba(91, 141, 238, .1);
+        border: 1px solid rgba(91, 141, 238, .25);
+        font-weight: 600;
+        &:hover { background: rgba(91, 141, 238, .18); }
+      }
+    }
+  }
+}
+
+// Mobile topbar
+@media (max-width: 768px) {
+  #topbar-mobile-btn { display: block !important; }
+
+  .topbar-nav {
+    display: none;
+    position: fixed;
+    top: var(--topbar-h);
+    left: 0; right: 0;
+    z-index: 99;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: .75rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    gap: .25rem !important;
+
+    &.open { display: flex; }
+
+    a { justify-content: flex-start; }
+  }
+}

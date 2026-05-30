@@ -1,0 +1,35 @@
+// ══════════════════════════════════════════
+// _tokens.scss — CSS custom properties
+// ══════════════════════════════════════════
+@use 'variables' as *;
+
+:root {
+  // Backgrounds
+  --deep:     #{$deep};
+  --surface:  #{$surface};
+  --card:     #{$card};
+  --elevated: #{$elevated};
+  --bg-elevated: #{$elevated};
+  --border:   #{$border};
+  --glow:     #{$glow};
+
+  // Text
+  --text-1:   #{$text-1};
+  --text-2:   #{$text-2};
+  --text-3:   #{$text-3};
+
+  // Accent
+  --accent:   #{$accent};
+  --accent-2: #{$accent-2};
+  --green:    #{$green};
+  --amber:    #{$amber};
+  --rose:     #{$rose};
+
+  // Typography
+  --font-head: #{$font-head};
+  --font-body: #{$font-body};
+  --font-mono: #{$font-mono};
+
+  // Topbar
+  --topbar-h: #{$topbar-h};
+}

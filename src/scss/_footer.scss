@@ -1,0 +1,83 @@
+// ══════════════════════════════════════════
+// _footer.scss — Page footer
+// ══════════════════════════════════════════
+
+#page-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 2rem 1.25rem;
+
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .footer-brand-wrap {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+  }
+
+  .footer-name {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: .95rem;
+    color: var(--text-1);
+    letter-spacing: -.02em;
+  }
+
+  .footer-tagline {
+    font-size: .72rem;
+    color: var(--text-3);
+    letter-spacing: .04em;
+  }
+
+  .footer-copy {
+    font-size: .78rem;
+    color: var(--text-3);
+    line-height: 1.7;
+    text-align: right;
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .footer-copy  { text-align: left; }
+  }
+}
+
+// ── Primary CTA button ─────────────────────
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: linear-gradient(135deg, var(--accent), #4a7ddd);
+  color: #fff;
+  font-size: .875rem;
+  font-weight: 600;
+  padding: .625rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  border: none;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 20px rgba(91,141,238,.35);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(91,141,238,.45);
+  }
+
+  &:active { transform: translateY(0); }
+}

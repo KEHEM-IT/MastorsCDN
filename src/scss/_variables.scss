@@ -1,0 +1,34 @@
+// ══════════════════════════════════════════
+// _variables.scss — Design tokens
+// ══════════════════════════════════════════
+
+// ── Color palette ──────────────────────────
+$deep:     #070c18;
+$surface:  #0d1526;
+$card:     #111e35;
+$elevated: #162240;
+$border:   #1e2e4a;
+$glow:     #2a4070;
+
+$text-1:   #e8edf5;
+$text-2:   #8ea3bf;
+$text-3:   #4a6080;
+
+$accent:   #5b8dee;
+$accent-2: #8b5cf6;
+$green:    #22d3a5;
+$amber:    #f6a52a;
+$rose:     #f4456b;
+
+// ── Typography ─────────────────────────────
+$font-head: 'Syne', sans-serif;
+$font-body: 'DM Sans', sans-serif;
+$font-mono: 'DM Mono', monospace;
+
+// ── Spacing ────────────────────────────────
+$radius-sm: 6px;
+$radius:    10px;
+$radius-lg: 14px;
+
+// ── Topbar ─────────────────────────────────
+$topbar-h: 60px;

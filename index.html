@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap"
         rel="stylesheet">
 
     <!-- Font Awesome 6 Pro -->
@@ -44,1667 +44,546 @@
     <!-- MastorsCDN dist CSS -->
     <link rel="stylesheet" href="dist/css/mastorscdn.css">
 
-
-
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep':    '#070c18',
+                        'surface': '#0d1526',
+                        'card':    '#111e35',
+                        'elevated':'#162240',
+                        'border':  '#1e2e4a',
+                        'glow':    '#2a4070',
+                        't1':      '#e8edf5',
+                        't2':      '#8ea3bf',
+                        't3':      '#4a6080',
+                        'accent':  '#5b8dee',
+                        'accent2': '#8b5cf6',
+                        'emerald-custom': '#22d3a5',
+                        'amber-custom':   '#f6a52a',
+                        'rose-custom':    '#f4456b',
+                    },
+                    fontFamily: {
+                        head: ['Syne', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        body: ['DM Sans', 'sans-serif'],
+                        mono: ['DM Mono', 'monospace'],
+                    },
+                    animation: {
+                        'hero-float': 'hero-float 6s ease-in-out infinite',
+                        'hero-pulse': 'hero-pulse 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'hero-float': {
+                            '0%,100%': { transform: 'translateY(0px)' },
+                            '50%':     { transform: 'translateY(-10px)' },
+                        },
+                        'hero-pulse': {
+                            '0%,100%': { opacity: '1', transform: 'scale(1)' },
+                            '50%':     { opacity: '.6', transform: 'scale(.85)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
 
     <style>
-        :root {
-            --bg-deep: #070c18;
-            --bg-surface: #0d1526;
-            --bg-card: #111e35;
-            --bg-elevated: #162240;
-            --border: #1e2e4a;
-            --border-glow: #2a4070;
-            --text-1: #e8edf5;
-            --text-2: #8ea3bf;
-            --text-3: #4a6080;
-            --accent: #5b8dee;
-            --accent-2: #8b5cf6;
-            --accent-glow: rgba(91, 141, 238, .18);
-            --green: #22d3a5;
-            --amber: #f6a52a;
-            --rose: #f4456b;
-            --font-head: 'Syne', sans-serif;
-            --font-body: 'DM Sans', sans-serif;
-            --font-mono: 'DM Mono', monospace;
-        }
+        /* ── Base & scrollbar ───────────────────── */
+        html { scroll-behavior: smooth; }
+        body { -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track  { background: #070c18; }
+        ::-webkit-scrollbar-thumb  { background: #2a4070; border-radius: 9999px; }
+        #sidebar::-webkit-scrollbar { width: 3px; }
+        [id] { scroll-margin-top: 80px; }
 
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 18px;
-        }
-
-        body {
-            background: var(--bg-deep);
-            color: var(--text-1);
-            font-family: var(--font-body);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-deep);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-glow);
-            border-radius: 9999px;
-        }
-
-        /* ── Layout ─────────────────────────────── */
-        .layout {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* ── Top bar ────────────────────────────── */
-        #topbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            padding: 0 1.5rem;
-            background: rgba(7, 12, 24, .85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
-            gap: 1rem;
-        }
-
-        .topbar-brand {
-            display: flex;
-            align-items: center;
-            gap: .6rem;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-
-        .topbar-logo {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .85rem;
-            color: white;
-            box-shadow: 0 0 16px var(--accent-glow);
-        }
-
-        .topbar-name {
-            font-family: var(--font-head);
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-1);
-        }
-
-        .topbar-tag {
-            font-size: .75rem;
-            font-weight: 700;
-            letter-spacing: .06em;
-            background: var(--accent-glow);
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            padding: .2rem .6rem;
-            border-radius: 99px;
-        }
-
-        .topbar-nav {
-            display: flex;
-            align-items: center;
-            gap: .25rem;
-            margin-left: auto;
-        }
-
-        .topbar-nav a {
-            font-size: .95rem;
-            color: var(--text-2);
-            text-decoration: none;
-            padding: .5rem 1rem;
-            border-radius: 6px;
-            transition: color .2s, background .2s;
-        }
-
-        .topbar-nav a:hover {
-            color: var(--text-1);
-            background: var(--bg-card);
-        }
-
-        .topbar-nav a.highlight {
-            color: var(--accent);
-            background: var(--accent-glow);
-            border: 1px solid rgba(91, 141, 238, .3);
-        }
-
-        .topbar-nav a.highlight:hover {
-            background: rgba(91, 141, 238, .25);
-        }
-
-        #topbar-mobile-btn {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-2);
-            font-size: 1.1rem;
-            padding: .4rem;
-        }
-
-        @media (max-width: 768px) {
-            #topbar-mobile-btn {
-                display: block;
-            }
-
-            .topbar-nav {
-                display: none;
-                position: fixed;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: var(--bg-surface);
-                border-bottom: 1px solid var(--border);
-                flex-direction: column;
-                padding: .75rem;
-                z-index: 99;
-            }
-
-            .topbar-nav.open {
-                display: flex;
-            }
-        }
-
-        /* ── Sidebar ────────────────────────────── */
-        #sidebar {
-            width: 240px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 60px;
-            height: calc(100vh - 60px);
-            overflow-y: auto;
-            overflow-x: hidden;
-            background: var(--bg-surface);
-            border-right: 1px solid var(--border);
-            padding: 1.25rem .75rem;
-            transition: transform .3s;
-        }
-
-        #sidebar::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        .sidebar-group-label {
-            font-size: .72rem;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            color: var(--text-3);
-            padding: .4rem .85rem;
-            margin-bottom: .25rem;
-            margin-top: 1rem;
-        }
-
-        .sidebar-group-label:first-child {
-            margin-top: 0;
-        }
-
-        .slink {
-            display: flex;
-            align-items: center;
-            gap: .6rem;
-            padding: .5rem .85rem;
-            border-radius: 6px;
-            font-size: .92rem;
-            color: var(--text-2);
-            text-decoration: none;
-            transition: all .2s;
-            border-left: 2px solid transparent;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .slink i {
-            font-size: .75rem;
-            width: 14px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .slink:hover {
-            color: var(--text-1);
-            background: var(--bg-card);
-            border-left-color: var(--border-glow);
-        }
-
-        .slink.active {
-            color: var(--accent);
-            background: var(--accent-glow);
-            border-left-color: var(--accent);
-        }
-
-        .slink.playground-link {
-            color: var(--accent);
-        }
-
+        /* ── Sidebar mobile transition ──────────── */
         @media (max-width: 1024px) {
-            #sidebar {
-                position: fixed;
-                left: 0;
-                top: 60px;
-                z-index: 90;
-                transform: translateX(-100%);
-                height: calc(100vh - 60px);
-            }
-
-            #sidebar.open {
-                transform: translateX(0);
-            }
-
-            #sidebar-overlay {
-                display: none;
-                position: fixed;
-                inset: 0;
-                z-index: 89;
-                background: rgba(0, 0, 0, .6);
-                top: 60px;
-            }
-
-            #sidebar-overlay.show {
-                display: block;
-            }
+            #sidebar { transform: translateX(-100%); transition: transform .3s; }
+            #sidebar.open { transform: translateX(0); }
+            #sidebar-overlay { display: none; }
+            #sidebar-overlay.show { display: block; }
         }
 
-        /* ── Main content ───────────────────────── */
-        #main-content {
-            flex: 1;
-            min-width: 0;
-            padding: 3rem 3.5rem;
-            width: 100%;
-            margin-top: 60px;
-        }
-
+        /* ── Topbar mobile nav ──────────────────── */
         @media (max-width: 768px) {
-            #main-content {
-                padding: 2rem 1.25rem;
+            #topbar-mobile-btn { display: block !important; }
+            .topbar-nav {
+                display: none; position: fixed; top: 60px;
+                left: 0; right: 0; z-index: 99;
+                flex-direction: column; padding: .75rem;
             }
+            .topbar-nav.open { display: flex; }
         }
 
-        /* ── Section titles ─────────────────────── */
-        .sec-title {
-            display: flex;
-            align-items: center;
-            gap: .75rem;
-            margin-bottom: 1rem;
-        }
-
-        .sec-bar {
-            width: 3px;
-            height: 28px;
-            border-radius: 99px;
-            background: linear-gradient(180deg, var(--accent), var(--accent-2));
-            flex-shrink: 0;
-        }
-
-        .sec-title h2 {
-            font-family: var(--font-head);
-            font-size: 1.55rem;
-            font-weight: 700;
-            color: var(--text-1);
-        }
-
-        .status-badge {
-            font-size: .62rem;
-            font-weight: 700;
-            letter-spacing: .06em;
-            text-transform: uppercase;
-            padding: .2rem .6rem;
-            border-radius: 99px;
-        }
-
-        .badge-stable {
-            background: rgba(34, 211, 165, .12);
-            color: var(--green);
-            border: 1px solid rgba(34, 211, 165, .3);
-        }
-
-        .badge-partial {
-            background: rgba(246, 165, 42, .12);
-            color: var(--amber);
-            border: 1px solid rgba(246, 165, 42, .3);
-        }
-
-        .badge-new {
-            background: rgba(91, 141, 238, .14);
-            color: var(--accent);
-            border: 1px solid rgba(91, 141, 238, .3);
-        }
-
-        .sec-lead {
-            color: var(--text-2);
-            font-size: 1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .sec-lead code {
-            font-family: var(--font-mono);
-            font-size: .82rem;
-            color: var(--accent);
-            background: rgba(91, 141, 238, .1);
-            padding: .1rem .35rem;
-            border-radius: 4px;
-        }
-
-        /* ── Feature cards grid ─────────────────── */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .f-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.1rem 1rem;
-            transition: border-color .2s, box-shadow .2s, transform .2s;
-        }
-
-        .f-card:hover {
-            border-color: var(--border-glow);
-            box-shadow: 0 6px 24px rgba(0, 0, 0, .3);
-            transform: translateY(-2px);
-        }
-
-        .f-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .85rem;
-            margin-bottom: .75rem;
-        }
-
-        .f-card h3 {
-            font-family: var(--font-head);
-            font-size: .88rem;
-            font-weight: 700;
-            color: var(--text-1);
-            margin-bottom: .35rem;
-        }
-
-        .f-card p {
-            font-size: .78rem;
-            color: var(--text-3);
-            line-height: 1.5;
-        }
-
-        /* ── Code + demo grid ───────────────────── */
-        .code-demo {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (max-width: 900px) {
-            .code-demo {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .code-block {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .code-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #0d1117;
-            border: 1px solid var(--border);
-            border-bottom: none;
-            border-radius: 10px 10px 0 0;
-            padding: .5rem .85rem;
-        }
-
-        .code-lang {
-            font-size: .68rem;
-            font-weight: 600;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            color: var(--text-3);
-        }
-
-        .copy-btn {
-            font-size: .68rem;
-            color: var(--text-3);
-            background: none;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: .2rem .5rem;
-            cursor: pointer;
-            font-family: var(--font-body);
-            transition: all .2s;
-        }
-
-        .copy-btn:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
+        /* ── Prism override ─────────────────────── */
         pre[class*="language-"] {
             border-radius: 0 0 10px 10px !important;
             margin: 0 !important;
             font-size: .78rem !important;
             max-height: 360px;
             overflow: auto;
-            border: 1px solid var(--border);
+            border: 1px solid #1e2e4a;
             border-top: none;
-            font-family: var(--font-mono) !important;
+            font-family: 'DM Mono', monospace !important;
         }
 
-        .demo-panel {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.25rem;
-            display: flex;
-            flex-direction: column;
-            gap: .75rem;
-        }
-
-        .demo-label {
-            font-size: .68rem;
-            font-weight: 700;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            color: var(--text-3);
-            margin-bottom: 0;
-        }
-
-        /* ── Browser support table ──────────────── */
-        .support-table-wrap {
-            overflow-x: auto;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            margin-bottom: 2rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 580px;
-            font-size: .9rem;
-        }
-
-        thead {
-            background: var(--bg-card);
-        }
-
-        thead th {
-            padding: .75rem 1rem;
-            font-weight: 600;
-            color: var(--text-2);
-            text-align: left;
-        }
-
-        tbody tr {
-            border-top: 1px solid var(--border);
-            transition: background .15s;
-        }
-
-        tbody tr:hover {
-            background: rgba(255, 255, 255, .02);
-        }
-
-        tbody td {
-            padding: .75rem 1rem;
-            color: var(--text-2);
-        }
-
-        tbody td:first-child {
-            color: var(--text-1);
-            font-weight: 500;
-        }
-
-        .sup-yes {
-            display: inline-flex;
-            align-items: center;
-            gap: .3rem;
-            background: rgba(34, 211, 165, .12);
-            color: var(--green);
-            border: 1px solid rgba(34, 211, 165, .25);
-            padding: .2rem .55rem;
-            border-radius: 99px;
-            font-size: .72rem;
-            font-weight: 600;
-        }
-
-        .sup-no {
-            display: inline-flex;
-            align-items: center;
-            gap: .3rem;
-            background: rgba(244, 69, 107, .1);
-            color: var(--rose);
-            border: 1px solid rgba(244, 69, 107, .2);
-            padding: .2rem .55rem;
-            border-radius: 99px;
-            font-size: .72rem;
-            font-weight: 600;
-        }
-
-        .sup-part {
-            display: inline-flex;
-            align-items: center;
-            gap: .3rem;
-            background: rgba(246, 165, 42, .1);
-            color: var(--amber);
-            border: 1px solid rgba(246, 165, 42, .2);
-            padding: .2rem .55rem;
-            border-radius: 99px;
-            font-size: .72rem;
-            font-weight: 600;
-        }
-
-        /* ── Hero section ───────────────────────── */
-        .hero {
-            position: relative;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 2.5rem;
-            align-items: center;
-            padding: 4rem 0 3.5rem;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid var(--border);
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -60px;
-            left: -3.5rem;
-            right: -3.5rem;
-            bottom: 0;
-            background:
-                radial-gradient(ellipse 80% 55% at 30% -10%, rgba(91, 141, 238, .18) 0%, transparent 65%),
-                radial-gradient(ellipse 50% 40% at 85% 80%, rgba(139, 92, 246, .12) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(91,141,238,.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(91,141,238,.05) 1px, transparent 1px);
-            background-size: 48px 48px;
-            mask-image: radial-gradient(ellipse 70% 80% at 20% 40%, black 0%, transparent 75%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: .55rem;
-            font-size: .72rem;
-            font-weight: 700;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            color: var(--accent);
-            background: rgba(91,141,238,.1);
-            border: 1px solid rgba(91,141,238,.25);
-            padding: .3rem .75rem .3rem .6rem;
-            border-radius: 99px;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-eyebrow i {
-            font-size: .65rem;
-            animation: hero-pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes hero-pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: .6; transform: scale(.85); }
-        }
-
-        .hero h1 {
-            font-family: var(--font-head);
-            font-size: clamp(2.4rem, 5vw, 3.8rem);
-            font-weight: 800;
-            line-height: 1.08;
-            color: var(--text-1);
-            margin-bottom: 1.35rem;
-            letter-spacing: -.03em;
-            text-wrap: balance;
-        }
-
-        .hero h1 em {
-            font-style: normal;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-sub {
-            font-size: 1rem;
-            color: var(--text-2);
-            max-width: 520px;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            text-wrap: pretty;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: .75rem;
-            flex-wrap: wrap;
-            margin-bottom: 2.5rem;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
-            background: linear-gradient(135deg, var(--accent), #4a7ddd);
-            color: white;
-            font-size: .85rem;
-            font-weight: 600;
-            padding: .65rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all .25s;
-            box-shadow: 0 4px 20px rgba(91, 141, 238, .35), 0 1px 0 rgba(255,255,255,.1) inset;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(91, 141, 238, .45);
-        }
-
-        .btn-outline {
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
-            background: transparent;
-            color: var(--accent);
-            font-size: .85rem;
-            font-weight: 600;
-            padding: .65rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            border: 1px solid rgba(91, 141, 238, .4);
-            transition: all .25s;
-        }
-
-        .btn-outline:hover {
-            background: var(--accent-glow);
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 0;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: var(--bg-card);
-            overflow: hidden;
-        }
-
-        .stat-item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: .2rem;
-            padding: 1rem 1.25rem;
-            border-right: 1px solid var(--border);
-            transition: background .2s;
-        }
-
-        .stat-item:last-child { border-right: none; }
-
-        .stat-item:hover { background: var(--bg-elevated); }
-
-        .stat-num {
-            font-family: var(--font-head);
-            font-size: 1.75rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--text-1), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-label {
-            font-size: .72rem;
-            color: var(--text-3);
-            letter-spacing: .04em;
-        }
-
-        /* Hero floating code card */
-        .hero-visual {
-            position: relative;
-            z-index: 1;
-            width: 320px;
-            flex-shrink: 0;
-        }
-
-        .hero-code-card {
-            background: #0d1117;
-            border: 1px solid var(--border-glow);
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(91,141,238,.12);
-            font-family: var(--font-mono);
-            font-size: .72rem;
-            animation: hero-float 6s ease-in-out infinite;
-        }
-
-        @keyframes hero-float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .hcc-bar {
-            display: flex;
-            align-items: center;
-            gap: .4rem;
-            padding: .65rem .85rem;
-            background: #161b22;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .hcc-dot {
-            width: 10px; height: 10px;
-            border-radius: 50%;
-        }
-
-        .hcc-title {
-            font-family: var(--font-body);
-            font-size: .68rem;
-            color: var(--text-3);
-            margin-left: auto;
-            margin-right: auto;
-            letter-spacing: .04em;
-        }
-
-        .hcc-body {
-            padding: 1rem 1.1rem;
-            line-height: 1.7;
-        }
-
-        .c-comment { color: #6a737d; }
-        .c-at      { color: #ff7b72; }
-        .c-prop    { color: #79c0ff; }
-        .c-val     { color: #a5d6ff; }
-        .c-str     { color: #a8ff78; }
-        .c-num     { color: #f2cc60; }
-        .c-punc    { color: #8b949e; }
-
-        .hero-badge {
-            position: absolute;
-            bottom: -14px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            color: white;
-            font-size: .68rem;
-            font-weight: 700;
-            letter-spacing: .05em;
-            padding: .35rem .85rem;
-            border-radius: 99px;
-            box-shadow: 0 4px 16px rgba(91,141,238,.4);
-        }
-
-        @media (max-width: 960px) {
-            .hero {
-                grid-template-columns: 1fr;
-            }
-            .hero-visual { display: none; }
-        }
-
-        /* ── Feature section block ──────────────── */
-        .feature-section {
-            margin-bottom: 4.5rem;
-            padding-bottom: 4.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .feature-section:last-of-type {
-            border-bottom: none;
-        }
-
-        /* ── Info callout ───────────────────────── */
-        .callout {
-            background: rgba(91, 141, 238, .06);
-            border: 1px solid rgba(91, 141, 238, .2);
-            border-left: 3px solid var(--accent);
-            border-radius: 8px;
-            padding: .85rem 1.1rem;
-            font-size: .82rem;
-            color: var(--text-2);
-            display: flex;
-            gap: .75rem;
-            align-items: flex-start;
-        }
-
-        .callout i {
-            color: var(--accent);
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .callout code {
-            font-family: var(--font-mono);
-            font-size: .79rem;
-            color: var(--accent);
-        }
-
-        /* ── section anchor offset ──────────────── */
-        [id] {
-            scroll-margin-top: 80px;
-        }
-
-        /* ── Footer ─────────────────────────────── */
-        #page-footer {
-            border-top: 1px solid var(--border);
-            background: var(--bg-surface);
-            padding: 2.5rem 3.5rem;
-        }
-
-        .footer-inner {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-brand-wrap {
-            display: flex;
-            align-items: center;
-            gap: .75rem;
-        }
-
-        .footer-name {
-            font-family: var(--font-head);
-            font-size: .9rem;
-            font-weight: 700;
-            color: var(--text-1);
-        }
-
-        .footer-tagline {
-            font-size: .75rem;
-            color: var(--text-3);
-        }
-
-        .footer-copy {
-            font-size: .75rem;
-            color: var(--text-3);
-            text-align: right;
-        }
-
-        .footer-copy a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .footer-copy a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 600px) {
-            #page-footer {
-                padding: 2rem 1.25rem;
-            }
-
-            .footer-copy {
-                text-align: left;
-            }
-        }
-
-        /* ── DEMO component styles ───────────────── */
-        /* Container Query demo */
-        .cq-wrap {
-            container-type: inline-size;
-        }
-
-        .cq-card {
-            border-radius: 8px;
-            overflow: hidden;
-            background: var(--bg-elevated);
-        }
-
+        /* ── CSS-only demo styles (can't use Tailwind) ── */
+        /* Container Query */
+        .cq-wrap { container-type: inline-size; }
+        .cq-card { border-radius: 8px; overflow: hidden; background: #162240; }
         @container (min-width: 360px) {
-            .cq-card {
-                display: flex;
-            }
-
-            .cq-card-img {
-                width: 100px;
-                flex-shrink: 0;
-            }
+            .cq-card { display: flex; }
+            .cq-card-img { width: 100px; flex-shrink: 0; }
         }
-
         @container (max-width: 359px) {
-            .cq-card-img {
-                width: 100%;
-                height: 80px;
-            }
+            .cq-card-img { width: 100%; height: 80px; }
         }
-
         .cq-card-img {
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.3rem;
+            background: linear-gradient(135deg, #5b8dee, #8b5cf6);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.3rem;
         }
-
-        .cq-card-body {
-            padding: .75rem;
-        }
-
-        .cq-card-title {
-            font-weight: 700;
-            color: var(--text-1);
-            font-size: .83rem;
-        }
-
-        .cq-card-text {
-            color: var(--text-2);
-            font-size: .75rem;
-            margin-top: .2rem;
-        }
-
-        /* Cascade layer demo */
+        /* Cascade layers */
         @layer layer-base, layer-components, layer-utilities;
-
         @layer layer-base {
-            .cl-btn {
-                background: #475569;
-                color: white;
-                padding: .45rem 1rem;
-                border-radius: 5px;
-                border: none;
-                cursor: pointer;
-                font-size: .8rem;
-                font-family: var(--font-body);
-            }
+            .cl-btn { background:#475569; color:white; padding:.45rem 1rem; border-radius:5px; border:none; cursor:pointer; font-size:.8rem; font-family:'DM Sans',sans-serif; }
         }
-
         @layer layer-components {
-            .cl-btn {
-                background: var(--accent);
-                border-radius: 8px;
-                font-weight: 600;
-            }
+            .cl-btn { background:#5b8dee; border-radius:8px; font-weight:600; }
         }
-
         @layer layer-utilities {
-            .cl-btn-alt {
-                background: #a855f7;
-            }
+            .cl-btn-alt { background:#a855f7; }
         }
-
-        /* Color level 5 demo */
-        .color-swatches {
-            display: flex;
-            gap: .45rem;
-            flex-wrap: wrap;
-        }
-
-        .swatch {
-            width: 36px;
-            height: 36px;
-            border-radius: 6px;
-        }
-
         /* :has() demo */
-        .has-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: .3rem;
-        }
-
-        .has-list li {
-            display: flex;
-            align-items: center;
-            gap: .6rem;
-            padding: .45rem .6rem;
-            border-radius: 6px;
-            font-size: .82rem;
-            color: var(--text-1);
-            transition: all .25s;
-        }
-
-        .has-list li:has(input:checked) {
-            text-decoration: line-through;
-            opacity: .45;
-        }
-
-        .has-list input[type="checkbox"] {
-            accent-color: var(--accent);
-            width: 14px;
-            height: 14px;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
+        .has-list { list-style:none; display:flex; flex-direction:column; gap:.3rem; }
+        .has-list li { display:flex; align-items:center; gap:.6rem; padding:.45rem .6rem; border-radius:6px; font-size:.82rem; color:#e8edf5; transition:all .25s; }
+        .has-list li:has(input:checked) { text-decoration:line-through; opacity:.45; }
+        .has-list input[type="checkbox"] { accent-color:#5b8dee; width:14px; height:14px; cursor:pointer; flex-shrink:0; }
         /* Scroll demo */
-        .sd-scroll-box {
-            overflow-y: auto;
-            height: 180px;
-            border-radius: 8px;
-            background: var(--bg-elevated);
-        }
-
-        .sd-bar {
-            position: sticky;
-            top: 0;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 99px;
-            width: 0%;
-            transition: width .1s;
-        }
-
-        .sd-item {
-            padding: .65rem .85rem;
-            font-size: .8rem;
-            color: var(--text-2);
-            opacity: 0;
-            transform: translateY(14px);
-            transition: opacity .4s, transform .4s;
-        }
-
-        .sd-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .sd-item-1 {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Subgrid demo */
-        .sg-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: auto 1fr auto;
-            gap: .6rem;
-        }
-
-        .sg-card {
-            display: grid;
-            grid-row: span 3;
-            grid-template-rows: subgrid;
-            background: var(--bg-elevated);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .sg-head {
-            background: var(--bg-surface);
-            padding: .55rem .75rem;
-            font-size: .75rem;
-            font-weight: 700;
-            color: var(--text-1);
-        }
-
-        .sg-body {
-            padding: .55rem .75rem;
-            font-size: .72rem;
-            color: var(--text-2);
-            line-height: 1.5;
-        }
-
-        .sg-foot {
-            padding: .45rem .75rem;
-            border-top: 1px solid var(--border);
-            font-size: .7rem;
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* @property spin demo */
-        @property --rot-angle {
-            syntax: '<angle>';
-            initial-value: 0deg;
-            inherits: false;
-        }
-
-        .prop-spin {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            background: conic-gradient(from var(--rot-angle), var(--accent), var(--accent-2), #ec4899, var(--accent));
-            animation: prop-rot 3s linear infinite;
-        }
-
-        @keyframes prop-rot {
-            to {
-                --rot-angle: 360deg;
-            }
-        }
-
-        /* View Transition demo box */
-        #vt-box {
-            height: 80px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-head);
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: white;
-            transition: opacity .25s, transform .25s;
-        }
-
-        .vt-btn {
-            font-size: .78rem;
-            font-weight: 600;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
-            color: var(--text-2);
-            border-radius: 7px;
-            padding: .45rem 1rem;
-            cursor: pointer;
-            font-family: var(--font-body);
-            transition: all .2s;
-        }
-
-        .vt-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* Logical props demo */
-        .lp-box {
-            padding: .75rem 1.1rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .lp-box.ltr {
-            border-inline-start: 3px solid var(--accent);
-        }
-
-        .lp-box.rtl {
-            border-inline-start: 3px solid #a855f7;
-        }
-
-        .lp-label {
-            font-size: .75rem;
-            font-weight: 600;
-            color: var(--text-1);
-        }
-
-        .lp-desc {
-            font-size: .72rem;
-            color: var(--text-3);
-            margin-top: .15rem;
-        }
-
-        /* Anchor Positioning demo */
-        .ap-host {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100px;
-        }
-
-        .ap-btn {
-            anchor-name: --ap-btn;
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: .5rem 1.25rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: .8rem;
-            font-weight: 600;
-            font-family: var(--font-body);
-        }
-
-        .ap-tip {
-            position: absolute;
-            position-anchor: --ap-btn;
-            top: anchor(top);
-            left: anchor(center);
-            translate: -50% calc(-100% - 10px);
-            background: var(--bg-elevated);
-            color: var(--text-1);
-            padding: .3rem .8rem;
-            border-radius: 6px;
-            font-size: .74rem;
-            white-space: nowrap;
-            border: 1px solid var(--border);
-            pointer-events: none;
-        }
+        .sd-item { padding:.65rem .85rem; font-size:.8rem; color:#8ea3bf; opacity:0; transform:translateY(14px); transition:opacity .4s,transform .4s; }
+        .sd-item.visible { opacity:1; transform:translateY(0); }
+        .sd-item-1 { opacity:1; transform:translateY(0); }
+        /* Subgrid */
+        .sg-grid { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:auto 1fr auto; gap:.6rem; }
+        .sg-card { display:grid; grid-row:span 3; grid-template-rows:subgrid; background:#162240; border-radius:8px; overflow:hidden; }
+        /* @property spin */
+        @property --rot-angle { syntax:'<angle>'; initial-value:0deg; inherits:false; }
+        .prop-spin { width:72px; height:72px; border-radius:50%; background:conic-gradient(from var(--rot-angle),#5b8dee,#8b5cf6,#ec4899,#5b8dee); animation:prop-rot 3s linear infinite; }
+        @keyframes prop-rot { to { --rot-angle: 360deg; } }
+        /* Anchor positioning */
+        .ap-btn { anchor-name:--ap-btn; }
+        .ap-tip { position:absolute; position-anchor:--ap-btn; top:anchor(top); left:anchor(center); translate:-50% calc(-100% - 10px); }
+        /* Hero grid layouts — removed (hero is now centered) */
+        /* code-demo 2-col grid */
+        .code-demo { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem; }
+        @media(max-width:900px) { .code-demo { grid-template-columns:1fr; } }
+        /* feature-grid */
+        .feature-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1rem; margin-bottom:2rem; }
     </style>
 </head>
 
-<body>
+<body class="bg-deep text-t1 font-body leading-relaxed antialiased">
 
-    <!-- ═══════ TOP BAR ═══════ -->
-    <header id="topbar">
-        <a href="index.html" class="topbar-brand">
-            <div class="topbar-logo"><i class="fa-solid fa-layer-group"></i></div>
-            <span class="topbar-name">MastorsCDN</span>
-            <span class="topbar-tag">CSS 2027</span>
-        </a>
-        <button id="topbar-mobile-btn" onclick="document.querySelector('.topbar-nav').classList.toggle('open')">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-        <nav class="topbar-nav">
-            <a href="#features">Features</a>
-            <a href="#browser-support">Browser Support</a>
-            <a href="#container-queries">Docs</a>
-            <a href="playground/index.html" class="highlight"><i class="fa-solid fa-code"></i> Playground</a>
-            <a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank"><i class="fa-brands fa-github"></i></a>
-        </nav>
-    </header>
+    <!-- ═══════ HEADER COMPONENT SLOT ═══════ -->
+    <div id="header-slot"></div>
 
     <!-- ═══════ LAYOUT ═══════ -->
-    <div class="layout">
+    <div class="flex min-h-screen">
+
+        <!-- ─── SIDEBAR OVERLAY ─── -->
+        <div id="sidebar-overlay" onclick="closeSidebar()"></div>
 
         <!-- ─── SIDEBAR ─── -->
-        <div id="sidebar-overlay" onclick="closeSidebar()"></div>
-        <aside id="sidebar">
-            <div class="sidebar-group-label">Getting Started</div>
-            <a href="#intro" class="slink"><i class="fa-solid fa-house"></i> Introduction</a>
-            <a href="#whats-new" class="slink"><i class="fa-solid fa-sparkles"></i> What's New</a>
-            <a href="#browser-support" class="slink"><i class="fa-brands fa-chrome"></i> Browser Support</a>
+        <aside id="sidebar"
+               class="w-[240px] shrink-0 sticky lg:sticky fixed top-[60px] left-0 z-[90] h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden bg-surface border-r border-border py-5 px-3">
 
-            <div class="sidebar-group-label">CSS 2027 Features</div>
-            <a href="#container-queries" class="slink"><i class="fa-solid fa-box-archive"></i> Container Queries</a>
-            <a href="#cascade-layers" class="slink"><i class="fa-solid fa-layer-group"></i> Cascade Layers</a>
-            <a href="#color-level5" class="slink"><i class="fa-solid fa-palette"></i> Color Level 5</a>
-            <a href="#nesting" class="slink"><i class="fa-solid fa-code-branch"></i> CSS Nesting</a>
-            <a href="#scope" class="slink"><i class="fa-solid fa-circle-dot"></i> @scope</a>
-            <a href="#anchor-pos" class="slink"><i class="fa-solid fa-anchor"></i> Anchor Positioning</a>
-            <a href="#view-transitions" class="slink"><i class="fa-solid fa-wand-magic-sparkles"></i> View
-                Transitions</a>
-            <a href="#has-selector" class="slink"><i class="fa-solid fa-filter"></i> :has() Selector</a>
-            <a href="#scroll-driven" class="slink"><i class="fa-solid fa-scroll"></i> Scroll-Driven Anims</a>
-            <a href="#custom-props" class="slink"><i class="fa-solid fa-sliders"></i> @property</a>
-            <a href="#subgrid" class="slink"><i class="fa-solid fa-table-cells"></i> Subgrid</a>
-            <a href="#math-funcs" class="slink"><i class="fa-solid fa-square-root-variable"></i> Math Functions</a>
-            <a href="#logical-props" class="slink"><i class="fa-solid fa-arrows-left-right"></i> Logical Properties</a>
-            <a href="#starting-style" class="slink"><i class="fa-solid fa-wand-sparkles"></i> @starting-style</a>
-            <a href="#interpolate-size" class="slink"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> interpolate-size</a>
-            <a href="#text-wrap" class="slink"><i class="fa-solid fa-align-left"></i> text-wrap</a>
+            <div class="text-[.72rem] font-bold tracking-[.1em] uppercase text-t3 px-3.5 mb-1 mt-0">Getting Started</div>
+            <a href="#intro"         class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-house text-[.75rem] w-3.5 text-center shrink-0"></i> Introduction</a>
+            <a href="#whats-new"     class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-sparkles text-[.75rem] w-3.5 text-center shrink-0"></i> What's New</a>
+            <a href="#browser-support" class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-brands fa-chrome text-[.75rem] w-3.5 text-center shrink-0"></i> Browser Support</a>
 
-            <div class="sidebar-group-label">Tools</div>
-            <a href="playground/index.html" class="slink playground-link"><i class="fa-solid fa-play"></i> Live
-                Playground</a>
+            <div class="text-[.72rem] font-bold tracking-[.1em] uppercase text-t3 px-3.5 mb-1 mt-4">CSS 2027 Features</div>
+            <a href="#container-queries" class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-box-archive text-[.75rem] w-3.5 text-center shrink-0"></i> Container Queries</a>
+            <a href="#cascade-layers"    class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-layer-group text-[.75rem] w-3.5 text-center shrink-0"></i> Cascade Layers</a>
+            <a href="#color-level5"      class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-palette text-[.75rem] w-3.5 text-center shrink-0"></i> Color Level 5</a>
+            <a href="#nesting"           class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-code-branch text-[.75rem] w-3.5 text-center shrink-0"></i> CSS Nesting</a>
+            <a href="#scope"             class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-circle-dot text-[.75rem] w-3.5 text-center shrink-0"></i> @scope</a>
+            <a href="#anchor-pos"        class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-anchor text-[.75rem] w-3.5 text-center shrink-0"></i> Anchor Positioning</a>
+            <a href="#view-transitions"  class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-wand-magic-sparkles text-[.75rem] w-3.5 text-center shrink-0"></i> View Transitions</a>
+            <a href="#has-selector"      class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-filter text-[.75rem] w-3.5 text-center shrink-0"></i> :has() Selector</a>
+            <a href="#scroll-driven"     class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-scroll text-[.75rem] w-3.5 text-center shrink-0"></i> Scroll-Driven Anims</a>
+            <a href="#custom-props"      class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-sliders text-[.75rem] w-3.5 text-center shrink-0"></i> @property</a>
+            <a href="#subgrid"           class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-table-cells text-[.75rem] w-3.5 text-center shrink-0"></i> Subgrid</a>
+            <a href="#math-funcs"        class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-square-root-variable text-[.75rem] w-3.5 text-center shrink-0"></i> Math Functions</a>
+            <a href="#logical-props"     class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-arrows-left-right text-[.75rem] w-3.5 text-center shrink-0"></i> Logical Properties</a>
+            <a href="#starting-style"    class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-wand-sparkles text-[.75rem] w-3.5 text-center shrink-0"></i> @starting-style</a>
+            <a href="#interpolate-size"  class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-up-right-and-down-left-from-center text-[.75rem] w-3.5 text-center shrink-0"></i> interpolate-size</a>
+            <a href="#text-wrap"         class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-t2 no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:text-t1 hover:bg-card hover:border-l-glow"><i class="fa-solid fa-align-left text-[.75rem] w-3.5 text-center shrink-0"></i> text-wrap</a>
+
+            <div class="text-[.72rem] font-bold tracking-[.1em] uppercase text-t3 px-3.5 mb-1 mt-4">Tools</div>
+            <a href="playground/index.html" class="slink flex items-center gap-2.5 px-3.5 py-2 rounded-md text-[.92rem] text-accent no-underline transition-all border-l-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis hover:bg-card hover:border-l-glow"><i class="fa-solid fa-play text-[.75rem] w-3.5 text-center shrink-0"></i> Live Playground</a>
         </aside>
 
         <!-- ─── MAIN ─── -->
-        <main id="main-content">
+        <main id="main-content" class="flex-1 min-w-0 px-6 md:px-14 py-12 w-full mt-[60px]">
 
             <!-- ════ HERO ════ -->
-            <section id="intro" class="hero">
-                <div class="hero-content">
-                    <div class="hero-eyebrow"><i class="fa-solid fa-circle-dot"></i> CSS 2027 Documentation</div>
-                    <h1>The future of CSS<br>is <em>already here.</em></h1>
-                    <p class="hero-sub">Explore every major CSS feature landing in 2027 — container queries, anchor
-                        positioning, scroll-driven animations, and more — with live browser demos and full support tables.
-                    </p>
-                    <div class="hero-actions">
-                        <a href="#features" class="btn-primary"><i class="fa-solid fa-arrow-down"></i> Explore Features</a>
-                        <a href="playground/index.html" class="btn-outline"><i class="fa-solid fa-code"></i> Open
-                            Playground</a>
+            <section id="intro" class="relative overflow-hidden pt-14 pb-20 mb-16 border-b border-border">
+
+                <!-- Background glow -->
+                <div class="pointer-events-none absolute inset-0" style="background:
+                    radial-gradient(ellipse 55% 60% at 30% 50%, rgba(91,141,238,.15) 0%, transparent 65%),
+                    radial-gradient(ellipse 40% 40% at 85% 75%, rgba(139,92,246,.10) 0%, transparent 60%),
+                    radial-gradient(ellipse 30% 30% at 70% 15%, rgba(244,114,182,.06) 0%, transparent 55%)"></div>
+                <!-- Dot grid -->
+                <div class="pointer-events-none absolute inset-0" style="
+                    background-image:radial-gradient(rgba(91,141,238,.13) 1px, transparent 1px);
+                    background-size:28px 28px;
+                    mask-image:radial-gradient(ellipse 90% 90% at 50% 50%, black 0%, transparent 75%)"></div>
+
+                <!-- Two-col layout: text | code card -->
+                <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-16">
+
+                    <!-- ── Left: text content ── -->
+                    <div class="flex-1 min-w-0">
+                        <!-- Label pill -->
+                        <div class="inline-flex items-center gap-2 text-[.68rem] font-bold tracking-[.14em] uppercase text-accent bg-accent/10 border border-accent/20 px-3 py-1.5 rounded-full mb-6">
+                            <span class="w-1.5 h-1.5 rounded-full bg-accent animate-hero-pulse inline-block shrink-0"></span>
+                            CSS 2027 Documentation
+                        </div>
+
+                        <!-- H1 — Space Grotesk -->
+                        <h1 class="font-display font-bold leading-[1.06] tracking-[-0.04em] text-t1 mb-5"
+                            style="font-size:clamp(2.2rem,4.5vw,3.6rem)">
+                            The future of CSS<br>
+                            <span style="background:linear-gradient(135deg,#5b8dee 0%,#a78bfa 55%,#f472b6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">
+                                is already here.
+                            </span>
+                        </h1>
+
+                        <!-- Sub -->
+                        <p class="text-t2 text-[.97rem] leading-[1.85] max-w-[480px] mb-8">
+                            Every major CSS feature landing in 2027 — container queries, anchor positioning,
+                            scroll-driven animations — with live demos and full browser support tables.
+                        </p>
+
+                        <!-- CTAs -->
+                        <div class="flex items-center gap-3 flex-wrap mb-10">
+                            <a href="#features"
+                                class="inline-flex items-center gap-2 text-white text-sm font-semibold px-5 py-2.5 rounded-lg no-underline transition-all hover:-translate-y-0.5"
+                                style="background:linear-gradient(135deg,#5b8dee,#4a7ddd);box-shadow:0 4px 20px rgba(91,141,238,.36)">
+                                <i class="fa-solid fa-arrow-down text-xs"></i> Explore Features
+                            </a>
+                            <a href="playground/index.html"
+                                class="inline-flex items-center gap-2 text-accent text-sm font-semibold px-5 py-2.5 rounded-lg no-underline border border-accent/35 transition-all hover:bg-accent/8 hover:-translate-y-0.5">
+                                <i class="fa-solid fa-code text-xs"></i> Open Playground
+                            </a>
+                        </div>
+
+                        <!-- Stats row -->
+                        <div class="flex divide-x divide-border rounded-xl border border-border bg-card overflow-x-auto w-fit max-w-full">
+                            <div class="flex flex-col items-center px-5 py-3.5 hover:bg-elevated transition-colors">
+                                <span class="font-display text-[1.6rem] font-bold leading-none"
+                                    style="background:linear-gradient(135deg,#e8edf5,#5b8dee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">16</span>
+                                <span class="text-[.62rem] text-t3 tracking-[.05em] uppercase font-semibold mt-0.5">Features</span>
+                            </div>
+                            <div class="flex flex-col items-center px-5 py-3.5 hover:bg-elevated transition-colors">
+                                <span class="font-display text-[1.6rem] font-bold leading-none"
+                                    style="background:linear-gradient(135deg,#e8edf5,#22d3a5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">96%</span>
+                                <span class="text-[.62rem] text-t3 tracking-[.05em] uppercase font-semibold mt-0.5">Chrome</span>
+                            </div>
+                            <div class="flex flex-col items-center px-5 py-3.5 hover:bg-elevated transition-colors">
+                                <span class="font-display text-[1.6rem] font-bold leading-none"
+                                    style="background:linear-gradient(135deg,#e8edf5,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">2027</span>
+                                <span class="text-[.62rem] text-t3 tracking-[.05em] uppercase font-semibold mt-0.5">Spec Year</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <span class="stat-num">16</span>
-                            <span class="stat-label">New Features</span>
+
+                    <!-- ── Right: floating code card ── -->
+                    <div class="relative shrink-0 w-full sm:w-[340px] lg:w-[280px] xl:w-[300px] mx-auto lg:mx-0 animate-hero-float">
+                        <div class="rounded-[12px] overflow-hidden border border-glow font-mono text-[.67rem]"
+                            style="background:#0d1117;box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 0 1px rgba(91,141,238,.1)">
+                            <!-- Window chrome -->
+                            <div class="flex items-center gap-1.5 px-3.5 py-2.5 border-b border-border" style="background:#161b22">
+                                <div class="w-2 h-2 rounded-full" style="background:#ff5f57"></div>
+                                <div class="w-2 h-2 rounded-full" style="background:#febc2e"></div>
+                                <div class="w-2 h-2 rounded-full" style="background:#28c840"></div>
+                                <span class="font-body text-[.62rem] text-t3 mx-auto tracking-[.04em]">styles.css — CSS 2027</span>
+                            </div>
+                            <!-- Code -->
+                            <div class="p-3.5 leading-[1.72] text-left">
+                                <div><span style="color:#6a737d">/* 📌 New in 2027 */</span></div>
+                                <div><span style="color:#ff7b72">@starting-style</span> <span style="color:#8b949e">{</span></div>
+                                <div>&nbsp;&nbsp;<span style="color:#79c0ff">.dialog</span> <span style="color:#8b949e">{</span></div>
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79c0ff">opacity</span><span style="color:#8b949e">:</span> <span style="color:#f2cc60">0</span><span style="color:#8b949e">;</span></div>
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#79c0ff">translate</span><span style="color:#8b949e">:</span> <span style="color:#f2cc60">0 -16px</span><span style="color:#8b949e">;</span></div>
+                                <div>&nbsp;&nbsp;<span style="color:#8b949e">}</span></div>
+                                <div><span style="color:#8b949e">}</span></div>
+                                <br>
+                                <div><span style="color:#ff7b72">@property</span> <span style="color:#f2cc60">--angle</span> <span style="color:#8b949e">{</span></div>
+                                <div>&nbsp;&nbsp;<span style="color:#79c0ff">syntax</span><span style="color:#8b949e">:</span> <span style="color:#a8ff78">'&lt;angle&gt;'</span><span style="color:#8b949e">;</span></div>
+                                <div>&nbsp;&nbsp;<span style="color:#79c0ff">initial-value</span><span style="color:#8b949e">:</span> <span style="color:#f2cc60">0deg</span><span style="color:#8b949e">;</span></div>
+                                <div>&nbsp;&nbsp;<span style="color:#79c0ff">inherits</span><span style="color:#8b949e">:</span> <span style="color:#a8ff78">false</span><span style="color:#8b949e">;</span></div>
+                                <div><span style="color:#8b949e">}</span></div>
+                                <br>
+                                <div><span style="color:#79c0ff">:root</span> <span style="color:#8b949e">{</span></div>
+                                <div>&nbsp;&nbsp;<span style="color:#79c0ff">interpolate-size</span><span style="color:#8b949e">:</span></div>
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#a8ff78">allow-keywords</span><span style="color:#8b949e">;</span></div>
+                                <div><span style="color:#8b949e">}</span></div>
+                                <br>
+                                <div><span style="color:#79c0ff">h1</span> <span style="color:#8b949e">{</span></div>
+                                <div>&nbsp;&nbsp;<span style="color:#79c0ff">text-wrap</span><span style="color:#8b949e">:</span> <span style="color:#a8ff78">balance</span><span style="color:#8b949e">;</span></div>
+                                <div><span style="color:#8b949e">}</span></div>
+                            </div>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-num">96%</span>
-                            <span class="stat-label">Chromium Support</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-num">2027</span>
-                            <span class="stat-label">Spec Year</span>
+                        <!-- Badge -->
+                        <div class="absolute -bottom-3 right-4 text-white text-[.65rem] font-bold tracking-[.05em] px-3 py-1 rounded-full"
+                            style="background:linear-gradient(135deg,#5b8dee,#8b5cf6);box-shadow:0 4px 14px rgba(91,141,238,.4)">
+                            <i class="fa-solid fa-sparkles"></i> 16 new features
                         </div>
                     </div>
-                </div>
-                <!-- Floating code card -->
-                <div class="hero-visual">
-                    <div class="hero-code-card">
-                        <div class="hcc-bar">
-                            <div class="hcc-dot" style="background:#ff5f57"></div>
-                            <div class="hcc-dot" style="background:#febc2e"></div>
-                            <div class="hcc-dot" style="background:#28c840"></div>
-                            <span class="hcc-title">styles.css — CSS 2027</span>
-                        </div>
-                        <div class="hcc-body">
-                            <div><span class="c-comment">/* 📌 New in 2027 */</span></div>
-                            <div><span class="c-at">@starting-style</span> <span class="c-punc">{</span></div>
-                            <div>&nbsp;&nbsp;<span class="c-prop">.dialog</span> <span class="c-punc">{</span></div>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-prop">opacity</span><span class="c-punc">:</span> <span class="c-num">0</span><span class="c-punc">;</span></div>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-prop">translate</span><span class="c-punc">:</span> <span class="c-num">0</span> <span class="c-num">-16px</span><span class="c-punc">;</span></div>
-                            <div>&nbsp;&nbsp;<span class="c-punc">}</span></div>
-                            <div><span class="c-punc">}</span></div>
-                            <br>
-                            <div><span class="c-prop">:root</span> <span class="c-punc">{</span></div>
-                            <div>&nbsp;&nbsp;<span class="c-prop">interpolate-size</span><span class="c-punc">:</span></div>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">allow-keywords</span><span class="c-punc">;</span></div>
-                            <div><span class="c-punc">}</span></div>
-                            <br>
-                            <div><span class="c-prop">h1</span> <span class="c-punc">{</span></div>
-                            <div>&nbsp;&nbsp;<span class="c-prop">text-wrap</span><span class="c-punc">:</span> <span class="c-str">balance</span><span class="c-punc">;</span></div>
-                            <div><span class="c-punc">}</span></div>
-                        </div>
-                    </div>
-                    <div class="hero-badge"><i class="fa-solid fa-sparkles"></i> 3 new features</div>
+
                 </div>
             </section>
 
             <!-- ════ WHAT'S NEW ════ -->
-            <section id="whats-new" style="margin-bottom:4rem;">
-                <div class="sec-title">
-                    <div class="sec-bar"></div>
-                    <h2>What's New in CSS 2027</h2>
+            <section id="whats-new" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-[3px] h-7 rounded-full bg-gradient-to-b from-accent to-accent2 shrink-0"></div>
+                    <h2 class="font-head text-[1.55rem] font-bold text-t1">What's New in CSS 2027</h2>
                 </div>
-                <p class="sec-lead">CSS 2027 consolidates years of specification work into stable, interoperable
+                <p class="text-t2 text-base leading-[1.8] mb-6">CSS 2027 consolidates years of specification work into stable, interoperable
                     features across all major engines. From native scoping to physics-aware animations, this is the most
                     significant CSS release in a decade.</p>
                 <div class="feature-grid" id="features">
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(91,141,238,.15);color:var(--accent)"><i
-                                class="fa-solid fa-box-archive"></i></div>
-                        <h3>Container Queries</h3>
-                        <p>Style elements based on their container's size — not the viewport.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-accent/15 text-accent"><i class="fa-solid fa-box-archive"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">Container Queries</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Style elements based on their container's size — not the viewport.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(139,92,246,.15);color:#a78bfa"><i
-                                class="fa-solid fa-layer-group"></i></div>
-                        <h3>Cascade Layers</h3>
-                        <p>Explicit control over cascade precedence with <code
-                                style="color:#a78bfa;font-family:var(--font-mono);font-size:.78rem">@layer</code>.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-violet-500/15 text-violet-400"><i class="fa-solid fa-layer-group"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">Cascade Layers</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Explicit control over cascade precedence with <code class="text-violet-400 font-mono text-[.78rem]">@layer</code>.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(244,69,107,.12);color:#f4456b"><i
-                                class="fa-solid fa-palette"></i></div>
-                        <h3>Color Level 5</h3>
-                        <p>Relative colors, <code
-                                style="color:#f4456b;font-family:var(--font-mono);font-size:.78rem">color-mix()</code>,
-                            and wide-gamut OKLCH spaces.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-rose-custom/10 text-rose-custom"><i class="fa-solid fa-palette"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">Color Level 5</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Relative colors, <code class="text-rose-custom font-mono text-[.78rem]">color-mix()</code>, and wide-gamut OKLCH spaces.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(246,165,42,.12);color:var(--amber)"><i
-                                class="fa-solid fa-code-branch"></i></div>
-                        <h3>Native CSS Nesting</h3>
-                        <p>Nest selectors inside parents — no preprocessor needed.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-amber-custom/10 text-amber-custom"><i class="fa-solid fa-code-branch"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">Native CSS Nesting</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Nest selectors inside parents — no preprocessor needed.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(20,184,166,.12);color:#2dd4bf"><i
-                                class="fa-solid fa-circle-dot"></i></div>
-                        <h3>@scope</h3>
-                        <p>Limit style rules to a specific DOM subtree with a lower boundary.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-teal-500/10 text-teal-400"><i class="fa-solid fa-circle-dot"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">@scope</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Limit style rules to a specific DOM subtree with a lower boundary.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(6,182,212,.12);color:#22d3ee"><i
-                                class="fa-solid fa-anchor"></i></div>
-                        <h3>Anchor Positioning</h3>
-                        <p>Position floated elements relative to any anchor — zero JS.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-cyan-500/10 text-cyan-400"><i class="fa-solid fa-anchor"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">Anchor Positioning</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Position floated elements relative to any anchor — zero JS.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(236,72,153,.12);color:#f472b6"><i
-                                class="fa-solid fa-wand-magic-sparkles"></i></div>
-                        <h3>View Transitions</h3>
-                        <p>Animate between DOM states and cross-page navigations.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-pink-500/10 text-pink-400"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">View Transitions</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Animate between DOM states and cross-page navigations.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(34,211,165,.12);color:var(--green)"><i
-                                class="fa-solid fa-filter"></i></div>
-                        <h3>:has() Selector</h3>
-                        <p>The long-awaited parent selector — style based on descendants.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-emerald-custom/10 text-emerald-custom"><i class="fa-solid fa-filter"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">:has() Selector</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">The long-awaited parent selector — style based on descendants.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(249,115,22,.12);color:#fb923c"><i
-                                class="fa-solid fa-scroll"></i></div>
-                        <h3>Scroll-Driven Animations</h3>
-                        <p>Tie animation progress to scroll position — no JS required.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-orange-500/10 text-orange-400"><i class="fa-solid fa-scroll"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">Scroll-Driven Animations</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Tie animation progress to scroll position — no JS required.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(148,163,184,.1);color:#94a3b8"><i
-                                class="fa-solid fa-sliders"></i></div>
-                        <h3>@property</h3>
-                        <p>Typed, animatable custom properties with inheritance control.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-slate-400/10 text-slate-400"><i class="fa-solid fa-sliders"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">@property</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Typed, animatable custom properties with inheritance control.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(139,92,246,.12);color:#a78bfa"><i
-                                class="fa-solid fa-table-cells"></i></div>
-                        <h3>CSS Subgrid</h3>
-                        <p>Align nested grid children on the parent's track definitions.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-violet-400/10 text-violet-400"><i class="fa-solid fa-table-cells"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">CSS Subgrid</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Align nested grid children on the parent's track definitions.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(132,204,22,.12);color:#a3e635"><i
-                                class="fa-solid fa-square-root-variable"></i></div>
-                        <h3>Math Functions</h3>
-                        <p>sin(), cos(), round(), pow(), sqrt(), and more — in native CSS.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-lime-500/10 text-lime-400"><i class="fa-solid fa-square-root-variable"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">Math Functions</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">sin(), cos(), round(), pow(), sqrt(), and more — in native CSS.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(59,130,246,.12);color:#60a5fa"><i
-                                class="fa-solid fa-arrows-left-right"></i></div>
-                        <h3>Logical Properties</h3>
-                        <p>Writing-mode-aware layout that works across LTR and RTL.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-blue-500/10 text-blue-400"><i class="fa-solid fa-arrows-left-right"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">Logical Properties</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Writing-mode-aware layout that works across LTR and RTL.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(20,184,166,.12);color:#2dd4bf"><i
-                                class="fa-solid fa-wand-sparkles"></i></div>
-                        <h3>@starting-style</h3>
-                        <p>Define entry animation states — animate from <code style="color:#2dd4bf;font-family:var(--font-mono);font-size:.78rem">display:none</code> without JS.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-teal-400/10 text-teal-400"><i class="fa-solid fa-wand-sparkles"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">@starting-style</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Define entry animation states — animate from <code class="text-teal-400 font-mono text-[.78rem]">display:none</code> without JS.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(168,85,247,.12);color:#c084fc"><i
-                                class="fa-solid fa-up-right-and-down-left-from-center"></i></div>
-                        <h3>interpolate-size</h3>
-                        <p>Animate to and from intrinsic sizes like <code style="color:#c084fc;font-family:var(--font-mono);font-size:.78rem">height: auto</code> natively.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-purple-400/10 text-purple-400"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">interpolate-size</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Animate to and from intrinsic sizes like <code class="text-purple-400 font-mono text-[.78rem]">height: auto</code> natively.</p>
                     </div>
-                    <div class="f-card">
-                        <div class="f-icon" style="background:rgba(234,179,8,.12);color:#facc15"><i
-                                class="fa-solid fa-align-left"></i></div>
-                        <h3>text-wrap: balance</h3>
-                        <p>Balance heading line lengths and prevent orphaned words — pure CSS.</p>
+                    <div class="bg-card border border-border rounded-xl p-4 transition-all hover:border-glow hover:shadow-[0_6px_24px_rgba(0,0,0,.3)] hover:-translate-y-0.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-sm mb-3 bg-yellow-400/10 text-yellow-400"><i class="fa-solid fa-align-left"></i></div>
+                        <h3 class="font-head text-[.88rem] font-bold text-t1 mb-1">text-wrap: balance</h3>
+                        <p class="text-[.78rem] text-t3 leading-snug">Balance heading line lengths and prevent orphaned words — pure CSS.</p>
                     </div>
                 </div>
             </section>
 
             <!-- ════ BROWSER SUPPORT ════ -->
-            <section id="browser-support" class="feature-section">
-                <div class="sec-title">
-                    <div class="sec-bar" style="background:linear-gradient(180deg,var(--green),#0d9488)"></div>
-                    <h2>Browser Support Matrix</h2>
+            <section id="browser-support" class="mb-[4.5rem] pb-[4.5rem] border-b border-border">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-[3px] h-7 rounded-full bg-gradient-to-b from-emerald-custom to-[#0d9488] shrink-0"></div>
+                    <h2 class="font-head text-[1.55rem] font-bold text-t1">Browser Support Matrix</h2>
                 </div>
-                <p class="sec-lead">As of mid-2026, all major features are shipping in Chromium. Firefox and Safari are
+                <p class="text-t2 text-base leading-[1.8] mb-6">As of mid-2026, all major features are shipping in Chromium. Firefox and Safari are
                     close behind. The table below reflects stable releases, not experimental flags.</p>
-                <div class="support-table-wrap">
-                    <table>
-                        <thead>
+                <div class="overflow-x-auto rounded-xl border border-border mb-8">
+                    <table class="w-full border-collapse min-w-[580px] text-[.9rem]">
+                        <thead class="bg-card">
                             <tr>
-                                <th>Feature</th>
-                                <th><i class="fa-brands fa-chrome" style="color:#f59e0b"></i> Chrome</th>
-                                <th><i class="fa-brands fa-firefox" style="color:#f97316"></i> Firefox</th>
-                                <th><i class="fa-brands fa-safari" style="color:#60a5fa"></i> Safari</th>
-                                <th><i class="fa-brands fa-edge" style="color:#38bdf8"></i> Edge</th>
+                                <th class="px-4 py-3 font-semibold text-t2 text-left">Feature</th>
+                                <th class="px-4 py-3 font-semibold text-t2 text-left"><i class="fa-brands fa-chrome text-amber-400"></i> Chrome</th>
+                                <th class="px-4 py-3 font-semibold text-t2 text-left"><i class="fa-brands fa-firefox text-orange-400"></i> Firefox</th>
+                                <th class="px-4 py-3 font-semibold text-t2 text-left"><i class="fa-brands fa-safari text-blue-400"></i> Safari</th>
+                                <th class="px-4 py-3 font-semibold text-t2 text-left"><i class="fa-brands fa-edge text-sky-400"></i> Edge</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Container Queries</td>
-                                <td><span class="sup-yes">105+</span></td>
-                                <td><span class="sup-yes">110+</span></td>
-                                <td><span class="sup-yes">16+</span></td>
-                                <td><span class="sup-yes">105+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium">Container Queries</td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">105+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">110+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">16+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">105+</span></td>
                             </tr>
-                            <tr>
-                                <td>Cascade Layers <code
-                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">@layer</code>
-                                </td>
-                                <td><span class="sup-yes">99+</span></td>
-                                <td><span class="sup-yes">97+</span></td>
-                                <td><span class="sup-yes">15.4+</span></td>
-                                <td><span class="sup-yes">99+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium">Cascade Layers <code class="font-mono text-[.78rem] text-accent">@layer</code></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">99+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">97+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">15.4+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">99+</span></td>
                             </tr>
-                            <tr>
-                                <td>Color Level 5 <code
-                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">color-mix()</code>
-                                </td>
-                                <td><span class="sup-yes">111+</span></td>
-                                <td><span class="sup-yes">113+</span></td>
-                                <td><span class="sup-yes">16.2+</span></td>
-                                <td><span class="sup-yes">111+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium">Color Level 5 <code class="font-mono text-[.78rem] text-accent">color-mix()</code></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">111+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">113+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">16.2+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">111+</span></td>
                             </tr>
-                            <tr>
-                                <td>Native CSS Nesting</td>
-                                <td><span class="sup-yes">112+</span></td>
-                                <td><span class="sup-yes">117+</span></td>
-                                <td><span class="sup-yes">17.2+</span></td>
-                                <td><span class="sup-yes">112+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium">Native CSS Nesting</td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">112+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">117+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">17.2+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">112+</span></td>
                             </tr>
-                            <tr>
-                                <td><code
-                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">@scope</code>
-                                </td>
-                                <td><span class="sup-yes">118+</span></td>
-                                <td><span class="sup-part">Partial</span></td>
-                                <td><span class="sup-yes">17.4+</span></td>
-                                <td><span class="sup-yes">118+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium"><code class="font-mono text-[.78rem] text-accent">@scope</code></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">118+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-amber-custom/10 text-amber-custom border border-amber-custom/20 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">Partial</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">17.4+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">118+</span></td>
                             </tr>
-                            <tr>
-                                <td>Anchor Positioning</td>
-                                <td><span class="sup-yes">125+</span></td>
-                                <td><span class="sup-part">Flag</span></td>
-                                <td><span class="sup-part">Preview</span></td>
-                                <td><span class="sup-yes">125+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium">Anchor Positioning</td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">125+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-amber-custom/10 text-amber-custom border border-amber-custom/20 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">Flag</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-amber-custom/10 text-amber-custom border border-amber-custom/20 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">Preview</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">125+</span></td>
                             </tr>
-                            <tr>
-                                <td>View Transitions API</td>
-                                <td><span class="sup-yes">111+</span></td>
-                                <td><span class="sup-yes">128+</span></td>
-                                <td><span class="sup-yes">18+</span></td>
-                                <td><span class="sup-yes">111+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium">View Transitions API</td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">111+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">128+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">18+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">111+</span></td>
                             </tr>
-                            <tr>
-                                <td><code
-                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">:has()</code>
-                                    Selector</td>
-                                <td><span class="sup-yes">105+</span></td>
-                                <td><span class="sup-yes">103+</span></td>
-                                <td><span class="sup-yes">15.4+</span></td>
-                                <td><span class="sup-yes">105+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium"><code class="font-mono text-[.78rem] text-accent">:has()</code> Selector</td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">105+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">103+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">15.4+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">105+</span></td>
                             </tr>
-                            <tr>
-                                <td>Scroll-Driven Animations</td>
-                                <td><span class="sup-yes">115+</span></td>
-                                <td><span class="sup-yes">110+</span></td>
-                                <td><span class="sup-part">Preview</span></td>
-                                <td><span class="sup-yes">115+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium">Scroll-Driven Animations</td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">115+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">110+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-amber-custom/10 text-amber-custom border border-amber-custom/20 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">Preview</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">115+</span></td>
                             </tr>
-                            <tr>
-                                <td><code
-                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">@property</code>
-                                </td>
-                                <td><span class="sup-yes">85+</span></td>
-                                <td><span class="sup-yes">128+</span></td>
-                                <td><span class="sup-yes">16.4+</span></td>
-                                <td><span class="sup-yes">85+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium"><code class="font-mono text-[.78rem] text-accent">@property</code></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">85+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">128+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">16.4+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">85+</span></td>
                             </tr>
-                            <tr>
-                                <td>CSS Subgrid</td>
-                                <td><span class="sup-yes">117+</span></td>
-                                <td><span class="sup-yes">71+</span></td>
-                                <td><span class="sup-yes">16+</span></td>
-                                <td><span class="sup-yes">117+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium">CSS Subgrid</td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">117+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">71+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">16+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">117+</span></td>
                             </tr>
-                            <tr>
-                                <td>Math Functions <code
-                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">sin()/cos()</code>
-                                </td>
-                                <td><span class="sup-yes">111+</span></td>
-                                <td><span class="sup-yes">108+</span></td>
-                                <td><span class="sup-yes">15.4+</span></td>
-                                <td><span class="sup-yes">111+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium">Math Functions <code class="font-mono text-[.78rem] text-accent">sin()/cos()</code></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">111+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">108+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">15.4+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">111+</span></td>
                             </tr>
-                            <tr>
-                                <td>Logical Properties</td>
-                                <td><span class="sup-yes">89+</span></td>
-                                <td><span class="sup-yes">41+</span></td>
-                                <td><span class="sup-yes">15+</span></td>
-                                <td><span class="sup-yes">89+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium">Logical Properties</td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">89+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">41+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">15+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">89+</span></td>
                             </tr>
-                            <tr>
-                                <td><code style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">@starting-style</code></td>
-                                <td><span class="sup-yes">117+</span></td>
-                                <td><span class="sup-yes">129+</span></td>
-                                <td><span class="sup-yes">17.5+</span></td>
-                                <td><span class="sup-yes">117+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium"><code class="font-mono text-[.78rem] text-accent">@starting-style</code></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">117+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">129+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">17.5+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">117+</span></td>
                             </tr>
-                            <tr>
-                                <td><code style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">interpolate-size</code></td>
-                                <td><span class="sup-yes">129+</span></td>
-                                <td><span class="sup-part">Flag</span></td>
-                                <td><span class="sup-part">Preview</span></td>
-                                <td><span class="sup-yes">129+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium"><code class="font-mono text-[.78rem] text-accent">interpolate-size</code></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">129+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-amber-custom/10 text-amber-custom border border-amber-custom/20 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">Flag</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-amber-custom/10 text-amber-custom border border-amber-custom/20 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">Preview</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">129+</span></td>
                             </tr>
-                            <tr>
-                                <td><code style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">text-wrap: balance</code></td>
-                                <td><span class="sup-yes">114+</span></td>
-                                <td><span class="sup-yes">121+</span></td>
-                                <td><span class="sup-yes">17.5+</span></td>
-                                <td><span class="sup-yes">114+</span></td>
+                            <tr class="border-t border-border hover:bg-white/[.02] transition-colors">
+                                <td class="px-4 py-3 text-t1 font-medium"><code class="font-mono text-[.78rem] text-accent">text-wrap: balance</code></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">114+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">121+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">17.5+</span></td>
+                                <td class="px-4 py-3 text-t2"><span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full text-[.72rem] font-semibold">114+</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div style="display:flex;gap:.75rem;flex-wrap:wrap;font-size:.72rem;">
-                    <span class="sup-yes">Fully Supported</span>
-                    <span class="sup-part">Partial / Flag</span>
-                    <span class="sup-no">Not Supported</span>
+                <div class="flex gap-3 flex-wrap text-[.72rem]">
+                    <span class="inline-flex items-center gap-1 bg-emerald-custom/10 text-emerald-custom border border-emerald-custom/25 px-2 py-0.5 rounded-full font-semibold">Fully Supported</span>
+                    <span class="inline-flex items-center gap-1 bg-amber-custom/10 text-amber-custom border border-amber-custom/20 px-2 py-0.5 rounded-full font-semibold">Partial / Flag</span>
+                    <span class="inline-flex items-center gap-1 bg-rose-custom/10 text-rose-custom border border-rose-custom/20 px-2 py-0.5 rounded-full font-semibold">Not Supported</span>
                 </div>
             </section>
 
@@ -2738,36 +1617,76 @@ p, .prose {
         </main>
     </div><!-- end layout -->
 
-    <!-- ═══════ FOOTER ═══════ -->
-    <footer id="page-footer">
-        <div class="footer-inner">
-            <div class="footer-brand-wrap">
-                <div class="topbar-logo" style="width:28px;height:28px;font-size:.75rem"><i
-                        class="fa-solid fa-layer-group"></i></div>
-                <div>
-                    <div class="footer-name">MastorsCDN</div>
-                    <div class="footer-tagline">CSS 2027 Documentation</div>
-                </div>
-            </div>
-            <div class="footer-copy">
-                Built with <i class="fa-solid fa-heart" style="color:var(--rose)"></i> for the web.<br>
-                Specs from <a href="https://www.w3.org/Style/CSS/" target="_blank">W3C CSS WG</a> &amp; <a
-                    href="https://developer.mozilla.org" target="_blank">MDN</a>.
-                &copy; 2027 MastorsCDN by KEHEM-IT — MIT License.
-            </div>
-        </div>
-    </footer>
+    <!-- ═══════ FOOTER COMPONENT SLOT ═══════ -->
+    <div id="footer-slot"></div>
+
+    <!-- ═══════ COMPONENT LOADER ═══════ -->
+    <script>
+        /**
+         * Lightweight vanilla component loader.
+         * Fetches HTML partials and injects them into slot elements.
+         * No framework required — pure fetch + innerHTML.
+         */
+        (function ComponentLoader() {
+            const slots = [
+                { selector: '#header-slot', path: 'components/header.html' },
+                { selector: '#footer-slot', path: 'components/footer.html' }
+            ];
+
+            async function loadComponent(selector, path) {
+                const el = document.querySelector(selector);
+                if (!el) return;
+                try {
+                    const res = await fetch(path);
+                    if (!res.ok) throw new Error(`HTTP ${res.status} for ${path}`);
+                    el.innerHTML = await res.text();
+                } catch (err) {
+                    console.error('[ComponentLoader] Failed to load:', path, err);
+                }
+            }
+
+            async function init() {
+                // Load all components in parallel
+                await Promise.all(slots.map(s => loadComponent(s.selector, s.path)));
+                // Fire a custom event so other scripts know components are ready
+                document.dispatchEvent(new CustomEvent('components:ready'));
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
 
     <!-- ═══════ SCRIPTS ═══════ -->
     <script>
-        // Sidebar mobile
+        // Sidebar mobile — runs after components:ready so #topbar-mobile-btn exists
         function closeSidebar() {
             document.getElementById('sidebar').classList.remove('open');
             document.getElementById('sidebar-overlay').classList.remove('show');
         }
-        document.getElementById('topbar-mobile-btn').addEventListener('click', () => {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('sidebar-overlay').classList.toggle('show');
+
+        document.addEventListener('components:ready', () => {
+            const mobileBtn = document.getElementById('topbar-mobile-btn');
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', () => {
+                    document.getElementById('sidebar').classList.toggle('open');
+                    document.getElementById('sidebar-overlay').classList.toggle('show');
+                    const expanded = mobileBtn.getAttribute('aria-expanded') === 'true';
+                    mobileBtn.setAttribute('aria-expanded', String(!expanded));
+                });
+            }
+
+            // Mobile topbar nav toggle (hamburger for top nav on small screens)
+            const topbarNav = document.querySelector('.topbar-nav');
+            document.addEventListener('click', (e) => {
+                if (mobileBtn && e.target.closest('#topbar-mobile-btn')) return; // handled above
+                if (topbarNav && !topbarNav.contains(e.target) && !e.target.closest('#topbar')) {
+                    topbarNav.classList.remove('open');
+                }
+            });
         });
 
         // Active sidebar link on scroll

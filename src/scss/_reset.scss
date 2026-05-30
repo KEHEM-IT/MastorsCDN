@@ -1,0 +1,31 @@
+// ══════════════════════════════════════════
+// _reset.scss — Minimal base reset
+// ══════════════════════════════════════════
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--deep);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video, svg { display: block; max-width: 100%; }
+
+a { color: inherit; }
+
+button { cursor: pointer; font-family: inherit; }
+
+code, pre { font-family: var(--font-mono); }
+
+[id] { scroll-margin-top: 80px; }
+
+// Scrollbar
+::-webkit-scrollbar            { width: 5px; height: 5px; }
+::-webkit-scrollbar-track      { background: var(--deep); }
+::-webkit-scrollbar-thumb      { background: var(--glow); border-radius: 9999px; }
+#sidebar::-webkit-scrollbar    { width: 3px; }

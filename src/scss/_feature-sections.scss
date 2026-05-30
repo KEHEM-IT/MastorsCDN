@@ -1,0 +1,113 @@
+// ══════════════════════════════════════════
+// _feature-sections.scss
+// Section wrappers, titles, callouts
+// ══════════════════════════════════════════
+@use 'variables' as *;
+
+// ── Section wrapper ────────────────────────
+.feature-section {
+  margin-bottom: 4.5rem;
+  padding-bottom: 4.5rem;
+  border-bottom: 1px solid var(--border);
+
+  &:last-of-type { border-bottom: none; }
+}
+
+// ── Section title row ──────────────────────
+.sec-title {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .875rem;
+
+  h2 {
+    font-family: var(--font-head);
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--text-1);
+    line-height: 1.2;
+  }
+}
+
+.sec-bar {
+  width: 3px;
+  height: 1.75rem;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  flex-shrink: 0;
+}
+
+// ── Lead paragraph ─────────────────────────
+.sec-lead {
+  color: var(--text-2);
+  font-size: 1rem;
+  line-height: 1.8;
+  max-width: 680px;
+  margin-bottom: 1.5rem;
+
+  code {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: .88em;
+    background: rgba(91,141,238,.1);
+    padding: .05em .35em;
+    border-radius: 4px;
+  }
+  em { font-style: italic; }
+}
+
+// ── Status badge ───────────────────────────
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .2rem .65rem;
+  border-radius: 9999px;
+  margin-left: .25rem;
+}
+
+.badge-stable {
+  background: rgba(34,211,165,.12);
+  color: var(--green);
+  border: 1px solid rgba(34,211,165,.3);
+}
+
+.badge-partial {
+  background: rgba(246,165,42,.1);
+  color: var(--amber);
+  border: 1px solid rgba(246,165,42,.25);
+}
+
+.badge-experimental {
+  background: rgba(244,69,107,.1);
+  color: var(--rose);
+  border: 1px solid rgba(244,69,107,.25);
+}
+
+// ── Callout / info box ─────────────────────
+.callout {
+  display: flex;
+  align-items: flex-start;
+  gap: .65rem;
+  padding: .85rem 1rem;
+  background: rgba(91,141,238,.07);
+  border: 1px solid rgba(91,141,238,.2);
+  border-left: 3px solid var(--accent);
+  border-radius: $radius-sm;
+  font-size: .82rem;
+  color: var(--text-2);
+  margin-top: 1.25rem;
+  line-height: 1.65;
+
+  > i { color: var(--accent); font-size: .85rem; margin-top: .1rem; flex-shrink: 0; }
+
+  code {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: .9em;
+  }
+}

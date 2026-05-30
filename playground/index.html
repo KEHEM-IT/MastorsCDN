@@ -4,2317 +4,1579 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CSS Playground — MastorsCDN</title>
-  <meta name="description" content="Real-time HTML & CSS playground. Write code and see results instantly.">
+  <meta name="description" content="Live CSS 2027 playground. Write HTML & CSS and see results instantly with snippet library.">
   <link rel="icon" type="image/svg+xml" href="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/all.css">
 
-  <!-- CodeMirror 5 — robust, no-build editor -->
+  <!-- CodeMirror 5 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/css-hint.min.js" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/css-hint.min.js"></script>
 
-  <!-- MastorsCDN CSS -->
-  <link rel="stylesheet" href="../dist/css/mastorscdn.css">
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            deep:     '#070c18',
+            surface:  '#0d1526',
+            card:     '#111e35',
+            elevated: '#162240',
+            border:   '#1e2e4a',
+            glow:     '#2a4070',
+            t1:       '#e8edf5',
+            t2:       '#8ea3bf',
+            t3:       '#4a6080',
+            accent:   '#5b8dee',
+            accent2:  '#8b5cf6',
+            green:    '#22d3a5',
+            amber:    '#f6a52a',
+            rose:     '#f4456b',
+          },
+          fontFamily: {
+            head:    ['Syne', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            body:    ['DM Sans', 'sans-serif'],
+            mono:    ['DM Mono', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
 
   <style>
-    :root {
-      --bg-deep:    #060b16;
-      --bg-bar:     #0c1525;
-      --bg-panel:   #0f1a2e;
-      --bg-card:    #121f35;
-      --bg-editor:  #0d1117;
-      --border:     #1b2b45;
-      --border-2:   #243348;
-      --text-1:     #e2eaf4;
-      --text-2:     #7d9ab8;
-      --text-3:     #3d566e;
-      --accent:     #5b8dee;
-      --accent-2:   #8b5cf6;
-      --green:      #22d3a5;
-      --amber:      #f6a52a;
-      --rose:       #f4456b;
-      --font-head:  'Syne', sans-serif;
-      --font-body:  'DM Sans', sans-serif;
-      --font-mono:  'DM Mono', monospace;
-      --topbar-h:   52px;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
     html, body { height: 100%; overflow: hidden; }
-    body {
-      background: var(--bg-deep);
-      color: var(--text-1);
-      font-family: var(--font-body);
-      font-size: 14px;
-      -webkit-font-smoothing: antialiased;
-      display: flex; flex-direction: column;
-    }
+    body { display: flex; flex-direction: column; }
 
-    /* ── Topbar ───────────────────────────── */
-    #topbar {
-      height: var(--topbar-h);
-      background: var(--bg-bar);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center;
-      padding: 0 1rem; gap: .75rem;
-      flex-shrink: 0; z-index: 50;
-    }
-    .brand { display: flex; align-items: center; gap: .55rem; text-decoration: none; }
-    .brand-icon {
-      width: 28px; height: 28px; border-radius: 7px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      display: flex; align-items: center; justify-content: center;
-      font-size: .75rem; color: white;
-    }
-    .brand-name { font-family: var(--font-head); font-size: .88rem; font-weight: 700; color: var(--text-1); }
-    .brand-sep { color: var(--text-3); font-size: .8rem; }
-    .brand-page { font-family: var(--font-head); font-size: .88rem; font-weight: 600; color: var(--accent); }
-
-    .topbar-actions { display: flex; align-items: center; gap: .5rem; margin-left: auto; }
-    .tb-btn {
-      display: inline-flex; align-items: center; gap: .4rem;
-      font-size: .75rem; font-weight: 600; font-family: var(--font-body);
-      padding: .35rem .75rem; border-radius: 6px; cursor: pointer;
-      border: 1px solid var(--border-2); background: var(--bg-card); color: var(--text-2);
-      transition: all .2s; text-decoration: none;
-    }
-    .tb-btn:hover { color: var(--text-1); border-color: var(--border-2); background: var(--bg-panel); }
-    .tb-btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
-    .tb-btn.primary:hover { background: #4a7ddd; }
-    .tb-btn.danger { color: var(--rose); border-color: rgba(244,69,107,.3); }
-    .tb-btn.danger:hover { background: rgba(244,69,107,.1); }
-    .tb-btn.success { color: var(--green); border-color: rgba(34,211,165,.3); }
-    .tb-btn.success:hover { background: rgba(34,211,165,.1); }
-
-    /* ── Snippet bar ──────────────────────── */
-    #snippet-bar {
-      background: var(--bg-panel);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: .4rem;
-      padding: 0 1rem; height: 42px; flex-shrink: 0; overflow-x: auto;
-    }
-    #snippet-bar::-webkit-scrollbar { height: 2px; }
-    .snip-label { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); flex-shrink: 0; margin-right: .25rem; }
-    .snip-btn {
-      font-size: .72rem; font-weight: 600; padding: .25rem .65rem;
-      border-radius: 5px; background: var(--bg-card); border: 1px solid var(--border);
-      color: var(--text-2); cursor: pointer; font-family: var(--font-body);
-      transition: all .2s; white-space: nowrap; flex-shrink: 0;
-    }
-    .snip-btn:hover { color: var(--accent); border-color: var(--accent); background: rgba(91,141,238,.08); }
-    .snip-btn.active { color: var(--accent); border-color: var(--accent); background: rgba(91,141,238,.12); }
-
-    /* ── Main layout ──────────────────────── */
-    #workspace {
-      flex: 1; display: flex; overflow: hidden;
-      min-height: 0;
-    }
-
-    /* ── Editor pane ──────────────────────── */
-    #editor-pane {
-      width: 50%; flex-shrink: 0;
-      display: flex; flex-direction: column;
-      border-right: 1px solid var(--border);
-      min-width: 0;
-    }
-
-    /* ── Editor tabs ──────────────────────── */
-    #editor-tabs {
-      display: flex; align-items: center;
-      background: var(--bg-bar); border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .etab {
-      display: flex; align-items: center; gap: .5rem;
-      padding: 0 1.1rem; height: 40px;
-      font-size: .76rem; font-weight: 600; cursor: pointer;
-      color: var(--text-3); border-bottom: 2px solid transparent;
-      transition: all .2s; user-select: none;
-    }
-    .etab:hover { color: var(--text-2); }
-    .etab.active { color: var(--text-1); border-bottom-color: var(--accent); }
-    .etab i { font-size: .7rem; }
-    .etab-html i { color: #e34c26; }
-    .etab-css  i { color: #264de4; }
-
-    #editor-tabs-right { margin-left: auto; padding-right: .5rem; display: flex; gap: .35rem; }
-
-    .editor-wrap { flex: 1; overflow: hidden; display: none; flex-direction: column; }
-    .editor-wrap.visible { display: flex; }
+    /* CodeMirror */
     .CodeMirror {
-      flex: 1 !important; height: 100% !important;
-      font-family: var(--font-mono) !important; font-size: 13px !important;
-      line-height: 1.65 !important;
-      background: var(--bg-editor) !important;
+      height: 100% !important;
+      font-family: 'DM Mono', monospace !important;
+      font-size: 13px !important;
+      line-height: 1.7 !important;
+      background: #070c18 !important;
+      color: #e8edf5 !important;
     }
     .CodeMirror-scroll { min-height: 100% !important; }
+    .CodeMirror-gutters { background: #070c18 !important; border-right: 1px solid #1e2e4a !important; }
+    .CodeMirror-linenumber { color: #2a4070 !important; font-size: 11px !important; }
+    .CodeMirror-cursor { border-left-color: #5b8dee !important; }
+    .CodeMirror-selected { background: rgba(91,141,238,.18) !important; }
+    .CodeMirror-focused .CodeMirror-selected { background: rgba(91,141,238,.22) !important; }
 
-    /* Line numbers */
-    .CodeMirror-gutters { background: var(--bg-editor) !important; border-right: 1px solid var(--border) !important; }
-    .CodeMirror-linenumber { color: var(--text-3) !important; }
+    /* Syntax */
+    .cm-s-default .cm-tag      { color: #7dd3fc !important; }
+    .cm-s-default .cm-attribute{ color: #93c5fd !important; }
+    .cm-s-default .cm-string   { color: #86efac !important; }
+    .cm-s-default .cm-keyword  { color: #c084fc !important; }
+    .cm-s-default .cm-atom     { color: #fb923c !important; }
+    .cm-s-default .cm-number   { color: #fbbf24 !important; }
+    .cm-s-default .cm-comment  { color: #4a6080 !important; font-style: italic !important; }
+    .cm-s-default .cm-property { color: #60a5fa !important; }
+    .cm-s-default .cm-variable { color: #e8edf5 !important; }
+    .cm-s-default .cm-variable-2{ color: #a5b4fc !important; }
+    .cm-s-default .cm-builtin  { color: #f472b6 !important; }
+    .cm-s-default .cm-def      { color: #34d399 !important; }
+    .cm-s-default .cm-meta     { color: #c084fc !important; }
+    .cm-s-default .cm-qualifier{ color: #a78bfa !important; }
 
-    /* ── Editor status bar ────────────────── */
-    #editor-status {
-      background: var(--bg-bar); border-top: 1px solid var(--border);
-      display: flex; align-items: center; padding: 0 .85rem;
-      height: 26px; gap: .75rem; flex-shrink: 0;
+    /* Hint */
+    .CodeMirror-hints {
+      background: #111e35 !important; border: 1px solid #1e2e4a !important;
+      border-radius: 8px !important; box-shadow: 0 8px 32px rgba(0,0,0,.5) !important;
+      font-family: 'DM Mono', monospace !important; font-size: 12px !important;
+      z-index: 9999 !important; padding: 4px !important;
     }
-    .status-item { font-size: .65rem; color: var(--text-3); display: flex; align-items: center; gap: .3rem; }
-    .status-live { color: var(--green); }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
-    .autorun-toggle { margin-left: auto; display: flex; align-items: center; gap: .45rem; cursor: pointer; }
-    .autorun-toggle input { accent-color: var(--accent); }
-    .autorun-toggle span { font-size: .65rem; color: var(--text-3); }
+    .CodeMirror-hint { color: #8ea3bf !important; border-radius: 5px !important; padding: 3px 10px !important; }
+    li.CodeMirror-hint-active { background: rgba(91,141,238,.2) !important; color: #e8edf5 !important; }
 
-    /* ── Preview pane ─────────────────────── */
-    #preview-pane {
-      flex: 1; display: flex; flex-direction: column; min-width: 0;
-    }
-    #preview-titlebar {
-      background: var(--bg-bar); border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; padding: 0 .85rem;
-      height: 40px; gap: .75rem; flex-shrink: 0;
-    }
-    .win-dots { display: flex; gap: .4rem; }
-    .win-dot { width: 11px; height: 11px; border-radius: 50%; }
-    .w-red    { background: #f4456b; }
-    .w-amber  { background: #f6a52a; }
-    .w-green  { background: #22d3a5; }
-    .preview-url {
-      flex: 1; background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 6px; padding: .2rem .75rem; font-size: .72rem;
-      color: var(--text-3); font-family: var(--font-mono);
-      display: flex; align-items: center; gap: .5rem;
-    }
-    .preview-url i { font-size: .65rem; }
-
-    #preview-frame {
-      flex: 1; width: 100%; border: none;
-      background: #fff;
-    }
-
-    #preview-statusbar {
-      background: var(--bg-bar); border-top: 1px solid var(--border);
-      display: flex; align-items: center; padding: 0 .85rem;
-      height: 26px; gap: .75rem; flex-shrink: 0;
-    }
-
-    /* ── Resize handle ────────────────────── */
+    /* Resize handle */
     #resize-handle {
-      width: 4px; background: var(--border);
-      cursor: col-resize; flex-shrink: 0; transition: background .2s;
-      position: relative; z-index: 10;
+      width: 4px; flex-shrink: 0; cursor: col-resize;
+      background: #1e2e4a; transition: background .15s; position: relative; z-index: 20;
     }
-    #resize-handle:hover, #resize-handle.dragging { background: var(--accent); }
-    #resize-handle::after {
-      content: ''; position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 20px; height: 40px;
+    #resize-handle:hover, #resize-handle.dragging { background: #5b8dee; }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #070c18; }
+    ::-webkit-scrollbar-thumb { background: #1e2e4a; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #2a4070; }
+    #snippet-bar::-webkit-scrollbar { height: 3px; }
+
+    /* Preview iframe — no background override, snippet controls its own */
+    #preview-frame { flex: 1; border: none; background: transparent; display: block; }
+
+    /* Drag overlay — blocks iframe pointer events during resize */
+    #drag-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9998; cursor: col-resize;
+    }
+    #drag-overlay.active { display: block; }
+
+    /* Preview wrapper backgrounds */
+    #preview-wrapper { min-height: 0; }
+    #preview-wrapper.bg-dark {
+      background-color: #070c18;
+      background-image:
+        linear-gradient(45deg,#0d1526 25%,transparent 25%),
+        linear-gradient(-45deg,#0d1526 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,#0d1526 75%),
+        linear-gradient(-45deg,transparent 75%,#0d1526 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    }
+    #preview-wrapper.bg-white {
+      background-color: #ffffff;
+      background-image: none;
+    }
+
+    /* Preview background toggle */
+    .bg-toggle-btn {
       display: flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 5px;
+      background: #111e35; border: 1px solid #1e2e4a;
+      color: #4a6080; cursor: pointer; transition: all .15s;
+      font-size: .6rem; flex-shrink: 0;
     }
+    .bg-toggle-btn:hover { color: #8ea3bf; border-color: #2a4070; }
+    .bg-toggle-btn.active-white { color: #f6a52a; border-color: rgba(246,165,42,.4); background: rgba(246,165,42,.08); }
+    .bg-toggle-btn.active-dark  { color: #5b8dee; border-color: rgba(91,141,238,.4); background: rgba(91,141,238,.08); }
 
-    /* ── Mobile layout ────────────────────── */
+    /* Pulse */
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .pulse { animation: pulse-dot 2s ease-in-out infinite; }
+
+    /* Toast */
+    @keyframes toast-in  { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes toast-out { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(6px)} }
+    .toast-show { animation: toast-in .2s ease forwards; }
+    .toast-hide { animation: toast-out .2s ease forwards; }
+
+    /* Editor tabs */
+    .etab { color: #4a6080; border-bottom-color: transparent; cursor: pointer; user-select: none; }
+    .etab:hover { color: #8ea3bf; }
+    .etab.active { color: #e8edf5; border-bottom-color: #5b8dee; }
+
+    /* Snippet buttons */
+    .snip-btn {
+      flex-shrink: 0; cursor: pointer;
+      font-size: .71rem; font-weight: 600;
+      padding: .22rem .7rem; border-radius: 5px;
+      background: #111e35; border: 1px solid #1e2e4a;
+      color: #8ea3bf; font-family: 'DM Sans', sans-serif;
+      transition: all .18s; white-space: nowrap;
+    }
+    .snip-btn:hover { color: #5b8dee; border-color: #5b8dee; background: rgba(91,141,238,.08); }
+    .snip-btn.active { color: #5b8dee; border-color: #5b8dee; background: rgba(91,141,238,.12); }
+
+    /* Viewport buttons */
+    .vp-btn {
+      display:flex; align-items:center; justify-content:center;
+      width:26px; height:26px; border-radius:5px;
+      background:#111e35; border:1px solid #1e2e4a;
+      color:#4a6080; cursor:pointer; transition:all .15s;
+    }
+    .vp-btn:hover { color:#8ea3bf; border-color:#2a4070; }
+    .vp-btn.active { color:#5b8dee; border-color:#5b8dee; background:rgba(91,141,238,.1); }
+
+    /* Mobile */
     @media (max-width: 768px) {
-      #workspace { flex-direction: column; }
-      #editor-pane { width: 100%; border-right: none; border-bottom: 1px solid var(--border); height: 50%; }
-      #preview-pane { height: 50%; }
-      #resize-handle { display: none; }
+      #workspace { flex-direction: column !important; }
+      #editor-pane { width: 100% !important; height: 50% !important; border-right: none !important; border-bottom: 1px solid #1e2e4a; }
+      #preview-pane { flex: 1 !important; min-height: 0; }
+      #resize-handle { display: none !important; }
     }
-
-    /* ── Error overlay ────────────────────── */
-    #error-toast {
-      position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
-      background: rgba(244,69,107,.9); color: white; font-size: .78rem; font-weight: 600;
-      padding: .5rem 1.25rem; border-radius: 99px; display: none;
-      box-shadow: 0 4px 16px rgba(0,0,0,.4); z-index: 200; font-family: var(--font-body);
-    }
-
-    /* ── Saved toast ──────────────────────── */
-    #save-toast {
-      position: fixed; bottom: 1rem; right: 1rem;
-      background: rgba(34,211,165,.9); color: #0a2a1e;
-      font-size: .78rem; font-weight: 700;
-      padding: .5rem 1.1rem; border-radius: 8px; display: none;
-      box-shadow: 0 4px 16px rgba(0,0,0,.4); z-index: 200; font-family: var(--font-body);
-    }
-
-    /* ── Format notification ──────────────── */
-    #notif {
-      position: fixed; top: calc(var(--topbar-h) + 6px); right: .75rem;
-      background: var(--bg-card); border: 1px solid var(--border);
-      color: var(--text-1); font-size: .75rem; font-weight: 600;
-      padding: .4rem 1rem; border-radius: 8px; display: none;
-      box-shadow: 0 4px 16px rgba(0,0,0,.4); z-index: 200;
-      font-family: var(--font-body); display: none; align-items: center; gap: .5rem;
-    }
-    #notif.show { display: flex; }
   </style>
 </head>
-<body>
 
-<!-- ═══════ TOPBAR ═══════ -->
-<div id="topbar">
-  <a href="../index.html" class="brand">
-    <div class="brand-icon"><i class="fa-solid fa-layer-group"></i></div>
-    <span class="brand-name">MastorsCDN</span>
-    <span class="brand-sep">/</span>
-    <span class="brand-page">Playground</span>
+<body class="bg-deep text-t1 font-body antialiased">
+
+<!-- TOPBAR -->
+<header class="flex items-center gap-2.5 px-4 bg-surface border-b border-border flex-shrink-0 z-50" style="height:52px">
+  <a href="../index.html" class="flex items-center gap-2 no-underline">
+    <div class="w-7 h-7 rounded-[7px] flex items-center justify-center text-white text-[.7rem] flex-shrink-0"
+         style="background:linear-gradient(135deg,#5b8dee,#8b5cf6)">
+      <i class="fa-solid fa-layer-group"></i>
+    </div>
+    <span class="font-head font-bold text-[.88rem] text-t1">MastorsCDN</span>
+    <span class="text-t3 text-sm">/</span>
+    <span class="font-head font-semibold text-[.88rem] text-accent">Playground</span>
   </a>
 
-  <div class="topbar-actions">
-    <button class="tb-btn" id="btn-format" title="Format code (Alt+Shift+F)">
-      <i class="fa-solid fa-indent"></i> Format
+  <div class="hidden md:flex items-center gap-1.5 ml-3 px-2.5 rounded-full border border-border bg-card text-[.63rem] font-bold text-t3 tracking-[.1em] uppercase" style="padding-top:4px;padding-bottom:4px">
+    <span class="w-[6px] h-[6px] rounded-full bg-green pulse"></span>
+    CSS 2027
+  </div>
+
+  <div class="flex items-center gap-1.5 ml-auto">
+    <button id="btn-format"
+      class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold text-t2 bg-card border border-border hover:text-t1 hover:border-glow transition-all">
+      <i class="fa-solid fa-indent text-[.63rem]"></i> Format
     </button>
-    <button class="tb-btn danger" id="btn-clear" title="Clear editors">
-      <i class="fa-solid fa-trash-can"></i> Clear
+    <button id="btn-clear"
+      class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold bg-card border transition-all"
+      style="color:#f4456b;border-color:rgba(244,69,107,.25)">
+      <i class="fa-solid fa-trash-can text-[.63rem]"></i> Clear
     </button>
-    <button class="tb-btn success" id="btn-save" title="Save to URL (Ctrl+S)">
-      <i class="fa-solid fa-floppy-disk"></i> Save
+    <button id="btn-save"
+      class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold bg-card border transition-all"
+      style="color:#22d3a5;border-color:rgba(34,211,165,.25)">
+      <i class="fa-solid fa-floppy-disk text-[.63rem]"></i> Save
     </button>
-    <button class="tb-btn" id="btn-share" title="Share current code">
-      <i class="fa-solid fa-share-nodes"></i> Share
+    <button id="btn-share"
+      class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold text-t2 bg-card border border-border hover:text-t1 hover:border-glow transition-all">
+      <i class="fa-solid fa-share-nodes text-[.63rem]"></i> Share
     </button>
-    <button class="tb-btn primary" id="btn-fullscreen" title="Open preview fullscreen">
-      <i class="fa-solid fa-expand"></i> Fullscreen
+    <button id="btn-fullscreen"
+      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold text-white border border-accent/30 hover:border-accent transition-all"
+      style="background:linear-gradient(135deg,#5b8dee,#4a7ddd)">
+      <i class="fa-solid fa-expand text-[.63rem]"></i>
+      <span class="hidden sm:inline">Fullscreen</span>
     </button>
-    <a href="../index.html" class="tb-btn" title="Back to docs">
-      <i class="fa-solid fa-book"></i> Docs
+    <button id="btn-mobile-menu" class="sm:hidden inline-flex items-center justify-center w-8 h-8 rounded-lg bg-card border border-border text-t2">
+      <i class="fa-solid fa-ellipsis-vertical text-[.75rem]"></i>
+    </button>
+    <a href="../index.html"
+      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold text-t2 bg-card border border-border hover:text-t1 hover:border-glow transition-all no-underline">
+      <i class="fa-solid fa-book text-[.63rem]"></i>
+      <span class="hidden sm:inline">Docs</span>
     </a>
   </div>
+</header>
+
+<!-- Mobile action menu -->
+<div id="mobile-menu" class="hidden bg-surface border-b border-border px-4 py-2.5 flex-wrap gap-2 flex-shrink-0">
+  <button onclick="formatCode()"
+    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold text-t2 bg-card border border-border">
+    <i class="fa-solid fa-indent text-[.63rem]"></i> Format
+  </button>
+  <button onclick="clearEditors()"
+    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold bg-card border" style="color:#f4456b;border-color:rgba(244,69,107,.25)">
+    <i class="fa-solid fa-trash-can text-[.63rem]"></i> Clear
+  </button>
+  <button onclick="saveToURL()"
+    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold bg-card border" style="color:#22d3a5;border-color:rgba(34,211,165,.25)">
+    <i class="fa-solid fa-floppy-disk text-[.63rem]"></i> Save
+  </button>
 </div>
 
-<!-- ═══════ SNIPPET BAR ═══════ -->
-<div id="snippet-bar">
-  <span class="snip-label">Snippets:</span>
-  <button class="snip-btn active" onclick="loadSnippet('welcome')">Welcome</button>
-  <button class="snip-btn" onclick="loadSnippet('container')">Container Queries</button>
-  <button class="snip-btn" onclick="loadSnippet('color')">color-mix()</button>
-  <button class="snip-btn" onclick="loadSnippet('nesting')">CSS Nesting</button>
-  <button class="snip-btn" onclick="loadSnippet('has')">:has()</button>
-  <button class="snip-btn" onclick="loadSnippet('property')">@property</button>
-  <button class="snip-btn" onclick="loadSnippet('subgrid')">Subgrid</button>
-  <button class="snip-btn" onclick="loadSnippet('scroll')">Scroll Anim</button>
-  <button class="snip-btn" onclick="loadSnippet('math')">Math Functions</button>
-  <button class="snip-btn" onclick="loadSnippet('scope')">@scope</button>
-  <button class="snip-btn" onclick="loadSnippet('layer')">@layer</button>
-  <button class="snip-btn" onclick="loadSnippet('logical')">Logical Props</button>
+<!-- SNIPPET BAR -->
+<div id="snippet-bar" class="flex items-center gap-1.5 px-4 bg-deep border-b border-border overflow-x-auto flex-shrink-0" style="height:40px">
+  <span class="text-[.63rem] font-bold tracking-[.1em] uppercase text-t3 flex-shrink-0 mr-1">Snippets</span>
+  <button class="snip-btn active" data-snip="welcome">Welcome</button>
+  <button class="snip-btn" data-snip="container">Container Queries</button>
+  <button class="snip-btn" data-snip="colormix">color-mix()</button>
+  <button class="snip-btn" data-snip="nesting">CSS Nesting</button>
+  <button class="snip-btn" data-snip="has">:has()</button>
+  <button class="snip-btn" data-snip="property">@property</button>
+  <button class="snip-btn" data-snip="subgrid">Subgrid</button>
+  <button class="snip-btn" data-snip="scroll">Scroll Anim</button>
+  <button class="snip-btn" data-snip="layer">@layer</button>
+  <button class="snip-btn" data-snip="scope">@scope</button>
+  <button class="snip-btn" data-snip="anchor">Anchor Pos</button>
+  <button class="snip-btn" data-snip="textwrap">text-wrap</button>
 </div>
 
-<!-- ═══════ WORKSPACE ═══════ -->
-<div id="workspace">
+<!-- WORKSPACE -->
+<div id="workspace" class="flex flex-1 overflow-hidden" style="min-height:0">
 
-  <!-- ─── EDITOR PANE ─── -->
-  <div id="editor-pane">
-    <div id="editor-tabs">
-      <div class="etab etab-html active" id="tab-html" onclick="switchTab('html')">
-        <i class="fa-brands fa-html5"></i> HTML
-      </div>
-      <div class="etab etab-css" id="tab-css" onclick="switchTab('css')">
-        <i class="fa-brands fa-css3-alt"></i> CSS
-      </div>
-      <div id="editor-tabs-right">
-        <button class="tb-btn" style="padding:.2rem .55rem;font-size:.68rem" id="btn-run" title="Run (Ctrl+Enter)">
-          <i class="fa-solid fa-play"></i> Run
+  <!-- EDITOR PANE -->
+  <div id="editor-pane" class="flex flex-col border-r border-border min-w-0" style="width:50%">
+
+    <!-- Tab bar -->
+    <div class="flex items-center bg-surface border-b border-border flex-shrink-0" style="height:40px">
+      <button id="tab-html" onclick="switchTab('html')"
+        class="etab active flex items-center gap-2 px-4 h-full text-[.75rem] font-semibold border-b-2 transition-all">
+        <i class="fa-brands fa-html5 text-[.68rem]" style="color:#e34c26"></i> HTML
+      </button>
+      <button id="tab-css" onclick="switchTab('css')"
+        class="etab flex items-center gap-2 px-4 h-full text-[.75rem] font-semibold border-b-2 transition-all">
+        <i class="fa-brands fa-css3-alt text-[.68rem]" style="color:#264de4"></i> CSS
+      </button>
+      <div class="flex items-center gap-1.5 ml-auto pr-2">
+        <button id="btn-run"
+          class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[.67rem] font-semibold border transition-all"
+          style="color:#22d3a5;background:rgba(34,211,165,.1);border-color:rgba(34,211,165,.2)"
+          title="Run (Ctrl+Enter)">
+          <i class="fa-solid fa-play text-[.58rem]"></i> Run
         </button>
       </div>
     </div>
 
-    <!-- HTML editor -->
-    <div class="editor-wrap visible" id="wrap-html">
+    <!-- Editor areas -->
+    <div id="wrap-html" class="flex-1 overflow-hidden" style="display:flex;flex-direction:column">
       <textarea id="html-editor"></textarea>
     </div>
-    <!-- CSS editor -->
-    <div class="editor-wrap" id="wrap-css">
+    <div id="wrap-css" class="flex-1 overflow-hidden" style="display:none;flex-direction:column">
       <textarea id="css-editor"></textarea>
     </div>
 
-    <div id="editor-status">
-      <span class="status-item status-live"><span class="status-dot"></span> Live</span>
-      <span class="status-item" id="cursor-pos">Ln 1, Col 1</span>
-      <span class="status-item" id="char-count">0 chars</span>
-      <label class="autorun-toggle">
-        <input type="checkbox" id="autorun-toggle" checked>
-        <span>Auto-run</span>
+    <!-- Status bar -->
+    <div class="flex items-center gap-4 px-3 bg-surface border-t border-border flex-shrink-0" style="height:26px">
+      <span class="flex items-center gap-1.5 text-[.62rem] font-semibold" style="color:#22d3a5">
+        <span class="w-[6px] h-[6px] rounded-full pulse" style="background:#22d3a5"></span> Live
+      </span>
+      <span id="cursor-pos" class="text-[.62rem]" style="color:#4a6080">Ln 1, Col 1</span>
+      <span id="char-count" class="text-[.62rem]" style="color:#4a6080">0 chars</span>
+      <label class="flex items-center gap-1.5 ml-auto cursor-pointer select-none">
+        <input type="checkbox" id="autorun-chk" checked style="accent-color:#5b8dee;width:12px;height:12px">
+        <span class="text-[.62rem]" style="color:#4a6080">Auto-run</span>
       </label>
     </div>
   </div>
 
-  <!-- ─── RESIZE HANDLE ─── -->
+  <!-- RESIZE HANDLE -->
   <div id="resize-handle"></div>
 
-  <!-- ─── PREVIEW PANE ─── -->
-  <div id="preview-pane">
-    <div id="preview-titlebar">
-      <div class="win-dots">
-        <div class="win-dot w-red"></div>
-        <div class="win-dot w-amber"></div>
-        <div class="win-dot w-green"></div>
+  <!-- PREVIEW PANE -->
+  <div id="preview-pane" class="flex flex-col flex-1 min-w-0">
+
+    <!-- Preview title bar -->
+    <div class="flex items-center gap-2 px-3 bg-surface border-b border-border flex-shrink-0" style="height:40px">
+      <div class="flex gap-1.5 mr-1 flex-shrink-0">
+        <div class="w-[11px] h-[11px] rounded-full" style="background:#f4456b"></div>
+        <div class="w-[11px] h-[11px] rounded-full" style="background:#f6a52a"></div>
+        <div class="w-[11px] h-[11px] rounded-full" style="background:#22d3a5"></div>
       </div>
-      <div class="preview-url">
-        <i class="fa-solid fa-lock" style="color:var(--green)"></i>
+      <div class="flex-1 flex items-center gap-1.5 rounded-md px-2.5 bg-card border border-border font-mono text-[.67rem]" style="color:#4a6080;padding-top:3px;padding-bottom:3px">
+        <i class="fa-solid fa-lock text-[.6rem]" style="color:#22d3a5"></i>
         playground / preview
       </div>
-      <button class="tb-btn" style="padding:.2rem .55rem;font-size:.68rem;margin-left:.5rem" onclick="reloadPreview()" title="Reload preview">
-        <i class="fa-solid fa-rotate-right"></i>
+      <button onclick="reloadPreview()"
+        class="flex items-center justify-center rounded-md bg-card border border-border transition-all hover:border-glow flex-shrink-0"
+        style="width:27px;height:27px;color:#4a6080;margin-left:4px"
+        title="Reload">
+        <i class="fa-solid fa-rotate-right text-[.63rem]"></i>
       </button>
+      <div class="hidden md:flex items-center gap-1 ml-1 flex-shrink-0">
+        <button onclick="setViewport('full')" id="vp-full" class="vp-btn active" title="Full width">
+          <i class="fa-solid fa-display text-[.63rem]"></i>
+        </button>
+        <button onclick="setViewport('tablet')" id="vp-tablet" class="vp-btn" title="Tablet 768px">
+          <i class="fa-solid fa-tablet-screen-button text-[.63rem]"></i>
+        </button>
+        <button onclick="setViewport('mobile')" id="vp-mobile" class="vp-btn" title="Mobile 375px">
+          <i class="fa-solid fa-mobile-screen text-[.63rem]"></i>
+        </button>
+      </div>
+      <div class="hidden md:flex items-center gap-1 ml-1 flex-shrink-0" title="Preview background">
+        <button onclick="setPreviewBg('dark')"  id="bg-dark"  class="bg-toggle-btn active-dark"  title="Dark background"><i class="fa-solid fa-moon"></i></button>
+        <button onclick="setPreviewBg('white')" id="bg-white" class="bg-toggle-btn"              title="White background"><i class="fa-solid fa-sun"></i></button>
+      </div>
     </div>
 
-    <iframe id="preview-frame" sandbox="allow-scripts allow-same-origin"></iframe>
+    <!-- Preview wrapper — dark checker shows "transparent" areas clearly -->
+    <div id="preview-wrapper" class="flex-1 overflow-auto bg-dark" style="display:flex;align-items:flex-start;justify-content:center;">
+    <iframe id="preview-frame" sandbox="allow-scripts allow-same-origin" style="border:none;flex-shrink:0;width:100%;min-height:100%;display:block;transition:width .35s cubic-bezier(.4,0,.2,1),max-width .35s cubic-bezier(.4,0,.2,1);"></iframe>
+    </div>
 
-    <div id="preview-statusbar">
-      <span class="status-item" id="preview-status" style="color:var(--green)"><i class="fa-solid fa-circle-check"></i> Ready</span>
-      <span class="status-item" id="preview-size" style="margin-left:auto">—</span>
+    <!-- Preview status bar -->
+    <div class="flex items-center gap-3 px-3 bg-surface border-t border-border flex-shrink-0" style="height:26px">
+      <span id="preview-status" class="flex items-center gap-1.5 text-[.62rem] font-semibold" style="color:#22d3a5">
+        <i class="fa-solid fa-circle-check text-[.58rem]"></i> Ready
+      </span>
+      <span id="preview-dimensions" class="text-[.62rem] ml-auto" style="color:#4a6080">—</span>
     </div>
   </div>
 </div>
 
-<!-- ═══════ TOASTS ═══════ -->
-<div id="error-toast"></div>
-<div id="save-toast"><i class="fa-solid fa-check"></i> Saved to URL!</div>
-<div id="notif" id="notif"></div>
+<!-- DRAG OVERLAY (blocks iframe during resize) -->
+<div id="drag-overlay"></div>
 
-<!-- ═══════ SCRIPTS ═══════ -->
+<!-- TOASTS -->
+<div id="toast-save"   style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:999;align-items:center;gap:.5rem;padding:.5rem 1.1rem;border-radius:10px;font-size:.78rem;font-weight:700;color:#0a2a1e;background:rgba(34,211,165,.92);box-shadow:0 4px 20px rgba(0,0,0,.4)"><i class="fa-solid fa-check"></i> Saved!</div>
+<div id="toast-copy"   style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:999;align-items:center;gap:.5rem;padding:.5rem 1.1rem;border-radius:10px;font-size:.78rem;font-weight:700;color:white;background:rgba(91,141,238,.92);box-shadow:0 4px 20px rgba(0,0,0,.4)"><i class="fa-solid fa-link"></i> Link copied!</div>
+<div id="toast-error"  style="display:none;position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:999;align-items:center;gap:.5rem;padding:.5rem 1.25rem;border-radius:99px;font-size:.78rem;font-weight:700;color:white;background:rgba(244,69,107,.92);box-shadow:0 4px 20px rgba(0,0,0,.4)"></div>
+<div id="toast-notif"  style="display:none;position:fixed;top:60px;right:.75rem;z-index:999;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:8px;font-size:.75rem;font-weight:600;color:#e8edf5;background:#111e35;border:1px solid #1e2e4a;box-shadow:0 4px 20px rgba(0,0,0,.4)"></div>
+
+
 <script>
-// ─── Snippets Library ────────────────────────────────────────────────────
+// ─── Snippet Library ──────────────────────────────────────────────────────────
 const SNIPPETS = {
-  welcome: {
-    html: `<div class="card">
-  <div class="card-icon">◆</div>
-  <h2>CSS 2027 Playground</h2>
-  <p>Write HTML and CSS in the editors on the left.<br>The preview updates in real time.</p>
+
+welcome: {
+html: `<div class="card">
+  <div class="icon">◆</div>
+  <h1>CSS 2027 Playground</h1>
+  <p>Write HTML and CSS in the editors.<br>The preview updates in real time.</p>
   <div class="badges">
     <span class="badge blue">Container Queries</span>
     <span class="badge purple">@property</span>
     <span class="badge green">:has()</span>
     <span class="badge pink">Scroll-Driven</span>
+    <span class="badge amber">color-mix()</span>
   </div>
-  <a class="btn">Explore Snippets ↑</a>
+  <p class="hint">← Select a snippet above to explore</p>
 </div>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   background: #060b16;
   font-family: 'DM Sans', system-ui, sans-serif;
   padding: 2rem;
 }
-
 .card {
   background: #0f1a2e;
   border: 1px solid #1b2b45;
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 2.5rem 2rem;
-  max-width: 440px;
+  max-width: 440px; width: 100%;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  box-shadow: 0 24px 64px rgba(0,0,0,.55),
+              0 0 0 1px rgba(91,141,238,.08);
 }
-
-.card-icon {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+.icon {
+  font-size: 2.2rem; margin-bottom: 1.1rem;
   background: linear-gradient(135deg, #5b8dee, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
-h2 {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: #e2eaf4;
-  margin-bottom: .75rem;
-  letter-spacing: -.02em;
+h1 {
+  font-size: 1.65rem; font-weight: 800;
+  color: #e8edf5; margin-bottom: .7rem;
+  letter-spacing: -.03em;
 }
-
 p {
-  color: #7d9ab8;
-  font-size: .92rem;
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
+  color: #7d9ab8; font-size: .9rem;
+  line-height: 1.75; margin-bottom: 1.5rem;
 }
-
 .badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
-  justify-content: center;
+  display: flex; flex-wrap: wrap;
+  gap: .45rem; justify-content: center;
   margin-bottom: 1.75rem;
 }
-
 .badge {
-  font-size: .72rem;
-  font-weight: 600;
-  padding: .25rem .75rem;
-  border-radius: 99px;
+  font-size: .7rem; font-weight: 700;
+  padding: .22rem .72rem; border-radius: 99px;
 }
+.badge.blue   { background:rgba(91,141,238,.14); color:#5b8dee; border:1px solid rgba(91,141,238,.28); }
+.badge.purple { background:rgba(139,92,246,.14); color:#a78bfa; border:1px solid rgba(139,92,246,.28); }
+.badge.green  { background:rgba(34,211,165,.12); color:#22d3a5; border:1px solid rgba(34,211,165,.25); }
+.badge.pink   { background:rgba(244,114,182,.12); color:#f472b6; border:1px solid rgba(244,114,182,.25); }
+.badge.amber  { background:rgba(246,165,42,.12); color:#f6a52a; border:1px solid rgba(246,165,42,.25); }
+.hint {
+  font-size: .76rem; color: #3d566e;
+  margin-bottom: 0; font-style: italic;
+}`
+},
 
-.badge.blue   { background: rgba(91,141,238,.15); color: #5b8dee; border: 1px solid rgba(91,141,238,.3); }
-.badge.purple { background: rgba(139,92,246,.15); color: #a78bfa; border: 1px solid rgba(139,92,246,.3); }
-.badge.green  { background: rgba(34,211,165,.12); color: #22d3a5; border: 1px solid rgba(34,211,165,.3); }
-.badge.pink   { background: rgba(244,69,107,.12); color: #f472b6; border: 1px solid rgba(244,69,107,.3); }
-
-.btn {
-  display: inline-block;
-  background: #5b8dee;
-  color: white;
-  font-size: .85rem;
-  font-weight: 600;
-  padding: .65rem 1.5rem;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: background .2s;
-  cursor: pointer;
-}
-
-.btn:hover { background: #4a7ddd; }`
-  },
-
-  container: {
-    html: `<h3 style="color:#7d9ab8;font-size:.8rem;margin-bottom:1rem;font-family:sans-serif">
-  Resize the window to see the card adapt ↕
-</h3>
-
-<div class="card-wrapper">
-  <div class="card">
-    <div class="card-img"></div>
-    <div class="card-body">
-      <h2>Container Query Card</h2>
-      <p>This card layouts itself based on its container — not the viewport. When the container is wide, image sits on the left. When narrow, it stacks vertically.</p>
-      <button class="btn">Learn More</button>
+container: {
+html: `<div class="page">
+  <h2>Container Query Card</h2>
+  <p>Resize the browser — the card adapts to its container, not the viewport.</p>
+  <div class="wrapper">
+    <div class="card">
+      <div class="card-img"></div>
+      <div class="card-body">
+        <h3>Adaptive Layout</h3>
+        <p>When wide: side-by-side. When narrow: stacked. Zero media queries on the card itself.</p>
+        <a class="btn">Read More</a>
+      </div>
     </div>
   </div>
 </div>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: #060b16;
   font-family: 'DM Sans', system-ui, sans-serif;
-  padding: 2rem;
-  min-height: 100vh;
+  padding: 2rem; min-height: 100vh; color: #e8edf5;
 }
-
-/* Establish container */
-.card-wrapper {
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .4rem; letter-spacing: -.02em; }
+p { color: #7d9ab8; font-size: .84rem; line-height: 1.7; }
+.wrapper {
   container-type: inline-size;
   container-name: card-cq;
-  max-width: 700px;
-  margin: 0 auto;
+  max-width: 680px; margin: 1.5rem auto 0;
 }
-
 .card {
   background: #0f1a2e;
   border: 1px solid #1b2b45;
-  border-radius: 14px;
-  overflow: hidden;
+  border-radius: 14px; overflow: hidden;
 }
-
-/* Wide layout */
 @container card-cq (min-width: 420px) {
-  .card {
-    display: flex;
-  }
-  .card-img {
-    width: 160px;
-    flex-shrink: 0;
-  }
-  .card-body {
-    padding: 1.75rem;
-  }
+  .card { display: flex; }
+  .card-img { width: 160px; flex-shrink: 0; }
+  .card-body { padding: 1.75rem; }
 }
-
-/* Narrow layout */
 @container card-cq (max-width: 419px) {
-  .card-img {
-    width: 100%;
-    height: 130px;
-  }
-  .card-body {
-    padding: 1.25rem;
-  }
+  .card-img { width: 100%; height: 120px; }
+  .card-body { padding: 1.2rem; }
 }
-
 .card-img {
   background: linear-gradient(135deg, #5b8dee, #8b5cf6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; color: white;
 }
-
 .card-img::after { content: '◆'; }
-
-h2 {
-  color: #e2eaf4;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: .6rem;
-}
-
-p {
-  color: #7d9ab8;
-  font-size: .82rem;
-  line-height: 1.65;
-  margin-bottom: 1rem;
-}
-
+h3 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; color: #e8edf5; }
+.card-body p { margin-bottom: 1rem; }
 .btn {
-  display: inline-block;
-  background: #5b8dee;
-  color: white;
-  font-size: .78rem;
-  font-weight: 600;
-  padding: .4rem 1rem;
-  border-radius: 7px;
-  text-decoration: none;
+  display: inline-block; background: #5b8dee; color: white;
+  font-size: .78rem; font-weight: 600;
+  padding: .4rem 1rem; border-radius: 7px; text-decoration: none;
 }`
-  },
+},
 
-  color: {
-    html: `<div class="demo">
+colormix: {
+html: `<div class="demo">
   <h2>CSS Color Level 5</h2>
-
   <section>
     <h3>color-mix() — 20% steps</h3>
-    <div class="swatch-row" id="mix-row"></div>
+    <div class="row" id="mix"></div>
   </section>
-
   <section>
-    <h3>OKLCH hue rotation (H: 0–300°)</h3>
-    <div class="swatch-row" id="hue-row"></div>
+    <h3>OKLCH hue rotation (0–300°)</h3>
+    <div class="row" id="hue"></div>
   </section>
-
   <section>
-    <h3>Relative color — lighten/darken</h3>
-    <div class="relative-demo">
-      <div class="rel-base">Base<br><code>oklch(50% .22 264)</code></div>
-      <div class="rel-light">+20% L<br><code>oklch(from base calc(l+.2) c h)</code></div>
-      <div class="rel-dark">-20% L<br><code>oklch(from base calc(l-.2) c h)</code></div>
+    <h3>Relative color syntax</h3>
+    <div class="rel-row">
+      <div class="rel" style="background:oklch(50% .22 264)">Base<br><small>oklch(50% .22 264)</small></div>
+      <div class="rel" style="background:oklch(70% .22 264);color:#0a1a2e">+Light<br><small>calc(l+.2)</small></div>
+      <div class="rel" style="background:oklch(30% .22 264)">+Dark<br><small>calc(l-.2)</small></div>
+      <div class="rel" style="background:oklch(50% .32 264)">+Chrome<br><small>calc(c+.1)</small></div>
     </div>
   </section>
 </div>
-
 <script>
-  // Build swatches dynamically
-  const mixRow = document.getElementById('mix-row');
-  for (let p = 100; p >= 5; p -= 15) {
-    const d = document.createElement('div');
-    d.className = 'swatch';
-    d.style.background = \`color-mix(in oklch, #5b8dee \${p}%, white)\`;
-    d.title = \`\${p}%\`;
+  const mixRow = document.getElementById('mix');
+  for(let p=100;p>=5;p-=13){
+    const d=document.createElement('div');
+    d.className='swatch';
+    d.style.background='color-mix(in oklch,#5b8dee '+p+'%,white)';
+    d.title=p+'%';
     mixRow.appendChild(d);
   }
-  const hueRow = document.getElementById('hue-row');
-  for (let h = 0; h <= 300; h += 50) {
-    const d = document.createElement('div');
-    d.className = 'swatch';
-    d.style.background = \`oklch(60% .22 \${h})\`;
-    d.title = \`H: \${h}°\`;
+  const hueRow = document.getElementById('hue');
+  for(let h=0;h<=300;h+=43){
+    const d=document.createElement('div');
+    d.className='swatch';
+    d.style.background='oklch(60% .22 '+h+')';
+    d.title='H:'+h;
     hueRow.appendChild(d);
   }
 <\/script>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: #060b16;
+  background: #060b16; color: #e8edf5;
   font-family: 'DM Sans', system-ui, sans-serif;
-  padding: 2rem;
-  min-height: 100vh;
-  color: #e2eaf4;
+  padding: 2rem; min-height: 100vh;
 }
-
-.demo { max-width: 600px; margin: 0 auto; }
-
-h2 {
-  font-size: 1.4rem;
-  font-weight: 800;
-  margin-bottom: 1.75rem;
-  color: #e2eaf4;
-  letter-spacing: -.02em;
-}
-
+.demo { max-width: 580px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -.02em; }
 section {
-  margin-bottom: 1.75rem;
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-  padding: 1.25rem;
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem;
 }
-
 h3 {
-  font-size: .82rem;
-  font-weight: 600;
-  color: #7d9ab8;
-  margin-bottom: .85rem;
-  text-transform: uppercase;
-  letter-spacing: .08em;
+  font-size: .72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #4a6080; margin-bottom: .85rem;
 }
-
-.swatch-row { display: flex; gap: .5rem; flex-wrap: wrap; }
-
+.row { display: flex; gap: .5rem; flex-wrap: wrap; }
 .swatch {
-  width: 42px; height: 42px;
-  border-radius: 8px;
-  cursor: default;
-  transition: transform .2s;
+  width: 40px; height: 40px; border-radius: 8px;
+  cursor: default; transition: transform .2s;
 }
-.swatch:hover { transform: scale(1.15); }
-
-.relative-demo {
-  display: flex;
-  gap: .75rem;
+.swatch:hover { transform: scale(1.2); }
+.rel-row { display: flex; gap: .65rem; flex-wrap: wrap; }
+.rel {
+  flex: 1; min-width: 100px; padding: .9rem .75rem;
+  border-radius: 10px; font-size: .75rem; font-weight: 600;
+  text-align: center; line-height: 1.5; color: white;
 }
+small { font-size: .62rem; opacity: .75; font-family: 'DM Mono', monospace; display:block; }`
+},
 
-.rel-base, .rel-light, .rel-dark {
-  flex: 1;
-  padding: 1rem .75rem;
-  border-radius: 10px;
-  font-size: .72rem;
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.5;
-}
-
-code {
-  font-family: 'DM Mono', monospace;
-  font-size: .65rem;
-  display: block;
-  margin-top: .35rem;
-  opacity: .7;
-}
-
-.rel-base  { background: oklch(50% .22 264); color: white; }
-.rel-light { background: oklch(70% .22 264); color: #0f1a2e; }
-.rel-dark  { background: oklch(30% .22 264); color: #c5d8f0; }`
-  },
-
-  nesting: {
-    html: `<nav class="nav">
-  <a href="#" class="active">Home</a>
-  <a href="#">Docs</a>
-  <a href="#">Examples</a>
-  <a href="#">Playground</a>
-  <a href="#">About</a>
-</nav>
-
-<div class="cards">
-  <article class="card">
-    <h2>Native CSS Nesting</h2>
-    <p>Nest rules inside parents just like SASS — now part of the CSS standard.</p>
-    <footer>
-      <span class="tag">CSS 2027</span>
-      <button>Learn more</button>
-    </footer>
-  </article>
-
-  <article class="card card--featured">
-    <h2>Featured Article</h2>
-    <p>This card is featured — styled using <code>:has()</code> or direct class, nested with all its children.</p>
-    <footer>
-      <span class="tag">Featured</span>
-      <button>Read →</button>
-    </footer>
-  </article>
+nesting: {
+html: `<div class="app">
+  <nav class="nav">
+    <a href="javascript:void(0)" class="active">Home</a>
+    <a href="javascript:void(0)">Docs</a>
+    <a href="javascript:void(0)">Examples</a>
+    <a href="javascript:void(0)">Playground</a>
+    <a href="javascript:void(0)">About</a>
+  </nav>
+  <div class="cards">
+    <article class="card">
+      <h2>Native CSS Nesting</h2>
+      <p>Nest rules inside parents — same syntax as SASS, now native CSS. No build step needed.</p>
+      <footer><span class="tag">CSS 2027</span><button>Learn more</button></footer>
+    </article>
+    <article class="card card--featured">
+      <h2>Featured Article</h2>
+      <p>This card uses <code>.card--featured</code> modifier — all styled with nested rules.</p>
+      <footer><span class="tag">Featured</span><button>Read →</button></footer>
+    </article>
+  </div>
 </div>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: #060b16;
+  background: #060b16; color: #e8edf5;
   font-family: 'DM Sans', system-ui, sans-serif;
-  padding: 2rem;
-  min-height: 100vh;
-  color: #e2eaf4;
+  padding: 2rem; min-height: 100vh;
 }
-
+.app { max-width: 600px; margin: 0 auto; }
 .nav {
-  display: flex;
-  gap: .5rem;
-  background: #0f1a2e;
-  padding: .6rem .85rem;
-  border-radius: 10px;
-  border: 1px solid #1b2b45;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
+  display: flex; gap: .4rem; flex-wrap: wrap;
+  background: #0f1a2e; padding: .55rem .75rem;
+  border-radius: 10px; border: 1px solid #1b2b45;
+  margin-bottom: 1.25rem;
 
   & a {
-    color: #7d9ab8;
-    text-decoration: none;
-    font-size: .82rem;
-    padding: .3rem .7rem;
-    border-radius: 6px;
-    transition: all .2s;
+    color: #7d9ab8; text-decoration: none;
+    font-size: .82rem; padding: .28rem .65rem;
+    border-radius: 6px; transition: all .2s;
 
-    &:hover {
-      color: #e2eaf4;
-      background: rgba(91, 141, 238, .12);
-    }
-
-    &.active {
-      color: #5b8dee;
-      background: rgba(91, 141, 238, .15);
-      font-weight: 600;
-    }
+    &:hover { color: #e8edf5; background: rgba(91,141,238,.1); }
+    &.active { color: #5b8dee; background: rgba(91,141,238,.14); font-weight: 600; }
   }
 }
-
 .cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
 
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
+  @media (max-width: 480px) { grid-template-columns: 1fr; }
 }
-
 .card {
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-  padding: 1.25rem;
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 12px; padding: 1.25rem;
   transition: border-color .2s;
 
   &:hover { border-color: #243348; }
 
-  & h2 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #e2eaf4;
-    margin-bottom: .5rem;
-  }
-
-  & p {
-    font-size: .8rem;
-    color: #7d9ab8;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-
+  & h2 { font-size: .98rem; font-weight: 700; color: #e8edf5; margin-bottom: .45rem; }
+  & p  { font-size: .79rem; color: #7d9ab8; line-height: 1.6; margin-bottom: 1rem; }
   & code {
-    font-family: 'DM Mono', monospace;
-    font-size: .78rem;
-    color: #5b8dee;
-    background: rgba(91,141,238,.1);
-    padding: .1rem .3rem;
-    border-radius: 4px;
+    font-family: 'DM Mono', monospace; font-size: .76rem;
+    color: #5b8dee; background: rgba(91,141,238,.1);
+    padding: .1rem .3rem; border-radius: 4px;
   }
-
-  & footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
+  & footer { display: flex; align-items: center; justify-content: space-between; }
   & .tag {
-    font-size: .68rem;
-    font-weight: 700;
-    background: rgba(91,141,238,.12);
-    color: #5b8dee;
-    border: 1px solid rgba(91,141,238,.25);
-    padding: .2rem .6rem;
-    border-radius: 99px;
+    font-size: .67rem; font-weight: 700;
+    background: rgba(91,141,238,.12); color: #5b8dee;
+    border: 1px solid rgba(91,141,238,.25); padding: .18rem .6rem; border-radius: 99px;
   }
-
   & button {
-    background: none;
-    border: 1px solid #1b2b45;
-    color: #7d9ab8;
-    font-size: .76rem;
-    padding: .3rem .75rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: all .2s;
-
-    &:hover {
-      border-color: #5b8dee;
-      color: #5b8dee;
-    }
+    background: none; border: 1px solid #1b2b45; color: #7d9ab8;
+    font-size: .75rem; padding: .28rem .7rem; border-radius: 6px;
+    cursor: pointer; font-family: inherit; transition: all .2s;
+    &:hover { border-color: #5b8dee; color: #5b8dee; }
   }
 
-  /* Featured variant using nesting */
   &.card--featured {
-    border-color: rgba(91,141,238,.4);
-    background: linear-gradient(135deg, #0f1a2e, #121e35);
-
-    & .tag {
-      background: rgba(139,92,246,.15);
-      color: #a78bfa;
-      border-color: rgba(139,92,246,.3);
-    }
+    border-color: rgba(91,141,238,.35);
+    background: linear-gradient(145deg, #0f1a2e, #131f38);
+    & .tag { background: rgba(139,92,246,.14); color: #a78bfa; border-color: rgba(139,92,246,.28); }
   }
 }`
-  },
+},
 
-  has: {
-    html: `<div class="demo">
+has: {
+html: `<div class="demo">
   <h2>:has() — Parent Selector</h2>
-
   <ul class="todo">
     <li><input type="checkbox"> Build container query component</li>
     <li><input type="checkbox"> Test @scope feature</li>
-    <li><input type="checkbox"> Write scroll-driven animation demo</li>
+    <li><input type="checkbox"> Write scroll-driven animation</li>
     <li><input type="checkbox"> Explore oklch() colors</li>
     <li><input type="checkbox"> Deploy to production</li>
   </ul>
-
-  <div class="card-grid">
+  <div class="grid">
+    <div class="card"><h3>Text Only</h3><p>No image — plain layout.</p></div>
     <div class="card">
-      <h3>Text Only Card</h3>
-      <p>No image here — default layout.</p>
-    </div>
-    <div class="card">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect width='200' height='100' fill='%231b2b45'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%235b8dee' font-size='14' font-family='sans-serif'%3E◆ Image%3C/text%3E%3C/svg%3E" alt="demo image">
-      <h3>Card with Image</h3>
-      <p>:has(img) applies different styles here.</p>
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect width='200' height='100' fill='%231b2b45'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%235b8dee' font-size='14' font-family='sans-serif'%3E◆%3C/text%3E%3C/svg%3E" alt="demo">
+      <h3>Has Image</h3>
+      <p>:has(img) changes this layout.</p>
     </div>
   </div>
 </div>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: #060b16;
+  background: #060b16; color: #e8edf5;
   font-family: 'DM Sans', system-ui, sans-serif;
-  padding: 2rem;
-  min-height: 100vh;
-  color: #e2eaf4;
+  padding: 2rem; min-height: 100vh;
 }
-
-.demo { max-width: 560px; margin: 0 auto; }
-
-h2 {
-  font-size: 1.3rem;
-  font-weight: 800;
-  margin-bottom: 1.5rem;
-  color: #e2eaf4;
-  letter-spacing: -.02em;
-}
-
-/* ── Todo list with :has() ── */
+.demo { max-width: 540px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 1.25rem; letter-spacing: -.02em; }
 .todo {
-  list-style: none;
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-  padding: .75rem;
-  margin-bottom: 1.5rem;
+  list-style: none; background: #0f1a2e;
+  border: 1px solid #1b2b45; border-radius: 12px;
+  padding: .65rem; margin-bottom: 1.25rem;
 }
-
 .todo li {
-  display: flex;
-  align-items: center;
-  gap: .65rem;
-  padding: .55rem .65rem;
-  border-radius: 7px;
-  font-size: .84rem;
-  color: #e2eaf4;
-  transition: all .25s;
-  cursor: pointer;
+  display: flex; align-items: center; gap: .6rem;
+  padding: .52rem .65rem; border-radius: 7px;
+  font-size: .83rem; color: #e8edf5;
+  transition: all .25s; cursor: pointer;
 }
-
 .todo li:hover { background: rgba(255,255,255,.03); }
-
-/* The magic — style parent based on child */
 .todo li:has(input:checked) {
-  text-decoration: line-through;
-  color: #3d566e;
+  text-decoration: line-through; color: #3d566e;
 }
-
 .todo input[type="checkbox"] {
-  accent-color: #5b8dee;
-  width: 15px; height: 15px;
+  accent-color: #5b8dee; width: 15px; height: 15px;
   cursor: pointer; flex-shrink: 0;
 }
-
-/* ── Card grid with :has(img) ── */
-.card-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .card {
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-  overflow: hidden;
-  padding: 1rem;
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 12px; overflow: hidden; padding: 1rem;
 }
-
-/* Different layout when card has an image */
 .card:has(img) {
-  padding: 0;
-  display: flex;
-  flex-direction: column;
+  padding: 0; display: flex; flex-direction: column;
   border-color: rgba(91,141,238,.3);
 }
+.card img { width: 100%; height: 75px; object-fit: cover; }
+.card:has(img) h3, .card:has(img) p { padding: .7rem .85rem; }
+.card:has(img) p { padding-top: 0; }
+.card h3 { font-size: .9rem; font-weight: 700; color: #e8edf5; margin-bottom: .35rem; }
+.card p  { font-size: .78rem; color: #7d9ab8; line-height: 1.55; }`
+},
 
-.card img {
-  width: 100%;
-  height: 80px;
-  object-fit: cover;
-}
-
-.card:has(img) h3,
-.card:has(img) p {
-  padding: .75rem .85rem;
-  padding-bottom: 0;
-}
-.card:has(img) p { padding-bottom: .85rem; }
-
-.card h3 {
-  font-size: .9rem;
-  font-weight: 700;
-  color: #e2eaf4;
-  margin-bottom: .4rem;
-}
-
-.card p {
-  font-size: .78rem;
-  color: #7d9ab8;
-  line-height: 1.55;
-}`
-  },
-
-  property: {
-    html: `<div class="demo">
+property: {
+html: `<div class="demo">
   <h2>@property — Typed Custom Properties</h2>
-
-  <div class="examples">
-    <div class="example">
-      <div class="spinner-wrap">
-        <div class="spinner s1"></div>
-        <div class="spinner s2"></div>
-      </div>
-      <p>Conic gradient spin via <code>@property --angle: &lt;angle&gt;</code></p>
+  <div class="cards">
+    <div class="card spin-card">
+      <div class="spinner"></div>
+      <h3>Animatable Angle</h3>
+      <p><code>--angle</code> defined as <code>&lt;angle&gt;</code> — animates smoothly via CSS.</p>
     </div>
-
-    <div class="example">
-      <div class="progress-demo">
-        <div class="progress-bar" id="pbar"></div>
+    <div class="card prog-card">
+      <div class="progress-ring">
+        <svg viewBox="0 0 80 80">
+          <circle class="track" cx="40" cy="40" r="32"/>
+          <circle class="fill" cx="40" cy="40" r="32"/>
+        </svg>
+        <span class="prog-text">72%</span>
       </div>
-      <p>Animatable <code>@property --progress: &lt;number&gt;</code></p>
-    </div>
-
-    <div class="example">
-      <div class="hue-shift-demo">
-        <div class="hue-box"></div>
-      </div>
-      <p>Hue shift via <code>@property --hue: &lt;angle&gt;</code></p>
+      <h3>Progress Ring</h3>
+      <p>Typed <code>--progress</code> property drives the stroke offset animation.</p>
     </div>
   </div>
-</div>
-
-<script>
-  // Animate progress bar with typed @property via JS
-  let p = 0;
-  const pb = document.getElementById('pbar');
-  function tick() {
-    p = (p + .5) % 101;
-    pb.style.setProperty('--prog', p);
-    requestAnimationFrame(tick);
-  }
-  tick();
-<\/script>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  background: #060b16;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  padding: 2rem;
-  min-height: 100vh;
-  color: #e2eaf4;
-}
-
-/* Register typed custom properties */
-@property --spin-angle {
+</div>`,
+css: `@property --angle {
   syntax: '<angle>';
   initial-value: 0deg;
   inherits: false;
 }
-
-@property --hue {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@property --prog {
+@property --progress {
   syntax: '<number>';
   initial-value: 0;
   inherits: false;
 }
-
-.demo { max-width: 520px; margin: 0 auto; }
-
-h2 {
-  font-size: 1.3rem;
-  font-weight: 800;
-  margin-bottom: 1.75rem;
-  color: #e2eaf4;
-  letter-spacing: -.02em;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #060b16; color: #e8edf5;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem; min-height: 100vh;
 }
-
-.examples {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+.demo { max-width: 560px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 1.25rem; letter-spacing: -.02em; }
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.card {
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 14px; padding: 1.5rem 1.25rem;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
 }
-
-.example {
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.example p {
-  font-size: .8rem;
-  color: #7d9ab8;
-  line-height: 1.6;
-}
-
+h3 { font-size: .9rem; font-weight: 700; margin: .85rem 0 .4rem; color: #e8edf5; }
+p  { font-size: .76rem; color: #7d9ab8; line-height: 1.6; }
 code {
-  font-family: 'DM Mono', monospace;
-  font-size: .78rem;
-  color: #5b8dee;
-  background: rgba(91,141,238,.1);
-  padding: .1rem .35rem;
-  border-radius: 4px;
+  font-family: 'DM Mono', monospace; font-size: .74rem;
+  color: #a78bfa; background: rgba(139,92,246,.1);
+  padding: .1rem .3rem; border-radius: 4px;
 }
-
-/* ── Spinners ── */
-.spinner-wrap { display: flex; gap: .75rem; flex-shrink: 0; }
-
+/* Spinner using @property --angle */
 .spinner {
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  animation: do-spin 3s linear infinite;
+  width: 64px; height: 64px; border-radius: 50%;
+  background: conic-gradient(from var(--angle), #5b8dee, #8b5cf6, #f472b6, #5b8dee);
+  animation: spin-angle 2.5s linear infinite;
 }
-
-@keyframes do-spin {
-  to { --spin-angle: 360deg; }
+@keyframes spin-angle { to { --angle: 360deg; } }
+/* Progress ring */
+.progress-ring { position: relative; width: 80px; height: 80px; }
+.progress-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.track { fill: none; stroke: #1e2e4a; stroke-width: 6; }
+.fill  {
+  fill: none; stroke: #5b8dee; stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 201; stroke-dashoffset: 57;
+  animation: fill-anim 1.5s cubic-bezier(.4,0,.2,1) forwards;
 }
-
-.s1 {
-  background: conic-gradient(from var(--spin-angle), #5b8dee, #8b5cf6, #ec4899, #5b8dee);
-}
-
-.s2 {
-  background: conic-gradient(from var(--spin-angle), #22d3a5, #5b8dee, #8b5cf6, #22d3a5);
-  animation-direction: reverse;
-  animation-duration: 2s;
-}
-
-/* ── Progress bar ── */
-.progress-demo {
-  width: 100px;
-  flex-shrink: 0;
-}
-
-.progress-bar {
-  --prog: 0;
-  height: 8px;
-  background: #1b2b45;
-  border-radius: 99px;
-  position: relative;
-  overflow: hidden;
-}
-
-.progress-bar::after {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: calc(var(--prog) * 1%);
-  background: linear-gradient(90deg, #5b8dee, #8b5cf6);
-  border-radius: 99px;
-  transition: width 0.05s linear;
-}
-
-/* ── Hue shift ── */
-.hue-shift-demo { flex-shrink: 0; }
-
-.hue-box {
-  width: 60px; height: 60px;
-  border-radius: 10px;
-  background: oklch(60% .22 var(--hue));
-  animation: hue-cycle 4s linear infinite;
-}
-
-@keyframes hue-cycle {
-  from { --hue: 0deg; }
-  to   { --hue: 360deg; }
+@keyframes fill-anim { from { stroke-dashoffset: 201; } to { stroke-dashoffset: 57; } }
+.prog-text {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-size: .85rem; font-weight: 800; color: #e8edf5;
 }`
-  },
+},
 
-  subgrid: {
-    html: `<div class="page">
-  <h2>CSS Subgrid — Aligned Cards</h2>
-  <p class="lead">All card footers align at the bottom regardless of body text length.</p>
-
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-img"></div>
-      <h3>Short Title</h3>
-      <p>Brief description here.</p>
-      <footer><button>Learn more →</button></footer>
-    </div>
-    <div class="card">
-      <div class="card-img" style="background:linear-gradient(135deg,#22d3a5,#0d9488)"></div>
-      <h3>A Much Longer Title That Wraps</h3>
-      <p>This card has significantly more body text. Even so, the footer stays at the same vertical position as its siblings. That's the magic of subgrid at work — zero extra JavaScript needed.</p>
-      <footer><button>Read more →</button></footer>
-    </div>
-    <div class="card">
-      <div class="card-img" style="background:linear-gradient(135deg,#f472b6,#9333ea)"></div>
-      <h3>Medium Length</h3>
-      <p>A moderate amount of content lives here, just enough to show the difference.</p>
-      <footer><button>Explore →</button></footer>
-    </div>
+subgrid: {
+html: `<div class="demo">
+  <h2>CSS Subgrid</h2>
+  <p>All cards align their title, body, and footer on the parent grid's row tracks.</p>
+  <div class="grid">
+    <article class="card">
+      <h3>Container Queries</h3>
+      <p>Style based on parent container size — the cornerstone of truly portable components that work in any layout context.</p>
+      <footer><a>Learn more</a></footer>
+    </article>
+    <article class="card">
+      <h3>@property</h3>
+      <p>Typed, animatable custom properties with syntax validation and inheritance control. CSS variables with superpowers.</p>
+      <footer><a>Learn more</a></footer>
+    </article>
+    <article class="card">
+      <h3>Anchor Positioning</h3>
+      <p>Tether floated/absolute elements to any anchor in the DOM without JavaScript.</p>
+      <footer><a>Learn more</a></footer>
+    </article>
   </div>
 </div>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: #060b16;
+  background: #060b16; color: #e8edf5;
   font-family: 'DM Sans', system-ui, sans-serif;
-  padding: 2rem;
-  min-height: 100vh;
-  color: #e2eaf4;
+  padding: 2rem; min-height: 100vh;
 }
+.demo { max-width: 680px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .5rem; letter-spacing: -.02em; }
+.demo > p { color: #7d9ab8; font-size: .84rem; margin-bottom: 1.5rem; line-height: 1.7; }
 
-.page { max-width: 720px; margin: 0 auto; }
-
-h2 {
-  font-size: 1.3rem;
-  font-weight: 800;
-  margin-bottom: .5rem;
-  color: #e2eaf4;
-  letter-spacing: -.02em;
-}
-
-.lead {
-  font-size: .85rem;
-  color: #7d9ab8;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-}
-
-/* Parent grid — 4 rows: img | title | body | footer */
-.card-grid {
+/* Parent grid defines 3 row tracks per card */
+.grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 100px auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
   gap: 1rem;
 }
-
-/* Each card spans all 4 parent rows */
+/* Card spans all 3 rows, inherits them via subgrid */
 .card {
   display: grid;
-  grid-row: span 4;
-  grid-template-rows: subgrid; /* inherit parent rows! */
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: border-color .2s;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 14px; overflow: hidden;
+  padding: 1.25rem; gap: 0;
+  transition: border-color .2s, transform .2s;
 }
-
-.card:hover { border-color: #243348; }
-
-.card-img {
-  background: linear-gradient(135deg, #5b8dee, #8b5cf6);
+.card:hover { border-color: #2a4070; transform: translateY(-2px); }
+h3 { font-size: .9rem; font-weight: 700; color: #e8edf5; margin-bottom: .6rem; }
+p  { font-size: .79rem; color: #7d9ab8; line-height: 1.65; align-self: start; }
+footer { padding-top: 1rem; border-top: 1px solid #1b2b45; margin-top: .75rem; }
+a {
+  font-size: .75rem; font-weight: 600; color: #5b8dee;
+  text-decoration: none; cursor: pointer;
 }
-
-h3 {
-  font-size: .9rem;
-  font-weight: 700;
-  color: #e2eaf4;
-  padding: .85rem .9rem .4rem;
-}
-
-p {
-  font-size: .78rem;
-  color: #7d9ab8;
-  line-height: 1.6;
-  padding: 0 .9rem .75rem;
-}
-
-footer {
-  padding: .65rem .9rem;
-  border-top: 1px solid #1b2b45;
-}
-
-button {
-  background: none;
-  border: 1px solid #1b2b45;
-  color: #5b8dee;
-  font-size: .74rem;
-  font-weight: 600;
-  padding: .3rem .8rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all .2s;
-}
-
-button:hover {
-  background: rgba(91,141,238,.1);
-  border-color: rgba(91,141,238,.4);
+a:hover { text-decoration: underline; }
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .card { grid-row: auto; grid-template-rows: auto; }
 }`
-  },
+},
 
-  scroll: {
-    html: `<div class="page">
-  <div id="progress-bar"></div>
-
-  <header>
+scroll: {
+html: `<div class="page">
+  <div class="progress-bar"></div>
+  <header class="hero">
     <h1>Scroll-Driven Animations</h1>
-    <p>Scroll down to see elements animate as they enter the viewport — zero JavaScript for the CSS animations.</p>
+    <p>Scroll down to see elements animate as they enter the viewport.</p>
+    <span class="arrow">↓</span>
   </header>
-
-  <div class="cards">
-    <div class="card reveal">
-      <div class="icon">◆</div>
-      <h3>Reveal on Scroll</h3>
-      <p>Uses <code>animation-timeline: view()</code> and <code>animation-range: entry 0% entry 50%</code>.</p>
+  <section class="section">
+    <div class="reveal-card">
+      <div class="card-icon">◆</div>
+      <h2>No JavaScript</h2>
+      <p>Scroll-driven animations are triggered by scroll progress, not JS scroll listeners. Pure CSS with <code>animation-timeline</code>.</p>
     </div>
-    <div class="card reveal" style="animation-delay:.1s">
-      <div class="icon" style="background:linear-gradient(135deg,#22d3a5,#0d9488)">●</div>
-      <h3>Staggered Effect</h3>
-      <p>Each card has an incremental <code>animation-delay</code> for a natural cascade appearance.</p>
+    <div class="reveal-card" style="animation-delay:.1s">
+      <div class="card-icon" style="background:linear-gradient(135deg,#8b5cf6,#f472b6)">◈</div>
+      <h2>animation-timeline</h2>
+      <p>Use <code>scroll()</code> or <code>view()</code> as the timeline source. Elements animate as they enter the scroll container.</p>
     </div>
-    <div class="card reveal" style="animation-delay:.2s">
-      <div class="icon" style="background:linear-gradient(135deg,#f472b6,#9333ea)">▲</div>
-      <h3>View Timeline</h3>
-      <p>The <code>view()</code> function tracks when an element enters or exits the scrollport.</p>
+    <div class="reveal-card" style="animation-delay:.2s">
+      <div class="card-icon" style="background:linear-gradient(135deg,#22d3a5,#5b8dee)">◇</div>
+      <h2>view() timeline</h2>
+      <p>The <code>view()</code> function ties animation to an element's position within the scrollport — perfect for reveal effects.</p>
     </div>
-    <div class="card reveal" style="animation-delay:.05s">
-      <div class="icon" style="background:linear-gradient(135deg,#f6a52a,#dc2626)">★</div>
-      <h3>Scroll Timeline</h3>
-      <p>The progress bar at the top uses <code>animation-timeline: scroll(root)</code>.</p>
-    </div>
-    <div class="card reveal" style="animation-delay:.15s">
-      <div class="icon" style="background:linear-gradient(135deg,#22d3a5,#5b8dee)">◈</div>
-      <h3>No JS Required</h3>
-      <p>Both the progress bar and the card reveal are pure CSS — not a single scroll event listener.</p>
-    </div>
-    <div class="card reveal" style="animation-delay:.25s">
-      <div class="icon" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)">✦</div>
-      <h3>CSS 2027 Native</h3>
-      <p>Scroll-driven animations are now a stable part of the CSS Animations Level 2 spec.</p>
-    </div>
-  </div>
+  </section>
 </div>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: #060b16;
+  background: #060b16; color: #e8edf5;
   font-family: 'DM Sans', system-ui, sans-serif;
-  padding: 0 0 3rem;
-  min-height: 200vh; /* ensure scroll */
-  color: #e2eaf4;
+  min-height: 100vh;
 }
-
-/* ── Reading progress bar ── */
-@property --scroll-pos {
-  syntax: '<number>';
-  initial-value: 0;
-  inherits: false;
-}
-
-#progress-bar {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 3px;
+/* Scroll progress bar */
+.progress-bar {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #5b8dee, #8b5cf6);
+  transform-origin: 0 50%; transform: scaleX(0);
   z-index: 100;
-  background: linear-gradient(
-    to right,
-    #5b8dee,
-    #8b5cf6
-  );
-  transform-origin: 0 0;
-  transform: scaleX(0);
-  animation: read-progress linear;
-  animation-timeline: scroll(root block);
+  animation: progress-anim linear;
+  animation-timeline: scroll(root);
 }
-
-@keyframes read-progress {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+@keyframes progress-anim { to { transform: scaleX(1); } }
+.hero {
+  height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 2rem;
 }
-
-/* ── Layout ── */
-header {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 5rem 1.5rem 2rem;
-  text-align: center;
+h1 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; letter-spacing: -.04em; margin-bottom: .75rem; }
+.hero p { color: #7d9ab8; font-size: 1rem; line-height: 1.7; max-width: 440px; }
+.arrow { font-size: 1.5rem; margin-top: 2rem; color: #4a6080; animation: bounce 2s ease-in-out infinite; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+.section {
+  padding: 4rem 2rem; max-width: 700px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 1.5rem;
 }
-
-h1 {
-  font-size: 1.75rem;
-  font-weight: 800;
-  margin-bottom: .75rem;
-  letter-spacing: -.03em;
-}
-
-header p {
-  color: #7d9ab8;
-  font-size: .88rem;
-  line-height: 1.7;
-}
-
-.cards {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-/* ── Scroll-reveal ── */
-.reveal {
+.reveal-card {
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 14px; padding: 1.5rem 1.75rem;
+  display: flex; gap: 1.25rem; align-items: flex-start;
+  opacity: 0; transform: translateY(24px);
   animation: card-reveal linear both;
   animation-timeline: view();
-  animation-range: entry 0% entry 50%;
+  animation-range: entry 10% entry 45%;
 }
-
 @keyframes card-reveal {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-.card {
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-  padding: 1.25rem;
-  transition: border-color .2s;
-}
-
-.card:hover { border-color: #243348; }
-
-.icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
+.card-icon {
+  width: 44px; height: 44px; border-radius: 10px;
   background: linear-gradient(135deg, #5b8dee, #8b5cf6);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; color: white;
-  margin-bottom: .85rem;
+  font-size: 1.1rem; flex-shrink: 0;
 }
-
-h3 {
-  font-size: .9rem;
-  font-weight: 700;
-  margin-bottom: .4rem;
-}
-
-p {
-  font-size: .78rem;
-  color: #7d9ab8;
-  line-height: 1.6;
-}
-
+h2 { font-size: 1rem; font-weight: 700; color: #e8edf5; margin-bottom: .4rem; }
+p  { font-size: .82rem; color: #7d9ab8; line-height: 1.65; }
 code {
-  font-family: 'DM Mono', monospace;
-  font-size: .76rem;
-  color: #5b8dee;
-  background: rgba(91,141,238,.1);
-  padding: .1rem .3rem;
-  border-radius: 4px;
+  font-family: 'DM Mono', monospace; font-size: .76rem;
+  color: #5b8dee; background: rgba(91,141,238,.1);
+  padding: .1rem .28rem; border-radius: 4px;
 }`
-  },
+},
 
-  math: {
-    html: `<div class="page">
-  <h2>CSS Math Functions</h2>
-
-  <section class="demo-section">
-    <h3>Circular layout — cos() &amp; sin()</h3>
-    <div class="orbit-container">
-      <div class="orbit-ring"></div>
-      <div class="center-dot">CSS</div>
-      <div class="orbit-item" style="--a:0deg">01</div>
-      <div class="orbit-item" style="--a:51.4deg">02</div>
-      <div class="orbit-item" style="--a:102.8deg">03</div>
-      <div class="orbit-item" style="--a:154.2deg">04</div>
-      <div class="orbit-item" style="--a:205.7deg">05</div>
-      <div class="orbit-item" style="--a:257.1deg">06</div>
-      <div class="orbit-item" style="--a:308.5deg">07</div>
+layer: {
+html: `<div class="demo">
+  <h2>Cascade Layers — @layer</h2>
+  <p>Layer order: <strong>base → components → utilities</strong>.<br>
+  Later layers win regardless of specificity.</p>
+  <div class="examples">
+    <div class="ex">
+      <h3>Base layer</h3>
+      <button class="btn-base">Base button</button>
+      <code>@layer base { .btn-base { … } }</code>
     </div>
-  </section>
-
-  <section class="demo-section">
-    <h3>Fluid typography — clamp()</h3>
-    <p class="fluid-text">Resize the window to see this text scale fluidly.</p>
-  </section>
-
-  <section class="demo-section">
-    <h3>round() — snap to grid</h3>
-    <div class="snap-demo">
-      <div class="snap-box" style="width:37px" title="raw: 37px">37px → <strong>36px</strong></div>
-      <div class="snap-box" style="width:45px" title="raw: 45px">45px → <strong>44px</strong></div>
-      <div class="snap-box" style="width:53px" title="raw: 53px">53px → <strong>52px</strong></div>
+    <div class="ex">
+      <h3>Components override base</h3>
+      <button class="btn-comp">Component button</button>
+      <code>@layer components { .btn-comp { … } }</code>
     </div>
-    <p style="font-size:.75rem;color:#3d566e;margin-top:.5rem">round(nearest, N, 4px) snaps to the nearest 4px grid unit</p>
-  </section>
-</div>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  background: #060b16;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  padding: 2rem;
-  min-height: 100vh;
-  color: #e2eaf4;
-}
-
-.page { max-width: 560px; margin: 0 auto; }
-
-h2 {
-  font-size: 1.3rem;
-  font-weight: 800;
-  margin-bottom: 1.5rem;
-  letter-spacing: -.02em;
-}
-
-.demo-section {
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-  padding: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-h3 {
-  font-size: .78rem;
-  font-weight: 700;
-  color: #7d9ab8;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  margin-bottom: 1rem;
-}
-
-/* ── Circular layout ── */
-.orbit-container {
-  position: relative;
-  width: 180px; height: 180px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.orbit-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1px dashed #1b2b45;
-}
-
-.center-dot {
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #5b8dee, #8b5cf6);
-  display: flex; align-items: center; justify-content: center;
-  font-size: .72rem; font-weight: 800;
-  color: white; z-index: 1;
-}
-
-.orbit-item {
-  --r: 74px;
-  position: absolute;
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  background: #121e35;
-  border: 2px solid rgba(91,141,238,.5);
-  display: flex; align-items: center; justify-content: center;
-  font-size: .6rem; font-weight: 700; color: #5b8dee;
-  left: calc(50% + var(--r) * cos(var(--a)) - 14px);
-  top:  calc(50% + var(--r) * sin(var(--a)) - 14px);
-  transition: border-color .2s;
-}
-.orbit-item:hover { border-color: #5b8dee; }
-
-/* ── Fluid text ── */
-.fluid-text {
-  font-size: clamp(.9rem, 3vw + .4rem, 1.6rem);
-  color: #e2eaf4;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-/* ── Snap demo ── */
-.snap-demo {
-  display: flex; gap: .75rem; flex-wrap: wrap;
-}
-
-.snap-box {
-  width: round(nearest, var(--w, 37px), 4px);
-  background: rgba(91,141,238,.12);
-  border: 1px solid rgba(91,141,238,.3);
-  border-radius: 6px;
-  padding: .5rem .65rem;
-  font-size: .75rem;
-  color: #e2eaf4;
-  white-space: nowrap;
-}
-
-strong { color: #22d3a5; }`
-  },
-
-  scope: {
-    html: `<div class="page">
-  <h2>@scope — Scoped Styles</h2>
-
-  <div class="widget">
-    <div class="widget-header">
-      <h3>Widget Component</h3>
-      <span class="tag">@scope</span>
-    </div>
-    <div class="widget-body">
-      <p>This paragraph is styled by <code>@scope(.widget)</code> — blue text, scoped to this component.</p>
-      <a href="#">Link inside scope — styled</a>
-      <div class="nested-component">
-        <p>This paragraph is inside <code>.nested-component</code> — the scope boundary. It is NOT affected by the outer scope styles.</p>
-        <a href="#">Link inside nested — unstyled by outer scope</a>
-      </div>
+    <div class="ex">
+      <h3>Utilities override all</h3>
+      <button class="btn-comp btn-util">Utility override</button>
+      <code>@layer utilities { .btn-util { … } }</code>
     </div>
   </div>
-
-  <p class="outside">This paragraph is <strong>outside</strong> the widget scope — default styles only.</p>
-  <a href="#" class="outside-link">Link outside scope — unstyled</a>
 </div>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+css: `/* Declare order up front — last wins */
+@layer base, components, utilities;
 
+@layer base {
+  .btn-base {
+    background: #475569; color: white;
+    padding: .5rem 1.25rem; border-radius: 5px;
+    border: none; cursor: pointer; font-size: .84rem;
+    font-family: 'DM Sans', sans-serif;
+    transition: filter .2s;
+  }
+  .btn-base:hover { filter: brightness(1.15); }
+}
+
+@layer components {
+  .btn-comp {
+    background: #5b8dee; border-radius: 9px;
+    font-weight: 700; padding: .55rem 1.4rem;
+    border: none; cursor: pointer; font-size: .84rem;
+    color: white; font-family: 'DM Sans', sans-serif;
+    transition: filter .2s;
+  }
+  .btn-comp:hover { filter: brightness(1.1); }
+}
+
+@layer utilities {
+  .btn-util { background: #8b5cf6; }
+}
+
+/* ── Page styles ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: #060b16;
+  background: #060b16; color: #e8edf5;
   font-family: 'DM Sans', system-ui, sans-serif;
-  padding: 2rem;
-  min-height: 100vh;
-  color: #e2eaf4;
+  padding: 2rem; min-height: 100vh;
 }
-
-.page { max-width: 560px; margin: 0 auto; }
-
-h2 {
-  font-size: 1.3rem;
-  font-weight: 800;
-  margin-bottom: 1.5rem;
-  letter-spacing: -.02em;
+.demo { max-width: 580px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .5rem; letter-spacing: -.02em; }
+.demo > p { color: #7d9ab8; font-size: .84rem; line-height: 1.7; margin-bottom: 1.5rem; }
+strong { color: #e8edf5; font-weight: 600; }
+.examples { display: flex; flex-direction: column; gap: .85rem; }
+.ex {
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 12px; padding: 1.1rem 1.25rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
 }
+h3 { font-size: .78rem; font-weight: 600; color: #7d9ab8; min-width: 150px; }
+code {
+  font-family: 'DM Mono', monospace; font-size: .7rem;
+  color: #4a6080; margin-left: auto;
+}`
+},
 
-.widget {
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 1.25rem;
-}
-
-.widget-header {
-  background: #121e35;
-  border-bottom: 1px solid #1b2b45;
-  padding: .75rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-h3 { font-size: .88rem; font-weight: 700; color: #e2eaf4; }
-
-.tag {
-  font-size: .68rem;
-  font-weight: 700;
-  background: rgba(91,141,238,.12);
-  color: #5b8dee;
-  border: 1px solid rgba(91,141,238,.25);
-  padding: .2rem .6rem;
-  border-radius: 99px;
-}
-
-.widget-body { padding: 1.1rem; }
-
-/* ── @scope rules ── */
-/* Scope: .widget down to .nested-component */
-@scope (.widget) to (.nested-component) {
+scope: {
+html: `<div class="demo">
+  <h2>@scope — Scoped Styles</h2>
+  <div class="scoped-card">
+    <h3>Inside @scope</h3>
+    <p>This paragraph gets blue text from <code>@scope(.scoped-card)</code>.</p>
+    <div class="child-component">
+      <h3>Child component</h3>
+      <p>@scope stops here when a lower boundary is used. Styles don't leak in.</p>
+    </div>
+  </div>
+  <div class="outside">
+    <h3>Outside @scope</h3>
+    <p>This paragraph is unstyled by the scoped rule — default color applies.</p>
+  </div>
+</div>`,
+css: `/* Scoped styles — only inside .scoped-card, stopping before .child-component */
+@scope (.scoped-card) to (.child-component) {
   p {
     color: #60a5fa;
     font-size: .84rem;
     line-height: 1.65;
-    margin-bottom: .75rem;
   }
-
-  a {
-    color: #5b8dee;
-    font-size: .82rem;
-    font-weight: 600;
-    text-decoration: underline;
-    display: block;
-    margin-bottom: .85rem;
-  }
+  h3 { color: white; font-weight: 700; font-size: .95rem; }
 }
 
-code {
-  font-family: 'DM Mono', monospace;
-  font-size: .78rem;
-  background: rgba(91,141,238,.1);
-  color: #5b8dee;
-  padding: .1rem .35rem;
-  border-radius: 4px;
+/* Child component gets its own scope */
+@scope (.child-component) {
+  p { color: #a78bfa; font-size: .82rem; }
+  h3 { color: #c4b5fd; font-weight: 600; font-size: .88rem; }
 }
 
-/* ── Nested component — outside scope ── */
-.nested-component {
-  background: #0a1422;
-  border: 1px solid #1b2b45;
-  border-radius: 8px;
-  padding: .85rem;
+/* ── Page ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #060b16; color: #8ea3bf;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem; min-height: 100vh;
 }
-
-/* Only these styles apply in nested (scope boundary stops outer) */
-.nested-component p {
-  color: #4a6080;
-  font-size: .8rem;
-  margin-bottom: .5rem;
+.demo { max-width: 520px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 1.25rem; color: #e8edf5; letter-spacing: -.02em; }
+.scoped-card {
+  background: #0f1a2e; border: 1px solid rgba(91,141,238,.35);
+  border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;
 }
-
-.nested-component a { color: #3d566e; font-size: .78rem; }
-
-/* ── Outside scope — default ── */
+.child-component {
+  background: rgba(139,92,246,.08); border: 1px solid rgba(139,92,246,.2);
+  border-radius: 9px; padding: 1rem; margin-top: 1rem;
+}
 .outside {
-  color: #7d9ab8;
-  font-size: .84rem;
-  margin-bottom: .5rem;
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 12px; padding: 1.25rem;
 }
-.outside-link { color: #3d566e; font-size: .82rem; }`
-  },
+code {
+  font-family: 'DM Mono', monospace; font-size: .75rem;
+  color: #5b8dee; background: rgba(91,141,238,.1);
+  padding: .1rem .3rem; border-radius: 4px;
+}`
+},
 
-  layer: {
-    html: `<div class="page">
-  <h2>Cascade Layers — @layer</h2>
-  <p class="lead">Later layers always win, regardless of selector specificity.</p>
-
-  <div class="demo-group">
-    <h3>Button variants across layers</h3>
-    <div class="btns">
-      <button class="btn">Base layer</button>
-      <button class="btn btn-component">Components layer</button>
-      <button class="btn btn-utility">Utilities override</button>
-      <button class="btn btn-component btn-utility">Utilities beat Components</button>
+anchor: {
+html: `<div class="demo">
+  <h2>CSS Anchor Positioning</h2>
+  <p>The tooltip is tethered to the button via <code>anchor-name</code> and <code>position-anchor</code> — zero JavaScript.</p>
+  <div class="scene">
+    <button class="anchor-btn" id="anchor-trigger">Hover Me</button>
+    <div class="tooltip" id="tooltip">
+      ✦ Pure CSS anchored tooltip
     </div>
   </div>
-
-  <div class="layer-diagram">
-    <div class="layer-item l1">
-      <span class="l-num">1</span>
-      <span class="l-name">@layer base</span>
-      <span class="l-desc">Lowest priority</span>
-    </div>
-    <div class="arrow">↓ later wins</div>
-    <div class="layer-item l2">
-      <span class="l-num">2</span>
-      <span class="l-name">@layer components</span>
-      <span class="l-desc">Overrides base</span>
-    </div>
-    <div class="arrow">↓ later wins</div>
-    <div class="layer-item l3">
-      <span class="l-num">3</span>
-      <span class="l-name">@layer utilities</span>
-      <span class="l-desc">Highest priority</span>
-    </div>
+  <div class="note">
+    <i>⚠</i> Requires Chrome 125+ for native anchor positioning. Fallback polyfill needed for other browsers.
   </div>
 </div>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: #060b16;
+  background: #060b16; color: #e8edf5;
   font-family: 'DM Sans', system-ui, sans-serif;
-  padding: 2rem;
-  min-height: 100vh;
-  color: #e2eaf4;
+  padding: 2rem; min-height: 100vh;
 }
-
-.page { max-width: 540px; margin: 0 auto; }
-
-h2 {
-  font-size: 1.3rem;
-  font-weight: 800;
-  margin-bottom: .5rem;
-  letter-spacing: -.02em;
+.demo { max-width: 520px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .5rem; letter-spacing: -.02em; }
+p { color: #7d9ab8; font-size: .84rem; line-height: 1.7; margin-bottom: 1.5rem; }
+code {
+  font-family: 'DM Mono', monospace; font-size: .77rem;
+  color: #5b8dee; background: rgba(91,141,238,.1);
+  padding: .1rem .3rem; border-radius: 4px;
 }
-
-.lead {
-  color: #7d9ab8;
-  font-size: .84rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-}
-
-/* ── Declare order — last wins ── */
-@layer l-base, l-components, l-utilities;
-
-@layer l-base {
-  .btn {
-    background: #475569;
-    color: white;
-    font-family: inherit;
-    font-size: .82rem;
-    font-weight: 500;
-    padding: .5rem 1.1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-}
-
-@layer l-components {
-  .btn-component {
-    background: #5b8dee;
-    border-radius: 9px;
-    font-weight: 700;
-    padding: .55rem 1.25rem;
-    box-shadow: 0 4px 12px rgba(91,141,238,.3);
-  }
-}
-
-@layer l-utilities {
-  /* Wins over everything — including .btn-component */
-  .btn-utility {
-    background: #a855f7;
-    border-radius: 99px;
-  }
-}
-
-/* ── Layout ── */
-.demo-group {
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-  padding: 1.25rem;
-  margin-bottom: 1.25rem;
-}
-
-h3 {
-  font-size: .78rem;
-  color: #7d9ab8;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.btns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .65rem;
-}
-
-/* ── Layer diagram ── */
-.layer-diagram {
-  display: flex;
-  flex-direction: column;
-  gap: .35rem;
-}
-
-.layer-item {
-  display: flex;
-  align-items: center;
-  gap: .85rem;
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 10px;
-  padding: .8rem 1rem;
-}
-
-.l-num {
-  width: 28px; height: 28px;
-  border-radius: 50%;
+.scene {
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 14px; padding: 3rem 2rem;
   display: flex; align-items: center; justify-content: center;
-  font-size: .72rem; font-weight: 800;
-  flex-shrink: 0;
+  position: relative; margin-bottom: 1rem;
 }
-
-.l1 .l-num { background: rgba(71,85,105,.3); color: #94a3b8; }
-.l2 .l-num { background: rgba(91,141,238,.15); color: #5b8dee; }
-.l3 .l-num { background: rgba(168,85,247,.15); color: #a855f7; }
-
-.l-name { font-size: .82rem; font-weight: 700; flex: 1; }
-.l1 .l-name { color: #94a3b8; }
-.l2 .l-name { color: #5b8dee; }
-.l3 .l-name { color: #a855f7; }
-
-.l-desc { font-size: .72rem; color: #3d566e; }
-
-.arrow {
-  font-size: .72rem;
-  color: #3d566e;
-  padding-left: 1.35rem;
-  font-weight: 600;
+.anchor-btn {
+  anchor-name: --demo-btn;
+  background: #5b8dee; color: white; border: none;
+  padding: .65rem 1.5rem; border-radius: 9px;
+  font-size: .88rem; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: background .2s;
+}
+.anchor-btn:hover { background: #4a7ddd; }
+.tooltip {
+  position: absolute;
+  position-anchor: --demo-btn;
+  top: anchor(top);
+  left: anchor(center);
+  translate: -50% calc(-100% - 10px);
+  background: #162240; color: #e8edf5;
+  border: 1px solid #2a4070;
+  padding: .4rem .9rem; border-radius: 8px;
+  font-size: .75rem; font-weight: 600;
+  white-space: nowrap; pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,.4);
+  opacity: 0; transition: opacity .2s;
+}
+.anchor-btn:hover ~ .tooltip,
+.scene:has(.anchor-btn:hover) .tooltip { opacity: 1; }
+.note {
+  background: rgba(246,165,42,.08); border: 1px solid rgba(246,165,42,.2);
+  border-radius: 9px; padding: .75rem 1rem;
+  font-size: .78rem; color: #f6a52a;
+  display: flex; gap: .5rem; align-items: flex-start; line-height: 1.55;
 }`
-  },
+},
 
-  logical: {
-    html: `<div class="page">
-  <h2>Logical Properties</h2>
-  <p class="lead">The same CSS works in LTR, RTL, and vertical writing modes.</p>
+textwrap: {
+html: `<div class="demo">
+  <h2>text-wrap: balance &amp; pretty</h2>
 
-  <div class="direction-demo">
-    <div class="box ltr-box" dir="ltr">
-      <span class="dir-tag">LTR</span>
-      <p>border-inline-start renders on the <strong>left</strong> in left-to-right writing mode.</p>
-      <div class="inset-demo">
-        <span>margin-inline-start: auto</span>
-        <div class="pushed-right">→ pushed right</div>
-      </div>
+  <div class="compare">
+    <div class="card">
+      <span class="badge">text-wrap: normal</span>
+      <h3 class="normal">The quick brown fox jumps over the lazy dog and lands on the other side</h3>
+      <p>Default wrapping — last line can be a single orphaned word.</p>
     </div>
-
-    <div class="box rtl-box" dir="rtl">
-      <span class="dir-tag">RTL</span>
-      <p style="text-align:right">border-inline-start renders on the <strong>right</strong> in right-to-left writing mode.</p>
-      <div class="inset-demo" style="flex-direction:row-reverse">
-        <span style="text-align:right">margin-inline-start: auto</span>
-        <div class="pushed-right">← pushed left</div>
-      </div>
+    <div class="card">
+      <span class="badge green">text-wrap: balance</span>
+      <h3 class="balance">The quick brown fox jumps over the lazy dog and lands on the other side</h3>
+      <p>Balanced line lengths — no orphans, equal visual weight.</p>
     </div>
-  </div>
-
-  <div class="cheatsheet">
-    <h3>Quick Reference</h3>
-    <table>
-      <tr><th>Physical</th><th>Logical</th></tr>
-      <tr><td>width</td><td>inline-size</td></tr>
-      <tr><td>height</td><td>block-size</td></tr>
-      <tr><td>margin-left</td><td>margin-inline-start</td></tr>
-      <tr><td>margin-top</td><td>margin-block-start</td></tr>
-      <tr><td>overflow-y</td><td>overflow-block</td></tr>
-      <tr><td>text-align: left</td><td>text-align: start</td></tr>
-    </table>
+    <div class="card">
+      <span class="badge purple">text-wrap: pretty</span>
+      <h3 class="pretty">The quick brown fox jumps over the lazy dog and lands on the other side</h3>
+      <p>Avoids orphaned words at the end of paragraphs specifically.</p>
+    </div>
   </div>
 </div>`,
-    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: #060b16;
+  background: #060b16; color: #e8edf5;
   font-family: 'DM Sans', system-ui, sans-serif;
-  padding: 2rem;
-  min-height: 100vh;
-  color: #e2eaf4;
+  padding: 2rem; min-height: 100vh;
 }
-
-.page { max-width: 560px; margin: 0 auto; }
-
-h2 {
-  font-size: 1.3rem;
-  font-weight: 800;
-  margin-bottom: .5rem;
-  letter-spacing: -.02em;
+.demo { max-width: 680px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 1.25rem; letter-spacing: -.02em; }
+.compare { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+@media (max-width: 500px) { .compare { grid-template-columns: 1fr; } }
+.card {
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 12px; padding: 1.25rem;
 }
-
-.lead {
-  color: #7d9ab8;
-  font-size: .85rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+.badge {
+  display: inline-block; font-family: 'DM Mono', monospace;
+  font-size: .64rem; font-weight: 700; color: #5b8dee;
+  background: rgba(91,141,238,.12); border: 1px solid rgba(91,141,238,.25);
+  padding: .18rem .55rem; border-radius: 5px; margin-bottom: .85rem;
 }
-
-.direction-demo {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-}
-
-/* ── Logical properties in action ── */
-.box {
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-
-  /* Logical padding */
-  padding-block: 1rem;
-  padding-inline: 1.1rem;
-}
-
-.ltr-box {
-  border-inline-start: 3px solid #5b8dee;
-}
-
-.rtl-box {
-  border-inline-start: 3px solid #a855f7;
-}
-
-.dir-tag {
-  display: inline-block;
-  font-size: .65rem;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: .2rem .55rem;
-  border-radius: 99px;
-  margin-bottom: .65rem;
-}
-
-.ltr-box .dir-tag {
-  background: rgba(91,141,238,.12);
-  color: #5b8dee;
-}
-
-.rtl-box .dir-tag {
-  background: rgba(168,85,247,.12);
-  color: #a855f7;
-}
-
-p {
-  font-size: .82rem;
-  color: #7d9ab8;
-  line-height: 1.6;
-  margin-bottom: .75rem;
-}
-
-strong { color: #e2eaf4; }
-
-.inset-demo {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-  font-size: .76rem;
-  color: #3d566e;
-}
-
-.pushed-right {
-  margin-inline-start: auto;
-  background: rgba(91,141,238,.1);
-  border: 1px solid rgba(91,141,238,.2);
-  color: #5b8dee;
-  font-size: .72rem;
-  font-weight: 600;
-  padding: .25rem .65rem;
-  border-radius: 6px;
-}
-
-/* ── Cheatsheet ── */
-.cheatsheet {
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
+.badge.green  { color: #22d3a5; background: rgba(34,211,165,.12); border-color: rgba(34,211,165,.25); }
+.badge.purple { color: #a78bfa; background: rgba(139,92,246,.12); border-color: rgba(139,92,246,.25); }
 h3 {
-  font-size: .75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  color: #7d9ab8;
-  padding: .7rem 1rem;
-  border-bottom: 1px solid #1b2b45;
-  background: #121e35;
+  font-size: .92rem; font-weight: 700; color: #e8edf5;
+  line-height: 1.4; margin-bottom: .65rem; max-width: 180px;
+}
+p { font-size: .76rem; color: #7d9ab8; line-height: 1.6; }
+.normal  { text-wrap: normal; }
+.balance { text-wrap: balance; }
+.pretty  { text-wrap: pretty; }`
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: .8rem;
-}
+}; // end SNIPPETS
 
-th {
-  padding: .5rem 1rem;
-  text-align: start;
-  color: #3d566e;
-  font-weight: 700;
-  font-size: .72rem;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  background: #0d1526;
-}
-
-tr + tr { border-top: 1px solid #1b2b45; }
-
-td {
-  padding: .5rem 1rem;
-  color: #e2eaf4;
-}
-
-td:first-child {
-  color: #7d9ab8;
-  font-family: 'DM Mono', monospace;
-  font-size: .77rem;
-  text-decoration: line-through;
-  text-decoration-color: #3d566e;
-}
-
-td:last-child {
-  color: #22d3a5;
-  font-family: 'DM Mono', monospace;
-  font-size: .77rem;
-}`
-  }
-};
-
-// ─── CodeMirror instances ─────────────────────────────────────────────────
+// ─── State ────────────────────────────────────────────────────────────────────
 let htmlEditor, cssEditor;
-let autorun = true;
 let runTimer = null;
+let activeTab = 'html';
+let currentSnip = 'welcome';
+let previewBgMode = 'dark'; // 'dark' | 'white'
 
+// ─── Init ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   htmlEditor = CodeMirror.fromTextArea(document.getElementById('html-editor'), {
     mode: 'htmlmixed',
-    theme: 'dracula',
+    theme: 'default',
     lineNumbers: true,
-    lineWrapping: true,
     autoCloseTags: true,
     matchBrackets: true,
     autoCloseBrackets: true,
     extraKeys: {
-      'Ctrl-Enter': runPlayground,
+      'Ctrl-Enter': runPreview,
+      'Ctrl-S': saveToURL,
       'Alt-Shift-F': formatCode,
-      'Ctrl-S': saveToUrl,
-    }
+      'Ctrl-Space': 'autocomplete',
+    },
+    viewportMargin: Infinity,
   });
 
   cssEditor = CodeMirror.fromTextArea(document.getElementById('css-editor'), {
     mode: 'css',
-    theme: 'dracula',
+    theme: 'default',
     lineNumbers: true,
-    lineWrapping: true,
     matchBrackets: true,
     autoCloseBrackets: true,
     extraKeys: {
-      'Ctrl-Space': 'autocomplete',
-      'Ctrl-Enter': runPlayground,
+      'Ctrl-Enter': runPreview,
+      'Ctrl-S': saveToURL,
       'Alt-Shift-F': formatCode,
-      'Ctrl-S': saveToUrl,
-    }
+      'Ctrl-Space': 'autocomplete',
+    },
+    viewportMargin: Infinity,
   });
 
-  // Cursor tracking
-  function updateCursor(cm) {
-    const c = cm.getCursor();
-    document.getElementById('cursor-pos').textContent = `Ln ${c.line + 1}, Col ${c.ch + 1}`;
-    document.getElementById('char-count').textContent = `${cm.getValue().length} chars`;
+  // Cursor position
+  [htmlEditor, cssEditor].forEach(ed => {
+    ed.on('cursorActivity', () => {
+      const cur = ed.getCursor();
+      document.getElementById('cursor-pos').textContent = `Ln ${cur.line+1}, Col ${cur.ch+1}`;
+    });
+    ed.on('change', () => {
+      const total = (htmlEditor.getValue() + cssEditor.getValue()).length;
+      document.getElementById('char-count').textContent = `${total} chars`;
+      if (document.getElementById('autorun-chk').checked) scheduleRun();
+    });
+  });
+
+  // Load from URL hash or default snippet
+  const hash = window.location.hash.slice(1);
+  if (hash) {
+    try {
+      const data = JSON.parse(decodeURIComponent(atob(hash)));
+      if (data.html !== undefined) htmlEditor.setValue(data.html);
+      if (data.css  !== undefined) cssEditor.setValue(data.css);
+      document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
+      runPreview();
+      return;
+    } catch(e) {}
   }
-  htmlEditor.on('cursorActivity', () => updateCursor(htmlEditor));
-  cssEditor.on('cursorActivity', () => updateCursor(cssEditor));
+  loadSnippet('welcome');
 
-  // Auto-run
-  htmlEditor.on('change', scheduleRun);
-  cssEditor.on('change', scheduleRun);
-
-  // Auto-run toggle
-  document.getElementById('autorun-toggle').addEventListener('change', (e) => {
-    autorun = e.target.checked;
+  // Wire buttons
+  document.getElementById('btn-format').addEventListener('click', formatCode);
+  document.getElementById('btn-clear').addEventListener('click', clearEditors);
+  document.getElementById('btn-save').addEventListener('click', saveToURL);
+  document.getElementById('btn-share').addEventListener('click', shareLink);
+  document.getElementById('btn-run').addEventListener('click', runPreview);
+  document.getElementById('btn-fullscreen').addEventListener('click', openFullscreen);
+  document.getElementById('btn-mobile-menu').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+    document.getElementById('mobile-menu').style.display =
+      document.getElementById('mobile-menu').classList.contains('hidden') ? '' : 'flex';
   });
 
-  // Buttons
-  document.getElementById('btn-run').onclick = runPlayground;
-  document.getElementById('btn-format').onclick = formatCode;
-  document.getElementById('btn-clear').onclick = clearEditors;
-  document.getElementById('btn-save').onclick = saveToUrl;
-  document.getElementById('btn-share').onclick = shareCode;
-  document.getElementById('btn-fullscreen').onclick = openFullscreen;
+  // Snippet bar
+  document.querySelectorAll('.snip-btn').forEach(btn => {
+    btn.addEventListener('click', () => loadSnippet(btn.dataset.snip));
+  });
 
   // Resize handle
   initResize();
 
-  // Load from URL hash, or default welcome snippet
-  const saved = loadFromUrl();
-  if (!saved) loadSnippet('welcome');
-
-  runPlayground();
-  updatePreviewSize();
-  window.addEventListener('resize', updatePreviewSize);
+  // Preview dimensions
+  window.addEventListener('resize', updatePreviewDimensions);
+  updatePreviewDimensions();
 });
 
-// ─── Tab switching ────────────────────────────────────────────────────────
+// ─── Tab switching ─────────────────────────────────────────────────────────────
 function switchTab(tab) {
-  document.getElementById('wrap-html').classList.toggle('visible', tab === 'html');
-  document.getElementById('wrap-css').classList.toggle('visible', tab === 'css');
+  activeTab = tab;
+  document.getElementById('wrap-html').style.display = tab === 'html' ? 'flex' : 'none';
+  document.getElementById('wrap-html').style.flexDirection = 'column';
+  document.getElementById('wrap-css').style.display  = tab === 'css'  ? 'flex' : 'none';
+  document.getElementById('wrap-css').style.flexDirection  = 'column';
   document.getElementById('tab-html').classList.toggle('active', tab === 'html');
   document.getElementById('tab-css').classList.toggle('active', tab === 'css');
-  if (tab === 'html') htmlEditor.refresh();
-  else cssEditor.refresh();
+  (tab === 'html' ? htmlEditor : cssEditor).refresh();
+  (tab === 'html' ? htmlEditor : cssEditor).focus();
 }
 
-// ─── Run playground ──────────────────────────────────────────────────────
+// ─── Run preview ───────────────────────────────────────────────────────────────
 function scheduleRun() {
-  if (!autorun) return;
   clearTimeout(runTimer);
-  runTimer = setTimeout(runPlayground, 350);
+  runTimer = setTimeout(runPreview, 450);
 }
 
-function runPlayground() {
+function runPreview() {
   const html = htmlEditor.getValue();
-  const css = cssEditor.getValue();
-  const iframe = document.getElementById('preview-frame');
-  const doc = iframe.contentDocument || iframe.contentWindow.document;
-  doc.open();
-  doc.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  const css  = cssEditor.getValue();
+
+  // White mode: inject a style that inverts the entire page (dark→light)
+  // then re-inverts media so images/videos stay correct.
+  // This works on all elements regardless of hardcoded bg/color values.
+  const bgOverride = previewBgMode === 'white'
+    ? `<style id="__pg-bg-override__">
+        html {
+          filter: invert(1) hue-rotate(180deg) !important;
+          background: #ffffff !important;
+        }
+        img, video, canvas, iframe, svg image,
+        [style*="background-image"] {
+          filter: invert(1) hue-rotate(180deg) !important;
+        }
+      </style>`
+    : '';
+
+  const doc = `<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>${css}</style></head><body>${html}</body></html>`);
-  doc.close();
-  const now = new Date();
-  document.getElementById('preview-status').innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--green)"></i> Updated ${now.toLocaleTimeString()}`;
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>${css}</style>${bgOverride}</head><body>${html}
+<script>
+  // Block all link navigation inside the preview
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (a) { e.preventDefault(); }
+  }, true);
+<\/script>
+</body></html>`;
+  const frame = document.getElementById('preview-frame');
+  frame.srcdoc = doc;
+  const status = document.getElementById('preview-status');
+  status.innerHTML = '<i class="fa-solid fa-circle-check text-[.58rem]"></i> Updated';
+  status.style.color = '#22d3a5';
 }
 
-function reloadPreview() { runPlayground(); }
-
-// ─── Format code (basic HTML prettify) ────────────────────────────────────
-function formatCode() {
-  showNotif('<i class="fa-solid fa-check"></i> Formatted');
-}
-
-// ─── Snippets ─────────────────────────────────────────────────────────────
+// ─── Load snippet ──────────────────────────────────────────────────────────────
 function loadSnippet(key) {
-  const s = SNIPPETS[key];
-  if (!s) return;
-  htmlEditor.setValue(s.html);
-  cssEditor.setValue(s.css);
-  document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
+  const snip = SNIPPETS[key];
+  if (!snip) return;
+  currentSnip = key;
+  htmlEditor.setValue(snip.html || '');
+  cssEditor.setValue(snip.css  || '');
   document.querySelectorAll('.snip-btn').forEach(b => {
-    if (b.getAttribute('onclick') === `loadSnippet('${key}')`) b.classList.add('active');
+    b.classList.toggle('active', b.dataset.snip === key);
   });
-  runPlayground();
+  runPreview();
 }
 
-// ─── Clear ────────────────────────────────────────────────────────────────
+// ─── Format ───────────────────────────────────────────────────────────────────
+function formatCode() {
+  const ed = activeTab === 'html' ? htmlEditor : cssEditor;
+  let val = ed.getValue();
+  // Basic indent-fix for HTML
+  if (activeTab === 'html') {
+    val = val.replace(/>\s*</g, '>\n<')
+             .split('\n').map(l => l.trim()).join('\n');
+  }
+  // Basic CSS format: add newlines around {, }, ;
+  if (activeTab === 'css') {
+    val = val
+      .replace(/\{/g, ' {\n  ')
+      .replace(/;(?!\s*\n)/g, ';\n  ')
+      .replace(/\}/g, '\n}\n')
+      .replace(/\n\s*\n\s*\n/g, '\n\n')
+      .trim();
+  }
+  ed.setValue(val);
+  showNotif('<i class="fa-solid fa-check" style="color:#22d3a5"></i> Formatted');
+}
+
+// ─── Clear ────────────────────────────────────────────────────────────────────
 function clearEditors() {
   if (!confirm('Clear both editors?')) return;
   htmlEditor.setValue('');
   cssEditor.setValue('');
-  runPlayground();
+  document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
+  runPreview();
 }
 
-// ─── Save / load URL ─────────────────────────────────────────────────────
-function saveToUrl() {
-  try {
-    const data = { h: htmlEditor.getValue(), c: cssEditor.getValue() };
-    const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
-    history.replaceState(null, '', '#' + encoded);
-    showSaveToast();
-  } catch(e) { showError('Code too large to save in URL.'); }
+// ─── Save to URL ──────────────────────────────────────────────────────────────
+function saveToURL() {
+  const data = { html: htmlEditor.getValue(), css: cssEditor.getValue() };
+  const hash = btoa(encodeURIComponent(JSON.stringify(data)));
+  history.replaceState(null, '', '#' + hash);
+  showToast('toast-save');
 }
 
-function loadFromUrl() {
-  const hash = location.hash.slice(1);
-  if (!hash) return false;
-  try {
-    const data = JSON.parse(decodeURIComponent(atob(hash)));
-    htmlEditor.setValue(data.h || '');
-    cssEditor.setValue(data.c || '');
-    return true;
-  } catch(e) { return false; }
+// ─── Share link ───────────────────────────────────────────────────────────────
+function shareLink() {
+  const data = { html: htmlEditor.getValue(), css: cssEditor.getValue() };
+  const hash = btoa(encodeURIComponent(JSON.stringify(data)));
+  const url = location.origin + location.pathname + '#' + hash;
+  navigator.clipboard.writeText(url).then(() => showToast('toast-copy'));
 }
 
-// ─── Share ────────────────────────────────────────────────────────────────
-function shareCode() {
-  saveToUrl();
-  navigator.clipboard.writeText(location.href).then(() => {
-    showNotif('<i class="fa-solid fa-link"></i> URL copied!');
-  });
-}
+// ─── Reload preview ───────────────────────────────────────────────────────────
+function reloadPreview() { runPreview(); }
 
-// ─── Fullscreen preview ───────────────────────────────────────────────────
+// ─── Fullscreen ───────────────────────────────────────────────────────────────
 function openFullscreen() {
-  const html = htmlEditor.getValue();
-  const css = cssEditor.getValue();
-  const win = window.open('', '_blank');
-  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>${css}</style></head><body>${html}</body></html>`);
-  win.document.close();
-}
-
-// ─── Preview size ─────────────────────────────────────────────────────────
-function updatePreviewSize() {
   const frame = document.getElementById('preview-frame');
-  const w = Math.round(frame.offsetWidth);
-  const h = Math.round(frame.offsetHeight);
-  document.getElementById('preview-size').textContent = `${w} × ${h}`;
+  if (frame.requestFullscreen) frame.requestFullscreen();
+  else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
 }
 
-// ─── Resize handle ────────────────────────────────────────────────────────
-function initResize() {
-  const handle = document.getElementById('resize-handle');
-  const workspace = document.getElementById('workspace');
-  const editorPane = document.getElementById('editor-pane');
-  let dragging = false, startX, startW;
+// ─── Viewport sizing ──────────────────────────────────────────────────────────
+function setViewport(size) {
+  const frame   = document.getElementById('preview-frame');
+  const wrapper = document.getElementById('preview-wrapper');
+  document.querySelectorAll('.vp-btn').forEach(b => b.classList.remove('active'));
 
-  handle.addEventListener('mousedown', (e) => {
-    dragging = true; startX = e.clientX; startW = editorPane.offsetWidth;
+  if (size === 'full') {
+    frame.style.width    = '100%';
+    frame.style.minWidth = '';
+    frame.style.maxWidth = '';
+    frame.style.minHeight = '100%';
+    wrapper.style.alignItems     = 'stretch';
+    wrapper.style.justifyContent = 'flex-start';
+    document.getElementById('vp-full').classList.add('active');
+  } else {
+    const w = size === 'tablet' ? '768px' : '375px';
+    frame.style.width    = w;
+    frame.style.minWidth = w;
+    frame.style.maxWidth = w;
+    frame.style.minHeight = '100%';
+    wrapper.style.alignItems     = 'flex-start';
+    wrapper.style.justifyContent = 'center';
+    document.getElementById(size === 'tablet' ? 'vp-tablet' : 'vp-mobile').classList.add('active');
+  }
+  updatePreviewDimensionsAfterTransition();
+}
+
+function updatePreviewDimensions() {
+  const frame = document.getElementById('preview-frame');
+  const w = frame.offsetWidth, h = frame.offsetHeight;
+  document.getElementById('preview-dimensions').textContent = `${w} × ${h}`;
+}
+
+function updatePreviewDimensionsAfterTransition() {
+  const frame = document.getElementById('preview-frame');
+  frame.addEventListener('transitionend', () => updatePreviewDimensions(), { once: true });
+  updatePreviewDimensions(); // also update immediately for responsiveness
+}
+
+// ─── Resize handle ────────────────────────────────────────────────────────────
+function initResize() {
+  const handle    = document.getElementById('resize-handle');
+  const edPane    = document.getElementById('editor-pane');
+  const workspace = document.getElementById('workspace');
+  const overlay   = document.getElementById('drag-overlay');
+  let dragging = false, startX = 0, startW = 0;
+
+  handle.addEventListener('mousedown', e => {
+    dragging = true; startX = e.clientX;
+    startW = edPane.offsetWidth;
     handle.classList.add('dragging');
+    overlay.classList.add('active');          // block iframe pointer events
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
+    e.preventDefault();
   });
 
-  document.addEventListener('mousemove', (e) => {
+  document.addEventListener('mousemove', e => {
     if (!dragging) return;
+    const dx = e.clientX - startX;
     const totalW = workspace.offsetWidth;
-    const newW = Math.max(280, Math.min(totalW - 280, startW + (e.clientX - startX)));
-    editorPane.style.width = newW + 'px';
-    updatePreviewSize();
+    const newW = Math.min(Math.max(startW + dx, 220), totalW - 220);
+    edPane.style.width = newW + 'px';
+    updatePreviewDimensions();
   });
 
   document.addEventListener('mouseup', () => {
     if (!dragging) return;
     dragging = false;
     handle.classList.remove('dragging');
+    overlay.classList.remove('active');       // restore iframe pointer events
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
     htmlEditor.refresh(); cssEditor.refresh();
   });
 }
 
-// ─── Toasts / notifications ───────────────────────────────────────────────
-function showError(msg) {
-  const el = document.getElementById('error-toast');
-  el.textContent = msg; el.style.display = 'block';
-  setTimeout(() => el.style.display = 'none', 3000);
+// ─── Preview background toggle ────────────────────────────────────────────────
+function setPreviewBg(mode) {
+  previewBgMode = mode;
+  const wrapper  = document.getElementById('preview-wrapper');
+  const btnDark  = document.getElementById('bg-dark');
+  const btnWhite = document.getElementById('bg-white');
+  wrapper.classList.remove('bg-dark', 'bg-white');
+  btnDark.classList.remove('active-dark');
+  btnWhite.classList.remove('active-white');
+  if (mode === 'white') {
+    wrapper.classList.add('bg-white');
+    btnWhite.classList.add('active-white');
+  } else {
+    wrapper.classList.add('bg-dark');
+    btnDark.classList.add('active-dark');
+  }
+  runPreview(); // re-render iframe with updated bg override
 }
 
-function showSaveToast() {
-  const el = document.getElementById('save-toast');
-  el.style.display = 'block';
-  setTimeout(() => el.style.display = 'none', 2000);
+// ─── Toasts & notifs ──────────────────────────────────────────────────────────
+function showToast(id, duration = 2200) {
+  const el = document.getElementById(id);
+  el.style.display = 'flex';
+  el.style.animation = 'toast-in .2s ease forwards';
+  clearTimeout(el._timer);
+  el._timer = setTimeout(() => {
+    el.style.animation = 'toast-out .2s ease forwards';
+    setTimeout(() => { el.style.display = 'none'; }, 200);
+  }, duration);
 }
 
-function showNotif(html) {
-  const el = document.getElementById('notif');
+function showNotif(html, duration = 1800) {
+  const el = document.getElementById('toast-notif');
   el.innerHTML = html;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2000);
+  el.style.display = 'flex';
+  el.style.animation = 'toast-in .2s ease forwards';
+  clearTimeout(el._timer);
+  el._timer = setTimeout(() => {
+    el.style.animation = 'toast-out .2s ease forwards';
+    setTimeout(() => { el.style.display = 'none'; }, 200);
+  }, duration);
 }
 </script>
 </body>
