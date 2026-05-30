@@ -29,6 +29,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/css-hint.min.js"></script>
 
+  <!-- Prettier -->
+  <script src="https://unpkg.com/prettier@3.3.3/standalone.js"></script>
+  <script src="https://unpkg.com/prettier@3.3.3/plugins/html.js"></script>
+  <script src="https://unpkg.com/prettier@3.3.3/plugins/postcss.js"></script>
+
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -161,8 +166,33 @@
     .bg-toggle-btn.active-white { color: #f6a52a; border-color: rgba(246,165,42,.4); background: rgba(246,165,42,.08); }
     .bg-toggle-btn.active-dark  { color: #5b8dee; border-color: rgba(91,141,238,.4); background: rgba(91,141,238,.08); }
 
-    /* Pulse */
-    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.3} }
+    /* Skeleton loader */
+    #skeleton-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      padding: 1.5rem;
+      background: #070c18;
+      flex-direction: column;
+      gap: .85rem;
+      pointer-events: none;
+    }
+    #skeleton-overlay.active { display: flex; }
+    .sk-line {
+      border-radius: 5px;
+      background: linear-gradient(90deg, #0d1526 25%, #162240 50%, #0d1526 75%);
+      background-size: 200% 100%;
+      animation: sk-shimmer 1.4s ease-in-out infinite;
+    }
+    .sk-line.light {
+      background: linear-gradient(90deg, #e8edf5 25%, #d0d8e8 50%, #e8edf5 75%);
+      background-size: 200% 100%;
+    }
+    @keyframes sk-shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
     .pulse { animation: pulse-dot 2s ease-in-out infinite; }
 
     /* Toast */
@@ -197,6 +227,50 @@
     }
     .vp-btn:hover { color:#8ea3bf; border-color:#2a4070; }
     .vp-btn.active { color:#5b8dee; border-color:#5b8dee; background:rgba(91,141,238,.1); }
+
+    /* Share Popup */
+    #share-popup {
+      position: fixed;
+      z-index: 9999;
+      background: #111e35;
+      border: 1px solid #1e2e4a;
+      border-radius: 10px;
+      padding: .5rem .6rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,.5);
+      transform-origin: top right;
+      opacity: 0;
+      transform: scale(.9) translateY(-4px);
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    #share-popup.visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+    }
+    #share-popup .sp-title {
+      font-size: .58rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .09em; color: #4a6080; margin-bottom: .4rem; padding: 0 .2rem;
+    }
+    #share-popup .sp-socials {
+      display: flex; gap: .35rem;
+    }
+    #share-popup .sp-social-btn {
+      width: 32px; height: 32px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; cursor: pointer; border: 1px solid #1e2e4a;
+      background: #0d1526; transition: border-color .15s, transform .15s;
+      position: relative;
+    }
+    #share-popup .sp-social-btn:hover { border-color: #2a4070; transform: translateY(-1px); }
+    #share-popup .sp-copy-btn {
+      margin-top: .4rem; width: 100%; height: 26px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center; gap: .4rem;
+      font-size: .65rem; font-weight: 600; cursor: pointer;
+      border: 1px solid #1e2e4a; background: #0d1526; color: #5b8dee;
+      font-family: 'DM Sans', sans-serif; transition: border-color .15s;
+    }
+    #share-popup .sp-copy-btn:hover { border-color: #5b8dee; }
 
     /* Mobile */
     @media (max-width: 768px) {
@@ -317,7 +391,11 @@
         class="etab flex items-center gap-2 px-4 h-full text-[.75rem] font-semibold border-b-2 transition-all">
         <i class="fa-brands fa-css3-alt text-[.68rem]" style="color:#264de4"></i> CSS
       </button>
-      <div class="flex items-center gap-1.5 ml-auto pr-2">
+      <div class="flex items-center gap-2 ml-auto pr-2">
+        <label class="flex items-center gap-1.5 cursor-pointer select-none">
+          <input type="checkbox" id="autorun-chk" checked style="accent-color:#5b8dee;width:12px;height:12px">
+          <span class="text-[.62rem]" style="color:#4a6080">Auto-run</span>
+        </label>
         <button id="btn-run"
           class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[.67rem] font-semibold border transition-all"
           style="color:#22d3a5;background:rgba(34,211,165,.1);border-color:rgba(34,211,165,.2)"
@@ -342,10 +420,6 @@
       </span>
       <span id="cursor-pos" class="text-[.62rem]" style="color:#4a6080">Ln 1, Col 1</span>
       <span id="char-count" class="text-[.62rem]" style="color:#4a6080">0 chars</span>
-      <label class="flex items-center gap-1.5 ml-auto cursor-pointer select-none">
-        <input type="checkbox" id="autorun-chk" checked style="accent-color:#5b8dee;width:12px;height:12px">
-        <span class="text-[.62rem]" style="color:#4a6080">Auto-run</span>
-      </label>
     </div>
   </div>
 
@@ -390,8 +464,23 @@
     </div>
 
     <!-- Preview wrapper — dark checker shows "transparent" areas clearly -->
-    <div id="preview-wrapper" class="flex-1 overflow-auto bg-dark" style="display:flex;align-items:flex-start;justify-content:center;">
-    <iframe id="preview-frame" sandbox="allow-scripts allow-same-origin" style="border:none;flex-shrink:0;width:100%;min-height:100%;display:block;transition:width .35s cubic-bezier(.4,0,.2,1),max-width .35s cubic-bezier(.4,0,.2,1);"></iframe>
+    <div id="preview-wrapper" class="flex-1 overflow-auto bg-dark" style="position:relative;display:flex;align-items:flex-start;justify-content:center;">
+      <!-- Skeleton overlay -->
+      <div id="skeleton-overlay">
+        <div class="sk-line" style="height:18px;width:40%"></div>
+        <div class="sk-line" style="height:120px;width:100%"></div>
+        <div class="sk-line" style="height:14px;width:70%"></div>
+        <div class="sk-line" style="height:14px;width:55%"></div>
+        <div class="sk-line" style="height:14px;width:80%"></div>
+        <div style="display:flex;gap:.75rem">
+          <div class="sk-line" style="height:80px;flex:1"></div>
+          <div class="sk-line" style="height:80px;flex:1"></div>
+          <div class="sk-line" style="height:80px;flex:1"></div>
+        </div>
+        <div class="sk-line" style="height:14px;width:60%"></div>
+        <div class="sk-line" style="height:14px;width:45%"></div>
+      </div>
+      <iframe id="preview-frame" sandbox="allow-scripts allow-same-origin" style="border:none;flex-shrink:0;width:100%;min-height:100%;display:block;transition:width .35s cubic-bezier(.4,0,.2,1),max-width .35s cubic-bezier(.4,0,.2,1);"></iframe>
     </div>
 
     <!-- Preview status bar -->
@@ -408,6 +497,20 @@
 <div id="drag-overlay"></div>
 
 <!-- TOASTS -->
+<!-- SHARE POPUP -->
+<div id="share-popup" role="dialog" aria-label="Share options">
+  <div class="sp-title">Share</div>
+  <div class="sp-socials">
+    <button class="sp-social-btn" id="sp-twitter"  title="X / Twitter"><i class="fa-brands fa-x-twitter" style="color:#1da1f2"></i></button>
+    <button class="sp-social-btn" id="sp-facebook" title="Facebook"><i class="fa-brands fa-facebook-f" style="color:#1877f2"></i></button>
+    <button class="sp-social-btn" id="sp-linkedin" title="LinkedIn"><i class="fa-brands fa-linkedin-in" style="color:#0a66c2"></i></button>
+    <button class="sp-social-btn" id="sp-whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp" style="color:#25d366"></i></button>
+    <button class="sp-social-btn" id="sp-telegram" title="Telegram"><i class="fa-brands fa-telegram" style="color:#0088cc"></i></button>
+    <button class="sp-social-btn" id="sp-reddit"   title="Reddit"><i class="fa-brands fa-reddit-alien" style="color:#ff4500"></i></button>
+  </div>
+  <button class="sp-copy-btn" id="sp-url-bar"><i class="fa-solid fa-link" style="font-size:.6rem"></i> Copy Link</button>
+</div>
+
 <div id="toast-save"   style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:999;align-items:center;gap:.5rem;padding:.5rem 1.1rem;border-radius:10px;font-size:.78rem;font-weight:700;color:#0a2a1e;background:rgba(34,211,165,.92);box-shadow:0 4px 20px rgba(0,0,0,.4)"><i class="fa-solid fa-check"></i> Saved!</div>
 <div id="toast-copy"   style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:999;align-items:center;gap:.5rem;padding:.5rem 1.1rem;border-radius:10px;font-size:.78rem;font-weight:700;color:white;background:rgba(91,141,238,.92);box-shadow:0 4px 20px rgba(0,0,0,.4)"><i class="fa-solid fa-link"></i> Link copied!</div>
 <div id="toast-error"  style="display:none;position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:999;align-items:center;gap:.5rem;padding:.5rem 1.25rem;border-radius:99px;font-size:.78rem;font-weight:700;color:white;background:rgba(244,69,107,.92);box-shadow:0 4px 20px rgba(0,0,0,.4)"></div>
@@ -1854,6 +1957,9 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('mobile-menu').classList.contains('hidden') ? '' : 'flex';
   });
 
+  // Init share popup
+  initSharePopup();
+
   // Snippet bar — wire ALL buttons (including newly added ones)
   document.querySelectorAll('.snip-btn').forEach(btn => {
     btn.addEventListener('click', () => loadSnippet(btn.dataset.snip));
@@ -1911,7 +2017,22 @@ function switchTab(tab) {
 // ─── Run preview ───────────────────────────────────────────────────────────────
 function scheduleRun() {
   clearTimeout(runTimer);
+  showSkeleton();
   runTimer = setTimeout(runPreview, 450);
+}
+
+function showSkeleton() {
+  const overlay = document.getElementById('skeleton-overlay');
+  const isWhite = previewBgMode === 'white';
+  overlay.style.background = isWhite ? '#ffffff' : '#070c18';
+  overlay.querySelectorAll('.sk-line').forEach(el => el.classList.toggle('light', isWhite));
+  overlay.classList.add('active');
+  document.getElementById('preview-frame').style.opacity = '0';
+}
+
+function hideSkeleton() {
+  document.getElementById('skeleton-overlay').classList.remove('active');
+  document.getElementById('preview-frame').style.opacity = '1';
 }
 
 function runPreview() {
@@ -1950,6 +2071,7 @@ function runPreview() {
 </body></html>`;
   const frame = document.getElementById('preview-frame');
   frame.srcdoc = doc;
+  frame.addEventListener('load', hideSkeleton, { once: true });
   const status = document.getElementById('preview-status');
   status.innerHTML = '<i class="fa-solid fa-circle-check text-[.58rem]"></i> Updated';
   status.style.color = '#22d3a5';
@@ -1989,66 +2111,29 @@ function loadSnippet(key) {
 }
 
 // ─── Format ───────────────────────────────────────────────────────────────────
-function formatCode() {
+async function formatCode() {
   const ed = activeTab === 'html' ? htmlEditor : cssEditor;
-  let val = ed.getValue();
+  const val = ed.getValue();
+  const parser = activeTab === 'html' ? 'html' : 'css';
 
-  if (activeTab === 'html') {
-    // Indent-aware HTML formatter
-    const VOID = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i;
-    const lines = val
-      .replace(/>\s+</g, '>\n<')         // one tag per line
-      .replace(/>\s+([^<])/g, '>\n$1')   // text after tag on new line
-      .replace(/([^>])\s+</g, '$1\n<')   // text before tag on new line
-      .split('\n')
-      .map(l => l.trim())
-      .filter(l => l.length);
-
-    let depth = 0;
-    const out = [];
-    for (const line of lines) {
-      const isClose  = /^<\//.test(line);
-      const isSingle = /\/>$/.test(line) || VOID.test((line.match(/^<(\w+)/)||[])[1]||'');
-      const isOpen   = /^<[^/!]/.test(line) && !isSingle;
-      const hasBoth  = isOpen && /<\/\w/.test(line); // <tag>...</tag> on one line
-
-      if (isClose) depth = Math.max(0, depth - 1);
-      out.push('  '.repeat(depth) + line);
-      if (isOpen && !hasBoth) depth++;
-    }
-    val = out.join('\n');
+  try {
+    const formatted = await prettier.format(val, {
+      parser,
+      plugins: [
+        activeTab === 'html' ? prettierPlugins.html : prettierPlugins.postcss,
+      ],
+      printWidth: 80,
+      tabWidth: 2,
+      useTabs: false,
+      singleQuote: false,
+      htmlWhitespaceSensitivity: 'ignore',
+    });
+    ed.setValue(formatted);
+    showNotif('<i class="fa-solid fa-check" style="color:#22d3a5"></i> Formatted');
+  } catch (e) {
+    showNotif('<i class="fa-solid fa-xmark" style="color:#f4456b"></i> Format error');
+    console.error('Prettier error:', e);
   }
-
-  if (activeTab === 'css') {
-    // Indent-aware CSS formatter — preserves nesting depth
-    let depth = 0;
-    const indent = () => '  '.repeat(depth);
-    const raw = val
-      .replace(/\s*\{\s*/g, ' {\n')
-      .replace(/\s*;\s*/g, ';\n')
-      .replace(/\s*\}\s*/g, '\n}\n')
-      .split('\n')
-      .map(l => l.trim())
-      .filter(l => l.length);
-
-    const out = [];
-    for (const line of raw) {
-      if (line === '}') {
-        depth = Math.max(0, depth - 1);
-        out.push(indent() + '}');
-      } else if (line.endsWith('{')) {
-        out.push(indent() + line);
-        depth++;
-      } else {
-        out.push(indent() + line);
-      }
-    }
-    // Collapse blank lines to max 1
-    val = out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
-  }
-
-  ed.setValue(val);
-  showNotif('<i class="fa-solid fa-check" style="color:#22d3a5"></i> Formatted');
 }
 
 // ─── Clear ────────────────────────────────────────────────────────────────────
@@ -2098,21 +2183,123 @@ function loadFromStorage() {
   }
 }
 
-// ─── Share link — encodes current editors into URL hash ───────────────────────
-function shareLink() {
+// ─── Share popup ──────────────────────────────────────────────────────────────
+let _sharePopupOpen = false;
+let _shareUrl = '';
+
+function buildShareUrl() {
   try {
     const data = {
       html: htmlEditor.getValue(),
       css:  cssEditor.getValue(),
       snip: currentSnip || null,
     };
-    const hash = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-    const url  = location.origin + location.pathname + '#' + hash;
-    navigator.clipboard.writeText(url).then(() => showToast('toast-copy'));
+    return location.origin + location.pathname + '#' + btoa(unescape(encodeURIComponent(JSON.stringify(data))));
   } catch(e) {
-    showNotif('<i class="fa-solid fa-xmark" style="color:#f4456b"></i> Could not copy link');
+    return location.href;
   }
 }
+
+function openSharePopup() {
+  const popup = document.getElementById('share-popup');
+  if (_sharePopupOpen) { closeSharePopup(); return; }
+  _shareUrl = buildShareUrl();
+
+  // Position below the Share button, right-aligned to it
+  const btn = document.getElementById('btn-share');
+  const rect = btn.getBoundingClientRect();
+  popup.style.top  = (rect.bottom + 6) + 'px';
+  popup.style.right = (window.innerWidth - rect.right) + 'px';
+
+  popup.classList.remove('visible');
+  // Trigger fade-in on next frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => popup.classList.add('visible'));
+  });
+  _sharePopupOpen = true;
+}
+
+function closeSharePopup() {
+  const popup = document.getElementById('share-popup');
+  popup.classList.remove('visible');
+  _sharePopupOpen = false;
+}
+
+function shareLink() {
+  openSharePopup();
+}
+
+// Wire share popup buttons after DOM ready (handled in DOMContentLoaded below)
+function initSharePopup() {
+  const popup = document.getElementById('share-popup');
+
+  // Copy URL bar
+  const copyBtn = document.getElementById('sp-url-bar');
+  copyBtn.addEventListener('mousedown', e => e.stopPropagation());
+  copyBtn.addEventListener('click', () => {
+    const doCopy = () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(_shareUrl);
+      }
+      // Fallback for file:// or HTTP
+      const ta = document.createElement('textarea');
+      ta.value = _shareUrl;
+      ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      return Promise.resolve();
+    };
+    doCopy().then(() => {
+      copyBtn.innerHTML = '<i class="fa-solid fa-check" style="font-size:.6rem;color:#22d3a5"></i> Copied!';
+      copyBtn.style.color = '#22d3a5';
+      copyBtn.style.borderColor = 'rgba(34,211,165,.35)';
+      setTimeout(() => {
+        copyBtn.innerHTML = '<i class="fa-solid fa-link" style="font-size:.6rem"></i> Copy Link';
+        copyBtn.style.color = '';
+        copyBtn.style.borderColor = '';
+      }, 2000);
+    });
+  });  // Social buttons
+  const socials = {
+    'sp-twitter':  u => `https://twitter.com/intent/tweet?url=${encodeURIComponent(u)}&text=${encodeURIComponent('Check out this CSS Playground on MastorsCDN!')}`,
+    'sp-facebook': u => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}`,
+    'sp-linkedin': u => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(u)}`,
+    'sp-whatsapp': u => `https://wa.me/?text=${encodeURIComponent('Check out this CSS Playground: ' + u)}`,
+    'sp-telegram': u => `https://t.me/share/url?url=${encodeURIComponent(u)}&text=${encodeURIComponent('CSS Playground on MastorsCDN')}`,
+    'sp-reddit':   u => `https://www.reddit.com/submit?url=${encodeURIComponent(u)}&title=${encodeURIComponent('CSS Playground — MastorsCDN')}`,
+  };
+  Object.entries(socials).forEach(([id, urlFn]) => {
+    const el = document.getElementById(id);
+    el.addEventListener('mousedown', e => e.stopPropagation());
+    el.addEventListener('click', () => {
+      window.open(urlFn(_shareUrl), '_blank', 'noopener,noreferrer,width=640,height=480');
+      closeSharePopup();
+    });
+  });
+
+  // Close when clicking outside (mousedown catches iframe clicks too)
+  document.addEventListener('mousedown', e => {
+    if (!_sharePopupOpen) return;
+    const shareBtn = document.getElementById('btn-share');
+    if (!popup.contains(e.target) && !shareBtn.contains(e.target)) {
+      closeSharePopup();
+    }
+  }, true);
+
+  // Close when iframe gets focus (user clicked inside preview)
+  document.getElementById('preview-frame').addEventListener('mouseenter', () => {
+    if (_sharePopupOpen) closeSharePopup();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && _sharePopupOpen) closeSharePopup();
+  });
+}
+
+
 
 // ─── Reload preview ───────────────────────────────────────────────────────────
 function reloadPreview() { runPreview(); }
