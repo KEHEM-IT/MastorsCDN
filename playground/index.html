@@ -1859,22 +1859,32 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => loadSnippet(btn.dataset.snip));
   });
 
-  // Load from localStorage or default snippet
-  const saved = loadFromStorage();
-  if (saved && (saved.html || saved.css)) {
-    if (saved.html !== undefined) htmlEditor.setValue(saved.html);
-    if (saved.css  !== undefined) cssEditor.setValue(saved.css);
-    document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
-    if (saved.snip) {
-      const btn = document.querySelector(`.snip-btn[data-snip="${saved.snip}"]`);
-      if (btn) btn.classList.add('active');
-      currentSnip = saved.snip;
-    } else {
-      currentSnip = null;
+  // Load from URL hash (shared link) → localStorage → default snippet
+  const hash = location.hash.slice(1);
+  if (hash) {
+    try {
+      const data = JSON.parse(decodeURIComponent(escape(atob(hash))));
+      if (data && (data.html || data.css)) {
+        htmlEditor.setValue(data.html || '');
+        cssEditor.setValue(data.css  || '');
+        document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
+        if (data.snip) {
+          const btn = document.querySelector(`.snip-btn[data-snip="${data.snip}"]`);
+          if (btn) btn.classList.add('active');
+          currentSnip = data.snip;
+        } else {
+          currentSnip = null;
+        }
+        history.replaceState(null, '', location.pathname); // clean URL after load
+        runPreview();
+      } else {
+        loadFromStorageOrDefault();
+      }
+    } catch(e) {
+      loadFromStorageOrDefault();
     }
-    runPreview();
   } else {
-    loadSnippet('welcome');
+    loadFromStorageOrDefault();
   }
 
   // Resize handle
@@ -1945,6 +1955,26 @@ function runPreview() {
   status.style.color = '#22d3a5';
 }
 
+// ─── Load from localStorage or fall back to welcome snippet ───────────────────
+function loadFromStorageOrDefault() {
+  const saved = loadFromStorage();
+  if (saved && (saved.html || saved.css)) {
+    htmlEditor.setValue(saved.html || '');
+    cssEditor.setValue(saved.css  || '');
+    document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
+    if (saved.snip) {
+      const btn = document.querySelector(`.snip-btn[data-snip="${saved.snip}"]`);
+      if (btn) btn.classList.add('active');
+      currentSnip = saved.snip;
+    } else {
+      currentSnip = null;
+    }
+    runPreview();
+  } else {
+    loadSnippet('welcome');
+  }
+}
+
 // ─── Load snippet ──────────────────────────────────────────────────────────────
 function loadSnippet(key) {
   const snip = SNIPPETS[key];
@@ -1962,20 +1992,61 @@ function loadSnippet(key) {
 function formatCode() {
   const ed = activeTab === 'html' ? htmlEditor : cssEditor;
   let val = ed.getValue();
-  // Basic indent-fix for HTML
+
   if (activeTab === 'html') {
-    val = val.replace(/>\s*</g, '>\n<')
-             .split('\n').map(l => l.trim()).join('\n');
+    // Indent-aware HTML formatter
+    const VOID = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i;
+    const lines = val
+      .replace(/>\s+</g, '>\n<')         // one tag per line
+      .replace(/>\s+([^<])/g, '>\n$1')   // text after tag on new line
+      .replace(/([^>])\s+</g, '$1\n<')   // text before tag on new line
+      .split('\n')
+      .map(l => l.trim())
+      .filter(l => l.length);
+
+    let depth = 0;
+    const out = [];
+    for (const line of lines) {
+      const isClose  = /^<\//.test(line);
+      const isSingle = /\/>$/.test(line) || VOID.test((line.match(/^<(\w+)/)||[])[1]||'');
+      const isOpen   = /^<[^/!]/.test(line) && !isSingle;
+      const hasBoth  = isOpen && /<\/\w/.test(line); // <tag>...</tag> on one line
+
+      if (isClose) depth = Math.max(0, depth - 1);
+      out.push('  '.repeat(depth) + line);
+      if (isOpen && !hasBoth) depth++;
+    }
+    val = out.join('\n');
   }
-  // Basic CSS format: add newlines around {, }, ;
+
   if (activeTab === 'css') {
-    val = val
-      .replace(/\{/g, ' {\n  ')
-      .replace(/;(?!\s*\n)/g, ';\n  ')
-      .replace(/\}/g, '\n}\n')
-      .replace(/\n\s*\n\s*\n/g, '\n\n')
-      .trim();
+    // Indent-aware CSS formatter — preserves nesting depth
+    let depth = 0;
+    const indent = () => '  '.repeat(depth);
+    const raw = val
+      .replace(/\s*\{\s*/g, ' {\n')
+      .replace(/\s*;\s*/g, ';\n')
+      .replace(/\s*\}\s*/g, '\n}\n')
+      .split('\n')
+      .map(l => l.trim())
+      .filter(l => l.length);
+
+    const out = [];
+    for (const line of raw) {
+      if (line === '}') {
+        depth = Math.max(0, depth - 1);
+        out.push(indent() + '}');
+      } else if (line.endsWith('{')) {
+        out.push(indent() + line);
+        depth++;
+      } else {
+        out.push(indent() + line);
+      }
+    }
+    // Collapse blank lines to max 1
+    val = out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
   }
+
   ed.setValue(val);
   showNotif('<i class="fa-solid fa-check" style="color:#22d3a5"></i> Formatted');
 }
@@ -2027,9 +2098,20 @@ function loadFromStorage() {
   }
 }
 
-// ─── Share link (copies current URL — no hash encoding) ───────────────────────
+// ─── Share link — encodes current editors into URL hash ───────────────────────
 function shareLink() {
-  navigator.clipboard.writeText(location.href).then(() => showToast('toast-copy'));
+  try {
+    const data = {
+      html: htmlEditor.getValue(),
+      css:  cssEditor.getValue(),
+      snip: currentSnip || null,
+    };
+    const hash = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    const url  = location.origin + location.pathname + '#' + hash;
+    navigator.clipboard.writeText(url).then(() => showToast('toast-copy'));
+  } catch(e) {
+    showNotif('<i class="fa-solid fa-xmark" style="color:#f4456b"></i> Could not copy link');
+  }
 }
 
 // ─── Reload preview ───────────────────────────────────────────────────────────
