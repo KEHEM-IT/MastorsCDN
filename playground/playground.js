@@ -1,475 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSS Playground — MastorsCDN</title>
-  <meta name="description" content="Live CSS 2027 playground. Write HTML & CSS and see results instantly with snippet library.">
-  <link rel="icon" type="image/svg+xml" href="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Robotto:wght@400;500;600;700&family=Robotto:wght@400;500;600;700;800&family=Lato:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/all.css">
-
-  <!-- Monaco Editor (VSCode engine) -->
-  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.0/min/vs/loader.js"></script>
-
-  <!-- Prettier -->
-  <script src="https://unpkg.com/prettier@3.3.3/standalone.js"></script>
-  <script src="https://unpkg.com/prettier@3.3.3/plugins/html.js"></script>
-  <script src="https://unpkg.com/prettier@3.3.3/plugins/postcss.js"></script>
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            deep:     '#070c18',
-            surface:  '#0d1526',
-            card:     '#111e35',
-            elevated: '#162240',
-            border:   '#1e2e4a',
-            glow:     '#2a4070',
-            t1:       '#e8edf5',
-            t2:       '#8ea3bf',
-            t3:       '#4a6080',
-            accent:   '#5b8dee',
-            accent2:  '#8b5cf6',
-            green:    '#22d3a5',
-            amber:    '#f6a52a',
-            rose:     '#f4456b',
-          },
-          fontFamily: {
-            head:    ['Robotto', 'sans-serif'],
-            display: ['Space Grotesk', 'sans-serif'],
-            body:    ['DM Sans', 'sans-serif'],
-            mono:    ['DM Mono', 'monospace'],
-          },
-        }
-      }
-    }
-  </script>
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { height: 100%; overflow: hidden; }
-    body { display: flex; flex-direction: column; }
-
-    /* Monaco editor container */
-    .monaco-container {
-      width: 100%; height: 100%; overflow: hidden;
-    }
-
-    /* Resize handle */
-    #resize-handle {
-      width: 4px; flex-shrink: 0; cursor: col-resize;
-      background: #1e2e4a; transition: background .15s; position: relative; z-index: 20;
-    }
-    #resize-handle:hover, #resize-handle.dragging { background: #5b8dee; }
-
-    /* Scrollbars */
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: #070c18; }
-    ::-webkit-scrollbar-thumb { background: #1e2e4a; border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: #2a4070; }
-    #snippet-bar::-webkit-scrollbar { height: 3px; }
-
-    /* Preview iframe — no background override, snippet controls its own */
-    #preview-frame { flex: 1; border: none; background: transparent; display: block; }
-
-    /* Drag overlay — blocks iframe pointer events during resize */
-    #drag-overlay {
-      display: none; position: fixed; inset: 0; z-index: 9998; cursor: col-resize;
-    }
-    #drag-overlay.active { display: block; }
-
-    /* Preview wrapper backgrounds */
-    #preview-wrapper { min-height: 0; }
-    #preview-wrapper.bg-dark {
-      background-color: #070c18;
-      background-image:
-        linear-gradient(45deg,#0d1526 25%,transparent 25%),
-        linear-gradient(-45deg,#0d1526 25%,transparent 25%),
-        linear-gradient(45deg,transparent 75%,#0d1526 75%),
-        linear-gradient(-45deg,transparent 75%,#0d1526 75%);
-      background-size: 16px 16px;
-      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
-    }
-    #preview-wrapper.bg-white {
-      background-color: #ffffff;
-      background-image: none;
-    }
-
-    /* Preview background toggle */
-    .bg-toggle-btn {
-      display: flex; align-items: center; justify-content: center;
-      width: 26px; height: 26px; border-radius: 5px;
-      background: #111e35; border: 1px solid #1e2e4a;
-      color: #4a6080; cursor: pointer; transition: all .15s;
-      font-size: .6rem; flex-shrink: 0;
-    }
-    .bg-toggle-btn:hover { color: #8ea3bf; border-color: #2a4070; }
-    .bg-toggle-btn.active-white { color: #f6a52a; border-color: rgba(246,165,42,.4); background: rgba(246,165,42,.08); }
-    .bg-toggle-btn.active-dark  { color: #5b8dee; border-color: rgba(91,141,238,.4); background: rgba(91,141,238,.08); }
-
-    /* Skeleton loader */
-    #skeleton-overlay {
-      display: none;
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      padding: 1.5rem;
-      background: #070c18;
-      flex-direction: column;
-      gap: .85rem;
-      pointer-events: none;
-    }
-    #skeleton-overlay.active { display: flex; }
-    .sk-line {
-      border-radius: 5px;
-      background: linear-gradient(90deg, #0d1526 25%, #162240 50%, #0d1526 75%);
-      background-size: 200% 100%;
-      animation: sk-shimmer 1.4s ease-in-out infinite;
-    }
-    .sk-line.light {
-      background: linear-gradient(90deg, #e8edf5 25%, #d0d8e8 50%, #e8edf5 75%);
-      background-size: 200% 100%;
-    }
-    @keyframes sk-shimmer {
-      0%   { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-    .pulse { animation: pulse-dot 2s ease-in-out infinite; }
-
-    /* Toast */
-    @keyframes toast-in  { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes toast-out { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(6px)} }
-    .toast-show { animation: toast-in .2s ease forwards; }
-    .toast-hide { animation: toast-out .2s ease forwards; }
-
-    /* Editor tabs */
-    .etab { color: #4a6080; border-bottom-color: transparent; cursor: pointer; user-select: none; }
-    .etab:hover { color: #8ea3bf; }
-    .etab.active { color: #e8edf5; border-bottom-color: #5b8dee; }
-
-    /* Snippet buttons */
-    .snip-btn {
-      flex-shrink: 0; cursor: pointer;
-      font-size: .71rem; font-weight: 600;
-      padding: .22rem .7rem; border-radius: 5px;
-      background: #111e35; border: 1px solid #1e2e4a;
-      color: #8ea3bf; font-family: 'DM Sans', sans-serif;
-      transition: all .18s; white-space: nowrap;
-    }
-    .snip-btn:hover { color: #5b8dee; border-color: #5b8dee; background: rgba(91,141,238,.08); }
-    .snip-btn.active { color: #5b8dee; border-color: #5b8dee; background: rgba(91,141,238,.12); }
-
-    /* Viewport buttons */
-    .vp-btn {
-      display:flex; align-items:center; justify-content:center;
-      width:26px; height:26px; border-radius:5px;
-      background:#111e35; border:1px solid #1e2e4a;
-      color:#4a6080; cursor:pointer; transition:all .15s;
-    }
-    .vp-btn:hover { color:#8ea3bf; border-color:#2a4070; }
-    .vp-btn.active { color:#5b8dee; border-color:#5b8dee; background:rgba(91,141,238,.1); }
-
-    /* Share Popup */
-    #share-popup {
-      position: fixed;
-      z-index: 9999;
-      background: #111e35;
-      border: 1px solid #1e2e4a;
-      border-radius: 10px;
-      padding: .5rem .6rem;
-      box-shadow: 0 8px 24px rgba(0,0,0,.5);
-      transform-origin: top right;
-      opacity: 0;
-      transform: scale(.9) translateY(-4px);
-      pointer-events: none;
-      transition: opacity .18s ease, transform .18s ease;
-    }
-    #share-popup.visible {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-      pointer-events: auto;
-    }
-    #share-popup .sp-title {
-      font-size: .58rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .09em; color: #4a6080; margin-bottom: .4rem; padding: 0 .2rem;
-    }
-    #share-popup .sp-socials {
-      display: flex; gap: .35rem;
-    }
-    #share-popup .sp-social-btn {
-      width: 32px; height: 32px; border-radius: 7px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .85rem; cursor: pointer; border: 1px solid #1e2e4a;
-      background: #0d1526; transition: border-color .15s, transform .15s;
-      position: relative;
-    }
-    #share-popup .sp-social-btn:hover { border-color: #2a4070; transform: translateY(-1px); }
-    #share-popup .sp-copy-btn {
-      margin-top: .4rem; width: 100%; height: 26px; border-radius: 6px;
-      display: flex; align-items: center; justify-content: center; gap: .4rem;
-      font-size: .65rem; font-weight: 600; cursor: pointer;
-      border: 1px solid #1e2e4a; background: #0d1526; color: #5b8dee;
-      font-family: 'DM Sans', sans-serif; transition: border-color .15s;
-    }
-    #share-popup .sp-copy-btn:hover { border-color: #5b8dee; }
-
-    /* Mobile */
-    @media (max-width: 768px) {
-      #workspace { flex-direction: column !important; }
-      #editor-pane { width: 100% !important; height: 50% !important; border-right: none !important; border-bottom: 1px solid #1e2e4a; }
-      #preview-pane { flex: 1 !important; min-height: 0; }
-      #resize-handle { display: none !important; }
-    }
-  </style>
-</head>
-
-<body class="bg-deep text-t1 font-body antialiased">
-
-<!-- TOPBAR -->
-<header class="flex items-center gap-2.5 px-4 bg-surface border-b border-border flex-shrink-0 z-50" style="height:52px">
-  <a href="../index.html" class="flex items-center gap-2 no-underline">
-    <div class="w-7 h-7 rounded-[7px] flex items-center justify-center text-white text-[.7rem] flex-shrink-0"
-         style="background:linear-gradient(135deg,#5b8dee,#8b5cf6)">
-      <i class="fa-solid fa-layer-group"></i>
-    </div>
-    <span class="font-head font-bold text-[.88rem] text-t1">MastorsCDN</span>
-    <span class="text-t3 text-sm">/</span>
-    <span class="font-head font-semibold text-[.88rem] text-accent">Playground</span>
-  </a>
-
-  <div class="hidden md:flex items-center gap-1.5 ml-3 px-2.5 rounded-full border border-border bg-card text-[.63rem] font-bold text-t3 tracking-[.1em] uppercase" style="padding-top:4px;padding-bottom:4px">
-    <span class="w-[6px] h-[6px] rounded-full bg-green pulse"></span>
-    CSS 2027
-  </div>
-
-  <div class="flex items-center gap-1.5 ml-auto">
-    <button id="btn-format"
-      class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold text-t2 bg-card border border-border hover:text-t1 hover:border-glow transition-all">
-      <i class="fa-solid fa-indent text-[.63rem]"></i> Format
-    </button>
-    <button id="btn-clear"
-      class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold bg-card border transition-all"
-      style="color:#f4456b;border-color:rgba(244,69,107,.25)">
-      <i class="fa-solid fa-trash-can text-[.63rem]"></i> Clear
-    </button>
-    <button id="btn-save"
-      class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold bg-card border transition-all"
-      style="color:#22d3a5;border-color:rgba(34,211,165,.25)">
-      <i class="fa-solid fa-floppy-disk text-[.63rem]"></i> Save
-    </button>
-    <button id="btn-share"
-      class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold text-t2 bg-card border border-border hover:text-t1 hover:border-glow transition-all">
-      <i class="fa-solid fa-share-nodes text-[.63rem]"></i> Share
-    </button>
-    <button id="btn-fullscreen"
-      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold text-white border border-accent/30 hover:border-accent transition-all"
-      style="background:linear-gradient(135deg,#5b8dee,#4a7ddd)">
-      <i class="fa-solid fa-expand text-[.63rem]"></i>
-      <span class="hidden sm:inline">Fullscreen</span>
-    </button>
-    <button id="btn-mobile-menu" class="sm:hidden inline-flex items-center justify-center w-8 h-8 rounded-lg bg-card border border-border text-t2">
-      <i class="fa-solid fa-ellipsis-vertical text-[.75rem]"></i>
-    </button>
-    <a href="../index.html"
-      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold text-t2 bg-card border border-border hover:text-t1 hover:border-glow transition-all no-underline">
-      <i class="fa-solid fa-book text-[.63rem]"></i>
-      <span class="hidden sm:inline">Docs</span>
-    </a>
-  </div>
-</header>
-
-<!-- Mobile action menu -->
-<div id="mobile-menu" class="hidden bg-surface border-b border-border px-4 py-2.5 flex-wrap gap-2 flex-shrink-0">
-  <button onclick="formatCode()"
-    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold text-t2 bg-card border border-border">
-    <i class="fa-solid fa-indent text-[.63rem]"></i> Format
-  </button>
-  <button onclick="clearEditors()"
-    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold bg-card border" style="color:#f4456b;border-color:rgba(244,69,107,.25)">
-    <i class="fa-solid fa-trash-can text-[.63rem]"></i> Clear
-  </button>
-  <button onclick="saveToStorage()"
-    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold bg-card border" style="color:#22d3a5;border-color:rgba(34,211,165,.25)">
-    <i class="fa-solid fa-floppy-disk text-[.63rem]"></i> Save
-  </button>
-</div>
-
-<!-- SNIPPET BAR -->
-<div id="snippet-bar" class="flex items-center gap-1.5 px-4 bg-deep border-b border-border overflow-x-auto flex-shrink-0" style="height:40px">
-  <span class="text-[.63rem] font-bold tracking-[.1em] uppercase text-t3 flex-shrink-0 mr-1">Snippets</span>
-  <button class="snip-btn active" data-snip="welcome">Welcome</button>
-  <button class="snip-btn" data-snip="container">Container Queries</button>
-  <button class="snip-btn" data-snip="colormix">color-mix()</button>
-  <button class="snip-btn" data-snip="nesting">CSS Nesting</button>
-  <button class="snip-btn" data-snip="has">:has()</button>
-  <button class="snip-btn" data-snip="property">@property</button>
-  <button class="snip-btn" data-snip="subgrid">Subgrid</button>
-  <button class="snip-btn" data-snip="scroll">Scroll Anim</button>
-  <button class="snip-btn" data-snip="layer">@layer</button>
-  <button class="snip-btn" data-snip="scope">@scope</button>
-  <button class="snip-btn" data-snip="anchor">Anchor Pos</button>
-  <button class="snip-btn" data-snip="textwrap">text-wrap</button>
-  <button class="snip-btn" data-snip="viewtransition">View Transitions</button>
-  <button class="snip-btn" data-snip="mathfuncs">Math Functions</button>
-  <button class="snip-btn" data-snip="logicalprops">Logical Props</button>
-  <button class="snip-btn" data-snip="startingstyle">@starting-style</button>
-  <button class="snip-btn" data-snip="interpolatesize">interpolate-size</button>
-</div>
-
-<!-- WORKSPACE -->
-<div id="workspace" class="flex flex-1 overflow-hidden" style="min-height:0">
-
-  <!-- EDITOR PANE -->
-  <div id="editor-pane" class="flex flex-col border-r border-border min-w-0" style="width:50%">
-
-    <!-- Tab bar -->
-    <div class="flex items-center bg-surface border-b border-border flex-shrink-0" style="height:40px">
-      <button id="tab-html" onclick="switchTab('html')"
-        class="etab active flex items-center gap-2 px-4 h-full text-[.75rem] font-semibold border-b-2 transition-all">
-        <i class="fa-brands fa-html5 text-[.68rem]" style="color:#e34c26"></i> HTML
-      </button>
-      <button id="tab-css" onclick="switchTab('css')"
-        class="etab flex items-center gap-2 px-4 h-full text-[.75rem] font-semibold border-b-2 transition-all">
-        <i class="fa-brands fa-css3-alt text-[.68rem]" style="color:#264de4"></i> CSS
-      </button>
-      <div class="flex items-center gap-2 ml-auto pr-2">
-        <label class="flex items-center gap-1.5 cursor-pointer select-none">
-          <input type="checkbox" id="autorun-chk" checked style="accent-color:#5b8dee;width:12px;height:12px">
-          <span class="text-[.62rem]" style="color:#4a6080">Auto-run</span>
-        </label>
-        <button id="btn-run"
-          class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[.67rem] font-semibold border transition-all"
-          style="color:#22d3a5;background:rgba(34,211,165,.1);border-color:rgba(34,211,165,.2)"
-          title="Run (Ctrl+Enter)">
-          <i class="fa-solid fa-play text-[.58rem]"></i> Run
-        </button>
-      </div>
-    </div>
-
-    <!-- Editor areas -->
-    <div id="wrap-html" class="flex-1 overflow-hidden">
-      <div id="html-editor" class="monaco-container"></div>
-    </div>
-    <div id="wrap-css" class="flex-1 overflow-hidden" style="display:none">
-      <div id="css-editor" class="monaco-container"></div>
-    </div>
-
-    <!-- Status bar -->
-    <div class="flex items-center gap-4 px-3 bg-surface border-t border-border flex-shrink-0" style="height:26px">
-      <span class="flex items-center gap-1.5 text-[.62rem] font-semibold" style="color:#22d3a5">
-        <span class="w-[6px] h-[6px] rounded-full pulse" style="background:#22d3a5"></span> Live
-      </span>
-      <span id="cursor-pos" class="text-[.62rem]" style="color:#4a6080">Ln 1, Col 1</span>
-      <span id="char-count" class="text-[.62rem]" style="color:#4a6080">0 chars</span>
-    </div>
-  </div>
-
-  <!-- RESIZE HANDLE -->
-  <div id="resize-handle"></div>
-
-  <!-- PREVIEW PANE -->
-  <div id="preview-pane" class="flex flex-col flex-1 min-w-0">
-
-    <!-- Preview title bar -->
-    <div class="flex items-center gap-2 px-3 bg-surface border-b border-border flex-shrink-0" style="height:40px">
-      <div class="flex gap-1.5 mr-1 flex-shrink-0">
-        <div class="w-[11px] h-[11px] rounded-full" style="background:#f4456b"></div>
-        <div class="w-[11px] h-[11px] rounded-full" style="background:#f6a52a"></div>
-        <div class="w-[11px] h-[11px] rounded-full" style="background:#22d3a5"></div>
-      </div>
-      <div class="flex-1 flex items-center gap-1.5 rounded-md px-2.5 bg-card border border-border font-mono text-[.67rem]" style="color:#4a6080;padding-top:3px;padding-bottom:3px">
-        <i class="fa-solid fa-lock text-[.6rem]" style="color:#22d3a5"></i>
-        playground / preview
-      </div>
-      <button onclick="reloadPreview()"
-        class="flex items-center justify-center rounded-md bg-card border border-border transition-all hover:border-glow flex-shrink-0"
-        style="width:27px;height:27px;color:#4a6080;margin-left:4px"
-        title="Reload">
-        <i class="fa-solid fa-rotate-right text-[.63rem]"></i>
-      </button>
-      <div class="hidden md:flex items-center gap-1 ml-1 flex-shrink-0">
-        <button onclick="setViewport('full')" id="vp-full" class="vp-btn active" title="Full width">
-          <i class="fa-solid fa-display text-[.63rem]"></i>
-        </button>
-        <button onclick="setViewport('tablet')" id="vp-tablet" class="vp-btn" title="Tablet 768px">
-          <i class="fa-solid fa-tablet-screen-button text-[.63rem]"></i>
-        </button>
-        <button onclick="setViewport('mobile')" id="vp-mobile" class="vp-btn" title="Mobile 375px">
-          <i class="fa-solid fa-mobile-screen text-[.63rem]"></i>
-        </button>
-      </div>
-      <div class="hidden md:flex items-center gap-1 ml-1 flex-shrink-0" title="Preview background">
-        <button onclick="setPreviewBg('dark')"  id="bg-dark"  class="bg-toggle-btn active-dark"  title="Dark background"><i class="fa-solid fa-moon"></i></button>
-        <button onclick="setPreviewBg('white')" id="bg-white" class="bg-toggle-btn"              title="White background"><i class="fa-solid fa-sun"></i></button>
-      </div>
-    </div>
-
-    <!-- Preview wrapper — dark checker shows "transparent" areas clearly -->
-    <div id="preview-wrapper" class="flex-1 overflow-auto bg-dark" style="position:relative;display:flex;align-items:flex-start;justify-content:center;">
-      <!-- Skeleton overlay -->
-      <div id="skeleton-overlay">
-        <div class="sk-line" style="height:18px;width:40%"></div>
-        <div class="sk-line" style="height:120px;width:100%"></div>
-        <div class="sk-line" style="height:14px;width:70%"></div>
-        <div class="sk-line" style="height:14px;width:55%"></div>
-        <div class="sk-line" style="height:14px;width:80%"></div>
-        <div style="display:flex;gap:.75rem">
-          <div class="sk-line" style="height:80px;flex:1"></div>
-          <div class="sk-line" style="height:80px;flex:1"></div>
-          <div class="sk-line" style="height:80px;flex:1"></div>
-        </div>
-        <div class="sk-line" style="height:14px;width:60%"></div>
-        <div class="sk-line" style="height:14px;width:45%"></div>
-      </div>
-      <iframe id="preview-frame" sandbox="allow-scripts allow-same-origin" style="border:none;flex-shrink:0;width:100%;min-height:100%;display:block;transition:width .35s cubic-bezier(.4,0,.2,1),max-width .35s cubic-bezier(.4,0,.2,1);"></iframe>
-    </div>
-
-    <!-- Preview status bar -->
-    <div class="flex items-center gap-3 px-3 bg-surface border-t border-border flex-shrink-0" style="height:26px">
-      <span id="preview-status" class="flex items-center gap-1.5 text-[.62rem] font-semibold" style="color:#22d3a5">
-        <i class="fa-solid fa-circle-check text-[.58rem]"></i> Ready
-      </span>
-      <span id="preview-dimensions" class="text-[.62rem] ml-auto" style="color:#4a6080">—</span>
-    </div>
-  </div>
-</div>
-
-<!-- DRAG OVERLAY (blocks iframe during resize) -->
-<div id="drag-overlay"></div>
-
-<!-- TOASTS -->
-<!-- SHARE POPUP -->
-<div id="share-popup" role="dialog" aria-label="Share options">
-  <div class="sp-title">Share</div>
-  <div class="sp-socials">
-    <button class="sp-social-btn" id="sp-twitter"  title="X / Twitter"><i class="fa-brands fa-x-twitter" style="color:#1da1f2"></i></button>
-    <button class="sp-social-btn" id="sp-facebook" title="Facebook"><i class="fa-brands fa-facebook-f" style="color:#1877f2"></i></button>
-    <button class="sp-social-btn" id="sp-linkedin" title="LinkedIn"><i class="fa-brands fa-linkedin-in" style="color:#0a66c2"></i></button>
-    <button class="sp-social-btn" id="sp-whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp" style="color:#25d366"></i></button>
-    <button class="sp-social-btn" id="sp-telegram" title="Telegram"><i class="fa-brands fa-telegram" style="color:#0088cc"></i></button>
-    <button class="sp-social-btn" id="sp-reddit"   title="Reddit"><i class="fa-brands fa-reddit-alien" style="color:#ff4500"></i></button>
-  </div>
-  <button class="sp-copy-btn" id="sp-url-bar"><i class="fa-solid fa-link" style="font-size:.6rem"></i> Copy Link</button>
-</div>
-
-<div id="toast-save"   style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:999;align-items:center;gap:.5rem;padding:.5rem 1.1rem;border-radius:10px;font-size:.78rem;font-weight:700;color:#0a2a1e;background:rgba(34,211,165,.92);box-shadow:0 4px 20px rgba(0,0,0,.4)"><i class="fa-solid fa-check"></i> Saved!</div>
-<div id="toast-copy"   style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:999;align-items:center;gap:.5rem;padding:.5rem 1.1rem;border-radius:10px;font-size:.78rem;font-weight:700;color:white;background:rgba(91,141,238,.92);box-shadow:0 4px 20px rgba(0,0,0,.4)"><i class="fa-solid fa-link"></i> Link copied!</div>
-<div id="toast-error"  style="display:none;position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:999;align-items:center;gap:.5rem;padding:.5rem 1.25rem;border-radius:99px;font-size:.78rem;font-weight:700;color:white;background:rgba(244,69,107,.92);box-shadow:0 4px 20px rgba(0,0,0,.4)"></div>
-<div id="toast-notif"  style="display:none;position:fixed;top:60px;right:.75rem;z-index:999;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:8px;font-size:.75rem;font-weight:600;color:#e8edf5;background:#111e35;border:1px solid #1e2e4a;box-shadow:0 4px 20px rgba(0,0,0,.4)"></div>
-
-
-<script>
 // ─── Snippet Library ──────────────────────────────────────────────────────────
 const SNIPPETS = {
 
@@ -538,7 +66,8 @@ p {
 .hint {
   font-size: .76rem; color: #3d566e;
   margin-bottom: 0; font-style: italic;
-}`
+}`,
+js: ``
 },
 
 container: {
@@ -595,7 +124,8 @@ h3 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; color: #e8edf5; }
   display: inline-block; background: #5b8dee; color: white;
   font-size: .78rem; font-weight: 600;
   padding: .4rem 1rem; border-radius: 7px; text-decoration: none;
-}`
+}`,
+js: ``
 },
 
 colormix: {
@@ -618,25 +148,7 @@ html: `<div class="demo">
       <div class="rel" style="background:oklch(50% .32 264)">+Chrome<br><small>calc(c+.1)</small></div>
     </div>
   </section>
-</div>
-<script>
-  const mixRow = document.getElementById('mix');
-  for(let p=100;p>=5;p-=13){
-    const d=document.createElement('div');
-    d.className='swatch';
-    d.style.background='color-mix(in oklch,#5b8dee '+p+'%,white)';
-    d.title=p+'%';
-    mixRow.appendChild(d);
-  }
-  const hueRow = document.getElementById('hue');
-  for(let h=0;h<=300;h+=43){
-    const d=document.createElement('div');
-    d.className='swatch';
-    d.style.background='oklch(60% .22 '+h+')';
-    d.title='H:'+h;
-    hueRow.appendChild(d);
-  }
-<\/script>`,
+</div>`,
 css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: #060b16; color: #e8edf5;
@@ -665,7 +177,23 @@ h3 {
   border-radius: 10px; font-size: .75rem; font-weight: 600;
   text-align: center; line-height: 1.5; color: white;
 }
-small { font-size: .62rem; opacity: .75; font-family: 'DM Mono', monospace; display:block; }`
+small { font-size: .62rem; opacity: .75; font-family: 'DM Mono', monospace; display:block; }`,
+js: `const mixRow = document.getElementById('mix');
+for(let p=100;p>=5;p-=13){
+  const d=document.createElement('div');
+  d.className='swatch';
+  d.style.background='color-mix(in oklch,#5b8dee '+p+'%,white)';
+  d.title=p+'%';
+  mixRow.appendChild(d);
+}
+const hueRow = document.getElementById('hue');
+for(let h=0;h<=300;h+=43){
+  const d=document.createElement('div');
+  d.className='swatch';
+  d.style.background='oklch(60% .22 '+h+')';
+  d.title='H:'+h;
+  hueRow.appendChild(d);
+}`
 },
 
 nesting: {
@@ -749,7 +277,8 @@ body {
     background: linear-gradient(145deg, #0f1a2e, #131f38);
     & .tag { background: rgba(139,92,246,.14); color: #a78bfa; border-color: rgba(139,92,246,.28); }
   }
-}`
+}`,
+js: ``
 },
 
 has: {
@@ -811,7 +340,8 @@ h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 1.25rem; letter-spacing
 .card:has(img) h3, .card:has(img) p { padding: .7rem .85rem; }
 .card:has(img) p { padding-top: 0; }
 .card h3 { font-size: .9rem; font-weight: 700; color: #e8edf5; margin-bottom: .35rem; }
-.card p  { font-size: .78rem; color: #7d9ab8; line-height: 1.55; }`
+.card p  { font-size: .78rem; color: #7d9ab8; line-height: 1.55; }`,
+js: ``
 },
 
 property: {
@@ -867,14 +397,12 @@ code {
   color: #a78bfa; background: rgba(139,92,246,.1);
   padding: .1rem .3rem; border-radius: 4px;
 }
-/* Spinner using @property --angle */
 .spinner {
   width: 64px; height: 64px; border-radius: 50%;
   background: conic-gradient(from var(--angle), #5b8dee, #8b5cf6, #f472b6, #5b8dee);
   animation: spin-angle 2.5s linear infinite;
 }
 @keyframes spin-angle { to { --angle: 360deg; } }
-/* Progress ring */
 .progress-ring { position: relative; width: 80px; height: 80px; }
 .progress-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
 .track { fill: none; stroke: #1e2e4a; stroke-width: 6; }
@@ -888,7 +416,8 @@ code {
 .prog-text {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
   font-size: .85rem; font-weight: 800; color: #e8edf5;
-}`
+}`,
+js: ``
 },
 
 subgrid: {
@@ -922,15 +451,12 @@ body {
 .demo { max-width: 680px; margin: 0 auto; }
 h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .5rem; letter-spacing: -.02em; }
 .demo > p { color: #7d9ab8; font-size: .84rem; margin-bottom: 1.5rem; line-height: 1.7; }
-
-/* Parent grid defines 3 row tracks per card */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto 1fr auto;
   gap: 1rem;
 }
-/* Card spans all 3 rows, inherits them via subgrid */
 .card {
   display: grid;
   grid-row: span 3;
@@ -952,7 +478,8 @@ a:hover { text-decoration: underline; }
 @media (max-width: 480px) {
   .grid { grid-template-columns: 1fr; grid-template-rows: auto; }
   .card { grid-row: auto; grid-template-rows: auto; }
-}`
+}`,
+js: ``
 },
 
 scroll: {
@@ -987,7 +514,6 @@ body {
   font-family: 'DM Sans', system-ui, sans-serif;
   min-height: 100vh;
 }
-/* Scroll progress bar */
 .progress-bar {
   position: fixed; top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(90deg, #5b8dee, #8b5cf6);
@@ -1034,7 +560,8 @@ code {
   font-family: 'DM Mono', monospace; font-size: .76rem;
   color: #5b8dee; background: rgba(91,141,238,.1);
   padding: .1rem .28rem; border-radius: 4px;
-}`
+}`,
+js: ``
 },
 
 layer: {
@@ -1060,8 +587,7 @@ html: `<div class="demo">
     </div>
   </div>
 </div>`,
-css: `/* Declare order up front — last wins */
-@layer base, components, utilities;
+css: `@layer base, components, utilities;
 
 @layer base {
   .btn-base {
@@ -1089,7 +615,6 @@ css: `/* Declare order up front — last wins */
   .btn-util { background: #8b5cf6; }
 }
 
-/* ── Page styles ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: #060b16; color: #e8edf5;
@@ -1110,7 +635,8 @@ h3 { font-size: .78rem; font-weight: 600; color: #7d9ab8; min-width: 150px; }
 code {
   font-family: 'DM Mono', monospace; font-size: .7rem;
   color: #4a6080; margin-left: auto;
-}`
+}`,
+js: ``
 },
 
 scope: {
@@ -1129,8 +655,7 @@ html: `<div class="demo">
     <p>This paragraph is unstyled by the scoped rule — default color applies.</p>
   </div>
 </div>`,
-css: `/* Scoped styles — only inside .scoped-card, stopping before .child-component */
-@scope (.scoped-card) to (.child-component) {
+css: `@scope (.scoped-card) to (.child-component) {
   p {
     color: #60a5fa;
     font-size: .84rem;
@@ -1139,13 +664,11 @@ css: `/* Scoped styles — only inside .scoped-card, stopping before .child-comp
   h3 { color: white; font-weight: 700; font-size: .95rem; }
 }
 
-/* Child component gets its own scope */
 @scope (.child-component) {
   p { color: #a78bfa; font-size: .82rem; }
   h3 { color: #c4b5fd; font-weight: 600; font-size: .88rem; }
 }
 
-/* ── Page ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: #060b16; color: #8ea3bf;
@@ -1170,7 +693,8 @@ code {
   font-family: 'DM Mono', monospace; font-size: .75rem;
   color: #5b8dee; background: rgba(91,141,238,.1);
   padding: .1rem .3rem; border-radius: 4px;
-}`
+}`,
+js: ``
 },
 
 anchor: {
@@ -1237,13 +761,13 @@ code {
   border-radius: 9px; padding: .75rem 1rem;
   font-size: .78rem; color: #f6a52a;
   display: flex; gap: .5rem; align-items: flex-start; line-height: 1.55;
-}`
+}`,
+js: ``
 },
 
 textwrap: {
 html: `<div class="demo">
   <h2>text-wrap: balance &amp; pretty</h2>
-
   <div class="compare">
     <div class="card">
       <span class="badge">text-wrap: normal</span>
@@ -1291,7 +815,8 @@ h3 {
 p { font-size: .76rem; color: #7d9ab8; line-height: 1.6; }
 .normal  { text-wrap: normal; }
 .balance { text-wrap: balance; }
-.pretty  { text-wrap: pretty; }`
+.pretty  { text-wrap: pretty; }`,
+js: ``
 },
 
 viewtransition: {
@@ -1310,32 +835,7 @@ html: `<div class="demo">
     <code>::view-transition-old(root)</code> and <code>::view-transition-new(root)</code>
     control the outgoing/incoming animations.
   </div>
-</div>
-<script>
-  const states = [
-    { label: '◆ State A', bg: 'linear-gradient(135deg,#5b8dee,#8b5cf6)' },
-    { label: '● State B', bg: 'linear-gradient(135deg,#ec4899,#be185d)' },
-    { label: '▲ State C', bg: 'linear-gradient(135deg,#22d3a5,#0d9488)' },
-  ];
-  let idx = 0;
-  function triggerTransition() {
-    const box = document.getElementById('vt-box');
-    idx = (idx + 1) % states.length;
-    if (document.startViewTransition) {
-      document.startViewTransition(() => {
-        box.textContent = states[idx].label;
-        box.style.background = states[idx].bg;
-      });
-    } else {
-      box.style.opacity = '0'; box.style.transform = 'translateY(-12px)';
-      setTimeout(() => {
-        box.textContent = states[idx].label;
-        box.style.background = states[idx].bg;
-        box.style.opacity = '1'; box.style.transform = '';
-      }, 250);
-    }
-  }
-<\/script>`,
+</div>`,
 css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: #060b16; color: #e8edf5;
@@ -1379,8 +879,6 @@ code {
   border-radius: 9px; padding: .75rem 1rem;
   font-size: .78rem; color: #7d9ab8; line-height: 1.6;
 }
-
-/* View Transitions animation rules */
 ::view-transition-old(root) {
   animation: vt-out 300ms ease-out both;
 }
@@ -1392,13 +890,35 @@ code {
 }
 @keyframes vt-in {
   from { opacity: 0; transform: translateY(12px); }
+}`,
+js: `const states = [
+  { label: '◆ State A', bg: 'linear-gradient(135deg,#5b8dee,#8b5cf6)' },
+  { label: '● State B', bg: 'linear-gradient(135deg,#ec4899,#be185d)' },
+  { label: '▲ State C', bg: 'linear-gradient(135deg,#22d3a5,#0d9488)' },
+];
+let idx = 0;
+function triggerTransition() {
+  const box = document.getElementById('vt-box');
+  idx = (idx + 1) % states.length;
+  if (document.startViewTransition) {
+    document.startViewTransition(() => {
+      box.textContent = states[idx].label;
+      box.style.background = states[idx].bg;
+    });
+  } else {
+    box.style.opacity = '0'; box.style.transform = 'translateY(-12px)';
+    setTimeout(() => {
+      box.textContent = states[idx].label;
+      box.style.background = states[idx].bg;
+      box.style.opacity = '1'; box.style.transform = '';
+    }, 250);
+  }
 }`
 },
 
 mathfuncs: {
 html: `<div class="demo">
   <h2>CSS Math Functions</h2>
-
   <section class="card">
     <h3>Circular layout — cos() &amp; sin()</h3>
     <div class="orbit" id="orbit">
@@ -1406,13 +926,11 @@ html: `<div class="demo">
     </div>
     <p>Each orbit dot is positioned using <code>cos()</code> and <code>sin()</code> — pure CSS, no JS.</p>
   </section>
-
   <section class="card">
     <h3>clamp() — fluid typography</h3>
     <div class="fluid-text">Fluid Heading</div>
     <p>Resize the viewport — text scales between <code>1rem</code> and <code>2.5rem</code>.</p>
   </section>
-
   <section class="card">
     <h3>round(), mod(), pow(), sqrt()</h3>
     <div class="math-grid">
@@ -1422,22 +940,7 @@ html: `<div class="demo">
       <div class="math-chip"><span>pow(2, 8)</span><strong>= 256</strong></div>
     </div>
   </section>
-</div>
-<script>
-  const labels = ['A','B','C','D','E','F'];
-  const orbit = document.getElementById('orbit');
-  labels.forEach((l, i) => {
-    const angle = (360 / labels.length) * i;
-    const rad = angle * Math.PI / 180;
-    const r = 70;
-    const dot = document.createElement('div');
-    dot.className = 'dot';
-    dot.textContent = l;
-    dot.style.left = 'calc(50% + ' + (Math.cos(rad) * r) + 'px - 16px)';
-    dot.style.top  = 'calc(50% + ' + (Math.sin(rad) * r) + 'px - 16px)';
-    orbit.appendChild(dot);
-  });
-<\/script>`,
+</div>`,
 css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: #060b16; color: #e8edf5;
@@ -1457,8 +960,6 @@ code {
   color: #5b8dee; background: rgba(91,141,238,.1);
   padding: .1rem .3rem; border-radius: 4px;
 }
-
-/* Orbit */
 .orbit {
   position: relative; width: 180px; height: 180px;
   margin: 0 auto;
@@ -1480,8 +981,6 @@ code {
   display: flex; align-items: center; justify-content: center;
   font-size: .68rem; font-weight: 700; color: #5b8dee;
 }
-
-/* Fluid text */
 .fluid-text {
   font-size: clamp(1rem, 5vw + .5rem, 2.5rem);
   font-weight: 800; letter-spacing: -.04em; color: #e8edf5;
@@ -1489,8 +988,6 @@ code {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
-/* Math chips */
 .math-grid { display: flex; flex-wrap: wrap; gap: .6rem; }
 .math-chip {
   background: #162240; border: 1px solid #1e2e4a;
@@ -1499,14 +996,26 @@ code {
   min-width: 120px;
 }
 .math-chip span { font-family: 'DM Mono', monospace; font-size: .7rem; color: #4a6080; }
-.math-chip strong { font-family: 'DM Mono', monospace; font-size: .88rem; color: #22d3a5; }`
+.math-chip strong { font-family: 'DM Mono', monospace; font-size: .88rem; color: #22d3a5; }`,
+js: `const labels = ['A','B','C','D','E','F'];
+const orbit = document.getElementById('orbit');
+labels.forEach((l, i) => {
+  const angle = (360 / labels.length) * i;
+  const rad = angle * Math.PI / 180;
+  const r = 70;
+  const dot = document.createElement('div');
+  dot.className = 'dot';
+  dot.textContent = l;
+  dot.style.left = 'calc(50% + ' + (Math.cos(rad) * r) + 'px - 16px)';
+  dot.style.top  = 'calc(50% + ' + (Math.sin(rad) * r) + 'px - 16px)';
+  orbit.appendChild(dot);
+});`
 },
 
 logicalprops: {
 html: `<div class="demo">
   <h2>CSS Logical Properties</h2>
   <p>The same CSS works correctly in both LTR and RTL without writing direction-specific overrides.</p>
-
   <div class="ltr-section">
     <div class="dir-label">dir="ltr" (English)</div>
     <div class="card" dir="ltr">
@@ -1518,7 +1027,6 @@ html: `<div class="demo">
       </div>
     </div>
   </div>
-
   <div class="rtl-section">
     <div class="dir-label">dir="rtl" (Arabic)</div>
     <div class="card" dir="rtl">
@@ -1530,7 +1038,6 @@ html: `<div class="demo">
       </div>
     </div>
   </div>
-
   <div class="table-wrap">
     <h3 class="table-title">Physical → Logical Mapping</h3>
     <table>
@@ -1563,11 +1070,9 @@ code {
   text-transform: uppercase; color: #4a6080; margin-bottom: .45rem;
 }
 .card {
-  background: #0f1a2e;
-  border: 1px solid #1b2b45;
+  background: #0f1a2e; border: 1px solid #1b2b45;
   border-radius: 12px; padding: 1.1rem;
   display: flex; gap: 1rem; align-items: flex-start;
-  /* Logical: border adapts to direction automatically */
   border-inline-start: 3px solid #5b8dee;
 }
 .card[dir="rtl"] { border-inline-start-color: #a78bfa; }
@@ -1589,47 +1094,32 @@ table { width: 100%; border-collapse: collapse; }
 th, td { padding: .45rem .6rem; text-align: start; font-size: .78rem; border-block-end: 1px solid #1b2b45; }
 th { color: #7d9ab8; font-weight: 600; }
 td { color: #e8edf5; }
-td code { color: #a78bfa; background: rgba(139,92,246,.1); }`
+td code { color: #a78bfa; background: rgba(139,92,246,.1); }`,
+js: ``
 },
 
 startingstyle: {
 html: `<div class="demo">
   <h2>@starting-style</h2>
   <p>Animate entry from <code>display: none</code> — no JS, no class toggling, no RAF hacks.</p>
-
   <div class="controls">
     <button class="btn" onclick="showToast()">Show Toast</button>
     <button class="btn btn-sec" onclick="showDialog()">Show Dialog</button>
   </div>
-
   <div id="toast" class="toast hidden">
     <span class="toast-icon">✓</span>
     Animated with @starting-style — no JS animation!
   </div>
-
   <dialog id="dialog" class="dialog">
     <h3>Dialog Entry</h3>
     <p>This dialog fades and slides in from <code>display: none</code> using <code>@starting-style</code>.</p>
     <button class="btn" onclick="document.getElementById('dialog').close()">Close</button>
   </dialog>
-
   <div class="code-note">
     <code>@starting-style</code> defines initial styles <em>before</em> the element's first paint,
     giving the browser a "from" state for the transition.
   </div>
-</div>
-<script>
-  let toastTimer;
-  function showToast() {
-    const t = document.getElementById('toast');
-    t.classList.remove('hidden');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.add('hidden'), 3000);
-  }
-  function showDialog() {
-    document.getElementById('dialog').showModal();
-  }
-<\/script>`,
+</div>`,
 css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: #060b16; color: #e8edf5;
@@ -1654,22 +1144,17 @@ code {
 .btn:hover { background: #4a7ddd; }
 .btn-sec { background: #162240; border: 1px solid #2a4070; color: #8ea3bf; }
 .btn-sec:hover { background: #1e2e4a; color: #e8edf5; }
-
-/* Toast with @starting-style entry */
 .toast {
   display: flex; align-items: center; gap: .75rem;
   background: #0f2d1a; border: 1px solid rgba(34,211,165,.3);
   border-radius: 12px; padding: .85rem 1.1rem;
   font-size: .84rem; color: #22d3a5; font-weight: 600;
   margin-bottom: 1.25rem;
-
-  /* Animate entry */
   opacity: 1; transform: translateX(0);
   transition:
     opacity .4s ease,
     transform .4s ease,
     display .4s ease allow-discrete;
-
   @starting-style {
     opacity: 0;
     transform: translateX(60px);
@@ -1681,21 +1166,17 @@ code {
   transform: translateX(60px);
 }
 .toast-icon { font-size: 1rem; }
-
-/* Dialog with @starting-style */
 .dialog {
   background: #0f1a2e; border: 1px solid #2a4070;
   border-radius: 16px; padding: 2rem; max-width: 380px;
   width: 90%; color: #e8edf5;
   box-shadow: 0 20px 60px rgba(0,0,0,.6);
-
   opacity: 1; transform: translateY(0) scale(1);
   transition:
     opacity .35s ease,
     transform .35s ease,
     display .35s ease allow-discrete,
     overlay .35s ease allow-discrete;
-
   @starting-style {
     opacity: 0;
     transform: translateY(-20px) scale(.95);
@@ -1707,11 +1188,20 @@ code {
 .dialog::backdrop { background: rgba(0,0,0,.55); backdrop-filter: blur(4px); }
 .dialog h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: .65rem; letter-spacing: -.02em; }
 .dialog p  { color: #7d9ab8; font-size: .84rem; line-height: 1.65; margin-bottom: 1.25rem; }
-
 .code-note {
   background: rgba(91,141,238,.06); border: 1px solid rgba(91,141,238,.15);
   border-radius: 9px; padding: .85rem 1rem;
   font-size: .8rem; color: #7d9ab8; line-height: 1.65;
+}`,
+js: `let toastTimer;
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.remove('hidden');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.add('hidden'), 3000);
+}
+function showDialog() {
+  document.getElementById('dialog').showModal();
 }`
 },
 
@@ -1719,7 +1209,6 @@ interpolatesize: {
 html: `<div class="demo">
   <h2>interpolate-size: allow-keywords</h2>
   <p>Animate to and from intrinsic sizing keywords like <code>height: auto</code> — the accordion devs always wanted.</p>
-
   <div class="accordion">
     <div class="item">
       <button class="item-btn" onclick="toggle(this)">
@@ -1753,36 +1242,14 @@ html: `<div class="demo">
       </div>
     </div>
   </div>
-
   <div class="chip-demo">
     <h3>fit-content chip expansion</h3>
     <div class="chips">
       <div class="chip">Hover me to expand width to max-content →</div>
     </div>
   </div>
-</div>
-<script>
-  function toggle(btn) {
-    const body = btn.nextElementSibling;
-    const chevron = btn.querySelector('.chevron');
-    const isOpen = body.classList.contains('open');
-    if (isOpen) {
-      body.style.height = body.scrollHeight + 'px';
-      requestAnimationFrame(() => { body.style.height = '0'; });
-      body.classList.remove('open');
-      chevron.classList.remove('rotated');
-    } else {
-      body.style.height = body.scrollHeight + 'px';
-      body.classList.add('open');
-      chevron.classList.add('rotated');
-      body.addEventListener('transitionend', () => {
-        if (body.classList.contains('open')) body.style.height = 'auto';
-      }, { once: true });
-    }
-  }
-<\/script>`,
-css: `/* Opt in globally */
-:root { interpolate-size: allow-keywords; }
+</div>`,
+css: `:root { interpolate-size: allow-keywords; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -1820,8 +1287,6 @@ code {
   transition: height .4s ease;
 }
 .item-body p { padding: .2rem 1.1rem 1rem; font-size: .82rem; color: #7d9ab8; line-height: 1.65; }
-
-/* Chip — animates width to max-content on hover */
 .chip-demo { background: #0f1a2e; border: 1px solid #1b2b45; border-radius: 12px; padding: 1.2rem; }
 h3 { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #4a6080; margin-bottom: .85rem; }
 .chips { display: flex; }
@@ -1835,27 +1300,42 @@ h3 { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spac
   transition: max-width .4s ease, background .2s;
   cursor: default;
 }
-.chip:hover { max-width: max-content; background: rgba(91,141,238,.2); }`
+.chip:hover { max-width: max-content; background: rgba(91,141,238,.2); }`,
+js: `function toggle(btn) {
+  const body = btn.nextElementSibling;
+  const chevron = btn.querySelector('.chevron');
+  const isOpen = body.classList.contains('open');
+  if (isOpen) {
+    body.style.height = body.scrollHeight + 'px';
+    requestAnimationFrame(() => { body.style.height = '0'; });
+    body.classList.remove('open');
+    chevron.classList.remove('rotated');
+  } else {
+    body.style.height = body.scrollHeight + 'px';
+    body.classList.add('open');
+    chevron.classList.add('rotated');
+    body.addEventListener('transitionend', () => {
+      if (body.classList.contains('open')) body.style.height = 'auto';
+    }, { once: true });
+  }
+}`
 }
 
 }; // end SNIPPETS
-// FIXED
-
 
 
 // ─── State ────────────────────────────────────────────────────────────────────
-let htmlEditor, cssEditor;
+let htmlEditor, cssEditor, jsEditor;
 let runTimer = null;
 let activeTab = 'html';
 let currentSnip = 'welcome';
 let previewBgMode = 'dark';
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
+// ─── Init Monaco ──────────────────────────────────────────────────────────────
 require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.0/min/vs' } });
 
 require(['vs/editor/editor.main'], function () {
 
-  // Custom dark theme matching site palette
   monaco.editor.defineTheme('mastors-dark', {
     base: 'vs-dark',
     inherit: true,
@@ -1921,36 +1401,35 @@ require(['vs/editor/editor.main'], function () {
   };
 
   htmlEditor = monaco.editor.create(document.getElementById('html-editor'), {
-    ...commonOptions,
-    language: 'html',
-    value: '',
+    ...commonOptions, language: 'html', value: '',
   });
-
   cssEditor = monaco.editor.create(document.getElementById('css-editor'), {
-    ...commonOptions,
-    language: 'css',
-    value: '',
+    ...commonOptions, language: 'css', value: '',
+  });
+  jsEditor = monaco.editor.create(document.getElementById('js-editor'), {
+    ...commonOptions, language: 'javascript', value: '',
   });
 
-  // Cursor position + char count
+  // Cursor + char count
   const updateStatus = () => {
-    const ed = activeTab === 'html' ? htmlEditor : cssEditor;
+    const ed = activeTab === 'html' ? htmlEditor : activeTab === 'css' ? cssEditor : jsEditor;
     const pos = ed.getPosition();
     document.getElementById('cursor-pos').textContent = `Ln ${pos.lineNumber}, Col ${pos.column}`;
-    const total = htmlEditor.getValue().length + cssEditor.getValue().length;
+    const total = htmlEditor.getValue().length + cssEditor.getValue().length + jsEditor.getValue().length;
     document.getElementById('char-count').textContent = `${total} chars`;
   };
   htmlEditor.onDidChangeCursorPosition(updateStatus);
   cssEditor.onDidChangeCursorPosition(updateStatus);
+  jsEditor.onDidChangeCursorPosition(updateStatus);
 
   // Keybindings
-  [htmlEditor, cssEditor].forEach(ed => {
+  [htmlEditor, cssEditor, jsEditor].forEach(ed => {
     ed.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, runPreview);
     ed.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, saveToStorage);
     ed.addCommand(monaco.KeyMod.Alt | monaco.KeyMod.Shift | monaco.KeyCode.KeyF, formatCode);
   });
 
-  // ── Emmet expansion on Tab (no external library needed) ────────────────────
+  // ── Emmet expansion ────────────────────────────────────────────────────────
   function expandEmmet(editor, language) {
     const model = editor.getModel();
     const pos   = editor.getPosition();
@@ -1959,9 +1438,7 @@ require(['vs/editor/editor.main'], function () {
     const abbr  = before.match(/[\w.#>+*()\[\]="'^$|:!@-]+$/)?.[0];
     if (!abbr) return false;
 
-    // Basic HTML Emmet patterns
     function parseAbbr(a) {
-      // tag.class#id or .class or #id
       const m = a.match(/^([a-z][a-z0-9-]*)?((?:[.#][a-z][a-z0-9-_]*)*)?(?:\*(\d+))?$/i);
       if (!m) return null;
       const tag   = m[1] || 'div';
@@ -1983,7 +1460,6 @@ require(['vs/editor/editor.main'], function () {
       return isVoid ? `<${tag}${attrStr}>` : `<${tag}${attrStr}></${tag}>`;
     }
 
-    // CSS Emmet patterns (e.g. m10 → margin: 10px)
     const cssMap = {
       m:'margin',ma:'margin',mt:'margin-top',mr:'margin-right',mb:'margin-bottom',ml:'margin-left',
       p:'padding',pa:'padding',pt:'padding-top',pr:'padding-right',pb:'padding-bottom',pl:'padding-left',
@@ -2016,12 +1492,12 @@ require(['vs/editor/editor.main'], function () {
       return false;
     }
 
-    // HTML
+    if (language === 'javascript') return false;
+
     const expanded = parseAbbr(abbr);
     if (!expanded) return false;
     const startCol = pos.column - abbr.length;
     editor.executeEdits('emmet', [{ range: { startLineNumber: pos.lineNumber, startColumn: startCol, endLineNumber: pos.lineNumber, endColumn: pos.column }, text: expanded }]);
-    // Place cursor inside the tag
     const inner = expanded.indexOf('><');
     if (inner !== -1) {
       editor.setPosition({ lineNumber: pos.lineNumber, column: startCol + inner + 1 });
@@ -2035,13 +1511,15 @@ require(['vs/editor/editor.main'], function () {
   cssEditor.addCommand(monaco.KeyCode.Tab, () => {
     if (!expandEmmet(cssEditor, 'css')) cssEditor.trigger('keyboard', 'tab', {});
   });
+  jsEditor.addCommand(monaco.KeyCode.Tab, () => {
+    if (!expandEmmet(jsEditor, 'javascript')) jsEditor.trigger('keyboard', 'tab', {});
+  });
 
   // Auto-run on change
   htmlEditor.onDidChangeModelContent(e => {
     updateStatus();
     if (document.getElementById('autorun-chk').checked) scheduleRun();
-
-    // Auto close tag — type '>' to insert closing tag
+    // Auto close tag on '>'
     for (const change of e.changes) {
       if (change.text === '>') {
         const model = htmlEditor.getModel();
@@ -2065,6 +1543,10 @@ require(['vs/editor/editor.main'], function () {
     updateStatus();
     if (document.getElementById('autorun-chk').checked) scheduleRun();
   });
+  jsEditor.onDidChangeModelContent(() => {
+    updateStatus();
+    if (document.getElementById('autorun-chk').checked) scheduleRun();
+  });
 
   // Wire buttons
   document.getElementById('btn-format').addEventListener('click', formatCode);
@@ -2079,22 +1561,21 @@ require(['vs/editor/editor.main'], function () {
     m.style.display = m.classList.contains('hidden') ? '' : 'flex';
   });
 
-  // Init share popup
   initSharePopup();
 
-  // Snippet bar
   document.querySelectorAll('.snip-btn').forEach(btn => {
     btn.addEventListener('click', () => loadSnippet(btn.dataset.snip));
   });
 
-  // Load from URL hash → localStorage → default
+  // Load from hash or storage
   const hash = location.hash.slice(1);
   if (hash) {
     try {
       const data = JSON.parse(decodeURIComponent(escape(atob(hash))));
-      if (data && (data.html || data.css)) {
+      if (data && (data.html || data.css || data.js)) {
         htmlEditor.setValue(data.html || '');
         cssEditor.setValue(data.css  || '');
+        jsEditor.setValue(data.js    || '');
         document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
         if (data.snip) {
           const btn = document.querySelector(`.snip-btn[data-snip="${data.snip}"]`);
@@ -2109,10 +1590,7 @@ require(['vs/editor/editor.main'], function () {
     loadFromStorageOrDefault();
   }
 
-  // Resize handle
   initResize();
-
-  // Preview dimensions
   window.addEventListener('resize', updatePreviewDimensions);
   updatePreviewDimensions();
 });
@@ -2122,13 +1600,13 @@ function switchTab(tab) {
   activeTab = tab;
   document.getElementById('wrap-html').style.display = tab === 'html' ? 'block' : 'none';
   document.getElementById('wrap-css').style.display  = tab === 'css'  ? 'block' : 'none';
+  document.getElementById('wrap-js').style.display   = tab === 'js'   ? 'block' : 'none';
   document.getElementById('tab-html').classList.toggle('active', tab === 'html');
-  document.getElementById('tab-css').classList.toggle('active', tab === 'css');
-  // Monaco needs a layout refresh after becoming visible
-  if (tab === 'html' && htmlEditor) htmlEditor.layout();
-  if (tab === 'css'  && cssEditor)  cssEditor.layout();
-  if (tab === 'html' && htmlEditor) htmlEditor.focus();
-  if (tab === 'css'  && cssEditor)  cssEditor.focus();
+  document.getElementById('tab-css').classList.toggle('active',  tab === 'css');
+  document.getElementById('tab-js').classList.toggle('active',   tab === 'js');
+  if (tab === 'html' && htmlEditor) { htmlEditor.layout(); htmlEditor.focus(); }
+  if (tab === 'css'  && cssEditor)  { cssEditor.layout();  cssEditor.focus(); }
+  if (tab === 'js'   && jsEditor)   { jsEditor.layout();   jsEditor.focus(); }
 }
 
 // ─── Run preview ───────────────────────────────────────────────────────────────
@@ -2155,10 +1633,8 @@ function hideSkeleton() {
 function runPreview() {
   const html = htmlEditor.getValue();
   const css  = cssEditor.getValue();
+  const js   = jsEditor.getValue();
 
-  // White mode: inject a style that inverts the entire page (dark→light)
-  // then re-inverts media so images/videos stay correct.
-  // This works on all elements regardless of hardcoded bg/color values.
   const bgOverride = previewBgMode === 'white'
     ? `<style id="__pg-bg-override__">
         html {
@@ -2176,16 +1652,17 @@ function runPreview() {
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Robotto:wght@400;600;700&family=Lato:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>${css}</style>${bgOverride}</head><body>${html}
 <script>
-  // Block all link navigation inside the preview
-  document.addEventListener('click', function(e) {
-    var a = e.target.closest('a');
-    if (a) { e.preventDefault(); }
-  }, true);
+document.addEventListener('click', function(e) {
+  var a = e.target.closest('a');
+  if (a) { e.preventDefault(); }
+}, true);
+${js}
 <\/script>
 </body></html>`;
+
   const frame = document.getElementById('preview-frame');
   frame.srcdoc = doc;
   frame.addEventListener('load', hideSkeleton, { once: true });
@@ -2194,12 +1671,13 @@ function runPreview() {
   status.style.color = '#22d3a5';
 }
 
-// ─── Load from localStorage or fall back to welcome snippet ───────────────────
+// ─── Load from storage or default snippet ─────────────────────────────────────
 function loadFromStorageOrDefault() {
   const saved = loadFromStorage();
-  if (saved && (saved.html || saved.css)) {
+  if (saved && (saved.html || saved.css || saved.js)) {
     htmlEditor.setValue(saved.html || '');
     cssEditor.setValue(saved.css  || '');
+    jsEditor.setValue(saved.js    || '');
     document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
     if (saved.snip) {
       const btn = document.querySelector(`.snip-btn[data-snip="${saved.snip}"]`);
@@ -2221,6 +1699,7 @@ function loadSnippet(key) {
   currentSnip = key;
   htmlEditor.setValue(snip.html || '');
   cssEditor.setValue(snip.css  || '');
+  jsEditor.setValue(snip.js   || '');
   document.querySelectorAll('.snip-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.snip === key);
   });
@@ -2229,16 +1708,17 @@ function loadSnippet(key) {
 
 // ─── Format ───────────────────────────────────────────────────────────────────
 async function formatCode() {
-  const ed = activeTab === 'html' ? htmlEditor : cssEditor;
+  const ed = activeTab === 'html' ? htmlEditor : activeTab === 'css' ? cssEditor : jsEditor;
   const val = ed.getValue();
-  const parser = activeTab === 'html' ? 'html' : 'css';
+  let parser, plugin;
+  if (activeTab === 'html') { parser = 'html'; plugin = prettierPlugins.html; }
+  else if (activeTab === 'css') { parser = 'css'; plugin = prettierPlugins.postcss; }
+  else { parser = 'babel'; plugin = prettierPlugins.babel; }
 
   try {
     const formatted = await prettier.format(val, {
       parser,
-      plugins: [
-        activeTab === 'html' ? prettierPlugins.html : prettierPlugins.postcss,
-      ],
+      plugins: [plugin],
       printWidth: 80,
       tabWidth: 2,
       useTabs: false,
@@ -2255,18 +1735,19 @@ async function formatCode() {
 
 // ─── Clear ────────────────────────────────────────────────────────────────────
 function clearEditors() {
-  if (!confirm('Clear both editors?')) return;
+  if (!confirm('Clear all editors?')) return;
   htmlEditor.setValue('');
   cssEditor.setValue('');
+  jsEditor.setValue('');
   document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
   currentSnip = null;
   try { localStorage.removeItem(LS_KEY); } catch(e) {}
   runPreview();
 }
 
-// ─── localStorage persistence ─────────────────────────────────────────────────
+// ─── localStorage ─────────────────────────────────────────────────────────────
 const LS_KEY = 'mastorscdn_playground';
-const LS_VER = 2; // bump to invalidate old saves
+const LS_VER = 3; // bumped — now stores js too
 
 function saveToStorage() {
   try {
@@ -2274,6 +1755,7 @@ function saveToStorage() {
       v:    LS_VER,
       html: htmlEditor.getValue(),
       css:  cssEditor.getValue(),
+      js:   jsEditor.getValue(),
       snip: currentSnip || null,
     };
     localStorage.setItem(LS_KEY, JSON.stringify(data));
@@ -2288,7 +1770,6 @@ function loadFromStorage() {
     const raw = localStorage.getItem(LS_KEY);
     if (!raw) return null;
     const data = JSON.parse(raw);
-    // Wipe and ignore any save from a previous incompatible version
     if (!data || data.v !== LS_VER) {
       localStorage.removeItem(LS_KEY);
       return null;
@@ -2309,6 +1790,7 @@ function buildShareUrl() {
     const data = {
       html: htmlEditor.getValue(),
       css:  cssEditor.getValue(),
+      js:   jsEditor.getValue(),
       snip: currentSnip || null,
     };
     return location.origin + location.pathname + '#' + btoa(unescape(encodeURIComponent(JSON.stringify(data))));
@@ -2321,44 +1803,31 @@ function openSharePopup() {
   const popup = document.getElementById('share-popup');
   if (_sharePopupOpen) { closeSharePopup(); return; }
   _shareUrl = buildShareUrl();
-
-  // Position below the Share button, right-aligned to it
-  const btn = document.getElementById('btn-share');
+  const btn  = document.getElementById('btn-share');
   const rect = btn.getBoundingClientRect();
-  popup.style.top  = (rect.bottom + 6) + 'px';
+  popup.style.top   = (rect.bottom + 6) + 'px';
   popup.style.right = (window.innerWidth - rect.right) + 'px';
-
   popup.classList.remove('visible');
-  // Trigger fade-in on next frame
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => popup.classList.add('visible'));
-  });
+  requestAnimationFrame(() => requestAnimationFrame(() => popup.classList.add('visible')));
   _sharePopupOpen = true;
 }
 
 function closeSharePopup() {
-  const popup = document.getElementById('share-popup');
-  popup.classList.remove('visible');
+  document.getElementById('share-popup').classList.remove('visible');
   _sharePopupOpen = false;
 }
 
-function shareLink() {
-  openSharePopup();
-}
+function shareLink() { openSharePopup(); }
 
-// Wire share popup buttons after DOM ready (handled in DOMContentLoaded below)
 function initSharePopup() {
-  const popup = document.getElementById('share-popup');
-
-  // Copy URL bar
+  const popup   = document.getElementById('share-popup');
   const copyBtn = document.getElementById('sp-url-bar');
+
   copyBtn.addEventListener('mousedown', e => e.stopPropagation());
   copyBtn.addEventListener('click', () => {
     const doCopy = () => {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
+      if (navigator.clipboard && navigator.clipboard.writeText)
         return navigator.clipboard.writeText(_shareUrl);
-      }
-      // Fallback for file:// or HTTP
       const ta = document.createElement('textarea');
       ta.value = _shareUrl;
       ta.style.cssText = 'position:fixed;opacity:0';
@@ -2378,7 +1847,8 @@ function initSharePopup() {
         copyBtn.style.borderColor = '';
       }, 2000);
     });
-  });  // Social buttons
+  });
+
   const socials = {
     'sp-twitter':  u => `https://twitter.com/intent/tweet?url=${encodeURIComponent(u)}&text=${encodeURIComponent('Check out this CSS Playground on MastorsCDN!')}`,
     'sp-facebook': u => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}`,
@@ -2396,60 +1866,44 @@ function initSharePopup() {
     });
   });
 
-  // Close when clicking outside (mousedown catches iframe clicks too)
   document.addEventListener('mousedown', e => {
     if (!_sharePopupOpen) return;
     const shareBtn = document.getElementById('btn-share');
-    if (!popup.contains(e.target) && !shareBtn.contains(e.target)) {
-      closeSharePopup();
-    }
+    if (!popup.contains(e.target) && !shareBtn.contains(e.target)) closeSharePopup();
   }, true);
 
-  // Close when iframe gets focus (user clicked inside preview)
   document.getElementById('preview-frame').addEventListener('mouseenter', () => {
     if (_sharePopupOpen) closeSharePopup();
   });
 
-  // Close on Escape
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && _sharePopupOpen) closeSharePopup();
   });
 }
 
-
-
-// ─── Reload preview ───────────────────────────────────────────────────────────
+// ─── Misc controls ────────────────────────────────────────────────────────────
 function reloadPreview() { runPreview(); }
 
-// ─── Fullscreen ───────────────────────────────────────────────────────────────
 function openFullscreen() {
   const frame = document.getElementById('preview-frame');
   if (frame.requestFullscreen) frame.requestFullscreen();
   else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
 }
 
-// ─── Viewport sizing ──────────────────────────────────────────────────────────
 function setViewport(size) {
   const frame   = document.getElementById('preview-frame');
   const wrapper = document.getElementById('preview-wrapper');
   document.querySelectorAll('.vp-btn').forEach(b => b.classList.remove('active'));
-
   if (size === 'full') {
-    frame.style.width    = '100%';
-    frame.style.minWidth = '';
-    frame.style.maxWidth = '';
+    frame.style.width = '100%'; frame.style.minWidth = ''; frame.style.maxWidth = '';
     frame.style.minHeight = '100%';
-    wrapper.style.alignItems     = 'stretch';
-    wrapper.style.justifyContent = 'flex-start';
+    wrapper.style.alignItems = 'stretch'; wrapper.style.justifyContent = 'flex-start';
     document.getElementById('vp-full').classList.add('active');
   } else {
     const w = size === 'tablet' ? '768px' : '375px';
-    frame.style.width    = w;
-    frame.style.minWidth = w;
-    frame.style.maxWidth = w;
+    frame.style.width = w; frame.style.minWidth = w; frame.style.maxWidth = w;
     frame.style.minHeight = '100%';
-    wrapper.style.alignItems     = 'flex-start';
-    wrapper.style.justifyContent = 'center';
+    wrapper.style.alignItems = 'flex-start'; wrapper.style.justifyContent = 'center';
     document.getElementById(size === 'tablet' ? 'vp-tablet' : 'vp-mobile').classList.add('active');
   }
   updatePreviewDimensionsAfterTransition();
@@ -2457,17 +1911,15 @@ function setViewport(size) {
 
 function updatePreviewDimensions() {
   const frame = document.getElementById('preview-frame');
-  const w = frame.offsetWidth, h = frame.offsetHeight;
-  document.getElementById('preview-dimensions').textContent = `${w} × ${h}`;
+  document.getElementById('preview-dimensions').textContent = `${frame.offsetWidth} × ${frame.offsetHeight}`;
 }
 
 function updatePreviewDimensionsAfterTransition() {
   const frame = document.getElementById('preview-frame');
   frame.addEventListener('transitionend', () => updatePreviewDimensions(), { once: true });
-  updatePreviewDimensions(); // also update immediately for responsiveness
+  updatePreviewDimensions();
 }
 
-// ─── Resize handle ────────────────────────────────────────────────────────────
 function initResize() {
   const handle    = document.getElementById('resize-handle');
   const edPane    = document.getElementById('editor-pane');
@@ -2476,36 +1928,31 @@ function initResize() {
   let dragging = false, startX = 0, startW = 0;
 
   handle.addEventListener('mousedown', e => {
-    dragging = true; startX = e.clientX;
-    startW = edPane.offsetWidth;
+    dragging = true; startX = e.clientX; startW = edPane.offsetWidth;
     handle.classList.add('dragging');
-    overlay.classList.add('active');          // block iframe pointer events
+    overlay.classList.add('active');
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
     e.preventDefault();
   });
-
   document.addEventListener('mousemove', e => {
     if (!dragging) return;
-    const dx = e.clientX - startX;
     const totalW = workspace.offsetWidth;
-    const newW = Math.min(Math.max(startW + dx, 220), totalW - 220);
+    const newW = Math.min(Math.max(startW + (e.clientX - startX), 220), totalW - 220);
     edPane.style.width = newW + 'px';
     updatePreviewDimensions();
   });
-
   document.addEventListener('mouseup', () => {
     if (!dragging) return;
     dragging = false;
     handle.classList.remove('dragging');
-    overlay.classList.remove('active');       // restore iframe pointer events
+    overlay.classList.remove('active');
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
-    htmlEditor.layout(); cssEditor.layout();
+    htmlEditor.layout(); cssEditor.layout(); jsEditor.layout();
   });
 }
 
-// ─── Preview background toggle ────────────────────────────────────────────────
 function setPreviewBg(mode) {
   previewBgMode = mode;
   const wrapper  = document.getElementById('preview-wrapper');
@@ -2521,10 +1968,10 @@ function setPreviewBg(mode) {
     wrapper.classList.add('bg-dark');
     btnDark.classList.add('active-dark');
   }
-  runPreview(); // re-render iframe with updated bg override
+  runPreview();
 }
 
-// ─── Toasts & notifs ──────────────────────────────────────────────────────────
+// ─── Toasts ───────────────────────────────────────────────────────────────────
 function showToast(id, duration = 2200) {
   const el = document.getElementById(id);
   el.style.display = 'flex';
@@ -2547,6 +1994,3 @@ function showNotif(html, duration = 1800) {
     setTimeout(() => { el.style.display = 'none'; }, 200);
   }, duration);
 }
-</script>
-</body>
-</html>
