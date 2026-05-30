@@ -1429,64 +1429,172 @@ require(['vs/editor/editor.main'], function () {
     ed.addCommand(monaco.KeyMod.Alt | monaco.KeyMod.Shift | monaco.KeyCode.KeyF, formatCode);
   });
 
-  // ── Emmet expansion ────────────────────────────────────────────────────────
-  function expandEmmet(editor, language) {
-    const model = editor.getModel();
-    const pos   = editor.getPosition();
-    const line  = model.getLineContent(pos.lineNumber);
-    const before = line.substring(0, pos.column - 1);
-    const abbr  = before.match(/[\w.#>+*()\[\]="'^$|:!@-]+$/)?.[0];
-    if (!abbr) return false;
+  // ── Emmet expansion — self-contained, no external dependency ─────────────
+  const VOID_TAG_SET = new Set([
+    'area','base','br','col','embed','hr','img','input',
+    'link','meta','param','source','track','wbr'
+  ]);
 
-    function parseAbbr(a) {
-      const m = a.match(/^([a-z][a-z0-9-]*)?((?:[.#][a-z][a-z0-9-_]*)*)?(?:\*(\d+))?$/i);
-      if (!m) return null;
-      const tag   = m[1] || 'div';
-      const mods  = m[2] || '';
-      const count = parseInt(m[3] || '1');
-      const classes = [...mods.matchAll(/\.([a-z][a-z0-9-_]*)/gi)].map(x => x[1]);
-      const id      = (mods.match(/#([a-z][a-z0-9-_]*)/i) || [])[1];
-      const attrs   = [];
-      if (classes.length) attrs.push(`class="${classes.join(' ')}"`);
-      if (id) attrs.push(`id="${id}"`);
-      const attrStr = attrs.length ? ' ' + attrs.join(' ') : '';
-      const voidTags = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i;
-      const isVoid = voidTags.test(tag);
-      if (count > 1) {
-        return Array.from({length: count}, () =>
-          isVoid ? `<${tag}${attrStr}>` : `<${tag}${attrStr}></${tag}>`
-        ).join('\n');
+  const CSS_MAP = {
+    m:'margin',mt:'margin-top',mr:'margin-right',mb:'margin-bottom',ml:'margin-left',
+    mx:'margin-inline',my:'margin-block',
+    p:'padding',pt:'padding-top',pr:'padding-right',pb:'padding-bottom',pl:'padding-left',
+    px:'padding-inline',py:'padding-block',
+    w:'width',h:'height',mw:'max-width',mh:'max-height',minw:'min-width',minh:'min-height',
+    d:'display',df:'display:flex',db:'display:block',di:'display:inline',
+    dib:'display:inline-block',dn:'display:none',dg:'display:grid',
+    f:'font-size',fw:'font-weight',ff:'font-family',fs:'font-style',
+    lh:'line-height',ls:'letter-spacing',va:'vertical-align',
+    c:'color',bg:'background',bgc:'background-color',
+    pos:'position',t:'top',r:'right',b:'bottom',l:'left',
+    bd:'border',bdt:'border-top',bdr:'border-radius',bs:'box-shadow',
+    fl:'float',cl:'clear',ov:'overflow',ovx:'overflow-x',ovy:'overflow-y',op:'opacity',
+    z:'z-index',cur:'cursor',td:'text-decoration',ta:'text-align',tt:'text-transform',
+    ai:'align-items',ac:'align-content',jc:'justify-content',ji:'justify-items',
+    gap:'gap',
+    fx:'flex',fxd:'flex-direction',fxw:'flex-wrap',fxg:'flex-grow',fxs:'flex-shrink',
+    gtc:'grid-template-columns',gtr:'grid-template-rows',gc:'grid-column',gr:'grid-row',
+    trf:'transform',tr:'transition',an:'animation',
+    ws:'white-space',wb:'word-break',
+  };
+
+  // Split abbreviation on operator, but not inside [] or {}
+  function splitOn(str, op) {
+    const parts = []; let buf = '', depth = 0;
+    for (let i = 0; i < str.length; i++) {
+      const c = str[i];
+      if (c === '[' || c === '{') { depth++; buf += c; }
+      else if (c === ']' || c === '}') { depth--; buf += c; }
+      else if (c === op && depth === 0) { parts.push(buf); buf = ''; }
+      else { buf += c; }
+    }
+    parts.push(buf);
+    return parts;
+  }
+
+  // Build one HTML element from a token like: div.foo#bar[attr="x"]{text}
+  function buildNode(token, idx) {
+    let text = '';
+    token = token.replace(/\{([^}]*)\}/g, (_, t) => { text = t; return ''; });
+
+    let extraAttr = '';
+    token = token.replace(/\[([^\]]*)\]/g, (_, a) => { extraAttr = ' ' + a; return ''; });
+
+    // strip trailing multiplier (already handled by caller)
+    token = token.replace(/\*\d+$/, '');
+
+    const tagM = token.match(/^([a-zA-Z][a-zA-Z0-9-]*)/);
+    const tag  = tagM ? tagM[1].toLowerCase() : 'div';
+
+    const idM    = token.match(/#([a-zA-Z_][\w-]*)/);
+    const id     = idM ? idM[1] : '';
+    const classes = [...token.matchAll(/\.([a-zA-Z_][\w-]*)/g)].map(x => x[1]);
+
+    let attrs = '';
+    if (id)             attrs += ` id="${id}"`;
+    if (classes.length) attrs += ` class="${classes.join(' ')}"`;
+    attrs += extraAttr;
+
+    // number substitution: $ → sequential index
+    const inner = (text || '').replace(/\$/g, String(idx + 1));
+
+    if (VOID_TAG_SET.has(tag)) return `<${tag}${attrs}>`;
+    return `<${tag}${attrs}>${inner}</${tag}>`;
+  }
+
+  // Core recursive expander
+  function emmetExpand(abbr) {
+    if (!abbr) return '';
+
+    // siblings: div+p+span  (lowest precedence)
+    const sibs = splitOn(abbr, '+');
+    if (sibs.length > 1) return sibs.map(s => emmetExpand(s)).join('\n');
+
+    // children: ul>li*3  (next precedence)
+    const kids = splitOn(abbr, '>');
+    if (kids.length > 1) {
+      // build from inside-out
+      let inner = emmetExpand(kids[kids.length - 1]);
+      for (let i = kids.length - 2; i >= 0; i--) {
+        inner = wrapInParent(kids[i], inner);
       }
-      return isVoid ? `<${tag}${attrStr}>` : `<${tag}${attrStr}></${tag}>`;
+      return inner;
     }
 
-    const cssMap = {
-      m:'margin',ma:'margin',mt:'margin-top',mr:'margin-right',mb:'margin-bottom',ml:'margin-left',
-      p:'padding',pa:'padding',pt:'padding-top',pr:'padding-right',pb:'padding-bottom',pl:'padding-left',
-      w:'width',h:'height',mw:'max-width',mh:'max-height',
-      d:'display',df:'display:flex',db:'display:block',di:'display:inline',dn:'display:none',
-      f:'font-size',fw:'font-weight',ff:'font-family',c:'color',bg:'background',
-      pos:'position',t:'top',r:'right',b:'bottom',l:'left',
-      bd:'border',bdr:'border-radius',bs:'box-shadow',
-      fl:'float',cl:'clear',ov:'overflow',op:'opacity',
-      z:'z-index',cur:'cursor',td:'text-decoration',ta:'text-align',tt:'text-transform',
-    };
+    // plain node with optional multiplier: div.card*3
+    const mulM  = abbr.match(/\*(\d+)$/);
+    const count = mulM ? parseInt(mulM[1]) : 1;
 
+    if (count > 1) {
+      return Array.from({ length: count }, (_, i) =>
+        buildNode(abbr, i).replace(/\$/g, String(i + 1))
+      ).join('\n');
+    }
+    return buildNode(abbr, 0);
+  }
+
+  // Wrap already-expanded innerHTML inside a parent token (supports * on parent)
+  function wrapInParent(parentToken, innerHTML) {
+    const mulM  = parentToken.match(/\*(\d+)$/);
+    const count = mulM ? parseInt(mulM[1]) : 1;
+
+    function oneParent(idx) {
+      let text = '';
+      let tok  = parentToken
+        .replace(/\{([^}]*)\}/g, (_, t) => { text = t; return ''; })
+        .replace(/\*\d+$/, '');
+
+      let extraAttr = '';
+      tok = tok.replace(/\[([^\]]*)\]/g, (_, a) => { extraAttr = ' ' + a; return ''; });
+
+      const tagM = tok.match(/^([a-zA-Z][a-zA-Z0-9-]*)/);
+      const tag  = tagM ? tagM[1].toLowerCase() : 'div';
+      const idM    = tok.match(/#([a-zA-Z_][\w-]*)/);
+      const id     = idM ? idM[1] : '';
+      const classes = [...tok.matchAll(/\.([a-zA-Z_][\w-]*)/g)].map(x => x[1]);
+      let attrs = '';
+      if (id)             attrs += ` id="${id}"`;
+      if (classes.length) attrs += ` class="${classes.join(' ')}"`;
+      attrs += extraAttr;
+
+      const inner = (text ? text + innerHTML : innerHTML).replace(/\$/g, String(idx + 1));
+      return `<${tag}${attrs}>${inner}</${tag}>`;
+    }
+
+    if (count > 1) return Array.from({ length: count }, (_, i) => oneParent(i)).join('\n');
+    return oneParent(0);
+  }
+
+  // Main entry: expand abbreviation in the active editor
+  function expandEmmet(editor, language) {
+    const model  = editor.getModel();
+    const pos    = editor.getPosition();
+    const line   = model.getLineContent(pos.lineNumber);
+    const before = line.substring(0, pos.column - 1);
+
+    // grab last valid Emmet abbreviation token before cursor
+    const abbrMatch = before.match(/[a-zA-Z0-9_.#>+*()\[\]{}=@:!$"'-]+$/);
+    if (!abbrMatch) return false;
+    const abbr = abbrMatch[0];
+    if (!abbr) return false;
+
+    // ── CSS mode ────────────────────────────────────────────────────────────
     if (language === 'css') {
-      const cm = abbr.match(/^([a-z]+)(-?[\d.]+)([a-z%]*)?$/i);
-      if (cm && cssMap[cm[1]]) {
-        const prop = cssMap[cm[1]];
-        const unit = cm[3] || (isNaN(cm[2]) ? '' : 'px');
-        const expanded = `${prop}: ${cm[2]}${unit};`;
-        const startCol = pos.column - abbr.length;
-        editor.executeEdits('emmet', [{ range: { startLineNumber: pos.lineNumber, startColumn: startCol, endLineNumber: pos.lineNumber, endColumn: pos.column }, text: expanded }]);
+      const withVal = abbr.match(/^([a-z]+)(-?[\d.]+)([a-z%]*)$/i);
+      if (withVal && CSS_MAP[withVal[1]]) {
+        const prop = CSS_MAP[withVal[1]];
+        const unit = withVal[3] || (isNaN(Number(withVal[2])) ? '' : 'px');
+        const out  = `${prop}: ${withVal[2]}${unit};`;
+        insertExpansion(editor, pos, abbr.length, out);
         return true;
       }
-      if (cssMap[abbr]) {
-        const expanded = `${cssMap[abbr]}: ;`;
-        const startCol = pos.column - abbr.length;
-        editor.executeEdits('emmet', [{ range: { startLineNumber: pos.lineNumber, startColumn: startCol, endLineNumber: pos.lineNumber, endColumn: pos.column }, text: expanded }]);
-        editor.setPosition({ lineNumber: pos.lineNumber, column: startCol + expanded.length - 1 });
+      if (CSS_MAP[abbr]) {
+        const val = CSS_MAP[abbr];
+        const out = val.includes(':') ? val + ';' : `${val}: ;`;
+        insertExpansion(editor, pos, abbr.length, out);
+        // place cursor before semicolon
+        if (!val.includes(':'))
+          editor.setPosition({ lineNumber: pos.lineNumber, column: (pos.column - abbr.length) + out.length - 1 });
         return true;
       }
       return false;
@@ -1494,50 +1602,101 @@ require(['vs/editor/editor.main'], function () {
 
     if (language === 'javascript') return false;
 
-    const expanded = parseAbbr(abbr);
-    if (!expanded) return false;
-    const startCol = pos.column - abbr.length;
-    editor.executeEdits('emmet', [{ range: { startLineNumber: pos.lineNumber, startColumn: startCol, endLineNumber: pos.lineNumber, endColumn: pos.column }, text: expanded }]);
-    const inner = expanded.indexOf('><');
-    if (inner !== -1) {
-      editor.setPosition({ lineNumber: pos.lineNumber, column: startCol + inner + 1 });
+    // ── HTML mode ───────────────────────────────────────────────────────────
+    let expanded;
+    try { expanded = emmetExpand(abbr); } catch(e) { return false; }
+    if (!expanded || expanded === abbr) return false;
+
+    // indent continuation lines to match current line
+    const indent   = line.match(/^(\s*)/)[1];
+    const outLines = expanded.split('\n');
+    const indented = outLines.map((l, i) => i === 0 ? l : indent + l).join('\n');
+
+    insertExpansion(editor, pos, abbr.length, indented);
+
+    // cursor: if single-line with empty inner, place between tags
+    if (outLines.length === 1) {
+      const gap = indented.indexOf('><');
+      if (gap !== -1)
+        editor.setPosition({ lineNumber: pos.lineNumber, column: (pos.column - abbr.length) + gap + 1 });
     }
     return true;
   }
 
-  htmlEditor.addCommand(monaco.KeyCode.Tab, () => {
-    if (!expandEmmet(htmlEditor, 'html')) htmlEditor.trigger('keyboard', 'tab', {});
-  });
-  cssEditor.addCommand(monaco.KeyCode.Tab, () => {
-    if (!expandEmmet(cssEditor, 'css')) cssEditor.trigger('keyboard', 'tab', {});
-  });
-  jsEditor.addCommand(monaco.KeyCode.Tab, () => {
-    if (!expandEmmet(jsEditor, 'javascript')) jsEditor.trigger('keyboard', 'tab', {});
+  function insertExpansion(editor, pos, abbrLen, text) {
+    const startCol = pos.column - abbrLen;
+    editor.executeEdits('emmet', [{
+      range: {
+        startLineNumber: pos.lineNumber, startColumn: startCol,
+        endLineNumber:   pos.lineNumber, endColumn:   pos.column,
+      },
+      text,
+    }]);
+  }
+
+  // Tab handler — fires before Monaco's suggest widget via onKeyDown
+  function registerEmmetTab(editor, language) {
+    editor.onKeyDown(e => {
+      if (e.keyCode !== monaco.KeyCode.Tab) return;
+      if (e.shiftKey || e.ctrlKey || e.altKey || e.metaKey) return;
+
+      // Let Monaco handle Tab if suggestion widget is actively selecting
+      const suggest = editor.getContribution('editor.contrib.suggestController');
+      if (suggest?.model?.state === 2) return;
+
+      if (expandEmmet(editor, language)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+  }
+
+  registerEmmetTab(htmlEditor, 'html');
+  registerEmmetTab(cssEditor,  'css');
+  registerEmmetTab(jsEditor,   'javascript');
+
+  // ── Auto close tag on '>' ──────────────────────────────────────────────────
+  const VOID_TAG_RE = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i;
+
+  htmlEditor.onKeyDown(e => {
+    if (e.keyCode !== monaco.KeyCode.Period && e.browserEvent.key !== '>') return;
+    if (e.browserEvent.key !== '>') return;
+
+    // Read state BEFORE the '>' is inserted
+    const model  = htmlEditor.getModel();
+    const pos    = htmlEditor.getPosition();
+    const before = model.getLineContent(pos.lineNumber).substring(0, pos.column - 1);
+
+    // Match: <tagName  or  <tagName attr="val"  (not self-closing)
+    const tagMatch = before.match(/<([a-zA-Z][a-zA-Z0-9-]*)(?:\s[^>]*)?\s*$/);
+    if (!tagMatch) return;
+    const tag = tagMatch[1];
+    if (VOID_TAG_RE.test(tag)) return;
+    if (before.trimEnd().endsWith('/')) return; // self-closing: <br />
+
+    // Insert closing tag right after the '>' that is about to land
+    // We use a disposable one-time listener on model change
+    const disposable = htmlEditor.onDidChangeModelContent(() => {
+      disposable.dispose();
+      const newPos = htmlEditor.getPosition();
+      htmlEditor.executeEdits('auto-close-tag', [{
+        range: {
+          startLineNumber: newPos.lineNumber,
+          startColumn: newPos.column,
+          endLineNumber: newPos.lineNumber,
+          endColumn: newPos.column,
+        },
+        text: `</${tag}>`,
+      }]);
+      // Keep cursor between the tags
+      htmlEditor.setPosition({ lineNumber: newPos.lineNumber, column: newPos.column });
+    });
   });
 
-  // Auto-run on change
-  htmlEditor.onDidChangeModelContent(e => {
+  // ── Auto-run on change ─────────────────────────────────────────────────────
+  htmlEditor.onDidChangeModelContent(() => {
     updateStatus();
     if (document.getElementById('autorun-chk').checked) scheduleRun();
-    // Auto close tag on '>'
-    for (const change of e.changes) {
-      if (change.text === '>') {
-        const model = htmlEditor.getModel();
-        const pos   = htmlEditor.getPosition();
-        const lineContent = model.getLineContent(pos.lineNumber);
-        const beforeCursor = lineContent.substring(0, pos.column - 1);
-        const tagMatch = beforeCursor.match(/<([a-zA-Z][a-zA-Z0-9-]*)(?:\s[^>]*)?\s*$/);
-        const voidTags = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i;
-        if (tagMatch && !voidTags.test(tagMatch[1]) && !beforeCursor.trimEnd().endsWith('/')) {
-          const tag = tagMatch[1];
-          htmlEditor.executeEdits('auto-close-tag', [{
-            range: { startLineNumber: pos.lineNumber, startColumn: pos.column, endLineNumber: pos.lineNumber, endColumn: pos.column },
-            text: `</${tag}>`,
-          }]);
-          htmlEditor.setPosition({ lineNumber: pos.lineNumber, column: pos.column });
-        }
-      }
-    }
   });
   cssEditor.onDidChangeModelContent(() => {
     updateStatus();
@@ -1593,6 +1752,9 @@ require(['vs/editor/editor.main'], function () {
   initResize();
   window.addEventListener('resize', updatePreviewDimensions);
   updatePreviewDimensions();
+
+  // Start the tour after everything is ready
+  if (window._initTour) window._initTour();
 });
 
 // ─── Tab switching ─────────────────────────────────────────────────────────────
@@ -1994,3 +2156,225 @@ function showNotif(html, duration = 1800) {
     setTimeout(() => { el.style.display = 'none'; }, 200);
   }, duration);
 }
+
+// ─── Playground Tour ──────────────────────────────────────────────────────────
+const TOUR_KEY = 'mastorscdn_tour_done_v1';
+
+const TOUR_STEPS = [
+  {
+    target:    null,          // centre-screen welcome card
+    arrow:     'none',
+    title:     'Welcome to the Playground! 👋',
+    desc:      'This quick tour walks you through every tool in under a minute. You can skip it any time and restart it later.',
+    shortcut:  null,
+  },
+  {
+    target:    '#tab-html',
+    arrow:     'bottom',
+    title:     'HTML / CSS / JS Tabs',
+    desc:      'Switch between the three editor panels. Each one has full Monaco IntelliSense, syntax highlighting, and auto-complete.',
+    shortcut:  null,
+  },
+  {
+    target:    '#btn-run',
+    arrow:     'bottom',
+    title:     'Run & Auto-run',
+    desc:      'Click Run or press Ctrl+Enter to refresh the preview instantly. Toggle Auto-run to update as you type.',
+    shortcut:  '<kbd>Ctrl</kbd> + <kbd>Enter</kbd>',
+  },
+  {
+    target:    '#snippet-bar',
+    arrow:     'top',
+    title:     'CSS 2027 Snippet Library',
+    desc:      'Click any snippet to load a live demo — Container Queries, :has(), @property, Scroll-Driven Animations, and more.',
+    shortcut:  null,
+  },
+  {
+    target:    '#html-editor',
+    arrow:     'right',
+    title:     'Emmet Abbreviations',
+    desc:      'Type any Emmet abbreviation and press Tab to expand it. Try ul>li*3, div.card>h2+p, or input[type="email"].',
+    shortcut:  '<kbd>Tab</kbd> to expand',
+  },
+  {
+    target:    '#btn-format',
+    arrow:     'bottom',
+    title:     'Format Code',
+    desc:      'Instantly formats HTML, CSS, or JS with Prettier. Keeps your code clean and readable with one click.',
+    shortcut:  '<kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>',
+  },
+  {
+    target:    '#btn-save',
+    arrow:     'bottom',
+    title:     'Save & Restore',
+    desc:      'Save your work to localStorage — it persists across sessions. Your code will be right here when you return.',
+    shortcut:  '<kbd>Ctrl</kbd> + <kbd>S</kbd>',
+  },
+  {
+    target:    '#btn-share',
+    arrow:     'bottom',
+    title:     'Share Your Work',
+    desc:      'Encodes your entire playground into a shareable URL. Copy the link or post directly to social media.',
+    shortcut:  null,
+  },
+  {
+    target:    '#resize-handle',
+    arrow:     'top',
+    title:     'Drag to Resize',
+    desc:      'Drag this handle left or right to give more space to the editor or the preview pane.',
+    shortcut:  null,
+  },
+  {
+    target:    '#vp-full',
+    arrow:     'bottom',
+    title:     'Viewport Switcher',
+    desc:      'Preview at desktop, tablet (768px), or mobile (375px) width — just like browser DevTools responsive mode.',
+    shortcut:  null,
+  },
+  {
+    target:    '#btn-fullscreen',
+    arrow:     'bottom',
+    title:     'Fullscreen Preview',
+    desc:      'Send the preview to fullscreen to see exactly how your page looks without any editor chrome.',
+    shortcut:  null,
+  },
+];
+
+let _tourStep   = 0;
+let _tourActive = false;
+
+function tourStart(force = false) {
+  if (!force && localStorage.getItem(TOUR_KEY)) return;
+  _tourStep   = 0;
+  _tourActive = true;
+  document.getElementById('tour-backdrop').classList.add('active');
+  document.getElementById('tour-tip').classList.add('active');
+  tourRender();
+}
+
+function tourEnd() {
+  _tourActive = false;
+  localStorage.setItem(TOUR_KEY, '1');
+  document.getElementById('tour-backdrop').classList.remove('active');
+  document.getElementById('tour-spotlight').classList.remove('active');
+  document.getElementById('tour-tip').classList.remove('active');
+}
+
+function tourRender() {
+  const step      = TOUR_STEPS[_tourStep];
+  const total     = TOUR_STEPS.length;
+  const spotlight = document.getElementById('tour-spotlight');
+  const tip       = document.getElementById('tour-tip');
+
+  // ── content ────────────────────────────────────────────────────────────────
+  document.getElementById('tour-step-label').textContent = `${_tourStep + 1} / ${total}`;
+  document.getElementById('tour-title').textContent      = step.title;
+  document.getElementById('tour-desc').textContent       = step.desc;
+
+  const scEl = document.getElementById('tour-shortcut');
+  if (step.shortcut) {
+    scEl.innerHTML     = step.shortcut;
+    scEl.style.display = 'inline-flex';
+  } else {
+    scEl.style.display = 'none';
+  }
+
+  // progress dots
+  document.getElementById('tour-dots').innerHTML = Array.from({ length: total }, (_, i) =>
+    `<div class="tip-dot${i === _tourStep ? ' active' : ''}"></div>`
+  ).join('');
+
+  // last step label
+  document.getElementById('tour-next').textContent =
+    _tourStep === total - 1 ? '🎉 Done!' : 'Next →';
+
+  // ── spotlight + tooltip position ───────────────────────────────────────────
+  if (!step.target) {
+    spotlight.classList.remove('active');
+    tip.setAttribute('data-arrow', 'none');
+    tipCentre(tip);
+    return;
+  }
+
+  const el = document.querySelector(step.target);
+  if (!el) {
+    spotlight.classList.remove('active');
+    tip.setAttribute('data-arrow', 'none');
+    tipCentre(tip);
+    return;
+  }
+
+  const rect = el.getBoundingClientRect();
+  const PAD  = 6;
+
+  spotlight.classList.add('active');
+  spotlight.style.left   = (rect.left   - PAD) + 'px';
+  spotlight.style.top    = (rect.top    - PAD) + 'px';
+  spotlight.style.width  = (rect.width  + PAD * 2) + 'px';
+  spotlight.style.height = (rect.height + PAD * 2) + 'px';
+
+  // tooltip placement
+  const tipW = 288, tipH = 210, margin = 14;
+  tip.setAttribute('data-arrow', step.arrow);
+  let tx, ty;
+
+  if (step.arrow === 'bottom') {       // tooltip above the element
+    tx = rect.left;
+    ty = rect.top - tipH - margin;
+  } else if (step.arrow === 'top') {   // tooltip below the element
+    tx = rect.left;
+    ty = rect.bottom + margin;
+  } else if (step.arrow === 'right') { // tooltip left of the element
+    tx = rect.left - tipW - margin;
+    ty = rect.top;
+  } else if (step.arrow === 'left') {  // tooltip right of the element
+    tx = rect.right + margin;
+    ty = rect.top;
+  } else {
+    tipCentre(tip); return;
+  }
+
+  // clamp to viewport
+  tx = Math.max(8, Math.min(tx, window.innerWidth  - tipW - 8));
+  ty = Math.max(8, Math.min(ty, window.innerHeight - tipH - 8));
+
+  tip.style.left      = tx + 'px';
+  tip.style.top       = ty + 'px';
+  tip.style.transform = '';
+}
+
+function tipCentre(tip) {
+  tip.style.left      = '50%';
+  tip.style.top       = '50%';
+  tip.style.transform = 'translate(-50%,-50%) scale(1)';
+  tip.style.opacity   = '1';
+}
+
+function initTour() {
+  document.getElementById('tour-next').addEventListener('click', () => {
+    if (_tourStep < TOUR_STEPS.length - 1) {
+      _tourStep++;
+      tourRender();
+    } else {
+      tourEnd();
+    }
+  });
+  document.getElementById('tour-skip').addEventListener('click', tourEnd);
+
+  // Keyboard: Escape → skip, Right arrow → next
+  document.addEventListener('keydown', e => {
+    if (!_tourActive) return;
+    if (e.key === 'Escape') { tourEnd(); }
+    if (e.key === 'ArrowRight') {
+      if (_tourStep < TOUR_STEPS.length - 1) { _tourStep++; tourRender(); }
+      else tourEnd();
+    }
+  });
+
+  // small delay so Monaco is fully rendered before we read getBoundingClientRect
+  setTimeout(() => tourStart(), 800);
+}
+
+// call initTour after Monaco is ready — it's invoked at bottom of require() callback
+// exposed globally so playground.js require() block can call it
+window._initTour = initTour;

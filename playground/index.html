@@ -15,15 +15,15 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/all.css">
 
+  <!-- Prettier (standalone + plugins) — must load BEFORE Monaco's AMD loader -->
+  <script src="https://unpkg.com/prettier@3.3.3/standalone.js"></script>
+  <script src="https://unpkg.com/prettier@3.3.3/plugins/html.js"></script>
+  <script src="https://unpkg.com/prettier@3.3.3/plugins/postcss.js"></script>
+  <script src="https://unpkg.com/prettier@3.3.3/plugins/babel.js"></script>
+  <script src="https://unpkg.com/prettier@3.3.3/plugins/estree.js"></script>
+
   <!-- Monaco Editor (VSCode engine) — loader only, no require() here -->
   <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.0/min/vs/loader.js"></script>
-
-  <!-- Prettier (standalone + plugins, deferred so they don't conflict with AMD) -->
-  <script src="https://unpkg.com/prettier@3.3.3/standalone.js" defer></script>
-  <script src="https://unpkg.com/prettier@3.3.3/plugins/html.js" defer></script>
-  <script src="https://unpkg.com/prettier@3.3.3/plugins/postcss.js" defer></script>
-  <script src="https://unpkg.com/prettier@3.3.3/plugins/babel.js" defer></script>
-  <script src="https://unpkg.com/prettier@3.3.3/plugins/estree.js" defer></script>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -216,6 +216,107 @@
       #preview-pane { flex: 1 !important; min-height: 0; }
       #resize-handle { display: none !important; }
     }
+
+    /* ── Tour ───────────────────────────────────────────────────────────────── */
+    #tour-backdrop {
+      display: none;
+      position: fixed; inset: 0; z-index: 10000;
+      pointer-events: auto;
+    }
+    #tour-backdrop.active { display: block; }
+
+    /* spotlight — its giant box-shadow IS the dark overlay */
+    #tour-spotlight {
+      display: none;
+      position: fixed; z-index: 10001; pointer-events: none;
+      border-radius: 8px;
+      box-shadow: 0 0 0 9999px rgba(4,8,18,.82),
+                  0 0 0 2px #5b8dee,
+                  0 0 24px 6px rgba(91,141,238,.4);
+      transition: left .35s cubic-bezier(.4,0,.2,1),
+                  top  .35s cubic-bezier(.4,0,.2,1),
+                  width .35s cubic-bezier(.4,0,.2,1),
+                  height .35s cubic-bezier(.4,0,.2,1);
+    }
+    #tour-spotlight.active { display: block; }
+
+    /* tooltip card */
+    #tour-tip {
+      display: none;
+      position: fixed; z-index: 10002;
+      background: #111e35;
+      border: 1px solid #1e2e4a;
+      border-radius: 12px;
+      padding: 1rem 1.1rem 1rem;
+      width: 280px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.55);
+      transition: left .35s cubic-bezier(.4,0,.2,1),
+                  top  .35s cubic-bezier(.4,0,.2,1);
+    }
+    #tour-tip.active { display: block; }
+    #tour-tip .tip-badge {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-size: .58rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: #5b8dee;
+      background: rgba(91,141,238,.12); border: 1px solid rgba(91,141,238,.25);
+      border-radius: 99px; padding: .18rem .6rem; margin-bottom: .55rem;
+    }
+    #tour-tip .tip-title {
+      font-size: .88rem; font-weight: 700; color: #e8edf5;
+      margin-bottom: .3rem; line-height: 1.3;
+    }
+    #tour-tip .tip-desc {
+      font-size: .76rem; color: #8ea3bf; line-height: 1.6;
+      margin-bottom: .85rem;
+    }
+    #tour-tip .tip-shortcut {
+      display: inline-flex; align-items: center; gap: .3rem;
+      font-size: .65rem; color: #4a6080; margin-bottom: .85rem;
+    }
+    #tour-tip .tip-shortcut kbd {
+      background: #0d1526; border: 1px solid #1e2e4a;
+      border-radius: 4px; padding: .1rem .4rem;
+      font-family: 'DM Mono', monospace; font-size: .63rem; color: #8ea3bf;
+    }
+    #tour-tip .tip-footer {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    #tour-tip .tip-dots {
+      display: flex; gap: .35rem; align-items: center;
+    }
+    #tour-tip .tip-dot {
+      width: 6px; height: 6px; border-radius: 99px;
+      background: #1e2e4a; transition: all .2s;
+    }
+    #tour-tip .tip-dot.active {
+      width: 18px; background: #5b8dee;
+    }
+    #tour-tip .tip-actions { display: flex; gap: .5rem; }
+    #tour-tip .tip-btn {
+      font-size: .7rem; font-weight: 600; padding: .35rem .85rem;
+      border-radius: 7px; cursor: pointer; border: 1px solid #1e2e4a;
+      background: #0d1526; color: #8ea3bf; transition: all .15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    #tour-tip .tip-btn:hover { color: #e8edf5; border-color: #2a4070; }
+    #tour-tip .tip-btn.primary {
+      background: linear-gradient(135deg,#5b8dee,#4a7ddd);
+      border-color: transparent; color: #fff;
+    }
+    #tour-tip .tip-btn.primary:hover { opacity: .9; }
+
+    /* arrow pointer */
+    #tour-tip::before {
+      content: ''; position: absolute;
+      width: 10px; height: 10px;
+      background: #111e35; border: 1px solid #1e2e4a;
+      transform: rotate(45deg);
+    }
+    #tour-tip[data-arrow="top"]::before    { top: -6px;    left: 24px; border-bottom: none; border-right: none; }
+    #tour-tip[data-arrow="bottom"]::before { bottom: -6px; left: 24px; border-top: none;    border-left: none;  }
+    #tour-tip[data-arrow="left"]::before   { left: -6px;   top: 20px;  border-top: none;    border-right: none; }
+    #tour-tip[data-arrow="right"]::before  { right: -6px;  top: 20px;  border-bottom: none; border-left: none;  }
+    #tour-tip[data-arrow="none"]::before   { display: none; }
   </style>
 </head>
 
@@ -459,6 +560,23 @@
 <div id="toast-copy"  style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:999;align-items:center;gap:.5rem;padding:.5rem 1.1rem;border-radius:10px;font-size:.78rem;font-weight:700;color:white;background:rgba(91,141,238,.92);box-shadow:0 4px 20px rgba(0,0,0,.4)"><i class="fa-solid fa-link"></i> Link copied!</div>
 <div id="toast-error" style="display:none;position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:999;align-items:center;gap:.5rem;padding:.5rem 1.25rem;border-radius:99px;font-size:.78rem;font-weight:700;color:white;background:rgba(244,69,107,.92);box-shadow:0 4px 20px rgba(0,0,0,.4)"></div>
 <div id="toast-notif" style="display:none;position:fixed;top:60px;right:.75rem;z-index:999;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:8px;font-size:.75rem;font-weight:600;color:#e8edf5;background:#111e35;border:1px solid #1e2e4a;box-shadow:0 4px 20px rgba(0,0,0,.4)"></div>
+
+<!-- TOUR -->
+<div id="tour-backdrop"></div>
+<div id="tour-spotlight"></div>
+<div id="tour-tip">
+  <div class="tip-badge"><i class="fa-solid fa-circle-play" style="font-size:.6rem"></i> Tour <span id="tour-step-label"></span></div>
+  <div class="tip-title" id="tour-title"></div>
+  <div class="tip-desc"  id="tour-desc"></div>
+  <div class="tip-shortcut" id="tour-shortcut" style="display:none"></div>
+  <div class="tip-footer">
+    <div class="tip-dots" id="tour-dots"></div>
+    <div class="tip-actions">
+      <button class="tip-btn" id="tour-skip">Skip tour</button>
+      <button class="tip-btn primary" id="tour-next">Next →</button>
+    </div>
+  </div>
+</div>
 
 <!-- All JS lives here — loaded after DOM is ready, after Monaco loader -->
 <script src="playground.js"></script>
