@@ -29,10 +29,5 @@
     "component-loader"
   ],
   "author": "KEHEM-IT",
-  "license": "MIT",
-  "dependencies": {
-    "mastors-fluider": "^1.6.1",
-    "mastors-gridder": "^1.3.5",
-    "swiper": "^12.0.3"
-  }
+  "license": "MIT"
 }

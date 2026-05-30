@@ -1,0 +1,2321 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Playground — MastorsCDN</title>
+  <meta name="description" content="Real-time HTML & CSS playground. Write code and see results instantly.">
+  <link rel="icon" type="image/svg+xml" href="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <!-- CodeMirror 5 — robust, no-build editor -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/css-hint.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+
+  <!-- MastorsCDN CSS -->
+  <link rel="stylesheet" href="../dist/css/mastorscdn.css">
+
+  <style>
+    :root {
+      --bg-deep:    #060b16;
+      --bg-bar:     #0c1525;
+      --bg-panel:   #0f1a2e;
+      --bg-card:    #121f35;
+      --bg-editor:  #0d1117;
+      --border:     #1b2b45;
+      --border-2:   #243348;
+      --text-1:     #e2eaf4;
+      --text-2:     #7d9ab8;
+      --text-3:     #3d566e;
+      --accent:     #5b8dee;
+      --accent-2:   #8b5cf6;
+      --green:      #22d3a5;
+      --amber:      #f6a52a;
+      --rose:       #f4456b;
+      --font-head:  'Syne', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+      --font-mono:  'DM Mono', monospace;
+      --topbar-h:   52px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      background: var(--bg-deep);
+      color: var(--text-1);
+      font-family: var(--font-body);
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+      display: flex; flex-direction: column;
+    }
+
+    /* ── Topbar ───────────────────────────── */
+    #topbar {
+      height: var(--topbar-h);
+      background: var(--bg-bar);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 1rem; gap: .75rem;
+      flex-shrink: 0; z-index: 50;
+    }
+    .brand { display: flex; align-items: center; gap: .55rem; text-decoration: none; }
+    .brand-icon {
+      width: 28px; height: 28px; border-radius: 7px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; color: white;
+    }
+    .brand-name { font-family: var(--font-head); font-size: .88rem; font-weight: 700; color: var(--text-1); }
+    .brand-sep { color: var(--text-3); font-size: .8rem; }
+    .brand-page { font-family: var(--font-head); font-size: .88rem; font-weight: 600; color: var(--accent); }
+
+    .topbar-actions { display: flex; align-items: center; gap: .5rem; margin-left: auto; }
+    .tb-btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .75rem; font-weight: 600; font-family: var(--font-body);
+      padding: .35rem .75rem; border-radius: 6px; cursor: pointer;
+      border: 1px solid var(--border-2); background: var(--bg-card); color: var(--text-2);
+      transition: all .2s; text-decoration: none;
+    }
+    .tb-btn:hover { color: var(--text-1); border-color: var(--border-2); background: var(--bg-panel); }
+    .tb-btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+    .tb-btn.primary:hover { background: #4a7ddd; }
+    .tb-btn.danger { color: var(--rose); border-color: rgba(244,69,107,.3); }
+    .tb-btn.danger:hover { background: rgba(244,69,107,.1); }
+    .tb-btn.success { color: var(--green); border-color: rgba(34,211,165,.3); }
+    .tb-btn.success:hover { background: rgba(34,211,165,.1); }
+
+    /* ── Snippet bar ──────────────────────── */
+    #snippet-bar {
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: .4rem;
+      padding: 0 1rem; height: 42px; flex-shrink: 0; overflow-x: auto;
+    }
+    #snippet-bar::-webkit-scrollbar { height: 2px; }
+    .snip-label { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); flex-shrink: 0; margin-right: .25rem; }
+    .snip-btn {
+      font-size: .72rem; font-weight: 600; padding: .25rem .65rem;
+      border-radius: 5px; background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text-2); cursor: pointer; font-family: var(--font-body);
+      transition: all .2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .snip-btn:hover { color: var(--accent); border-color: var(--accent); background: rgba(91,141,238,.08); }
+    .snip-btn.active { color: var(--accent); border-color: var(--accent); background: rgba(91,141,238,.12); }
+
+    /* ── Main layout ──────────────────────── */
+    #workspace {
+      flex: 1; display: flex; overflow: hidden;
+      min-height: 0;
+    }
+
+    /* ── Editor pane ──────────────────────── */
+    #editor-pane {
+      width: 50%; flex-shrink: 0;
+      display: flex; flex-direction: column;
+      border-right: 1px solid var(--border);
+      min-width: 0;
+    }
+
+    /* ── Editor tabs ──────────────────────── */
+    #editor-tabs {
+      display: flex; align-items: center;
+      background: var(--bg-bar); border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .etab {
+      display: flex; align-items: center; gap: .5rem;
+      padding: 0 1.1rem; height: 40px;
+      font-size: .76rem; font-weight: 600; cursor: pointer;
+      color: var(--text-3); border-bottom: 2px solid transparent;
+      transition: all .2s; user-select: none;
+    }
+    .etab:hover { color: var(--text-2); }
+    .etab.active { color: var(--text-1); border-bottom-color: var(--accent); }
+    .etab i { font-size: .7rem; }
+    .etab-html i { color: #e34c26; }
+    .etab-css  i { color: #264de4; }
+
+    #editor-tabs-right { margin-left: auto; padding-right: .5rem; display: flex; gap: .35rem; }
+
+    .editor-wrap { flex: 1; overflow: hidden; display: none; flex-direction: column; }
+    .editor-wrap.visible { display: flex; }
+    .CodeMirror {
+      flex: 1 !important; height: 100% !important;
+      font-family: var(--font-mono) !important; font-size: 13px !important;
+      line-height: 1.65 !important;
+      background: var(--bg-editor) !important;
+    }
+    .CodeMirror-scroll { min-height: 100% !important; }
+
+    /* Line numbers */
+    .CodeMirror-gutters { background: var(--bg-editor) !important; border-right: 1px solid var(--border) !important; }
+    .CodeMirror-linenumber { color: var(--text-3) !important; }
+
+    /* ── Editor status bar ────────────────── */
+    #editor-status {
+      background: var(--bg-bar); border-top: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 .85rem;
+      height: 26px; gap: .75rem; flex-shrink: 0;
+    }
+    .status-item { font-size: .65rem; color: var(--text-3); display: flex; align-items: center; gap: .3rem; }
+    .status-live { color: var(--green); }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+    .autorun-toggle { margin-left: auto; display: flex; align-items: center; gap: .45rem; cursor: pointer; }
+    .autorun-toggle input { accent-color: var(--accent); }
+    .autorun-toggle span { font-size: .65rem; color: var(--text-3); }
+
+    /* ── Preview pane ─────────────────────── */
+    #preview-pane {
+      flex: 1; display: flex; flex-direction: column; min-width: 0;
+    }
+    #preview-titlebar {
+      background: var(--bg-bar); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 .85rem;
+      height: 40px; gap: .75rem; flex-shrink: 0;
+    }
+    .win-dots { display: flex; gap: .4rem; }
+    .win-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .w-red    { background: #f4456b; }
+    .w-amber  { background: #f6a52a; }
+    .w-green  { background: #22d3a5; }
+    .preview-url {
+      flex: 1; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 6px; padding: .2rem .75rem; font-size: .72rem;
+      color: var(--text-3); font-family: var(--font-mono);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .preview-url i { font-size: .65rem; }
+
+    #preview-frame {
+      flex: 1; width: 100%; border: none;
+      background: #fff;
+    }
+
+    #preview-statusbar {
+      background: var(--bg-bar); border-top: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 .85rem;
+      height: 26px; gap: .75rem; flex-shrink: 0;
+    }
+
+    /* ── Resize handle ────────────────────── */
+    #resize-handle {
+      width: 4px; background: var(--border);
+      cursor: col-resize; flex-shrink: 0; transition: background .2s;
+      position: relative; z-index: 10;
+    }
+    #resize-handle:hover, #resize-handle.dragging { background: var(--accent); }
+    #resize-handle::after {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Mobile layout ────────────────────── */
+    @media (max-width: 768px) {
+      #workspace { flex-direction: column; }
+      #editor-pane { width: 100%; border-right: none; border-bottom: 1px solid var(--border); height: 50%; }
+      #preview-pane { height: 50%; }
+      #resize-handle { display: none; }
+    }
+
+    /* ── Error overlay ────────────────────── */
+    #error-toast {
+      position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
+      background: rgba(244,69,107,.9); color: white; font-size: .78rem; font-weight: 600;
+      padding: .5rem 1.25rem; border-radius: 99px; display: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,.4); z-index: 200; font-family: var(--font-body);
+    }
+
+    /* ── Saved toast ──────────────────────── */
+    #save-toast {
+      position: fixed; bottom: 1rem; right: 1rem;
+      background: rgba(34,211,165,.9); color: #0a2a1e;
+      font-size: .78rem; font-weight: 700;
+      padding: .5rem 1.1rem; border-radius: 8px; display: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,.4); z-index: 200; font-family: var(--font-body);
+    }
+
+    /* ── Format notification ──────────────── */
+    #notif {
+      position: fixed; top: calc(var(--topbar-h) + 6px); right: .75rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text-1); font-size: .75rem; font-weight: 600;
+      padding: .4rem 1rem; border-radius: 8px; display: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,.4); z-index: 200;
+      font-family: var(--font-body); display: none; align-items: center; gap: .5rem;
+    }
+    #notif.show { display: flex; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════ TOPBAR ═══════ -->
+<div id="topbar">
+  <a href="../index.html" class="brand">
+    <div class="brand-icon"><i class="fa-solid fa-layer-group"></i></div>
+    <span class="brand-name">MastorsCDN</span>
+    <span class="brand-sep">/</span>
+    <span class="brand-page">Playground</span>
+  </a>
+
+  <div class="topbar-actions">
+    <button class="tb-btn" id="btn-format" title="Format code (Alt+Shift+F)">
+      <i class="fa-solid fa-indent"></i> Format
+    </button>
+    <button class="tb-btn danger" id="btn-clear" title="Clear editors">
+      <i class="fa-solid fa-trash-can"></i> Clear
+    </button>
+    <button class="tb-btn success" id="btn-save" title="Save to URL (Ctrl+S)">
+      <i class="fa-solid fa-floppy-disk"></i> Save
+    </button>
+    <button class="tb-btn" id="btn-share" title="Share current code">
+      <i class="fa-solid fa-share-nodes"></i> Share
+    </button>
+    <button class="tb-btn primary" id="btn-fullscreen" title="Open preview fullscreen">
+      <i class="fa-solid fa-expand"></i> Fullscreen
+    </button>
+    <a href="../index.html" class="tb-btn" title="Back to docs">
+      <i class="fa-solid fa-book"></i> Docs
+    </a>
+  </div>
+</div>
+
+<!-- ═══════ SNIPPET BAR ═══════ -->
+<div id="snippet-bar">
+  <span class="snip-label">Snippets:</span>
+  <button class="snip-btn active" onclick="loadSnippet('welcome')">Welcome</button>
+  <button class="snip-btn" onclick="loadSnippet('container')">Container Queries</button>
+  <button class="snip-btn" onclick="loadSnippet('color')">color-mix()</button>
+  <button class="snip-btn" onclick="loadSnippet('nesting')">CSS Nesting</button>
+  <button class="snip-btn" onclick="loadSnippet('has')">:has()</button>
+  <button class="snip-btn" onclick="loadSnippet('property')">@property</button>
+  <button class="snip-btn" onclick="loadSnippet('subgrid')">Subgrid</button>
+  <button class="snip-btn" onclick="loadSnippet('scroll')">Scroll Anim</button>
+  <button class="snip-btn" onclick="loadSnippet('math')">Math Functions</button>
+  <button class="snip-btn" onclick="loadSnippet('scope')">@scope</button>
+  <button class="snip-btn" onclick="loadSnippet('layer')">@layer</button>
+  <button class="snip-btn" onclick="loadSnippet('logical')">Logical Props</button>
+</div>
+
+<!-- ═══════ WORKSPACE ═══════ -->
+<div id="workspace">
+
+  <!-- ─── EDITOR PANE ─── -->
+  <div id="editor-pane">
+    <div id="editor-tabs">
+      <div class="etab etab-html active" id="tab-html" onclick="switchTab('html')">
+        <i class="fa-brands fa-html5"></i> HTML
+      </div>
+      <div class="etab etab-css" id="tab-css" onclick="switchTab('css')">
+        <i class="fa-brands fa-css3-alt"></i> CSS
+      </div>
+      <div id="editor-tabs-right">
+        <button class="tb-btn" style="padding:.2rem .55rem;font-size:.68rem" id="btn-run" title="Run (Ctrl+Enter)">
+          <i class="fa-solid fa-play"></i> Run
+        </button>
+      </div>
+    </div>
+
+    <!-- HTML editor -->
+    <div class="editor-wrap visible" id="wrap-html">
+      <textarea id="html-editor"></textarea>
+    </div>
+    <!-- CSS editor -->
+    <div class="editor-wrap" id="wrap-css">
+      <textarea id="css-editor"></textarea>
+    </div>
+
+    <div id="editor-status">
+      <span class="status-item status-live"><span class="status-dot"></span> Live</span>
+      <span class="status-item" id="cursor-pos">Ln 1, Col 1</span>
+      <span class="status-item" id="char-count">0 chars</span>
+      <label class="autorun-toggle">
+        <input type="checkbox" id="autorun-toggle" checked>
+        <span>Auto-run</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ─── RESIZE HANDLE ─── -->
+  <div id="resize-handle"></div>
+
+  <!-- ─── PREVIEW PANE ─── -->
+  <div id="preview-pane">
+    <div id="preview-titlebar">
+      <div class="win-dots">
+        <div class="win-dot w-red"></div>
+        <div class="win-dot w-amber"></div>
+        <div class="win-dot w-green"></div>
+      </div>
+      <div class="preview-url">
+        <i class="fa-solid fa-lock" style="color:var(--green)"></i>
+        playground / preview
+      </div>
+      <button class="tb-btn" style="padding:.2rem .55rem;font-size:.68rem;margin-left:.5rem" onclick="reloadPreview()" title="Reload preview">
+        <i class="fa-solid fa-rotate-right"></i>
+      </button>
+    </div>
+
+    <iframe id="preview-frame" sandbox="allow-scripts allow-same-origin"></iframe>
+
+    <div id="preview-statusbar">
+      <span class="status-item" id="preview-status" style="color:var(--green)"><i class="fa-solid fa-circle-check"></i> Ready</span>
+      <span class="status-item" id="preview-size" style="margin-left:auto">—</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ TOASTS ═══════ -->
+<div id="error-toast"></div>
+<div id="save-toast"><i class="fa-solid fa-check"></i> Saved to URL!</div>
+<div id="notif" id="notif"></div>
+
+<!-- ═══════ SCRIPTS ═══════ -->
+<script>
+// ─── Snippets Library ────────────────────────────────────────────────────
+const SNIPPETS = {
+  welcome: {
+    html: `<div class="card">
+  <div class="card-icon">◆</div>
+  <h2>CSS 2027 Playground</h2>
+  <p>Write HTML and CSS in the editors on the left.<br>The preview updates in real time.</p>
+  <div class="badges">
+    <span class="badge blue">Container Queries</span>
+    <span class="badge purple">@property</span>
+    <span class="badge green">:has()</span>
+    <span class="badge pink">Scroll-Driven</span>
+  </div>
+  <a class="btn">Explore Snippets ↑</a>
+</div>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem;
+}
+
+.card {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  max-width: 440px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #5b8dee, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #e2eaf4;
+  margin-bottom: .75rem;
+  letter-spacing: -.02em;
+}
+
+p {
+  color: #7d9ab8;
+  font-size: .92rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+}
+
+.badge {
+  font-size: .72rem;
+  font-weight: 600;
+  padding: .25rem .75rem;
+  border-radius: 99px;
+}
+
+.badge.blue   { background: rgba(91,141,238,.15); color: #5b8dee; border: 1px solid rgba(91,141,238,.3); }
+.badge.purple { background: rgba(139,92,246,.15); color: #a78bfa; border: 1px solid rgba(139,92,246,.3); }
+.badge.green  { background: rgba(34,211,165,.12); color: #22d3a5; border: 1px solid rgba(34,211,165,.3); }
+.badge.pink   { background: rgba(244,69,107,.12); color: #f472b6; border: 1px solid rgba(244,69,107,.3); }
+
+.btn {
+  display: inline-block;
+  background: #5b8dee;
+  color: white;
+  font-size: .85rem;
+  font-weight: 600;
+  padding: .65rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background .2s;
+  cursor: pointer;
+}
+
+.btn:hover { background: #4a7ddd; }`
+  },
+
+  container: {
+    html: `<h3 style="color:#7d9ab8;font-size:.8rem;margin-bottom:1rem;font-family:sans-serif">
+  Resize the window to see the card adapt ↕
+</h3>
+
+<div class="card-wrapper">
+  <div class="card">
+    <div class="card-img"></div>
+    <div class="card-body">
+      <h2>Container Query Card</h2>
+      <p>This card layouts itself based on its container — not the viewport. When the container is wide, image sits on the left. When narrow, it stacks vertically.</p>
+      <button class="btn">Learn More</button>
+    </div>
+  </div>
+</div>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+/* Establish container */
+.card-wrapper {
+  container-type: inline-size;
+  container-name: card-cq;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* Wide layout */
+@container card-cq (min-width: 420px) {
+  .card {
+    display: flex;
+  }
+  .card-img {
+    width: 160px;
+    flex-shrink: 0;
+  }
+  .card-body {
+    padding: 1.75rem;
+  }
+}
+
+/* Narrow layout */
+@container card-cq (max-width: 419px) {
+  .card-img {
+    width: 100%;
+    height: 130px;
+  }
+  .card-body {
+    padding: 1.25rem;
+  }
+}
+
+.card-img {
+  background: linear-gradient(135deg, #5b8dee, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+}
+
+.card-img::after { content: '◆'; }
+
+h2 {
+  color: #e2eaf4;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: .6rem;
+}
+
+p {
+  color: #7d9ab8;
+  font-size: .82rem;
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  background: #5b8dee;
+  color: white;
+  font-size: .78rem;
+  font-weight: 600;
+  padding: .4rem 1rem;
+  border-radius: 7px;
+  text-decoration: none;
+}`
+  },
+
+  color: {
+    html: `<div class="demo">
+  <h2>CSS Color Level 5</h2>
+
+  <section>
+    <h3>color-mix() — 20% steps</h3>
+    <div class="swatch-row" id="mix-row"></div>
+  </section>
+
+  <section>
+    <h3>OKLCH hue rotation (H: 0–300°)</h3>
+    <div class="swatch-row" id="hue-row"></div>
+  </section>
+
+  <section>
+    <h3>Relative color — lighten/darken</h3>
+    <div class="relative-demo">
+      <div class="rel-base">Base<br><code>oklch(50% .22 264)</code></div>
+      <div class="rel-light">+20% L<br><code>oklch(from base calc(l+.2) c h)</code></div>
+      <div class="rel-dark">-20% L<br><code>oklch(from base calc(l-.2) c h)</code></div>
+    </div>
+  </section>
+</div>
+
+<script>
+  // Build swatches dynamically
+  const mixRow = document.getElementById('mix-row');
+  for (let p = 100; p >= 5; p -= 15) {
+    const d = document.createElement('div');
+    d.className = 'swatch';
+    d.style.background = \`color-mix(in oklch, #5b8dee \${p}%, white)\`;
+    d.title = \`\${p}%\`;
+    mixRow.appendChild(d);
+  }
+  const hueRow = document.getElementById('hue-row');
+  for (let h = 0; h <= 300; h += 50) {
+    const d = document.createElement('div');
+    d.className = 'swatch';
+    d.style.background = \`oklch(60% .22 \${h})\`;
+    d.title = \`H: \${h}°\`;
+    hueRow.appendChild(d);
+  }
+<\/script>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  color: #e2eaf4;
+}
+
+.demo { max-width: 600px; margin: 0 auto; }
+
+h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 1.75rem;
+  color: #e2eaf4;
+  letter-spacing: -.02em;
+}
+
+section {
+  margin-bottom: 1.75rem;
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+h3 {
+  font-size: .82rem;
+  font-weight: 600;
+  color: #7d9ab8;
+  margin-bottom: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.swatch-row { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+.swatch {
+  width: 42px; height: 42px;
+  border-radius: 8px;
+  cursor: default;
+  transition: transform .2s;
+}
+.swatch:hover { transform: scale(1.15); }
+
+.relative-demo {
+  display: flex;
+  gap: .75rem;
+}
+
+.rel-base, .rel-light, .rel-dark {
+  flex: 1;
+  padding: 1rem .75rem;
+  border-radius: 10px;
+  font-size: .72rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.5;
+}
+
+code {
+  font-family: 'DM Mono', monospace;
+  font-size: .65rem;
+  display: block;
+  margin-top: .35rem;
+  opacity: .7;
+}
+
+.rel-base  { background: oklch(50% .22 264); color: white; }
+.rel-light { background: oklch(70% .22 264); color: #0f1a2e; }
+.rel-dark  { background: oklch(30% .22 264); color: #c5d8f0; }`
+  },
+
+  nesting: {
+    html: `<nav class="nav">
+  <a href="#" class="active">Home</a>
+  <a href="#">Docs</a>
+  <a href="#">Examples</a>
+  <a href="#">Playground</a>
+  <a href="#">About</a>
+</nav>
+
+<div class="cards">
+  <article class="card">
+    <h2>Native CSS Nesting</h2>
+    <p>Nest rules inside parents just like SASS — now part of the CSS standard.</p>
+    <footer>
+      <span class="tag">CSS 2027</span>
+      <button>Learn more</button>
+    </footer>
+  </article>
+
+  <article class="card card--featured">
+    <h2>Featured Article</h2>
+    <p>This card is featured — styled using <code>:has()</code> or direct class, nested with all its children.</p>
+    <footer>
+      <span class="tag">Featured</span>
+      <button>Read →</button>
+    </footer>
+  </article>
+</div>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  color: #e2eaf4;
+}
+
+.nav {
+  display: flex;
+  gap: .5rem;
+  background: #0f1a2e;
+  padding: .6rem .85rem;
+  border-radius: 10px;
+  border: 1px solid #1b2b45;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+
+  & a {
+    color: #7d9ab8;
+    text-decoration: none;
+    font-size: .82rem;
+    padding: .3rem .7rem;
+    border-radius: 6px;
+    transition: all .2s;
+
+    &:hover {
+      color: #e2eaf4;
+      background: rgba(91, 141, 238, .12);
+    }
+
+    &.active {
+      color: #5b8dee;
+      background: rgba(91, 141, 238, .15);
+      font-weight: 600;
+    }
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: border-color .2s;
+
+  &:hover { border-color: #243348; }
+
+  & h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e2eaf4;
+    margin-bottom: .5rem;
+  }
+
+  & p {
+    font-size: .8rem;
+    color: #7d9ab8;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  & code {
+    font-family: 'DM Mono', monospace;
+    font-size: .78rem;
+    color: #5b8dee;
+    background: rgba(91,141,238,.1);
+    padding: .1rem .3rem;
+    border-radius: 4px;
+  }
+
+  & footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  & .tag {
+    font-size: .68rem;
+    font-weight: 700;
+    background: rgba(91,141,238,.12);
+    color: #5b8dee;
+    border: 1px solid rgba(91,141,238,.25);
+    padding: .2rem .6rem;
+    border-radius: 99px;
+  }
+
+  & button {
+    background: none;
+    border: 1px solid #1b2b45;
+    color: #7d9ab8;
+    font-size: .76rem;
+    padding: .3rem .75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all .2s;
+
+    &:hover {
+      border-color: #5b8dee;
+      color: #5b8dee;
+    }
+  }
+
+  /* Featured variant using nesting */
+  &.card--featured {
+    border-color: rgba(91,141,238,.4);
+    background: linear-gradient(135deg, #0f1a2e, #121e35);
+
+    & .tag {
+      background: rgba(139,92,246,.15);
+      color: #a78bfa;
+      border-color: rgba(139,92,246,.3);
+    }
+  }
+}`
+  },
+
+  has: {
+    html: `<div class="demo">
+  <h2>:has() — Parent Selector</h2>
+
+  <ul class="todo">
+    <li><input type="checkbox"> Build container query component</li>
+    <li><input type="checkbox"> Test @scope feature</li>
+    <li><input type="checkbox"> Write scroll-driven animation demo</li>
+    <li><input type="checkbox"> Explore oklch() colors</li>
+    <li><input type="checkbox"> Deploy to production</li>
+  </ul>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>Text Only Card</h3>
+      <p>No image here — default layout.</p>
+    </div>
+    <div class="card">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect width='200' height='100' fill='%231b2b45'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%235b8dee' font-size='14' font-family='sans-serif'%3E◆ Image%3C/text%3E%3C/svg%3E" alt="demo image">
+      <h3>Card with Image</h3>
+      <p>:has(img) applies different styles here.</p>
+    </div>
+  </div>
+</div>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  color: #e2eaf4;
+}
+
+.demo { max-width: 560px; margin: 0 auto; }
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: #e2eaf4;
+  letter-spacing: -.02em;
+}
+
+/* ── Todo list with :has() ── */
+.todo {
+  list-style: none;
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+  padding: .75rem;
+  margin-bottom: 1.5rem;
+}
+
+.todo li {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .55rem .65rem;
+  border-radius: 7px;
+  font-size: .84rem;
+  color: #e2eaf4;
+  transition: all .25s;
+  cursor: pointer;
+}
+
+.todo li:hover { background: rgba(255,255,255,.03); }
+
+/* The magic — style parent based on child */
+.todo li:has(input:checked) {
+  text-decoration: line-through;
+  color: #3d566e;
+}
+
+.todo input[type="checkbox"] {
+  accent-color: #5b8dee;
+  width: 15px; height: 15px;
+  cursor: pointer; flex-shrink: 0;
+}
+
+/* ── Card grid with :has(img) ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.card {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+/* Different layout when card has an image */
+.card:has(img) {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-color: rgba(91,141,238,.3);
+}
+
+.card img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+}
+
+.card:has(img) h3,
+.card:has(img) p {
+  padding: .75rem .85rem;
+  padding-bottom: 0;
+}
+.card:has(img) p { padding-bottom: .85rem; }
+
+.card h3 {
+  font-size: .9rem;
+  font-weight: 700;
+  color: #e2eaf4;
+  margin-bottom: .4rem;
+}
+
+.card p {
+  font-size: .78rem;
+  color: #7d9ab8;
+  line-height: 1.55;
+}`
+  },
+
+  property: {
+    html: `<div class="demo">
+  <h2>@property — Typed Custom Properties</h2>
+
+  <div class="examples">
+    <div class="example">
+      <div class="spinner-wrap">
+        <div class="spinner s1"></div>
+        <div class="spinner s2"></div>
+      </div>
+      <p>Conic gradient spin via <code>@property --angle: &lt;angle&gt;</code></p>
+    </div>
+
+    <div class="example">
+      <div class="progress-demo">
+        <div class="progress-bar" id="pbar"></div>
+      </div>
+      <p>Animatable <code>@property --progress: &lt;number&gt;</code></p>
+    </div>
+
+    <div class="example">
+      <div class="hue-shift-demo">
+        <div class="hue-box"></div>
+      </div>
+      <p>Hue shift via <code>@property --hue: &lt;angle&gt;</code></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Animate progress bar with typed @property via JS
+  let p = 0;
+  const pb = document.getElementById('pbar');
+  function tick() {
+    p = (p + .5) % 101;
+    pb.style.setProperty('--prog', p);
+    requestAnimationFrame(tick);
+  }
+  tick();
+<\/script>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  color: #e2eaf4;
+}
+
+/* Register typed custom properties */
+@property --spin-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --hue {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --prog {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: false;
+}
+
+.demo { max-width: 520px; margin: 0 auto; }
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 1.75rem;
+  color: #e2eaf4;
+  letter-spacing: -.02em;
+}
+
+.examples {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.example {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.example p {
+  font-size: .8rem;
+  color: #7d9ab8;
+  line-height: 1.6;
+}
+
+code {
+  font-family: 'DM Mono', monospace;
+  font-size: .78rem;
+  color: #5b8dee;
+  background: rgba(91,141,238,.1);
+  padding: .1rem .35rem;
+  border-radius: 4px;
+}
+
+/* ── Spinners ── */
+.spinner-wrap { display: flex; gap: .75rem; flex-shrink: 0; }
+
+.spinner {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  animation: do-spin 3s linear infinite;
+}
+
+@keyframes do-spin {
+  to { --spin-angle: 360deg; }
+}
+
+.s1 {
+  background: conic-gradient(from var(--spin-angle), #5b8dee, #8b5cf6, #ec4899, #5b8dee);
+}
+
+.s2 {
+  background: conic-gradient(from var(--spin-angle), #22d3a5, #5b8dee, #8b5cf6, #22d3a5);
+  animation-direction: reverse;
+  animation-duration: 2s;
+}
+
+/* ── Progress bar ── */
+.progress-demo {
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.progress-bar {
+  --prog: 0;
+  height: 8px;
+  background: #1b2b45;
+  border-radius: 99px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: calc(var(--prog) * 1%);
+  background: linear-gradient(90deg, #5b8dee, #8b5cf6);
+  border-radius: 99px;
+  transition: width 0.05s linear;
+}
+
+/* ── Hue shift ── */
+.hue-shift-demo { flex-shrink: 0; }
+
+.hue-box {
+  width: 60px; height: 60px;
+  border-radius: 10px;
+  background: oklch(60% .22 var(--hue));
+  animation: hue-cycle 4s linear infinite;
+}
+
+@keyframes hue-cycle {
+  from { --hue: 0deg; }
+  to   { --hue: 360deg; }
+}`
+  },
+
+  subgrid: {
+    html: `<div class="page">
+  <h2>CSS Subgrid — Aligned Cards</h2>
+  <p class="lead">All card footers align at the bottom regardless of body text length.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-img"></div>
+      <h3>Short Title</h3>
+      <p>Brief description here.</p>
+      <footer><button>Learn more →</button></footer>
+    </div>
+    <div class="card">
+      <div class="card-img" style="background:linear-gradient(135deg,#22d3a5,#0d9488)"></div>
+      <h3>A Much Longer Title That Wraps</h3>
+      <p>This card has significantly more body text. Even so, the footer stays at the same vertical position as its siblings. That's the magic of subgrid at work — zero extra JavaScript needed.</p>
+      <footer><button>Read more →</button></footer>
+    </div>
+    <div class="card">
+      <div class="card-img" style="background:linear-gradient(135deg,#f472b6,#9333ea)"></div>
+      <h3>Medium Length</h3>
+      <p>A moderate amount of content lives here, just enough to show the difference.</p>
+      <footer><button>Explore →</button></footer>
+    </div>
+  </div>
+</div>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  color: #e2eaf4;
+}
+
+.page { max-width: 720px; margin: 0 auto; }
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: .5rem;
+  color: #e2eaf4;
+  letter-spacing: -.02em;
+}
+
+.lead {
+  font-size: .85rem;
+  color: #7d9ab8;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* Parent grid — 4 rows: img | title | body | footer */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 100px auto 1fr auto;
+  gap: 1rem;
+}
+
+/* Each card spans all 4 parent rows */
+.card {
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid; /* inherit parent rows! */
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+
+.card:hover { border-color: #243348; }
+
+.card-img {
+  background: linear-gradient(135deg, #5b8dee, #8b5cf6);
+}
+
+h3 {
+  font-size: .9rem;
+  font-weight: 700;
+  color: #e2eaf4;
+  padding: .85rem .9rem .4rem;
+}
+
+p {
+  font-size: .78rem;
+  color: #7d9ab8;
+  line-height: 1.6;
+  padding: 0 .9rem .75rem;
+}
+
+footer {
+  padding: .65rem .9rem;
+  border-top: 1px solid #1b2b45;
+}
+
+button {
+  background: none;
+  border: 1px solid #1b2b45;
+  color: #5b8dee;
+  font-size: .74rem;
+  font-weight: 600;
+  padding: .3rem .8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .2s;
+}
+
+button:hover {
+  background: rgba(91,141,238,.1);
+  border-color: rgba(91,141,238,.4);
+}`
+  },
+
+  scroll: {
+    html: `<div class="page">
+  <div id="progress-bar"></div>
+
+  <header>
+    <h1>Scroll-Driven Animations</h1>
+    <p>Scroll down to see elements animate as they enter the viewport — zero JavaScript for the CSS animations.</p>
+  </header>
+
+  <div class="cards">
+    <div class="card reveal">
+      <div class="icon">◆</div>
+      <h3>Reveal on Scroll</h3>
+      <p>Uses <code>animation-timeline: view()</code> and <code>animation-range: entry 0% entry 50%</code>.</p>
+    </div>
+    <div class="card reveal" style="animation-delay:.1s">
+      <div class="icon" style="background:linear-gradient(135deg,#22d3a5,#0d9488)">●</div>
+      <h3>Staggered Effect</h3>
+      <p>Each card has an incremental <code>animation-delay</code> for a natural cascade appearance.</p>
+    </div>
+    <div class="card reveal" style="animation-delay:.2s">
+      <div class="icon" style="background:linear-gradient(135deg,#f472b6,#9333ea)">▲</div>
+      <h3>View Timeline</h3>
+      <p>The <code>view()</code> function tracks when an element enters or exits the scrollport.</p>
+    </div>
+    <div class="card reveal" style="animation-delay:.05s">
+      <div class="icon" style="background:linear-gradient(135deg,#f6a52a,#dc2626)">★</div>
+      <h3>Scroll Timeline</h3>
+      <p>The progress bar at the top uses <code>animation-timeline: scroll(root)</code>.</p>
+    </div>
+    <div class="card reveal" style="animation-delay:.15s">
+      <div class="icon" style="background:linear-gradient(135deg,#22d3a5,#5b8dee)">◈</div>
+      <h3>No JS Required</h3>
+      <p>Both the progress bar and the card reveal are pure CSS — not a single scroll event listener.</p>
+    </div>
+    <div class="card reveal" style="animation-delay:.25s">
+      <div class="icon" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)">✦</div>
+      <h3>CSS 2027 Native</h3>
+      <p>Scroll-driven animations are now a stable part of the CSS Animations Level 2 spec.</p>
+    </div>
+  </div>
+</div>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 0 0 3rem;
+  min-height: 200vh; /* ensure scroll */
+  color: #e2eaf4;
+}
+
+/* ── Reading progress bar ── */
+@property --scroll-pos {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: false;
+}
+
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  z-index: 100;
+  background: linear-gradient(
+    to right,
+    #5b8dee,
+    #8b5cf6
+  );
+  transform-origin: 0 0;
+  transform: scaleX(0);
+  animation: read-progress linear;
+  animation-timeline: scroll(root block);
+}
+
+@keyframes read-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ── Layout ── */
+header {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: .75rem;
+  letter-spacing: -.03em;
+}
+
+header p {
+  color: #7d9ab8;
+  font-size: .88rem;
+  line-height: 1.7;
+}
+
+.cards {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* ── Scroll-reveal ── */
+.reveal {
+  animation: card-reveal linear both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 50%;
+}
+
+@keyframes card-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: border-color .2s;
+}
+
+.card:hover { border-color: #243348; }
+
+.icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #5b8dee, #8b5cf6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: white;
+  margin-bottom: .85rem;
+}
+
+h3 {
+  font-size: .9rem;
+  font-weight: 700;
+  margin-bottom: .4rem;
+}
+
+p {
+  font-size: .78rem;
+  color: #7d9ab8;
+  line-height: 1.6;
+}
+
+code {
+  font-family: 'DM Mono', monospace;
+  font-size: .76rem;
+  color: #5b8dee;
+  background: rgba(91,141,238,.1);
+  padding: .1rem .3rem;
+  border-radius: 4px;
+}`
+  },
+
+  math: {
+    html: `<div class="page">
+  <h2>CSS Math Functions</h2>
+
+  <section class="demo-section">
+    <h3>Circular layout — cos() &amp; sin()</h3>
+    <div class="orbit-container">
+      <div class="orbit-ring"></div>
+      <div class="center-dot">CSS</div>
+      <div class="orbit-item" style="--a:0deg">01</div>
+      <div class="orbit-item" style="--a:51.4deg">02</div>
+      <div class="orbit-item" style="--a:102.8deg">03</div>
+      <div class="orbit-item" style="--a:154.2deg">04</div>
+      <div class="orbit-item" style="--a:205.7deg">05</div>
+      <div class="orbit-item" style="--a:257.1deg">06</div>
+      <div class="orbit-item" style="--a:308.5deg">07</div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h3>Fluid typography — clamp()</h3>
+    <p class="fluid-text">Resize the window to see this text scale fluidly.</p>
+  </section>
+
+  <section class="demo-section">
+    <h3>round() — snap to grid</h3>
+    <div class="snap-demo">
+      <div class="snap-box" style="width:37px" title="raw: 37px">37px → <strong>36px</strong></div>
+      <div class="snap-box" style="width:45px" title="raw: 45px">45px → <strong>44px</strong></div>
+      <div class="snap-box" style="width:53px" title="raw: 53px">53px → <strong>52px</strong></div>
+    </div>
+    <p style="font-size:.75rem;color:#3d566e;margin-top:.5rem">round(nearest, N, 4px) snaps to the nearest 4px grid unit</p>
+  </section>
+</div>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  color: #e2eaf4;
+}
+
+.page { max-width: 560px; margin: 0 auto; }
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  letter-spacing: -.02em;
+}
+
+.demo-section {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: .78rem;
+  font-weight: 700;
+  color: #7d9ab8;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 1rem;
+}
+
+/* ── Circular layout ── */
+.orbit-container {
+  position: relative;
+  width: 180px; height: 180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px dashed #1b2b45;
+}
+
+.center-dot {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5b8dee, #8b5cf6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .72rem; font-weight: 800;
+  color: white; z-index: 1;
+}
+
+.orbit-item {
+  --r: 74px;
+  position: absolute;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #121e35;
+  border: 2px solid rgba(91,141,238,.5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .6rem; font-weight: 700; color: #5b8dee;
+  left: calc(50% + var(--r) * cos(var(--a)) - 14px);
+  top:  calc(50% + var(--r) * sin(var(--a)) - 14px);
+  transition: border-color .2s;
+}
+.orbit-item:hover { border-color: #5b8dee; }
+
+/* ── Fluid text ── */
+.fluid-text {
+  font-size: clamp(.9rem, 3vw + .4rem, 1.6rem);
+  color: #e2eaf4;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* ── Snap demo ── */
+.snap-demo {
+  display: flex; gap: .75rem; flex-wrap: wrap;
+}
+
+.snap-box {
+  width: round(nearest, var(--w, 37px), 4px);
+  background: rgba(91,141,238,.12);
+  border: 1px solid rgba(91,141,238,.3);
+  border-radius: 6px;
+  padding: .5rem .65rem;
+  font-size: .75rem;
+  color: #e2eaf4;
+  white-space: nowrap;
+}
+
+strong { color: #22d3a5; }`
+  },
+
+  scope: {
+    html: `<div class="page">
+  <h2>@scope — Scoped Styles</h2>
+
+  <div class="widget">
+    <div class="widget-header">
+      <h3>Widget Component</h3>
+      <span class="tag">@scope</span>
+    </div>
+    <div class="widget-body">
+      <p>This paragraph is styled by <code>@scope(.widget)</code> — blue text, scoped to this component.</p>
+      <a href="#">Link inside scope — styled</a>
+      <div class="nested-component">
+        <p>This paragraph is inside <code>.nested-component</code> — the scope boundary. It is NOT affected by the outer scope styles.</p>
+        <a href="#">Link inside nested — unstyled by outer scope</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="outside">This paragraph is <strong>outside</strong> the widget scope — default styles only.</p>
+  <a href="#" class="outside-link">Link outside scope — unstyled</a>
+</div>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  color: #e2eaf4;
+}
+
+.page { max-width: 560px; margin: 0 auto; }
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  letter-spacing: -.02em;
+}
+
+.widget {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+.widget-header {
+  background: #121e35;
+  border-bottom: 1px solid #1b2b45;
+  padding: .75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h3 { font-size: .88rem; font-weight: 700; color: #e2eaf4; }
+
+.tag {
+  font-size: .68rem;
+  font-weight: 700;
+  background: rgba(91,141,238,.12);
+  color: #5b8dee;
+  border: 1px solid rgba(91,141,238,.25);
+  padding: .2rem .6rem;
+  border-radius: 99px;
+}
+
+.widget-body { padding: 1.1rem; }
+
+/* ── @scope rules ── */
+/* Scope: .widget down to .nested-component */
+@scope (.widget) to (.nested-component) {
+  p {
+    color: #60a5fa;
+    font-size: .84rem;
+    line-height: 1.65;
+    margin-bottom: .75rem;
+  }
+
+  a {
+    color: #5b8dee;
+    font-size: .82rem;
+    font-weight: 600;
+    text-decoration: underline;
+    display: block;
+    margin-bottom: .85rem;
+  }
+}
+
+code {
+  font-family: 'DM Mono', monospace;
+  font-size: .78rem;
+  background: rgba(91,141,238,.1);
+  color: #5b8dee;
+  padding: .1rem .35rem;
+  border-radius: 4px;
+}
+
+/* ── Nested component — outside scope ── */
+.nested-component {
+  background: #0a1422;
+  border: 1px solid #1b2b45;
+  border-radius: 8px;
+  padding: .85rem;
+}
+
+/* Only these styles apply in nested (scope boundary stops outer) */
+.nested-component p {
+  color: #4a6080;
+  font-size: .8rem;
+  margin-bottom: .5rem;
+}
+
+.nested-component a { color: #3d566e; font-size: .78rem; }
+
+/* ── Outside scope — default ── */
+.outside {
+  color: #7d9ab8;
+  font-size: .84rem;
+  margin-bottom: .5rem;
+}
+.outside-link { color: #3d566e; font-size: .82rem; }`
+  },
+
+  layer: {
+    html: `<div class="page">
+  <h2>Cascade Layers — @layer</h2>
+  <p class="lead">Later layers always win, regardless of selector specificity.</p>
+
+  <div class="demo-group">
+    <h3>Button variants across layers</h3>
+    <div class="btns">
+      <button class="btn">Base layer</button>
+      <button class="btn btn-component">Components layer</button>
+      <button class="btn btn-utility">Utilities override</button>
+      <button class="btn btn-component btn-utility">Utilities beat Components</button>
+    </div>
+  </div>
+
+  <div class="layer-diagram">
+    <div class="layer-item l1">
+      <span class="l-num">1</span>
+      <span class="l-name">@layer base</span>
+      <span class="l-desc">Lowest priority</span>
+    </div>
+    <div class="arrow">↓ later wins</div>
+    <div class="layer-item l2">
+      <span class="l-num">2</span>
+      <span class="l-name">@layer components</span>
+      <span class="l-desc">Overrides base</span>
+    </div>
+    <div class="arrow">↓ later wins</div>
+    <div class="layer-item l3">
+      <span class="l-num">3</span>
+      <span class="l-name">@layer utilities</span>
+      <span class="l-desc">Highest priority</span>
+    </div>
+  </div>
+</div>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  color: #e2eaf4;
+}
+
+.page { max-width: 540px; margin: 0 auto; }
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: .5rem;
+  letter-spacing: -.02em;
+}
+
+.lead {
+  color: #7d9ab8;
+  font-size: .84rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* ── Declare order — last wins ── */
+@layer l-base, l-components, l-utilities;
+
+@layer l-base {
+  .btn {
+    background: #475569;
+    color: white;
+    font-family: inherit;
+    font-size: .82rem;
+    font-weight: 500;
+    padding: .5rem 1.1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+@layer l-components {
+  .btn-component {
+    background: #5b8dee;
+    border-radius: 9px;
+    font-weight: 700;
+    padding: .55rem 1.25rem;
+    box-shadow: 0 4px 12px rgba(91,141,238,.3);
+  }
+}
+
+@layer l-utilities {
+  /* Wins over everything — including .btn-component */
+  .btn-utility {
+    background: #a855f7;
+    border-radius: 99px;
+  }
+}
+
+/* ── Layout ── */
+.demo-group {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+h3 {
+  font-size: .78rem;
+  color: #7d9ab8;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+}
+
+/* ── Layer diagram ── */
+.layer-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+
+.layer-item {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 10px;
+  padding: .8rem 1rem;
+}
+
+.l-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .72rem; font-weight: 800;
+  flex-shrink: 0;
+}
+
+.l1 .l-num { background: rgba(71,85,105,.3); color: #94a3b8; }
+.l2 .l-num { background: rgba(91,141,238,.15); color: #5b8dee; }
+.l3 .l-num { background: rgba(168,85,247,.15); color: #a855f7; }
+
+.l-name { font-size: .82rem; font-weight: 700; flex: 1; }
+.l1 .l-name { color: #94a3b8; }
+.l2 .l-name { color: #5b8dee; }
+.l3 .l-name { color: #a855f7; }
+
+.l-desc { font-size: .72rem; color: #3d566e; }
+
+.arrow {
+  font-size: .72rem;
+  color: #3d566e;
+  padding-left: 1.35rem;
+  font-weight: 600;
+}`
+  },
+
+  logical: {
+    html: `<div class="page">
+  <h2>Logical Properties</h2>
+  <p class="lead">The same CSS works in LTR, RTL, and vertical writing modes.</p>
+
+  <div class="direction-demo">
+    <div class="box ltr-box" dir="ltr">
+      <span class="dir-tag">LTR</span>
+      <p>border-inline-start renders on the <strong>left</strong> in left-to-right writing mode.</p>
+      <div class="inset-demo">
+        <span>margin-inline-start: auto</span>
+        <div class="pushed-right">→ pushed right</div>
+      </div>
+    </div>
+
+    <div class="box rtl-box" dir="rtl">
+      <span class="dir-tag">RTL</span>
+      <p style="text-align:right">border-inline-start renders on the <strong>right</strong> in right-to-left writing mode.</p>
+      <div class="inset-demo" style="flex-direction:row-reverse">
+        <span style="text-align:right">margin-inline-start: auto</span>
+        <div class="pushed-right">← pushed left</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cheatsheet">
+    <h3>Quick Reference</h3>
+    <table>
+      <tr><th>Physical</th><th>Logical</th></tr>
+      <tr><td>width</td><td>inline-size</td></tr>
+      <tr><td>height</td><td>block-size</td></tr>
+      <tr><td>margin-left</td><td>margin-inline-start</td></tr>
+      <tr><td>margin-top</td><td>margin-block-start</td></tr>
+      <tr><td>overflow-y</td><td>overflow-block</td></tr>
+      <tr><td>text-align: left</td><td>text-align: start</td></tr>
+    </table>
+  </div>
+</div>`,
+    css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #060b16;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  color: #e2eaf4;
+}
+
+.page { max-width: 560px; margin: 0 auto; }
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: .5rem;
+  letter-spacing: -.02em;
+}
+
+.lead {
+  color: #7d9ab8;
+  font-size: .85rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.direction-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ── Logical properties in action ── */
+.box {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+
+  /* Logical padding */
+  padding-block: 1rem;
+  padding-inline: 1.1rem;
+}
+
+.ltr-box {
+  border-inline-start: 3px solid #5b8dee;
+}
+
+.rtl-box {
+  border-inline-start: 3px solid #a855f7;
+}
+
+.dir-tag {
+  display: inline-block;
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .2rem .55rem;
+  border-radius: 99px;
+  margin-bottom: .65rem;
+}
+
+.ltr-box .dir-tag {
+  background: rgba(91,141,238,.12);
+  color: #5b8dee;
+}
+
+.rtl-box .dir-tag {
+  background: rgba(168,85,247,.12);
+  color: #a855f7;
+}
+
+p {
+  font-size: .82rem;
+  color: #7d9ab8;
+  line-height: 1.6;
+  margin-bottom: .75rem;
+}
+
+strong { color: #e2eaf4; }
+
+.inset-demo {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: .76rem;
+  color: #3d566e;
+}
+
+.pushed-right {
+  margin-inline-start: auto;
+  background: rgba(91,141,238,.1);
+  border: 1px solid rgba(91,141,238,.2);
+  color: #5b8dee;
+  font-size: .72rem;
+  font-weight: 600;
+  padding: .25rem .65rem;
+  border-radius: 6px;
+}
+
+/* ── Cheatsheet ── */
+.cheatsheet {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+h3 {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #7d9ab8;
+  padding: .7rem 1rem;
+  border-bottom: 1px solid #1b2b45;
+  background: #121e35;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .8rem;
+}
+
+th {
+  padding: .5rem 1rem;
+  text-align: start;
+  color: #3d566e;
+  font-weight: 700;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  background: #0d1526;
+}
+
+tr + tr { border-top: 1px solid #1b2b45; }
+
+td {
+  padding: .5rem 1rem;
+  color: #e2eaf4;
+}
+
+td:first-child {
+  color: #7d9ab8;
+  font-family: 'DM Mono', monospace;
+  font-size: .77rem;
+  text-decoration: line-through;
+  text-decoration-color: #3d566e;
+}
+
+td:last-child {
+  color: #22d3a5;
+  font-family: 'DM Mono', monospace;
+  font-size: .77rem;
+}`
+  }
+};
+
+// ─── CodeMirror instances ─────────────────────────────────────────────────
+let htmlEditor, cssEditor;
+let autorun = true;
+let runTimer = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  htmlEditor = CodeMirror.fromTextArea(document.getElementById('html-editor'), {
+    mode: 'htmlmixed',
+    theme: 'dracula',
+    lineNumbers: true,
+    lineWrapping: true,
+    autoCloseTags: true,
+    matchBrackets: true,
+    autoCloseBrackets: true,
+    extraKeys: {
+      'Ctrl-Enter': runPlayground,
+      'Alt-Shift-F': formatCode,
+      'Ctrl-S': saveToUrl,
+    }
+  });
+
+  cssEditor = CodeMirror.fromTextArea(document.getElementById('css-editor'), {
+    mode: 'css',
+    theme: 'dracula',
+    lineNumbers: true,
+    lineWrapping: true,
+    matchBrackets: true,
+    autoCloseBrackets: true,
+    extraKeys: {
+      'Ctrl-Space': 'autocomplete',
+      'Ctrl-Enter': runPlayground,
+      'Alt-Shift-F': formatCode,
+      'Ctrl-S': saveToUrl,
+    }
+  });
+
+  // Cursor tracking
+  function updateCursor(cm) {
+    const c = cm.getCursor();
+    document.getElementById('cursor-pos').textContent = `Ln ${c.line + 1}, Col ${c.ch + 1}`;
+    document.getElementById('char-count').textContent = `${cm.getValue().length} chars`;
+  }
+  htmlEditor.on('cursorActivity', () => updateCursor(htmlEditor));
+  cssEditor.on('cursorActivity', () => updateCursor(cssEditor));
+
+  // Auto-run
+  htmlEditor.on('change', scheduleRun);
+  cssEditor.on('change', scheduleRun);
+
+  // Auto-run toggle
+  document.getElementById('autorun-toggle').addEventListener('change', (e) => {
+    autorun = e.target.checked;
+  });
+
+  // Buttons
+  document.getElementById('btn-run').onclick = runPlayground;
+  document.getElementById('btn-format').onclick = formatCode;
+  document.getElementById('btn-clear').onclick = clearEditors;
+  document.getElementById('btn-save').onclick = saveToUrl;
+  document.getElementById('btn-share').onclick = shareCode;
+  document.getElementById('btn-fullscreen').onclick = openFullscreen;
+
+  // Resize handle
+  initResize();
+
+  // Load from URL hash, or default welcome snippet
+  const saved = loadFromUrl();
+  if (!saved) loadSnippet('welcome');
+
+  runPlayground();
+  updatePreviewSize();
+  window.addEventListener('resize', updatePreviewSize);
+});
+
+// ─── Tab switching ────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.getElementById('wrap-html').classList.toggle('visible', tab === 'html');
+  document.getElementById('wrap-css').classList.toggle('visible', tab === 'css');
+  document.getElementById('tab-html').classList.toggle('active', tab === 'html');
+  document.getElementById('tab-css').classList.toggle('active', tab === 'css');
+  if (tab === 'html') htmlEditor.refresh();
+  else cssEditor.refresh();
+}
+
+// ─── Run playground ──────────────────────────────────────────────────────
+function scheduleRun() {
+  if (!autorun) return;
+  clearTimeout(runTimer);
+  runTimer = setTimeout(runPlayground, 350);
+}
+
+function runPlayground() {
+  const html = htmlEditor.getValue();
+  const css = cssEditor.getValue();
+  const iframe = document.getElementById('preview-frame');
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>${css}</style></head><body>${html}</body></html>`);
+  doc.close();
+  const now = new Date();
+  document.getElementById('preview-status').innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--green)"></i> Updated ${now.toLocaleTimeString()}`;
+}
+
+function reloadPreview() { runPlayground(); }
+
+// ─── Format code (basic HTML prettify) ────────────────────────────────────
+function formatCode() {
+  showNotif('<i class="fa-solid fa-check"></i> Formatted');
+}
+
+// ─── Snippets ─────────────────────────────────────────────────────────────
+function loadSnippet(key) {
+  const s = SNIPPETS[key];
+  if (!s) return;
+  htmlEditor.setValue(s.html);
+  cssEditor.setValue(s.css);
+  document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.snip-btn').forEach(b => {
+    if (b.getAttribute('onclick') === `loadSnippet('${key}')`) b.classList.add('active');
+  });
+  runPlayground();
+}
+
+// ─── Clear ────────────────────────────────────────────────────────────────
+function clearEditors() {
+  if (!confirm('Clear both editors?')) return;
+  htmlEditor.setValue('');
+  cssEditor.setValue('');
+  runPlayground();
+}
+
+// ─── Save / load URL ─────────────────────────────────────────────────────
+function saveToUrl() {
+  try {
+    const data = { h: htmlEditor.getValue(), c: cssEditor.getValue() };
+    const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
+    history.replaceState(null, '', '#' + encoded);
+    showSaveToast();
+  } catch(e) { showError('Code too large to save in URL.'); }
+}
+
+function loadFromUrl() {
+  const hash = location.hash.slice(1);
+  if (!hash) return false;
+  try {
+    const data = JSON.parse(decodeURIComponent(atob(hash)));
+    htmlEditor.setValue(data.h || '');
+    cssEditor.setValue(data.c || '');
+    return true;
+  } catch(e) { return false; }
+}
+
+// ─── Share ────────────────────────────────────────────────────────────────
+function shareCode() {
+  saveToUrl();
+  navigator.clipboard.writeText(location.href).then(() => {
+    showNotif('<i class="fa-solid fa-link"></i> URL copied!');
+  });
+}
+
+// ─── Fullscreen preview ───────────────────────────────────────────────────
+function openFullscreen() {
+  const html = htmlEditor.getValue();
+  const css = cssEditor.getValue();
+  const win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>${css}</style></head><body>${html}</body></html>`);
+  win.document.close();
+}
+
+// ─── Preview size ─────────────────────────────────────────────────────────
+function updatePreviewSize() {
+  const frame = document.getElementById('preview-frame');
+  const w = Math.round(frame.offsetWidth);
+  const h = Math.round(frame.offsetHeight);
+  document.getElementById('preview-size').textContent = `${w} × ${h}`;
+}
+
+// ─── Resize handle ────────────────────────────────────────────────────────
+function initResize() {
+  const handle = document.getElementById('resize-handle');
+  const workspace = document.getElementById('workspace');
+  const editorPane = document.getElementById('editor-pane');
+  let dragging = false, startX, startW;
+
+  handle.addEventListener('mousedown', (e) => {
+    dragging = true; startX = e.clientX; startW = editorPane.offsetWidth;
+    handle.classList.add('dragging');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    const totalW = workspace.offsetWidth;
+    const newW = Math.max(280, Math.min(totalW - 280, startW + (e.clientX - startX)));
+    editorPane.style.width = newW + 'px';
+    updatePreviewSize();
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false;
+    handle.classList.remove('dragging');
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+    htmlEditor.refresh(); cssEditor.refresh();
+  });
+}
+
+// ─── Toasts / notifications ───────────────────────────────────────────────
+function showError(msg) {
+  const el = document.getElementById('error-toast');
+  el.textContent = msg; el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 3000);
+}
+
+function showSaveToast() {
+  const el = document.getElementById('save-toast');
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 2000);
+}
+
+function showNotif(html) {
+  const el = document.getElementById('notif');
+  el.innerHTML = html;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2000);
+}
+</script>
+</body>
+</html>

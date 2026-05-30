@@ -1,617 +1,2863 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 2027 — New Features & Browser Support | MastorsCDN</title>
     <meta name="description"
-        content="MastorsCDN - A powerful, lightweight SCSS mixin and CSS utility library for modern web development">
-    <title>MastorsCDN - Modern CSS Utility Library</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        content="Complete CSS 2027 feature documentation with browser support tables, live examples, and an interactive playground.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CSS 2027 Docs — MastorsCDN">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="icon" type="image/svg+xml"
+        href="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap"
         rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome 6 Pro -->
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/all.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/pro.min.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/sharp-duotone-thin.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/sharp-duotone-solid.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/sharp-duotone-regular.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/sharp-duotone-light.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/sharp-light.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/duotone-thin.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/duotone-regular.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/duotone-light.css">
+    <link rel="stylesheet" href="https://surajit-singha-sisir.github.io/FontAwesome-6-Pro/css/woff2.css">
 
-    <!-- Prism CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <!-- Prism -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-vsc-dark-plus.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" defer></script>
 
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-
-    <!-- Primary Meta -->
-    <meta name="title" content="MastorsCDN - Modern CSS Utility Library">
-    <meta name="description"
-        content="MastorsCDN is a powerful, lightweight SCSS mixin and CSS utility library built for modern, scalable web development.">
-
-    <!-- Open Graph / Facebook / Discord / WhatsApp -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://surajit-singha-sisir.github.io/mastorsCDN/">
-    <meta property="og:title" content="MastorsCDN - Modern CSS Utility Library">
-    <meta property="og:description"
-        content="A powerful, lightweight SCSS mixin and CSS utility library for modern web development.">
-    <meta property="og:image" content="https://surajit-singha-sisir.github.io/mastorsCDN/assets/banner.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://surajit-singha-sisir.github.io/mastorsCDN/">
-    <meta name="twitter:title" content="MastorsCDN - Modern CSS Utility Library">
-    <meta name="twitter:description"
-        content="A powerful, lightweight SCSS mixin and CSS utility library for modern web development.">
-    <meta name="twitter:image" content="https://surajit-singha-sisir.github.io/mastorsCDN/assets/banner.jpg">
-    <meta property="og:url" content="https://mastorscdn.kehem.com/">
-    <!-- App / Theme -->
-    <meta name="theme-color" content="#0f172a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <!-- Icons -->
-    <link rel="icon" type="image/svg+xml"
-        href="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg">
-    <link rel="apple-touch-icon"
-        href="https://surajit-singha-sisir.github.io/mastorsCDN/Resources/svg/logo/mastorsCDN-darkbg.svg">
-
-    <!-- Preload critical resources -->
-    <link rel="preload" href="dist/css/mastorscdn.css" as="style">
-    <link rel="preload" href="dist/js/main.js" as="script">
-
-    <!-- Stylesheets -->
+    <!-- MastorsCDN dist CSS -->
     <link rel="stylesheet" href="dist/css/mastorscdn.css">
 
-    <!-- Prevent FOUC -->
+
+
+
     <style>
-        body {
-            opacity: 0;
-            transition: opacity 0.2s ease;
+        :root {
+            --bg-deep: #070c18;
+            --bg-surface: #0d1526;
+            --bg-card: #111e35;
+            --bg-elevated: #162240;
+            --border: #1e2e4a;
+            --border-glow: #2a4070;
+            --text-1: #e8edf5;
+            --text-2: #8ea3bf;
+            --text-3: #4a6080;
+            --accent: #5b8dee;
+            --accent-2: #8b5cf6;
+            --accent-glow: rgba(91, 141, 238, .18);
+            --green: #22d3a5;
+            --amber: #f6a52a;
+            --rose: #f4456b;
+            --font-head: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'DM Mono', monospace;
         }
 
-        body.loaded {
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 18px;
+        }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--text-1);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-glow);
+            border-radius: 9999px;
+        }
+
+        /* ── Layout ─────────────────────────────── */
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ── Top bar ────────────────────────────── */
+        #topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            background: rgba(7, 12, 24, .85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            gap: 1rem;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .topbar-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .85rem;
+            color: white;
+            box-shadow: 0 0 16px var(--accent-glow);
+        }
+
+        .topbar-name {
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-1);
+        }
+
+        .topbar-tag {
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            background: var(--accent-glow);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: .2rem .6rem;
+            border-radius: 99px;
+        }
+
+        .topbar-nav {
+            display: flex;
+            align-items: center;
+            gap: .25rem;
+            margin-left: auto;
+        }
+
+        .topbar-nav a {
+            font-size: .95rem;
+            color: var(--text-2);
+            text-decoration: none;
+            padding: .5rem 1rem;
+            border-radius: 6px;
+            transition: color .2s, background .2s;
+        }
+
+        .topbar-nav a:hover {
+            color: var(--text-1);
+            background: var(--bg-card);
+        }
+
+        .topbar-nav a.highlight {
+            color: var(--accent);
+            background: var(--accent-glow);
+            border: 1px solid rgba(91, 141, 238, .3);
+        }
+
+        .topbar-nav a.highlight:hover {
+            background: rgba(91, 141, 238, .25);
+        }
+
+        #topbar-mobile-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-2);
+            font-size: 1.1rem;
+            padding: .4rem;
+        }
+
+        @media (max-width: 768px) {
+            #topbar-mobile-btn {
+                display: block;
+            }
+
+            .topbar-nav {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--bg-surface);
+                border-bottom: 1px solid var(--border);
+                flex-direction: column;
+                padding: .75rem;
+                z-index: 99;
+            }
+
+            .topbar-nav.open {
+                display: flex;
+            }
+        }
+
+        /* ── Sidebar ────────────────────────────── */
+        #sidebar {
+            width: 240px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 60px;
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border);
+            padding: 1.25rem .75rem;
+            transition: transform .3s;
+        }
+
+        #sidebar::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .sidebar-group-label {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            padding: .4rem .85rem;
+            margin-bottom: .25rem;
+            margin-top: 1rem;
+        }
+
+        .sidebar-group-label:first-child {
+            margin-top: 0;
+        }
+
+        .slink {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .5rem .85rem;
+            border-radius: 6px;
+            font-size: .92rem;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: all .2s;
+            border-left: 2px solid transparent;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .slink i {
+            font-size: .75rem;
+            width: 14px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .slink:hover {
+            color: var(--text-1);
+            background: var(--bg-card);
+            border-left-color: var(--border-glow);
+        }
+
+        .slink.active {
+            color: var(--accent);
+            background: var(--accent-glow);
+            border-left-color: var(--accent);
+        }
+
+        .slink.playground-link {
+            color: var(--accent);
+        }
+
+        @media (max-width: 1024px) {
+            #sidebar {
+                position: fixed;
+                left: 0;
+                top: 60px;
+                z-index: 90;
+                transform: translateX(-100%);
+                height: calc(100vh - 60px);
+            }
+
+            #sidebar.open {
+                transform: translateX(0);
+            }
+
+            #sidebar-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                z-index: 89;
+                background: rgba(0, 0, 0, .6);
+                top: 60px;
+            }
+
+            #sidebar-overlay.show {
+                display: block;
+            }
+        }
+
+        /* ── Main content ───────────────────────── */
+        #main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 3rem 3.5rem;
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            #main-content {
+                padding: 2rem 1.25rem;
+            }
+        }
+
+        /* ── Section titles ─────────────────────── */
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            margin-bottom: 1rem;
+        }
+
+        .sec-bar {
+            width: 3px;
+            height: 28px;
+            border-radius: 99px;
+            background: linear-gradient(180deg, var(--accent), var(--accent-2));
+            flex-shrink: 0;
+        }
+
+        .sec-title h2 {
+            font-family: var(--font-head);
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: var(--text-1);
+        }
+
+        .status-badge {
+            font-size: .62rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: .2rem .6rem;
+            border-radius: 99px;
+        }
+
+        .badge-stable {
+            background: rgba(34, 211, 165, .12);
+            color: var(--green);
+            border: 1px solid rgba(34, 211, 165, .3);
+        }
+
+        .badge-partial {
+            background: rgba(246, 165, 42, .12);
+            color: var(--amber);
+            border: 1px solid rgba(246, 165, 42, .3);
+        }
+
+        .badge-new {
+            background: rgba(91, 141, 238, .14);
+            color: var(--accent);
+            border: 1px solid rgba(91, 141, 238, .3);
+        }
+
+        .sec-lead {
+            color: var(--text-2);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .sec-lead code {
+            font-family: var(--font-mono);
+            font-size: .82rem;
+            color: var(--accent);
+            background: rgba(91, 141, 238, .1);
+            padding: .1rem .35rem;
+            border-radius: 4px;
+        }
+
+        /* ── Feature cards grid ─────────────────── */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .f-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.1rem 1rem;
+            transition: border-color .2s, box-shadow .2s, transform .2s;
+        }
+
+        .f-card:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, .3);
+            transform: translateY(-2px);
+        }
+
+        .f-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .85rem;
+            margin-bottom: .75rem;
+        }
+
+        .f-card h3 {
+            font-family: var(--font-head);
+            font-size: .88rem;
+            font-weight: 700;
+            color: var(--text-1);
+            margin-bottom: .35rem;
+        }
+
+        .f-card p {
+            font-size: .78rem;
+            color: var(--text-3);
+            line-height: 1.5;
+        }
+
+        /* ── Code + demo grid ───────────────────── */
+        .code-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .code-demo {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .code-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            padding: .5rem .85rem;
+        }
+
+        .code-lang {
+            font-size: .68rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--text-3);
+        }
+
+        .copy-btn {
+            font-size: .68rem;
+            color: var(--text-3);
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: .2rem .5rem;
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: all .2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        pre[class*="language-"] {
+            border-radius: 0 0 10px 10px !important;
+            margin: 0 !important;
+            font-size: .78rem !important;
+            max-height: 360px;
+            overflow: auto;
+            border: 1px solid var(--border);
+            border-top: none;
+            font-family: var(--font-mono) !important;
+        }
+
+        .demo-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: .75rem;
+        }
+
+        .demo-label {
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 0;
+        }
+
+        /* ── Browser support table ──────────────── */
+        .support-table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 580px;
+            font-size: .9rem;
+        }
+
+        thead {
+            background: var(--bg-card);
+        }
+
+        thead th {
+            padding: .75rem 1rem;
+            font-weight: 600;
+            color: var(--text-2);
+            text-align: left;
+        }
+
+        tbody tr {
+            border-top: 1px solid var(--border);
+            transition: background .15s;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, .02);
+        }
+
+        tbody td {
+            padding: .75rem 1rem;
+            color: var(--text-2);
+        }
+
+        tbody td:first-child {
+            color: var(--text-1);
+            font-weight: 500;
+        }
+
+        .sup-yes {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            background: rgba(34, 211, 165, .12);
+            color: var(--green);
+            border: 1px solid rgba(34, 211, 165, .25);
+            padding: .2rem .55rem;
+            border-radius: 99px;
+            font-size: .72rem;
+            font-weight: 600;
+        }
+
+        .sup-no {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            background: rgba(244, 69, 107, .1);
+            color: var(--rose);
+            border: 1px solid rgba(244, 69, 107, .2);
+            padding: .2rem .55rem;
+            border-radius: 99px;
+            font-size: .72rem;
+            font-weight: 600;
+        }
+
+        .sup-part {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            background: rgba(246, 165, 42, .1);
+            color: var(--amber);
+            border: 1px solid rgba(246, 165, 42, .2);
+            padding: .2rem .55rem;
+            border-radius: 99px;
+            font-size: .72rem;
+            font-weight: 600;
+        }
+
+        /* ── Hero section ───────────────────────── */
+        .hero {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2.5rem;
+            align-items: center;
+            padding: 4rem 0 3.5rem;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            left: -3.5rem;
+            right: -3.5rem;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 55% at 30% -10%, rgba(91, 141, 238, .18) 0%, transparent 65%),
+                radial-gradient(ellipse 50% 40% at 85% 80%, rgba(139, 92, 246, .12) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(91,141,238,.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(91,141,238,.05) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse 70% 80% at 20% 40%, black 0%, transparent 75%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: .55rem;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: rgba(91,141,238,.1);
+            border: 1px solid rgba(91,141,238,.25);
+            padding: .3rem .75rem .3rem .6rem;
+            border-radius: 99px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-eyebrow i {
+            font-size: .65rem;
+            animation: hero-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes hero-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .6; transform: scale(.85); }
+        }
+
+        .hero h1 {
+            font-family: var(--font-head);
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.08;
+            color: var(--text-1);
+            margin-bottom: 1.35rem;
+            letter-spacing: -.03em;
+            text-wrap: balance;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 520px;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-wrap: pretty;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: .75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: linear-gradient(135deg, var(--accent), #4a7ddd);
+            color: white;
+            font-size: .85rem;
+            font-weight: 600;
+            padding: .65rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all .25s;
+            box-shadow: 0 4px 20px rgba(91, 141, 238, .35), 0 1px 0 rgba(255,255,255,.1) inset;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(91, 141, 238, .45);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: transparent;
+            color: var(--accent);
+            font-size: .85rem;
+            font-weight: 600;
+            padding: .65rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 1px solid rgba(91, 141, 238, .4);
+            transition: all .25s;
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-glow);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-card);
+            overflow: hidden;
+        }
+
+        .stat-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: .2rem;
+            padding: 1rem 1.25rem;
+            border-right: 1px solid var(--border);
+            transition: background .2s;
+        }
+
+        .stat-item:last-child { border-right: none; }
+
+        .stat-item:hover { background: var(--bg-elevated); }
+
+        .stat-num {
+            font-family: var(--font-head);
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-1), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: .72rem;
+            color: var(--text-3);
+            letter-spacing: .04em;
+        }
+
+        /* Hero floating code card */
+        .hero-visual {
+            position: relative;
+            z-index: 1;
+            width: 320px;
+            flex-shrink: 0;
+        }
+
+        .hero-code-card {
+            background: #0d1117;
+            border: 1px solid var(--border-glow);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(91,141,238,.12);
+            font-family: var(--font-mono);
+            font-size: .72rem;
+            animation: hero-float 6s ease-in-out infinite;
+        }
+
+        @keyframes hero-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hcc-bar {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .65rem .85rem;
+            background: #161b22;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hcc-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+        }
+
+        .hcc-title {
+            font-family: var(--font-body);
+            font-size: .68rem;
+            color: var(--text-3);
+            margin-left: auto;
+            margin-right: auto;
+            letter-spacing: .04em;
+        }
+
+        .hcc-body {
+            padding: 1rem 1.1rem;
+            line-height: 1.7;
+        }
+
+        .c-comment { color: #6a737d; }
+        .c-at      { color: #ff7b72; }
+        .c-prop    { color: #79c0ff; }
+        .c-val     { color: #a5d6ff; }
+        .c-str     { color: #a8ff78; }
+        .c-num     { color: #f2cc60; }
+        .c-punc    { color: #8b949e; }
+
+        .hero-badge {
+            position: absolute;
+            bottom: -14px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .05em;
+            padding: .35rem .85rem;
+            border-radius: 99px;
+            box-shadow: 0 4px 16px rgba(91,141,238,.4);
+        }
+
+        @media (max-width: 960px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .hero-visual { display: none; }
+        }
+
+        /* ── Feature section block ──────────────── */
+        .feature-section {
+            margin-bottom: 4.5rem;
+            padding-bottom: 4.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feature-section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* ── Info callout ───────────────────────── */
+        .callout {
+            background: rgba(91, 141, 238, .06);
+            border: 1px solid rgba(91, 141, 238, .2);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            padding: .85rem 1.1rem;
+            font-size: .82rem;
+            color: var(--text-2);
+            display: flex;
+            gap: .75rem;
+            align-items: flex-start;
+        }
+
+        .callout i {
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .callout code {
+            font-family: var(--font-mono);
+            font-size: .79rem;
+            color: var(--accent);
+        }
+
+        /* ── section anchor offset ──────────────── */
+        [id] {
+            scroll-margin-top: 80px;
+        }
+
+        /* ── Footer ─────────────────────────────── */
+        #page-footer {
+            border-top: 1px solid var(--border);
+            background: var(--bg-surface);
+            padding: 2.5rem 3.5rem;
+        }
+
+        .footer-inner {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand-wrap {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+        }
+
+        .footer-name {
+            font-family: var(--font-head);
+            font-size: .9rem;
+            font-weight: 700;
+            color: var(--text-1);
+        }
+
+        .footer-tagline {
+            font-size: .75rem;
+            color: var(--text-3);
+        }
+
+        .footer-copy {
+            font-size: .75rem;
+            color: var(--text-3);
+            text-align: right;
+        }
+
+        .footer-copy a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer-copy a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            #page-footer {
+                padding: 2rem 1.25rem;
+            }
+
+            .footer-copy {
+                text-align: left;
+            }
+        }
+
+        /* ── DEMO component styles ───────────────── */
+        /* Container Query demo */
+        .cq-wrap {
+            container-type: inline-size;
+        }
+
+        .cq-card {
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-elevated);
+        }
+
+        @container (min-width: 360px) {
+            .cq-card {
+                display: flex;
+            }
+
+            .cq-card-img {
+                width: 100px;
+                flex-shrink: 0;
+            }
+        }
+
+        @container (max-width: 359px) {
+            .cq-card-img {
+                width: 100%;
+                height: 80px;
+            }
+        }
+
+        .cq-card-img {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .cq-card-body {
+            padding: .75rem;
+        }
+
+        .cq-card-title {
+            font-weight: 700;
+            color: var(--text-1);
+            font-size: .83rem;
+        }
+
+        .cq-card-text {
+            color: var(--text-2);
+            font-size: .75rem;
+            margin-top: .2rem;
+        }
+
+        /* Cascade layer demo */
+        @layer layer-base, layer-components, layer-utilities;
+
+        @layer layer-base {
+            .cl-btn {
+                background: #475569;
+                color: white;
+                padding: .45rem 1rem;
+                border-radius: 5px;
+                border: none;
+                cursor: pointer;
+                font-size: .8rem;
+                font-family: var(--font-body);
+            }
+        }
+
+        @layer layer-components {
+            .cl-btn {
+                background: var(--accent);
+                border-radius: 8px;
+                font-weight: 600;
+            }
+        }
+
+        @layer layer-utilities {
+            .cl-btn-alt {
+                background: #a855f7;
+            }
+        }
+
+        /* Color level 5 demo */
+        .color-swatches {
+            display: flex;
+            gap: .45rem;
+            flex-wrap: wrap;
+        }
+
+        .swatch {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+        }
+
+        /* :has() demo */
+        .has-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: .3rem;
+        }
+
+        .has-list li {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .45rem .6rem;
+            border-radius: 6px;
+            font-size: .82rem;
+            color: var(--text-1);
+            transition: all .25s;
+        }
+
+        .has-list li:has(input:checked) {
+            text-decoration: line-through;
+            opacity: .45;
+        }
+
+        .has-list input[type="checkbox"] {
+            accent-color: var(--accent);
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* Scroll demo */
+        .sd-scroll-box {
+            overflow-y: auto;
+            height: 180px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+        }
+
+        .sd-bar {
+            position: sticky;
+            top: 0;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 99px;
+            width: 0%;
+            transition: width .1s;
+        }
+
+        .sd-item {
+            padding: .65rem .85rem;
+            font-size: .8rem;
+            color: var(--text-2);
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity .4s, transform .4s;
+        }
+
+        .sd-item.visible {
             opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sd-item-1 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Subgrid demo */
+        .sg-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto 1fr auto;
+            gap: .6rem;
+        }
+
+        .sg-card {
+            display: grid;
+            grid-row: span 3;
+            grid-template-rows: subgrid;
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .sg-head {
+            background: var(--bg-surface);
+            padding: .55rem .75rem;
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--text-1);
+        }
+
+        .sg-body {
+            padding: .55rem .75rem;
+            font-size: .72rem;
+            color: var(--text-2);
+            line-height: 1.5;
+        }
+
+        .sg-foot {
+            padding: .45rem .75rem;
+            border-top: 1px solid var(--border);
+            font-size: .7rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* @property spin demo */
+        @property --rot-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        .prop-spin {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: conic-gradient(from var(--rot-angle), var(--accent), var(--accent-2), #ec4899, var(--accent));
+            animation: prop-rot 3s linear infinite;
+        }
+
+        @keyframes prop-rot {
+            to {
+                --rot-angle: 360deg;
+            }
+        }
+
+        /* View Transition demo box */
+        #vt-box {
+            height: 80px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-head);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+            transition: opacity .25s, transform .25s;
+        }
+
+        .vt-btn {
+            font-size: .78rem;
+            font-weight: 600;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            color: var(--text-2);
+            border-radius: 7px;
+            padding: .45rem 1rem;
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: all .2s;
+        }
+
+        .vt-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Logical props demo */
+        .lp-box {
+            padding: .75rem 1.1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .lp-box.ltr {
+            border-inline-start: 3px solid var(--accent);
+        }
+
+        .lp-box.rtl {
+            border-inline-start: 3px solid #a855f7;
+        }
+
+        .lp-label {
+            font-size: .75rem;
+            font-weight: 600;
+            color: var(--text-1);
+        }
+
+        .lp-desc {
+            font-size: .72rem;
+            color: var(--text-3);
+            margin-top: .15rem;
+        }
+
+        /* Anchor Positioning demo */
+        .ap-host {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+        }
+
+        .ap-btn {
+            anchor-name: --ap-btn;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: .5rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: .8rem;
+            font-weight: 600;
+            font-family: var(--font-body);
+        }
+
+        .ap-tip {
+            position: absolute;
+            position-anchor: --ap-btn;
+            top: anchor(top);
+            left: anchor(center);
+            translate: -50% calc(-100% - 10px);
+            background: var(--bg-elevated);
+            color: var(--text-1);
+            padding: .3rem .8rem;
+            border-radius: 6px;
+            font-size: .74rem;
+            white-space: nowrap;
+            border: 1px solid var(--border);
+            pointer-events: none;
         }
     </style>
 </head>
 
 <body>
-    <!-- Loading bar -->
-    <div id="loading-bar" class="loading-bar">
-        <div class="loading-bar__fill"></div>
-    </div>
 
-    <!-- Page transition overlay -->
-    <div id="page-transition" class="page-transition"></div>
+    <!-- ═══════ TOP BAR ═══════ -->
+    <header id="topbar">
+        <a href="index.html" class="topbar-brand">
+            <div class="topbar-logo"><i class="fa-solid fa-layer-group"></i></div>
+            <span class="topbar-name">MastorsCDN</span>
+            <span class="topbar-tag">CSS 2027</span>
+        </a>
+        <button id="topbar-mobile-btn" onclick="document.querySelector('.topbar-nav').classList.toggle('open')">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <nav class="topbar-nav">
+            <a href="#features">Features</a>
+            <a href="#browser-support">Browser Support</a>
+            <a href="#container-queries">Docs</a>
+            <a href="playground/index.html" class="highlight"><i class="fa-solid fa-code"></i> Playground</a>
+            <a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank"><i class="fa-brands fa-github"></i></a>
+        </nav>
+    </header>
 
-    <!-- Header slot -->
-    <header id="header-slot"></header>
+    <!-- ═══════ LAYOUT ═══════ -->
+    <div class="layout">
 
-    <!-- Navigation slot -->
-    <nav id="nav-slot"></nav>
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-background">
-            <div class="hero-grid"></div>
-            <div class="hero-gradient"></div>
-        </div>
+        <!-- ─── SIDEBAR ─── -->
+        <div id="sidebar-overlay" onclick="closeSidebar()"></div>
+        <aside id="sidebar">
+            <div class="sidebar-group-label">Getting Started</div>
+            <a href="#intro" class="slink"><i class="fa-solid fa-house"></i> Introduction</a>
+            <a href="#whats-new" class="slink"><i class="fa-solid fa-sparkles"></i> What's New</a>
+            <a href="#browser-support" class="slink"><i class="fa-brands fa-chrome"></i> Browser Support</a>
 
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <i class="fas fa-sparkles"></i>
-                    v1.0.0 Now Available
-                </div>
+            <div class="sidebar-group-label">CSS 2027 Features</div>
+            <a href="#container-queries" class="slink"><i class="fa-solid fa-box-archive"></i> Container Queries</a>
+            <a href="#cascade-layers" class="slink"><i class="fa-solid fa-layer-group"></i> Cascade Layers</a>
+            <a href="#color-level5" class="slink"><i class="fa-solid fa-palette"></i> Color Level 5</a>
+            <a href="#nesting" class="slink"><i class="fa-solid fa-code-branch"></i> CSS Nesting</a>
+            <a href="#scope" class="slink"><i class="fa-solid fa-circle-dot"></i> @scope</a>
+            <a href="#anchor-pos" class="slink"><i class="fa-solid fa-anchor"></i> Anchor Positioning</a>
+            <a href="#view-transitions" class="slink"><i class="fa-solid fa-wand-magic-sparkles"></i> View
+                Transitions</a>
+            <a href="#has-selector" class="slink"><i class="fa-solid fa-filter"></i> :has() Selector</a>
+            <a href="#scroll-driven" class="slink"><i class="fa-solid fa-scroll"></i> Scroll-Driven Anims</a>
+            <a href="#custom-props" class="slink"><i class="fa-solid fa-sliders"></i> @property</a>
+            <a href="#subgrid" class="slink"><i class="fa-solid fa-table-cells"></i> Subgrid</a>
+            <a href="#math-funcs" class="slink"><i class="fa-solid fa-square-root-variable"></i> Math Functions</a>
+            <a href="#logical-props" class="slink"><i class="fa-solid fa-arrows-left-right"></i> Logical Properties</a>
+            <a href="#starting-style" class="slink"><i class="fa-solid fa-wand-sparkles"></i> @starting-style</a>
+            <a href="#interpolate-size" class="slink"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> interpolate-size</a>
+            <a href="#text-wrap" class="slink"><i class="fa-solid fa-align-left"></i> text-wrap</a>
 
-                <h1 class="hero-title">
-                    Build Stunning Interfaces with
-                    <span class="gradient-text">MastorsCDN</span>
-                </h1>
+            <div class="sidebar-group-label">Tools</div>
+            <a href="playground/index.html" class="slink playground-link"><i class="fa-solid fa-play"></i> Live
+                Playground</a>
+        </aside>
 
-                <p class="hero-subtitle">
-                    A powerful, lightweight SCSS mixin and CSS utility library designed for CDN delivery.
-                    Create beautiful, responsive designs with minimal effort.
-                </p>
+        <!-- ─── MAIN ─── -->
+        <main id="main-content">
 
-                <div class="hero-actions">
-                    <a href="#get-started" class="btn btn-primary btn-lg">
-                        <i class="fas fa-rocket"></i>
-                        Get Started
-                    </a>
-                    <a href="#documentation" class="btn btn-outline btn-lg">
-                        <i class="fas fa-book"></i>
-                        Documentation
-                    </a>
-                </div>
-
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-value">50KB</div>
-                        <div class="stat-label">Minified Size</div>
+            <!-- ════ HERO ════ -->
+            <section id="intro" class="hero">
+                <div class="hero-content">
+                    <div class="hero-eyebrow"><i class="fa-solid fa-circle-dot"></i> CSS 2027 Documentation</div>
+                    <h1>The future of CSS<br>is <em>already here.</em></h1>
+                    <p class="hero-sub">Explore every major CSS feature landing in 2027 — container queries, anchor
+                        positioning, scroll-driven animations, and more — with live browser demos and full support tables.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#features" class="btn-primary"><i class="fa-solid fa-arrow-down"></i> Explore Features</a>
+                        <a href="playground/index.html" class="btn-outline"><i class="fa-solid fa-code"></i> Open
+                            Playground</a>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-value">100+</div>
-                        <div class="stat-label">Utility Classes</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">2</div>
-                        <div class="stat-label">Core Libraries</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">MIT</div>
-                        <div class="stat-label">Open Source</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero-visual">
-                <div class="code-window">
-                    <div class="code-window-header">
-                        <div class="code-window-dots">
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-num">16</span>
+                            <span class="stat-label">New Features</span>
                         </div>
-                        <div class="code-window-title">styles.scss</div>
+                        <div class="stat-item">
+                            <span class="stat-num">96%</span>
+                            <span class="stat-label">Chromium Support</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">2027</span>
+                            <span class="stat-label">Spec Year</span>
+                        </div>
                     </div>
-                    <div class="code-window-content">
-                        <pre><code class="language-scss">@import 'mastors-fluider';
-@import 'mastors-gridder';
+                </div>
+                <!-- Floating code card -->
+                <div class="hero-visual">
+                    <div class="hero-code-card">
+                        <div class="hcc-bar">
+                            <div class="hcc-dot" style="background:#ff5f57"></div>
+                            <div class="hcc-dot" style="background:#febc2e"></div>
+                            <div class="hcc-dot" style="background:#28c840"></div>
+                            <span class="hcc-title">styles.css — CSS 2027</span>
+                        </div>
+                        <div class="hcc-body">
+                            <div><span class="c-comment">/* 📌 New in 2027 */</span></div>
+                            <div><span class="c-at">@starting-style</span> <span class="c-punc">{</span></div>
+                            <div>&nbsp;&nbsp;<span class="c-prop">.dialog</span> <span class="c-punc">{</span></div>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-prop">opacity</span><span class="c-punc">:</span> <span class="c-num">0</span><span class="c-punc">;</span></div>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-prop">translate</span><span class="c-punc">:</span> <span class="c-num">0</span> <span class="c-num">-16px</span><span class="c-punc">;</span></div>
+                            <div>&nbsp;&nbsp;<span class="c-punc">}</span></div>
+                            <div><span class="c-punc">}</span></div>
+                            <br>
+                            <div><span class="c-prop">:root</span> <span class="c-punc">{</span></div>
+                            <div>&nbsp;&nbsp;<span class="c-prop">interpolate-size</span><span class="c-punc">:</span></div>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">allow-keywords</span><span class="c-punc">;</span></div>
+                            <div><span class="c-punc">}</span></div>
+                            <br>
+                            <div><span class="c-prop">h1</span> <span class="c-punc">{</span></div>
+                            <div>&nbsp;&nbsp;<span class="c-prop">text-wrap</span><span class="c-punc">:</span> <span class="c-str">balance</span><span class="c-punc">;</span></div>
+                            <div><span class="c-punc">}</span></div>
+                        </div>
+                    </div>
+                    <div class="hero-badge"><i class="fa-solid fa-sparkles"></i> 3 new features</div>
+                </div>
+            </section>
 
-.hero {
-  @include fluid-size(padding, 2rem, 4rem);
-  @include grid-container(12, 1rem);
-  
-  .title {
-    @include fluid-font(2rem, 4rem);
-    background: linear-gradient(135deg, #6366f1, #a855f7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+            <!-- ════ WHAT'S NEW ════ -->
+            <section id="whats-new" style="margin-bottom:4rem;">
+                <div class="sec-title">
+                    <div class="sec-bar"></div>
+                    <h2>What's New in CSS 2027</h2>
+                </div>
+                <p class="sec-lead">CSS 2027 consolidates years of specification work into stable, interoperable
+                    features across all major engines. From native scoping to physics-aware animations, this is the most
+                    significant CSS release in a decade.</p>
+                <div class="feature-grid" id="features">
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(91,141,238,.15);color:var(--accent)"><i
+                                class="fa-solid fa-box-archive"></i></div>
+                        <h3>Container Queries</h3>
+                        <p>Style elements based on their container's size — not the viewport.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(139,92,246,.15);color:#a78bfa"><i
+                                class="fa-solid fa-layer-group"></i></div>
+                        <h3>Cascade Layers</h3>
+                        <p>Explicit control over cascade precedence with <code
+                                style="color:#a78bfa;font-family:var(--font-mono);font-size:.78rem">@layer</code>.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(244,69,107,.12);color:#f4456b"><i
+                                class="fa-solid fa-palette"></i></div>
+                        <h3>Color Level 5</h3>
+                        <p>Relative colors, <code
+                                style="color:#f4456b;font-family:var(--font-mono);font-size:.78rem">color-mix()</code>,
+                            and wide-gamut OKLCH spaces.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(246,165,42,.12);color:var(--amber)"><i
+                                class="fa-solid fa-code-branch"></i></div>
+                        <h3>Native CSS Nesting</h3>
+                        <p>Nest selectors inside parents — no preprocessor needed.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(20,184,166,.12);color:#2dd4bf"><i
+                                class="fa-solid fa-circle-dot"></i></div>
+                        <h3>@scope</h3>
+                        <p>Limit style rules to a specific DOM subtree with a lower boundary.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(6,182,212,.12);color:#22d3ee"><i
+                                class="fa-solid fa-anchor"></i></div>
+                        <h3>Anchor Positioning</h3>
+                        <p>Position floated elements relative to any anchor — zero JS.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(236,72,153,.12);color:#f472b6"><i
+                                class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <h3>View Transitions</h3>
+                        <p>Animate between DOM states and cross-page navigations.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(34,211,165,.12);color:var(--green)"><i
+                                class="fa-solid fa-filter"></i></div>
+                        <h3>:has() Selector</h3>
+                        <p>The long-awaited parent selector — style based on descendants.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(249,115,22,.12);color:#fb923c"><i
+                                class="fa-solid fa-scroll"></i></div>
+                        <h3>Scroll-Driven Animations</h3>
+                        <p>Tie animation progress to scroll position — no JS required.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(148,163,184,.1);color:#94a3b8"><i
+                                class="fa-solid fa-sliders"></i></div>
+                        <h3>@property</h3>
+                        <p>Typed, animatable custom properties with inheritance control.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(139,92,246,.12);color:#a78bfa"><i
+                                class="fa-solid fa-table-cells"></i></div>
+                        <h3>CSS Subgrid</h3>
+                        <p>Align nested grid children on the parent's track definitions.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(132,204,22,.12);color:#a3e635"><i
+                                class="fa-solid fa-square-root-variable"></i></div>
+                        <h3>Math Functions</h3>
+                        <p>sin(), cos(), round(), pow(), sqrt(), and more — in native CSS.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(59,130,246,.12);color:#60a5fa"><i
+                                class="fa-solid fa-arrows-left-right"></i></div>
+                        <h3>Logical Properties</h3>
+                        <p>Writing-mode-aware layout that works across LTR and RTL.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(20,184,166,.12);color:#2dd4bf"><i
+                                class="fa-solid fa-wand-sparkles"></i></div>
+                        <h3>@starting-style</h3>
+                        <p>Define entry animation states — animate from <code style="color:#2dd4bf;font-family:var(--font-mono);font-size:.78rem">display:none</code> without JS.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(168,85,247,.12);color:#c084fc"><i
+                                class="fa-solid fa-up-right-and-down-left-from-center"></i></div>
+                        <h3>interpolate-size</h3>
+                        <p>Animate to and from intrinsic sizes like <code style="color:#c084fc;font-family:var(--font-mono);font-size:.78rem">height: auto</code> natively.</p>
+                    </div>
+                    <div class="f-card">
+                        <div class="f-icon" style="background:rgba(234,179,8,.12);color:#facc15"><i
+                                class="fa-solid fa-align-left"></i></div>
+                        <h3>text-wrap: balance</h3>
+                        <p>Balance heading line lengths and prevent orphaned words — pure CSS.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════ BROWSER SUPPORT ════ -->
+            <section id="browser-support" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,var(--green),#0d9488)"></div>
+                    <h2>Browser Support Matrix</h2>
+                </div>
+                <p class="sec-lead">As of mid-2026, all major features are shipping in Chromium. Firefox and Safari are
+                    close behind. The table below reflects stable releases, not experimental flags.</p>
+                <div class="support-table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th><i class="fa-brands fa-chrome" style="color:#f59e0b"></i> Chrome</th>
+                                <th><i class="fa-brands fa-firefox" style="color:#f97316"></i> Firefox</th>
+                                <th><i class="fa-brands fa-safari" style="color:#60a5fa"></i> Safari</th>
+                                <th><i class="fa-brands fa-edge" style="color:#38bdf8"></i> Edge</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Container Queries</td>
+                                <td><span class="sup-yes">105+</span></td>
+                                <td><span class="sup-yes">110+</span></td>
+                                <td><span class="sup-yes">16+</span></td>
+                                <td><span class="sup-yes">105+</span></td>
+                            </tr>
+                            <tr>
+                                <td>Cascade Layers <code
+                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">@layer</code>
+                                </td>
+                                <td><span class="sup-yes">99+</span></td>
+                                <td><span class="sup-yes">97+</span></td>
+                                <td><span class="sup-yes">15.4+</span></td>
+                                <td><span class="sup-yes">99+</span></td>
+                            </tr>
+                            <tr>
+                                <td>Color Level 5 <code
+                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">color-mix()</code>
+                                </td>
+                                <td><span class="sup-yes">111+</span></td>
+                                <td><span class="sup-yes">113+</span></td>
+                                <td><span class="sup-yes">16.2+</span></td>
+                                <td><span class="sup-yes">111+</span></td>
+                            </tr>
+                            <tr>
+                                <td>Native CSS Nesting</td>
+                                <td><span class="sup-yes">112+</span></td>
+                                <td><span class="sup-yes">117+</span></td>
+                                <td><span class="sup-yes">17.2+</span></td>
+                                <td><span class="sup-yes">112+</span></td>
+                            </tr>
+                            <tr>
+                                <td><code
+                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">@scope</code>
+                                </td>
+                                <td><span class="sup-yes">118+</span></td>
+                                <td><span class="sup-part">Partial</span></td>
+                                <td><span class="sup-yes">17.4+</span></td>
+                                <td><span class="sup-yes">118+</span></td>
+                            </tr>
+                            <tr>
+                                <td>Anchor Positioning</td>
+                                <td><span class="sup-yes">125+</span></td>
+                                <td><span class="sup-part">Flag</span></td>
+                                <td><span class="sup-part">Preview</span></td>
+                                <td><span class="sup-yes">125+</span></td>
+                            </tr>
+                            <tr>
+                                <td>View Transitions API</td>
+                                <td><span class="sup-yes">111+</span></td>
+                                <td><span class="sup-yes">128+</span></td>
+                                <td><span class="sup-yes">18+</span></td>
+                                <td><span class="sup-yes">111+</span></td>
+                            </tr>
+                            <tr>
+                                <td><code
+                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">:has()</code>
+                                    Selector</td>
+                                <td><span class="sup-yes">105+</span></td>
+                                <td><span class="sup-yes">103+</span></td>
+                                <td><span class="sup-yes">15.4+</span></td>
+                                <td><span class="sup-yes">105+</span></td>
+                            </tr>
+                            <tr>
+                                <td>Scroll-Driven Animations</td>
+                                <td><span class="sup-yes">115+</span></td>
+                                <td><span class="sup-yes">110+</span></td>
+                                <td><span class="sup-part">Preview</span></td>
+                                <td><span class="sup-yes">115+</span></td>
+                            </tr>
+                            <tr>
+                                <td><code
+                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">@property</code>
+                                </td>
+                                <td><span class="sup-yes">85+</span></td>
+                                <td><span class="sup-yes">128+</span></td>
+                                <td><span class="sup-yes">16.4+</span></td>
+                                <td><span class="sup-yes">85+</span></td>
+                            </tr>
+                            <tr>
+                                <td>CSS Subgrid</td>
+                                <td><span class="sup-yes">117+</span></td>
+                                <td><span class="sup-yes">71+</span></td>
+                                <td><span class="sup-yes">16+</span></td>
+                                <td><span class="sup-yes">117+</span></td>
+                            </tr>
+                            <tr>
+                                <td>Math Functions <code
+                                        style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">sin()/cos()</code>
+                                </td>
+                                <td><span class="sup-yes">111+</span></td>
+                                <td><span class="sup-yes">108+</span></td>
+                                <td><span class="sup-yes">15.4+</span></td>
+                                <td><span class="sup-yes">111+</span></td>
+                            </tr>
+                            <tr>
+                                <td>Logical Properties</td>
+                                <td><span class="sup-yes">89+</span></td>
+                                <td><span class="sup-yes">41+</span></td>
+                                <td><span class="sup-yes">15+</span></td>
+                                <td><span class="sup-yes">89+</span></td>
+                            </tr>
+                            <tr>
+                                <td><code style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">@starting-style</code></td>
+                                <td><span class="sup-yes">117+</span></td>
+                                <td><span class="sup-yes">129+</span></td>
+                                <td><span class="sup-yes">17.5+</span></td>
+                                <td><span class="sup-yes">117+</span></td>
+                            </tr>
+                            <tr>
+                                <td><code style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">interpolate-size</code></td>
+                                <td><span class="sup-yes">129+</span></td>
+                                <td><span class="sup-part">Flag</span></td>
+                                <td><span class="sup-part">Preview</span></td>
+                                <td><span class="sup-yes">129+</span></td>
+                            </tr>
+                            <tr>
+                                <td><code style="font-family:var(--font-mono);font-size:.78rem;color:var(--accent)">text-wrap: balance</code></td>
+                                <td><span class="sup-yes">114+</span></td>
+                                <td><span class="sup-yes">121+</span></td>
+                                <td><span class="sup-yes">17.5+</span></td>
+                                <td><span class="sup-yes">114+</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="display:flex;gap:.75rem;flex-wrap:wrap;font-size:.72rem;">
+                    <span class="sup-yes">Fully Supported</span>
+                    <span class="sup-part">Partial / Flag</span>
+                    <span class="sup-no">Not Supported</span>
+                </div>
+            </section>
+
+            <!-- ════ 1. CONTAINER QUERIES ════ -->
+            <section id="container-queries" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar"></div>
+                    <h2>Container Queries</h2>
+                    <span class="status-badge badge-stable">Stable</span>
+                </div>
+                <p class="sec-lead">Apply styles based on a <em>parent container's</em> size instead of the viewport.
+                    This enables truly portable, self-contained components that adapt to any context they're placed in.
+                </p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">.card-wrapper {
+  container-type: inline-size;
+  container-name: card;
+}
+
+@container card (min-width: 380px) {
+  .card {
+    display: flex;
+    gap: 1rem;
+  }
+  .card__image {
+    width: 110px;
+    flex-shrink: 0;
+  }
+}
+
+@container card (max-width: 379px) {
+  .card {
+    display: block;
+  }
+  .card__image {
+    width: 100%;
+    height: 120px;
   }
 }</code></pre>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">
-                    <i class="fas fa-bolt"></i>
-                    Features
-                </div>
-                <h2 class="section-title">Everything You Need to Build Amazing UIs</h2>
-                <p class="section-subtitle">
-                    Powerful utilities and mixins that streamline your development workflow
-                </p>
-            </div>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-feather"></i>
-                    </div>
-                    <h3 class="feature-title">Lightweight</h3>
-                    <p class="feature-description">
-                        Only 50KB minified. Zero dependencies. Lightning-fast load times for optimal performance.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-screen"></i>
-                    </div>
-                    <h3 class="feature-title">Fully Responsive</h3>
-                    <p class="feature-description">
-                        Mobile-first approach with fluid typography and responsive grid systems that adapt to any
-                        screen.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-puzzle-piece"></i>
-                    </div>
-                    <h3 class="feature-title">Modular Design</h3>
-                    <p class="feature-description">
-                        Import only what you need. Tree-shakeable modules keep your bundle size minimal.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3 class="feature-title">Theming System</h3>
-                    <p class="feature-description">
-                        Built-in dark mode support with customizable color schemes and design tokens.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3 class="feature-title">SCSS Mixins</h3>
-                    <p class="feature-description">
-                        Powerful mixins for common patterns. Write less code, maintain consistency effortlessly.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3 class="feature-title">CDN Ready</h3>
-                    <p class="feature-description">
-                        Drop-in via CDN or install via NPM. Get started in seconds with zero configuration.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Libraries Section -->
-    <section class="libraries" id="libraries">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">
-                    <i class="fas fa-layer-group"></i>
-                    Core Libraries
-                </div>
-                <h2 class="section-title">Powerful Tools in Your Arsenal</h2>
-                <p class="section-subtitle">
-                    Two specialized libraries working in perfect harmony
-                </p>
-            </div>
-
-            <div class="libraries-grid">
-                <div class="library-card">
-                    <div class="library-header">
-                        <img src="https://kehem-it.github.io/Mastors-Fluider/assets/Mastors-Fluider-Logo.png"
-                            alt="Mastors Fluider" class="library-logo">
-                        <h3 class="library-name">Mastors Fluider</h3>
-                    </div>
-
-                    <p class="library-description">
-                        Create fluid, responsive typography and spacing that scales beautifully across all screen sizes
-                        with mathematical precision.
-                    </p>
-
-                    <div class="library-features">
-                        <div class="library-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Fluid Typography</span>
-                        </div>
-                        <div class="library-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Dynamic Spacing</span>
-                        </div>
-                        <div class="library-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Viewport-based Scaling</span>
-                        </div>
-                        <div class="library-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>CSS clamp() Support</span>
+                    <div class="demo-panel">
+                        <span class="demo-label">Live Output</span>
+                        <p style="font-size:.75rem;color:var(--text-3);font-style:italic">Resize the browser to see the
+                            card adapt:</p>
+                        <div class="cq-wrap">
+                            <div class="cq-card">
+                                <div class="cq-card-img"><i class="fa-solid fa-image"></i></div>
+                                <div class="cq-card-body">
+                                    <div class="cq-card-title">Adaptive Card</div>
+                                    <div class="cq-card-text">Responds to its container, not the viewport.</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="library-code">
-                        <pre><code class="language-scss">@include fluid-font(1rem, 2rem);
-@include fluid-size(padding, 1rem, 3rem);</code></pre>
-                    </div>
-
-                    <div class="library-actions">
-                        <a href="https://kehem-it.github.io/Mastors-Fluider/" target="_blank" class="btn btn-outline">
-                            <i class="fas fa-book"></i>
-                            Documentation
-                        </a>
-                        <a href="https://www.npmjs.com/package/mastors-fluider" target="_blank" class="btn btn-primary">
-                            <i class="fab fa-npm"></i>
-                            NPM Package
-                        </a>
-                    </div>
                 </div>
+                <div class="callout"><i class="fa-solid fa-circle-info"></i> <span>Use
+                        <code>container-type: inline-size</code> on the wrapper. Name containers with
+                        <code>container-name</code> to scope queries to specific ancestors. Containers can be
+                        nested.</span></div>
+            </section>
 
-                <div class="library-card">
-                    <div class="library-header">
-                        <img src="https://kehem-it.github.io/Mastors-Gridder/assets/gridder-logo.png"
-                            alt="Mastors Gridder" class="library-logo">
-                        <h3 class="library-name">Mastors Gridder</h3>
-                    </div>
-
-                    <p class="library-description">
-                        Advanced CSS Grid system with powerful mixins for creating complex, responsive layouts with
-                        minimal code.
-                    </p>
-
-                    <div class="library-features">
-                        <div class="library-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>12-Column Grid System</span>
+            <!-- ════ 2. CASCADE LAYERS ════ -->
+            <section id="cascade-layers" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#a78bfa,#7c3aed)"></div>
+                    <h2>Cascade Layers</h2>
+                    <span class="status-badge badge-stable">Stable</span>
+                </div>
+                <p class="sec-lead"><code>@layer</code> gives you explicit control over the cascade. Later-declared
+                    layers always win over earlier ones, regardless of selector specificity — ending the specificity war
+                    for good.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
                         </div>
-                        <div class="library-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Flexbox Utilities</span>
+                        <pre><code class="language-css">/* Declare order — last wins */
+@layer base, components, utilities;
+
+@layer base {
+  .button {
+    background: gray;
+    padding: .5rem 1rem;
+    color: white;
+  }
+}
+
+@layer components {
+  .button {
+    background: blue;
+    border-radius: .5rem;
+  }
+}
+
+@layer utilities {
+  /* Wins — even at low specificity */
+  .button-hot {
+    background: hotpink;
+  }
+}</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">Live Output</span>
+                        <p style="font-size:.75rem;color:var(--text-3)">Layer order: base → components → utilities</p>
+                        <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.25rem;">
+                            <button class="cl-btn">Components layer</button>
+                            <button class="cl-btn cl-btn-alt">Utilities override</button>
                         </div>
-                        <div class="library-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Auto-placement</span>
+                        <p style="font-size:.73rem;color:var(--text-3);margin-top:.5rem">The purple button uses a class
+                            from <code
+                                style="font-family:var(--font-mono);color:var(--accent);font-size:.78rem">@layer utilities</code>
+                            — overriding blue without specificity hacks.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════ 3. COLOR LEVEL 5 ════ -->
+            <section id="color-level5" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#f4456b,#e11d48)"></div>
+                    <h2>Color Level 5</h2>
+                    <span class="status-badge badge-stable">Stable</span>
+                </div>
+                <p class="sec-lead">CSS Color Level 5 introduces <code>color-mix()</code>, relative color syntax, and
+                    wide-gamut spaces like <code>oklch()</code> for perceptually uniform, design-token-friendly color
+                    systems.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
                         </div>
-                        <div class="library-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Gap Controls</span>
+                        <pre><code class="language-css">/* Blend two colors */
+.mixed {
+  background: color-mix(in oklch, blue 40%, white);
+}
+
+/* Relative color syntax */
+:root { --brand: oklch(55% .22 264); }
+.lighter {
+  background: oklch(from var(--brand) calc(l + .2) c h);
+}
+
+/* Wide-gamut OKLCH palette */
+:root {
+  --primary:    oklch(55% .22 264);
+  --primary-lg: oklch(70% .22 264);
+  --primary-dk: oklch(35% .22 264);
+}
+
+/* Display-P3 vivid colors */
+.vivid { color: color(display-p3 0 0.5 1); }</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">color-mix() — 20% steps</span>
+                        <div class="color-swatches">
+                            <div class="swatch" style="background:color-mix(in oklch,var(--accent) 100%,white)"
+                                title="100%"></div>
+                            <div class="swatch" style="background:color-mix(in oklch,var(--accent) 80%,white)"
+                                title="80%"></div>
+                            <div class="swatch" style="background:color-mix(in oklch,var(--accent) 60%,white)"
+                                title="60%"></div>
+                            <div class="swatch" style="background:color-mix(in oklch,var(--accent) 40%,white)"
+                                title="40%"></div>
+                            <div class="swatch" style="background:color-mix(in oklch,var(--accent) 20%,white)"
+                                title="20%"></div>
+                            <div class="swatch"
+                                style="background:color-mix(in oklch,var(--accent) 5%,white);border:1px solid var(--border)"
+                                title="5%"></div>
+                        </div>
+                        <span class="demo-label" style="margin-top:.5rem">OKLCH hue rotation</span>
+                        <div class="color-swatches">
+                            <div class="swatch" style="background:oklch(60% .22 0)"></div>
+                            <div class="swatch" style="background:oklch(60% .22 60)"></div>
+                            <div class="swatch" style="background:oklch(60% .22 120)"></div>
+                            <div class="swatch" style="background:oklch(60% .22 180)"></div>
+                            <div class="swatch" style="background:oklch(60% .22 240)"></div>
+                            <div class="swatch" style="background:oklch(60% .22 300)"></div>
                         </div>
                     </div>
-
-                    <div class="library-code">
-                        <pre><code class="language-scss">@include grid-container(12, 1.5rem);
-@include grid-item(1, 4, 1, 2);</code></pre>
-                    </div>
-
-                    <div class="library-actions">
-                        <a href="https://kehem-it.github.io/Mastors-Gridder/" target="_blank" class="btn btn-outline">
-                            <i class="fas fa-book"></i>
-                            Documentation
-                        </a>
-                        <a href="https://www.npmjs.com/package/mastors-gridder" target="_blank" class="btn btn-primary">
-                            <i class="fab fa-npm"></i>
-                            NPM Package
-                        </a>
-                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Get Started Section -->
-    <section class="get-started" id="get-started">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">
-                    <i class="fas fa-download"></i>
-                    Installation
+            <!-- ════ 4. CSS NESTING ════ -->
+            <section id="nesting" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,var(--amber),#d97706)"></div>
+                    <h2>Native CSS Nesting</h2>
+                    <span class="status-badge badge-stable">Stable</span>
                 </div>
-                <h2 class="section-title">Get Started in Seconds</h2>
-                <p class="section-subtitle">
-                    Choose your preferred installation method
-                </p>
-            </div>
+                <p class="sec-lead">Nest selectors directly inside parent rules — the same syntax you know from SASS,
+                    now a native CSS standard. No preprocessor, no build step, just CSS.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">.nav {
+  display: flex;
+  gap: 1rem;
+  background: #0f172a;
+  padding: .75rem 1rem;
+  border-radius: .75rem;
 
-            <div class="install-methods">
-                <div class="install-card">
-                    <div class="install-icon">
-                        <i class="fab fa-npm"></i>
-                    </div>
-                    <h3 class="install-title">NPM Installation</h3>
-                    <p class="install-description">Install via NPM for use in your build process</p>
-                    <div class="install-code">
-                        <pre><code class="language-bash">npm install mastorscdn</code></pre>
-                        <button class="copy-btn" data-copy="npm install mastorscdn">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                </div>
+  & a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color .2s;
 
-                <div class="install-card">
-                    <div class="install-icon">
-                        <i class="fas fa-link"></i>
-                    </div>
-                    <h3 class="install-title">CDN Link</h3>
-                    <p class="install-description">Quick drop-in via CDN for static projects</p>
-                    <div class="install-code">
-                        <pre><code class="language-html">&lt;link href="https://cdn.mastorscdn.com/mastorscdn.css" rel="stylesheet"&gt;</code></pre>
-                        <button class="copy-btn"
-                            data-copy='<link href="https://cdn.mastorscdn.com/mastorscdn.css" rel="stylesheet">'>
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+    &:hover { color: #818cf8; }
 
-            <div class="usage-example">
-                <h3 class="usage-title">Usage Example</h3>
-                <div class="code-tabs">
-                    <button class="code-tab active" data-tab="scss">SCSS</button>
-                    <button class="code-tab" data-tab="css">CSS</button>
-                    <button class="code-tab" data-tab="html">HTML</button>
-                    <button class="code-tab" data-tab="output">Output</button>
-                </div>
-                <div class="code-content">
-                    <div class="code-panel active" data-panel="scss">
-                        <pre><code class="language-scss">@import 'mastors-fluider';
-@import 'mastors-gridder';
-
-.container {
-  @include grid-container(12, 1.5rem);
-  @include fluid-size(padding, 1rem, 3rem);
-  
-  .card {
-    @include grid-item(1, 4, 1, 2);
-    @include fluid-size(padding, 1rem, 2rem);
-    background: var(--bg-elevated);
-    border-radius: var(--radius-lg);
-    
-    h2 {
-      @include fluid-font(1.5rem, 2.5rem);
-      color: var(--text-primary);
+    &.active {
+      color: white;
+      font-weight: 600;
     }
   }
+
+  /* Responsive — nested media query */
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 }</code></pre>
                     </div>
-                    <div class="code-panel" data-panel="css">
-                        <pre><code class="language-css">.container {
+                    <div class="demo-panel">
+                        <span class="demo-label">Live Output</span>
+                        <style>
+                            .n-nav {
+                                display: flex;
+                                gap: .5rem;
+                                background: #0f172a;
+                                padding: .5rem .75rem;
+                                border-radius: 8px;
+                            }
+
+                            .n-nav a {
+                                color: #94a3b8;
+                                text-decoration: none;
+                                font-size: .8rem;
+                                padding: .3rem .6rem;
+                                border-radius: 5px;
+                                transition: all .2s;
+                            }
+
+                            .n-nav a:hover {
+                                color: #818cf8;
+                                background: rgba(99, 102, 241, .12);
+                            }
+
+                            .n-nav a.n-act {
+                                color: white;
+                                font-weight: 700;
+                                background: rgba(99, 102, 241, .2);
+                            }
+                        </style>
+                        <nav class="n-nav">
+                            <a href="#" class="n-act">Home</a>
+                            <a href="#">Docs</a>
+                            <a href="#">Examples</a>
+                            <a href="#">Playground</a>
+                        </nav>
+                        <p style="font-size:.73rem;color:var(--text-3);margin-top:.5rem">Hover links to see <code
+                                style="font-family:var(--font-mono);color:var(--accent);font-size:.77rem">&:hover</code>
+                            styles applied.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════ 5. @SCOPE ════ -->
+            <section id="scope" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#2dd4bf,#0d9488)"></div>
+                    <h2>@scope</h2>
+                    <span class="status-badge badge-partial">Chrome 118+</span>
+                </div>
+                <p class="sec-lead"><code>@scope</code> restricts style rules to a specific DOM subtree. You can even
+                    define a lower boundary — a "scope limit" — so styles never leak into nested child components.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">/* Rules apply only inside .card */
+@scope (.card) {
+  p {
+    color: #60a5fa;
+    font-size: .875rem;
+  }
+  h3 { color: white; font-weight: 700; }
+}
+
+/* Scope with a lower boundary:
+   stops before entering .child-component */
+@scope (.card) to (.child-component) {
+  a {
+    color: #818cf8;
+    text-decoration: underline;
+  }
+}</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">Live Output</span>
+                        <style>
+                            @scope (.sc-card) {
+                                p {
+                                    color: #60a5fa;
+                                    font-size: .8rem;
+                                    margin-top: .25rem;
+                                }
+
+                                h3 {
+                                    color: white;
+                                    font-weight: 700;
+                                    font-size: .88rem;
+                                }
+                            }
+                        </style>
+                        <div class="sc-card"
+                            style="background:var(--bg-elevated);border-radius:8px;padding:.85rem;margin-bottom:.6rem;">
+                            <h3>Scoped Card</h3>
+                            <p>This paragraph is styled by <code
+                                    style="color:#818cf8;font-size:.75rem">@scope(.sc-card)</code>.</p>
+                        </div>
+                        <p style="font-size:.8rem;color:var(--text-1)">This paragraph is <em>outside</em> the scope —
+                            unstyled.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════ 6. ANCHOR POSITIONING ════ -->
+            <section id="anchor-pos" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#22d3ee,#0891b2)"></div>
+                    <h2>Anchor Positioning</h2>
+                    <span class="status-badge badge-partial">Chrome 125+</span>
+                </div>
+                <p class="sec-lead">Position absolutely-placed elements relative to any anchor in the DOM — without
+                    JavaScript. Perfect for tooltips, dropdowns, and context menus that need to stay tethered to their
+                    trigger.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">.anchor-btn {
+  anchor-name: --my-btn;
+}
+
+.tooltip {
+  position: absolute;
+  position-anchor: --my-btn;
+
+  top: anchor(top);
+  left: anchor(center);
+  translate: -50% calc(-100% - 8px);
+
+  background: #1e293b;
+  color: white;
+  padding: .25rem .75rem;
+  border-radius: .5rem;
+  font-size: .75rem;
+  white-space: nowrap;
+}</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">Live Output</span>
+                        <div class="ap-host">
+                            <div class="ap-tip">✦ Pure CSS anchored tooltip</div>
+                            <button class="ap-btn">Hover Me</button>
+                        </div>
+                        <p style="font-size:.73rem;color:var(--text-3)">Tooltip tethered via CSS — no JS scroll
+                            listeners.</p>
+                    </div>
+                </div>
+                <div class="callout"><i class="fa-solid fa-circle-info"></i> <span>Anchor positioning also supports
+                        <code>position-try-fallbacks</code> — automatically flip the tooltip if it overflows the
+                        viewport.</span></div>
+            </section>
+
+            <!-- ════ 7. VIEW TRANSITIONS ════ -->
+            <section id="view-transitions" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#f472b6,#be185d)"></div>
+                    <h2>View Transitions API</h2>
+                    <span class="status-badge badge-stable">Stable</span>
+                </div>
+                <p class="sec-lead">Animate between DOM states smoothly. JavaScript triggers the transition with
+                    <code>document.startViewTransition()</code>, and CSS controls the animation via
+                    <code>::view-transition-old/new</code> pseudo-elements.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS + JS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">::view-transition-old(root) {
+  animation: 300ms ease-out slide-out;
+}
+::view-transition-new(root) {
+  animation: 300ms ease-in slide-in;
+}
+
+@keyframes slide-out {
+  to { opacity: 0; transform: translateY(-16px); }
+}
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(16px); }
+}
+
+/* Per-element named transitions */
+.hero { view-transition-name: hero; }</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">Interactive Demo</span>
+                        <div id="vt-box" style="background:linear-gradient(135deg,var(--accent),var(--accent-2))">◆
+                            State A</div>
+                        <button class="vt-btn" onclick="triggerVT()"><i class="fa-solid fa-play"
+                                style="font-size:.7rem;color:var(--accent)"></i> Trigger Transition</button>
+                        <p style="font-size:.72rem;color:var(--text-3)">CSS animation demo. Real View Transitions
+                            require Chrome 111+.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════ 8. :HAS() ════ -->
+            <section id="has-selector" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,var(--green),#059669)"></div>
+                    <h2>:has() Selector</h2>
+                    <span class="status-badge badge-stable">Stable</span>
+                </div>
+                <p class="sec-lead">The <code>:has()</code> pseudo-class lets you style a parent based on its
+                    descendants — the "parent selector" the web has wanted for decades. It's one of the most powerful
+                    CSS selectors ever added.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">/* Style a card that contains an image */
+.card:has(img) {
+  grid-template-rows: 200px 1fr;
+}
+
+/* Strike through li when checkbox checked */
+li:has(input[type="checkbox"]:checked) {
+  text-decoration: line-through;
+  opacity: .5;
+}
+
+/* Float-label pattern — no JS */
+.field:has(input:not(:placeholder-shown)) label {
+  color: #818cf8;
+  transform: translateY(-1.5rem) scale(.85);
+}
+
+/* Dark sibling that follows a .featured card */
+.card:has(+ .card.featured) {
+  filter: brightness(.8);
+}</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">Live — Checkbox list</span>
+                        <p style="font-size:.73rem;color:var(--text-3)">Check items to see :has() apply styles:</p>
+                        <ul class="has-list">
+                            <li><input type="checkbox"> Container Queries docs</li>
+                            <li><input type="checkbox"> Test anchor positioning</li>
+                            <li><input type="checkbox"> Write scroll-driven demo</li>
+                            <li><input type="checkbox"> Explore color-mix()</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════ 9. SCROLL-DRIVEN ANIMATIONS ════ -->
+            <section id="scroll-driven" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#fb923c,#ea580c)"></div>
+                    <h2>Scroll-Driven Animations</h2>
+                    <span class="status-badge badge-partial">Chrome 115+</span>
+                </div>
+                <p class="sec-lead">Link an animation's progress directly to the scroll position using
+                    <code>animation-timeline</code>. Works for both global scroll and element visibility — zero JS
+                    required.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">/* Reading progress bar */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px; background: #5b8dee;
+  transform-origin: left;
+  animation: scaleX linear;
+  animation-timeline: scroll(root block);
+}
+
+@keyframes scaleX {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Fade in as element enters view */
+.reveal {
+  animation: fade-in linear both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 40%;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; translate: 0 30px; }
+  to   { opacity: 1; translate: 0 0; }
+}</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">Scroll inside this box ↓</span>
+                        <div class="sd-scroll-box" onscroll="sdScroll(this)" id="sd-box">
+                            <div class="sd-bar" id="sd-bar"></div>
+                            <div class="sd-item sd-item-1" style="padding-top:.5rem">Scroll down to reveal items ↓</div>
+                            <div class="sd-item sd-lazy">First scroll-triggered element</div>
+                            <div class="sd-item sd-lazy">Second element fades in</div>
+                            <div class="sd-item sd-lazy">Third — keeps going…</div>
+                            <div class="sd-item sd-lazy">Almost at the end…</div>
+                            <div class="sd-item sd-lazy">🎉 Scroll progress: 100%</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════ 10. @PROPERTY ════ -->
+            <section id="custom-props" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#94a3b8,#475569)"></div>
+                    <h2>@property — Typed Custom Properties</h2>
+                    <span class="status-badge badge-stable">Stable</span>
+                </div>
+                <p class="sec-lead"><code>@property</code> registers a custom property with a specific syntax type,
+                    initial value, and inheritance setting. This enables smooth animation of values that were previously
+                    unanimatable — like gradients.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.spinning-gradient {
+  background: conic-gradient(
+    from var(--gradient-angle),
+    #5b8dee, #8b5cf6,
+    #ec4899, #5b8dee
+  );
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  to { --gradient-angle: 360deg; }
+}
+
+/* Typed integer counter */
+@property --counter {
+  syntax: '<integer>';
+  initial-value: 0;
+  inherits: false;
+}
+.count { animation: count-up 2s ease-out; }
+@keyframes count-up { to { --counter: 100; } }</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">Live Output</span>
+                        <div style="display:flex;gap:1rem;align-items:center;justify-content:center;padding:.75rem 0;">
+                            <div class="prop-spin"></div>
+                            <div class="prop-spin" style="animation-direction:reverse;opacity:.7"></div>
+                        </div>
+                        <p style="font-size:.73rem;color:var(--text-3);text-align:center">Animated via <code
+                                style="font-family:var(--font-mono);color:var(--accent)">@property --rot-angle: &lt;angle&gt;</code>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════ 11. SUBGRID ════ -->
+            <section id="subgrid" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#a78bfa,#7c3aed)"></div>
+                    <h2>CSS Subgrid</h2>
+                    <span class="status-badge badge-stable">Stable</span>
+                </div>
+                <p class="sec-lead">Subgrid lets nested grid children participate in the parent grid's track
+                    definitions. Card footers align perfectly across cards of different content lengths — no flexbox
+                    hacks needed.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">.card-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 1.5rem;
-  padding: clamp(1rem, 2vw + 1rem, 3rem);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 1rem;
 }
 
 .card {
-  grid-column: 1 / 4;
-  grid-row: 1 / 2;
-  padding: clamp(1rem, 1vw + 1rem, 2rem);
-  background: var(--bg-elevated);
-  border-radius: var(--radius-lg);
+  display: grid;
+  grid-row: span 3;
+  /* Inherit parent row tracks */
+  grid-template-rows: subgrid;
 }
 
-.card h2 {
-  font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
-  color: var(--text-primary);
+/* Inner elements now align across cards */
+.card__title  { grid-row: 1; }
+.card__body   { grid-row: 2; }
+.card__footer { grid-row: 3; align-self: end; }</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">Aligned card rows via subgrid</span>
+                        <div class="sg-grid">
+                            <div class="sg-card">
+                                <div class="sg-head">Title</div>
+                                <div class="sg-body">Short description text here.</div>
+                                <div class="sg-foot">Read more →</div>
+                            </div>
+                            <div class="sg-card">
+                                <div class="sg-head">Longer Title Here</div>
+                                <div class="sg-body">This card has much more body text content, yet the footer stays
+                                    aligned with the others thanks to subgrid — zero extra JS.</div>
+                                <div class="sg-foot">Read more →</div>
+                            </div>
+                            <div class="sg-card">
+                                <div class="sg-head">Card Three</div>
+                                <div class="sg-body">Medium amount of text in this body area.</div>
+                                <div class="sg-foot">Read more →</div>
+                            </div>
+                        </div>
+                        <p style="font-size:.72rem;color:var(--text-3);margin-top:.5rem">Footers align at the bottom
+                            regardless of body height.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════ 12. MATH FUNCTIONS ════ -->
+            <section id="math-funcs" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#a3e635,#65a30d)"></div>
+                    <h2>Math Functions</h2>
+                    <span class="status-badge badge-stable">Stable</span>
+                </div>
+                <p class="sec-lead">CSS 2027 expands the math suite with <code>round()</code>, <code>mod()</code>,
+                    <code>sin()</code>, <code>cos()</code>, <code>atan2()</code>, <code>pow()</code>, and
+                    <code>sqrt()</code> — enabling true computational layouts without JavaScript.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">/* Fluid typography */
+.fluid { font-size: clamp(1rem, 2.5vw + .5rem, 2rem); }
+
+/* Snap to 4px grid */
+.snapped {
+  width: round(nearest, 37px, 4px); /* → 36px */
+}
+
+/* Circular layout — no JS */
+.orbit-item {
+  --angle: 45deg;
+  --r: 80px;
+  translate:
+    calc(cos(var(--angle)) * var(--r))
+    calc(sin(var(--angle)) * var(--r));
+}
+
+/* Fluid columns without media queries */
+.auto-grid {
+  grid-template-columns:
+    repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+}
+
+/* pow() and sqrt() */
+.golden { width: calc(pow(1.618, 3) * 1rem); }
+.diagonal { height: calc(sqrt(pow(3, 2) + pow(4, 2)) * 20px); }</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">Circular layout — cos() &amp; sin()</span>
+                        <div
+                            style="position:relative;width:160px;height:160px;display:flex;align-items:center;justify-content:center;margin:0 auto;">
+                            <div
+                                style="position:absolute;width:160px;height:160px;border-radius:50%;border:1px dashed var(--border)">
+                            </div>
+                            <div
+                                style="background:var(--accent);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;color:white;font-size:.7rem;font-weight:700;font-family:var(--font-head);z-index:1;">
+                                CSS</div>
+                            <div
+                                style="position:absolute;width:28px;height:28px;border-radius:50%;background:var(--bg-elevated);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.62rem;color:var(--accent);font-weight:700;left:calc(50% + 80px * cos(0deg) - 14px);top:calc(50% + 80px * sin(0deg) - 14px)">
+                                A</div>
+                            <div
+                                style="position:absolute;width:28px;height:28px;border-radius:50%;background:var(--bg-elevated);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.62rem;color:var(--accent);font-weight:700;left:calc(50% + 80px * cos(60deg) - 14px);top:calc(50% + 80px * sin(60deg) - 14px)">
+                                B</div>
+                            <div
+                                style="position:absolute;width:28px;height:28px;border-radius:50%;background:var(--bg-elevated);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.62rem;color:var(--accent);font-weight:700;left:calc(50% + 80px * cos(120deg) - 14px);top:calc(50% + 80px * sin(120deg) - 14px)">
+                                C</div>
+                            <div
+                                style="position:absolute;width:28px;height:28px;border-radius:50%;background:var(--bg-elevated);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.62rem;color:var(--accent);font-weight:700;left:calc(50% + 80px * cos(180deg) - 14px);top:calc(50% + 80px * sin(180deg) - 14px)">
+                                D</div>
+                            <div
+                                style="position:absolute;width:28px;height:28px;border-radius:50%;background:var(--bg-elevated);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.62rem;color:var(--accent);font-weight:700;left:calc(50% + 80px * cos(240deg) - 14px);top:calc(50% + 80px * sin(240deg) - 14px)">
+                                E</div>
+                            <div
+                                style="position:absolute;width:28px;height:28px;border-radius:50%;background:var(--bg-elevated);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.62rem;color:var(--accent);font-weight:700;left:calc(50% + 80px * cos(300deg) - 14px);top:calc(50% + 80px * sin(300deg) - 14px)">
+                                F</div>
+                        </div>
+                        <p style="font-size:.72rem;color:var(--text-3);text-align:center;margin-top:.5rem">Positioned
+                            using cos() and sin() — pure CSS</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════ 13. LOGICAL PROPERTIES ════ -->
+            <section id="logical-props" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#60a5fa,#2563eb)"></div>
+                    <h2>Logical Properties</h2>
+                    <span class="status-badge badge-stable">Stable</span>
+                </div>
+                <p class="sec-lead">Logical properties decouple layout from physical directions. Using
+                    <code>inline</code> and <code>block</code> instead of left/right/top/bottom makes your CSS work
+                    correctly in LTR, RTL, and vertical writing modes.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">/* Physical → Logical mapping:
+   margin-left  → margin-inline-start
+   margin-right → margin-inline-end
+   margin-top   → margin-block-start
+   width        → inline-size
+   height       → block-size
+*/
+
+.card {
+  margin-inline: auto;       /* centered */
+  padding-block: 1.5rem;
+  padding-inline: 1rem;
+  border-inline-start: 3px solid #5b8dee;
+  max-inline-size: 600px;
+}
+
+.scrollable {
+  block-size: 200px;
+  overflow-block: auto;      /* = overflow-y */
+}
+
+/* Works identically in RTL */
+[dir="rtl"] .card {
+  /* border-inline-start auto-flips to right */
 }</code></pre>
                     </div>
-                    <div class="code-panel" data-panel="html">
-                        <pre><code class="language-html">&lt;div class="container"&gt;
-  &lt;div class="card"&gt;
-    &lt;h2&gt;Card Title&lt;/h2&gt;
-    &lt;p&gt;Beautiful, responsive card with fluid sizing.&lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class="card"&gt;
-    &lt;h2&gt;Another Card&lt;/h2&gt;
-    &lt;p&gt;Scales perfectly across all devices.&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                    <div class="demo-panel">
+                        <span class="demo-label">LTR vs RTL — same CSS</span>
+                        <div class="lp-box ltr" style="margin-bottom:.6rem">
+                            <div class="lp-label">LTR direction</div>
+                            <div class="lp-desc"><code
+                                    style="font-family:var(--font-mono);color:var(--accent);font-size:.75rem">border-inline-start</code>
+                                renders on the left.</div>
+                        </div>
+                        <div class="lp-box rtl" dir="rtl">
+                            <div class="lp-label">نص بالعربية — RTL direction</div>
+                            <div class="lp-desc" style="text-align:right"><code
+                                    style="font-family:var(--font-mono);color:#a78bfa;font-size:.75rem">border-inline-start</code>
+                                auto-flips to the right.</div>
+                        </div>
                     </div>
-                    <div class="code-panel" data-panel="output">
-                        <div class="output-preview">
-                            <div class="preview-container">
-                                <div class="preview-card">
-                                    <h2 class="preview-card-title">Card Title</h2>
-                                    <p class="preview-card-text">Beautiful, responsive card with fluid sizing.</p>
+                </div>
+            </section>
+
+            <!-- ════ 14. @STARTING-STYLE ════ -->
+            <section id="starting-style" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#2dd4bf,#0d9488)"></div>
+                    <h2>@starting-style</h2>
+                    <span class="status-badge badge-stable">Chrome 117+</span>
+                </div>
+                <p class="sec-lead"><code>@starting-style</code> defines an element's styles <em>before</em> its first
+                    paint, enabling smooth entry animations from <code>display: none</code> — no JavaScript, no class
+                    toggling, no <code>requestAnimationFrame</code> hacks required.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">/* Animate dialog entry — zero JS */
+dialog {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity .3s ease,
+    translate .3s ease,
+    display .3s ease allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    translate: 0 -20px;
+  }
+}
+
+dialog[open] { display: block; }
+
+/* Toast notification */
+.toast {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity .4s, transform .4s,
+    display .4s allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.toast.hidden {
+  display: none;
+  opacity: 0;
+  transform: translateX(100%);
+}</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">Interactive Demo</span>
+                        <div id="ss-toast"
+                            style="padding:.75rem 1rem;background:var(--bg-elevated);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:8px;font-size:.82rem;color:var(--text-1);margin-bottom:.75rem;transition:opacity .4s,transform .4s;">
+                            <i class="fa-solid fa-circle-check" style="color:var(--green);margin-right:.5rem"></i>
+                            Entry animated via <code style="font-family:var(--font-mono);color:var(--accent)">@starting-style</code>
+                        </div>
+                        <button class="vt-btn" onclick="triggerStartingStyle()">
+                            <i class="fa-solid fa-rotate" style="font-size:.7rem;color:var(--accent)"></i> Re-trigger entry
+                        </button>
+                        <p style="font-size:.72rem;color:var(--text-3);margin-top:.5rem">Each click removes and re-adds the element, triggering <code style="font-family:var(--font-mono);color:var(--accent)">@starting-style</code>.</p>
+                    </div>
+                </div>
+                <div class="callout"><i class="fa-solid fa-circle-info"></i> <span>Pair with <code>transition: display allow-discrete</code> to also animate the <em>exit</em> state when the element is hidden with <code>display: none</code>.</span></div>
+            </section>
+
+            <!-- ════ 15. INTERPOLATE-SIZE ════ -->
+            <section id="interpolate-size" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#c084fc,#7c3aed)"></div>
+                    <h2>interpolate-size</h2>
+                    <span class="status-badge badge-partial">Chrome 129+</span>
+                </div>
+                <p class="sec-lead">Set <code>interpolate-size: allow-keywords</code> on <code>:root</code> to unlock
+                    smooth transitions to and from intrinsic sizing keywords like <code>height: auto</code>,
+                    <code>max-content</code>, and <code>fit-content</code> — the accordion animation devs have wanted for years.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">/* Opt in once at the root */
+:root {
+  interpolate-size: allow-keywords;
+}
+
+/* Accordion: animate to height: auto */
+.accordion-body {
+  height: 0;
+  overflow: hidden;
+  transition: height .4s ease;
+}
+
+.accordion-body.open {
+  height: auto; /* now animatable! */
+}
+
+/* Any intrinsic keyword works */
+.chip {
+  width: fit-content;
+  transition: width .3s ease;
+}
+
+.chip:hover {
+  width: max-content;
+}
+
+/* Details element native accordion */
+details {
+  height: 2rem;
+  overflow: hidden;
+  transition: height .4s ease;
+
+  &[open] { height: auto; }
+}</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">Animate to height: auto</span>
+                        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden">
+                            <button onclick="toggleAccordion(this)"
+                                style="width:100%;text-align:left;padding:.65rem .85rem;background:var(--bg-elevated);border:none;color:var(--text-1);font-size:.82rem;font-weight:600;font-family:var(--font-body);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+                                What is interpolate-size?
+                                <i class="fa-solid fa-chevron-down" style="color:var(--accent);font-size:.75rem;transition:transform .3s"></i>
+                            </button>
+                            <div class="is-body"
+                                style="height:0;overflow:hidden;transition:height .4s ease;">
+                                <div style="padding:.75rem .85rem;font-size:.8rem;color:var(--text-2);line-height:1.6">
+                                    <code style="font-family:var(--font-mono);color:var(--accent)">interpolate-size: allow-keywords</code> unlocks
+                                    CSS transitions to intrinsic sizing values. No JS height measurement, no <code style="font-family:var(--font-mono);color:var(--accent)">max-height</code> hacks.
+                                    Just native CSS animation from <code style="font-family:var(--font-mono);color:var(--accent)">height: 0</code> to <code style="font-family:var(--font-mono);color:var(--accent)">height: auto</code>.
                                 </div>
-                                <div class="preview-card">
-                                    <h2 class="preview-card-title">Another Card</h2>
-                                    <p class="preview-card-text">Scales perfectly across all devices.</p>
-                                </div>
+                            </div>
+                        </div>
+                        <p style="font-size:.72rem;color:var(--text-3);margin-top:.6rem">This accordion animates using only CSS transitions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════ 16. TEXT-WRAP ════ -->
+            <section id="text-wrap" class="feature-section">
+                <div class="sec-title">
+                    <div class="sec-bar" style="background:linear-gradient(180deg,#facc15,#ca8a04)"></div>
+                    <h2>text-wrap: balance &amp; pretty</h2>
+                    <span class="status-badge badge-stable">Stable</span>
+                </div>
+                <p class="sec-lead">Two values that eliminate the most common typographic headaches. <code>balance</code>
+                    evens out line lengths in short headings; <code>pretty</code> prevents orphaned words in long body
+                    text — both with zero JavaScript.</p>
+                <div class="code-demo">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                Copy</button>
+                        </div>
+                        <pre><code class="language-css">/* balance: even line lengths in headings */
+h1, h2, h3 {
+  text-wrap: balance;
+  /* Limit: ~6 lines (Chromium), 10 lines (Firefox) */
+}
+
+/* pretty: prevent orphans in body text */
+p, .prose {
+  text-wrap: pretty;
+}
+
+/* Shorthand */
+.hero-title {
+  text-wrap: balance;
+  /* Previously required JS + ResizeObserver! */
+}
+
+/* text-wrap is now a shorthand for: */
+.full-control {
+  text-wrap-mode: wrap;     /* wrap | nowrap */
+  text-wrap-style: balance; /* auto | balance | pretty | stable */
+}</code></pre>
+                    </div>
+                    <div class="demo-panel">
+                        <span class="demo-label">balance vs default</span>
+                        <div style="margin-bottom:.85rem">
+                            <div style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:.35rem">Default wrap</div>
+                            <div
+                                style="background:var(--bg-elevated);border-radius:6px;padding:.65rem .85rem;font-family:var(--font-head);font-weight:700;color:var(--text-1);font-size:.92rem;max-width:220px;line-height:1.3">
+                                Introducing powerful CSS features in 2027
+                            </div>
+                        </div>
+                        <div>
+                            <div style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem">text-wrap: balance</div>
+                            <div
+                                style="background:var(--bg-elevated);border:1px solid rgba(91,141,238,.25);border-radius:6px;padding:.65rem .85rem;font-family:var(--font-head);font-weight:700;color:var(--text-1);font-size:.92rem;max-width:220px;line-height:1.3;text-wrap:balance">
+                                Introducing powerful CSS features in 2027
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="callout"><i class="fa-solid fa-circle-info"></i> <span>Use <code>balance</code> on headings (up to 6 lines) and <code>pretty</code> on paragraphs. <code>text-wrap: pretty</code> has a small performance cost, so apply it selectively.</span></div>
+            </section>
+
+            <!-- ════ CTA ════ -->
+            <section style="text-align:center;padding:3rem 0;border-top:1px solid var(--border);">
+                <div
+                    style="display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">
+                    ◆ Ready to experiment?</div>
+                <h2
+                    style="font-family:var(--font-head);font-size:2rem;font-weight:800;color:var(--text-1);margin-bottom:.75rem">
+                    Try it in the Playground</h2>
+                <p style="color:var(--text-2);font-size:.92rem;max-width:500px;margin:0 auto 1.75rem">Write HTML and CSS
+                    side-by-side and see results update in real time. Load any of the 2027 feature snippets and edit
+                    live.</p>
+                <a href="playground/index.html" class="btn-primary" style="font-size:.9rem;padding:.7rem 1.75rem;">
+                    <i class="fa-solid fa-code"></i> Open Playground
+                </a>
+            </section>
+
+        </main>
+    </div><!-- end layout -->
+
+    <!-- ═══════ FOOTER ═══════ -->
+    <footer id="page-footer">
+        <div class="footer-inner">
+            <div class="footer-brand-wrap">
+                <div class="topbar-logo" style="width:28px;height:28px;font-size:.75rem"><i
+                        class="fa-solid fa-layer-group"></i></div>
+                <div>
+                    <div class="footer-name">MastorsCDN</div>
+                    <div class="footer-tagline">CSS 2027 Documentation</div>
+                </div>
+            </div>
+            <div class="footer-copy">
+                Built with <i class="fa-solid fa-heart" style="color:var(--rose)"></i> for the web.<br>
+                Specs from <a href="https://www.w3.org/Style/CSS/" target="_blank">W3C CSS WG</a> &amp; <a
+                    href="https://developer.mozilla.org" target="_blank">MDN</a>.
+                &copy; 2027 MastorsCDN by KEHEM-IT — MIT License.
             </div>
         </div>
-    </section>
+    </footer>
 
-    <!-- Showcase Section -->
-    <section class="showcase" id="showcase">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">
-                    <i class="fas fa-star"></i>
-                    Showcase
-                </div>
-                <h2 class="section-title">Built with MastorsCDN</h2>
-                <p class="section-subtitle">
-                    See what's possible with our library
-                </p>
-            </div>
+    <!-- ═══════ SCRIPTS ═══════ -->
+    <script>
+        // Sidebar mobile
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebar-overlay').classList.remove('show');
+        }
+        document.getElementById('topbar-mobile-btn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebar-overlay').classList.toggle('show');
+        });
 
-            <div class="swiper showcase-slider">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="showcase-card">
-                            <div class="showcase-image">
-                                <div class="showcase-placeholder">
-                                    <i class="fas fa-laptop-code"></i>
-                                </div>
-                            </div>
-                            <div class="showcase-content">
-                                <h3 class="showcase-title">E-Commerce Platform</h3>
-                                <p class="showcase-description">Modern shopping experience with fluid layouts and
-                                    responsive grids</p>
-                                <div class="showcase-tags">
-                                    <span class="tag">Fluider</span>
-                                    <span class="tag">Gridder</span>
-                                    <span class="tag">Dark Mode</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        // Active sidebar link on scroll
+        const slinks = document.querySelectorAll('.slink[href^="#"]');
+        window.addEventListener('scroll', () => {
+            let cur = '';
+            document.querySelectorAll('[id]').forEach(s => {
+                if (window.scrollY >= s.offsetTop - 100) cur = s.id;
+            });
+            slinks.forEach(l => {
+                l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+            });
+        }, { passive: true });
 
-                    <div class="swiper-slide">
-                        <div class="showcase-card">
-                            <div class="showcase-image">
-                                <div class="showcase-placeholder">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                            </div>
-                            <div class="showcase-content">
-                                <h3 class="showcase-title">Analytics Dashboard</h3>
-                                <p class="showcase-description">Data visualization with adaptive typography and grid
-                                    layouts</p>
-                                <div class="showcase-tags">
-                                    <span class="tag">Responsive</span>
-                                    <span class="tag">Gridder</span>
-                                    <span class="tag">Utilities</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        // Copy code
+        function copyCode(btn) {
+            const code = btn.closest('.code-block').querySelector('code');
+            if (!code) return;
+            navigator.clipboard.writeText(code.innerText).then(() => {
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                btn.style.background = 'var(--green)'; btn.style.color = '#fff'; btn.style.borderColor = 'var(--green)';
+                setTimeout(() => { btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy'; btn.style = ''; }, 2000);
+            });
+        }
 
-                    <div class="swiper-slide">
-                        <div class="showcase-card">
-                            <div class="showcase-image">
-                                <div class="showcase-placeholder">
-                                    <i class="fas fa-blog"></i>
-                                </div>
-                            </div>
-                            <div class="showcase-content">
-                                <h3 class="showcase-title">Blog Platform</h3>
-                                <p class="showcase-description">Beautiful content presentation with fluid typography</p>
-                                <div class="showcase-tags">
-                                    <span class="tag">Fluider</span>
-                                    <span class="tag">Typography</span>
-                                    <span class="tag">Minimal</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    </section>
+        // View Transition demo
+        let vtState = 0;
+        const vtStates = [
+            { bg: 'linear-gradient(135deg,var(--accent),var(--accent-2))', label: '◆ State A' },
+            { bg: 'linear-gradient(135deg,#ec4899,#be185d)', label: '● State B' },
+            { bg: 'linear-gradient(135deg,var(--green),#0d9488)', label: '▲ State C' },
+        ];
+        function triggerVT() {
+            const box = document.getElementById('vt-box');
+            vtState = (vtState + 1) % vtStates.length;
+            box.style.opacity = '0'; box.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                box.style.background = vtStates[vtState].bg;
+                box.textContent = vtStates[vtState].label;
+                box.style.opacity = '1'; box.style.transform = '';
+            }, 220);
+        }
 
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">Ready to Build Something Amazing?</h2>
-                <p class="cta-subtitle">Join developers worldwide using MastorsCDN to create beautiful interfaces</p>
-                <div class="cta-actions">
-                    <a href="#get-started" class="btn btn-primary btn-lg">
-                        <i class="fas fa-rocket"></i>
-                        Start Building Now
-                    </a>
-                    <a href="https://github.com/KEHEM-IT/MastorsCDN" target="_blank" class="btn btn-outline btn-lg">
-                        <i class="fab fa-github"></i>
-                        View on GitHub
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Footer slot -->
-    <footer id="footer-slot"></footer>
+        // Scroll demo
+        function sdScroll(el) {
+            const bar = document.getElementById('sd-bar');
+            const pct = el.scrollTop / (el.scrollHeight - el.clientHeight);
+            bar.style.width = (pct * 100) + '%';
+            el.querySelectorAll('.sd-lazy').forEach((item, i) => {
+                if (el.scrollTop > i * 38) item.classList.add('visible');
+            });
+        }
 
-    <!-- Scripts -->
-    <script type="module" src="dist/js/main.js"></script>
+        // Prism highlight
+        document.addEventListener('DOMContentLoaded', () => { Prism.highlightAll(); });
 
-    <!-- External Libraries for Index Page -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-scss.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        // @starting-style demo
+        function triggerStartingStyle() {
+            const host = document.getElementById('ss-toast');
+            if (!host) return;
+            const parent = host.parentNode;
+            const clone = host.cloneNode(true);
+            host.remove();
+            requestAnimationFrame(() => {
+                clone.style.opacity = '0';
+                clone.style.transform = 'translateY(-14px)';
+                parent.insertBefore(clone, parent.querySelector('button[onclick*="triggerStartingStyle"]'));
+                requestAnimationFrame(() => {
+                    clone.style.opacity = '1';
+                    clone.style.transform = '';
+                });
+            });
+        }
 
+        // interpolate-size accordion demo
+        function toggleAccordion(btn) {
+            const body = btn.nextElementSibling;
+            const icon = btn.querySelector('i');
+            const isOpen = body.style.height !== '0px' && body.style.height !== '';
+            if (isOpen) {
+                body.style.height = body.scrollHeight + 'px';
+                requestAnimationFrame(() => { body.style.height = '0'; });
+                icon.style.transform = '';
+            } else {
+                body.style.height = body.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+                body.addEventListener('transitionend', () => { if (body.style.height !== '0px') body.style.height = 'auto'; }, { once: true });
+            }
+        }
+    </script>
 </body>
 
 </html>
