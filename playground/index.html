@@ -273,7 +273,7 @@
     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold bg-card border" style="color:#f4456b;border-color:rgba(244,69,107,.25)">
     <i class="fa-solid fa-trash-can text-[.63rem]"></i> Clear
   </button>
-  <button onclick="saveToURL()"
+  <button onclick="saveToStorage()"
     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[.72rem] font-semibold bg-card border" style="color:#22d3a5;border-color:rgba(34,211,165,.25)">
     <i class="fa-solid fa-floppy-disk text-[.63rem]"></i> Save
   </button>
@@ -294,6 +294,11 @@
   <button class="snip-btn" data-snip="scope">@scope</button>
   <button class="snip-btn" data-snip="anchor">Anchor Pos</button>
   <button class="snip-btn" data-snip="textwrap">text-wrap</button>
+  <button class="snip-btn" data-snip="viewtransition">View Transitions</button>
+  <button class="snip-btn" data-snip="mathfuncs">Math Functions</button>
+  <button class="snip-btn" data-snip="logicalprops">Logical Props</button>
+  <button class="snip-btn" data-snip="startingstyle">@starting-style</button>
+  <button class="snip-btn" data-snip="interpolatesize">interpolate-size</button>
 </div>
 
 <!-- WORKSPACE -->
@@ -1232,9 +1237,555 @@ p { font-size: .76rem; color: #7d9ab8; line-height: 1.6; }
 .normal  { text-wrap: normal; }
 .balance { text-wrap: balance; }
 .pretty  { text-wrap: pretty; }`
+},
+
+viewtransition: {
+html: `<div class="demo">
+  <h2>View Transitions API</h2>
+  <p>Click the button to animate between states using <code>document.startViewTransition()</code>.</p>
+  <div class="stage">
+    <div class="box" id="vt-box">◆ State A</div>
+  </div>
+  <div class="controls">
+    <button class="btn" onclick="triggerTransition()">
+      <span>▶</span> Trigger Transition
+    </button>
+  </div>
+  <div class="code-note">
+    <code>::view-transition-old(root)</code> and <code>::view-transition-new(root)</code>
+    control the outgoing/incoming animations.
+  </div>
+</div>
+<script>
+  const states = [
+    { label: '◆ State A', bg: 'linear-gradient(135deg,#5b8dee,#8b5cf6)' },
+    { label: '● State B', bg: 'linear-gradient(135deg,#ec4899,#be185d)' },
+    { label: '▲ State C', bg: 'linear-gradient(135deg,#22d3a5,#0d9488)' },
+  ];
+  let idx = 0;
+  function triggerTransition() {
+    const box = document.getElementById('vt-box');
+    idx = (idx + 1) % states.length;
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        box.textContent = states[idx].label;
+        box.style.background = states[idx].bg;
+      });
+    } else {
+      box.style.opacity = '0'; box.style.transform = 'translateY(-12px)';
+      setTimeout(() => {
+        box.textContent = states[idx].label;
+        box.style.background = states[idx].bg;
+        box.style.opacity = '1'; box.style.transform = '';
+      }, 250);
+    }
+  }
+<\/script>`,
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #060b16; color: #e8edf5;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem; min-height: 100vh;
+}
+.demo { max-width: 520px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .5rem; letter-spacing: -.02em; }
+p { color: #7d9ab8; font-size: .84rem; line-height: 1.7; margin-bottom: 1.5rem; }
+code {
+  font-family: 'DM Mono', monospace; font-size: .77rem;
+  color: #5b8dee; background: rgba(91,141,238,.1);
+  padding: .1rem .3rem; border-radius: 4px;
+}
+.stage {
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 14px; padding: 3rem 2rem;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.25rem;
+}
+.box {
+  width: 160px; height: 80px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 800; color: white;
+  background: linear-gradient(135deg, #5b8dee, #8b5cf6);
+  view-transition-name: demo-box;
+  transition: opacity .25s, transform .25s;
+}
+.controls { margin-bottom: 1rem; }
+.btn {
+  background: #5b8dee; color: white; border: none;
+  padding: .6rem 1.4rem; border-radius: 9px;
+  font-size: .85rem; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  display: inline-flex; align-items: center; gap: .5rem;
+  transition: background .2s;
+}
+.btn:hover { background: #4a7ddd; }
+.code-note {
+  background: rgba(91,141,238,.06); border: 1px solid rgba(91,141,238,.15);
+  border-radius: 9px; padding: .75rem 1rem;
+  font-size: .78rem; color: #7d9ab8; line-height: 1.6;
+}
+
+/* View Transitions animation rules */
+::view-transition-old(root) {
+  animation: vt-out 300ms ease-out both;
+}
+::view-transition-new(root) {
+  animation: vt-in 300ms ease-in both;
+}
+@keyframes vt-out {
+  to { opacity: 0; transform: translateY(-12px); }
+}
+@keyframes vt-in {
+  from { opacity: 0; transform: translateY(12px); }
+}`
+},
+
+mathfuncs: {
+html: `<div class="demo">
+  <h2>CSS Math Functions</h2>
+
+  <section class="card">
+    <h3>Circular layout — cos() &amp; sin()</h3>
+    <div class="orbit" id="orbit">
+      <div class="center">CSS</div>
+    </div>
+    <p>Each orbit dot is positioned using <code>cos()</code> and <code>sin()</code> — pure CSS, no JS.</p>
+  </section>
+
+  <section class="card">
+    <h3>clamp() — fluid typography</h3>
+    <div class="fluid-text">Fluid Heading</div>
+    <p>Resize the viewport — text scales between <code>1rem</code> and <code>2.5rem</code>.</p>
+  </section>
+
+  <section class="card">
+    <h3>round(), mod(), pow(), sqrt()</h3>
+    <div class="math-grid">
+      <div class="math-chip"><span>round(37px, 4px)</span><strong>= 36px</strong></div>
+      <div class="math-chip"><span>mod(17, 5)</span><strong>= 2</strong></div>
+      <div class="math-chip"><span>sqrt(144)</span><strong>= 12</strong></div>
+      <div class="math-chip"><span>pow(2, 8)</span><strong>= 256</strong></div>
+    </div>
+  </section>
+</div>
+<script>
+  const labels = ['A','B','C','D','E','F'];
+  const orbit = document.getElementById('orbit');
+  labels.forEach((l, i) => {
+    const angle = (360 / labels.length) * i;
+    const rad = angle * Math.PI / 180;
+    const r = 70;
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.textContent = l;
+    dot.style.left = 'calc(50% + ' + (Math.cos(rad) * r) + 'px - 16px)';
+    dot.style.top  = 'calc(50% + ' + (Math.sin(rad) * r) + 'px - 16px)';
+    orbit.appendChild(dot);
+  });
+<\/script>`,
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #060b16; color: #e8edf5;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem; min-height: 100vh;
+}
+.demo { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .25rem; letter-spacing: -.02em; }
+.card {
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 14px; padding: 1.5rem;
+}
+h3 { font-size: .82rem; font-weight: 700; color: #7d9ab8; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 1.1rem; }
+p  { font-size: .8rem; color: #4a6080; margin-top: .85rem; line-height: 1.6; }
+code {
+  font-family: 'DM Mono', monospace; font-size: .75rem;
+  color: #5b8dee; background: rgba(91,141,238,.1);
+  padding: .1rem .3rem; border-radius: 4px;
+}
+
+/* Orbit */
+.orbit {
+  position: relative; width: 180px; height: 180px;
+  margin: 0 auto;
+}
+.orbit::before {
+  content: ''; position: absolute; inset: 0;
+  border-radius: 50%; border: 1px dashed #1b2b45;
+}
+.center {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, #5b8dee, #8b5cf6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .78rem; font-weight: 800; color: white; z-index: 1;
+}
+.dot {
+  position: absolute; width: 32px; height: 32px; border-radius: 50%;
+  background: #162240; border: 2px solid #5b8dee;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .68rem; font-weight: 700; color: #5b8dee;
+}
+
+/* Fluid text */
+.fluid-text {
+  font-size: clamp(1rem, 5vw + .5rem, 2.5rem);
+  font-weight: 800; letter-spacing: -.04em; color: #e8edf5;
+  background: linear-gradient(135deg, #5b8dee, #a78bfa);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Math chips */
+.math-grid { display: flex; flex-wrap: wrap; gap: .6rem; }
+.math-chip {
+  background: #162240; border: 1px solid #1e2e4a;
+  border-radius: 9px; padding: .6rem .85rem;
+  display: flex; flex-direction: column; gap: .2rem;
+  min-width: 120px;
+}
+.math-chip span { font-family: 'DM Mono', monospace; font-size: .7rem; color: #4a6080; }
+.math-chip strong { font-family: 'DM Mono', monospace; font-size: .88rem; color: #22d3a5; }`
+},
+
+logicalprops: {
+html: `<div class="demo">
+  <h2>CSS Logical Properties</h2>
+  <p>The same CSS works correctly in both LTR and RTL without writing direction-specific overrides.</p>
+
+  <div class="ltr-section">
+    <div class="dir-label">dir="ltr" (English)</div>
+    <div class="card" dir="ltr">
+      <div class="icon">◆</div>
+      <div class="body">
+        <h3>Logical Properties — LTR</h3>
+        <p>The blue border is on the <strong>inline-start</strong> side — left in LTR.</p>
+        <code>border-inline-start: 3px solid #5b8dee</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="rtl-section">
+    <div class="dir-label">dir="rtl" (Arabic)</div>
+    <div class="card" dir="rtl">
+      <div class="icon">◆</div>
+      <div class="body">
+        <h3>الخصائص المنطقية — RTL</h3>
+        <p>نفس خاصية CSS، لكن الحد يظهر على <strong>اليمين</strong> تلقائيًا.</p>
+        <code>border-inline-start: 3px solid #a78bfa</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <h3 class="table-title">Physical → Logical Mapping</h3>
+    <table>
+      <tr><th>Physical</th><th>Logical</th></tr>
+      <tr><td><code>margin-left</code></td><td><code>margin-inline-start</code></td></tr>
+      <tr><td><code>padding-right</code></td><td><code>padding-inline-end</code></td></tr>
+      <tr><td><code>border-top</code></td><td><code>border-block-start</code></td></tr>
+      <tr><td><code>width</code></td><td><code>inline-size</code></td></tr>
+      <tr><td><code>height</code></td><td><code>block-size</code></td></tr>
+    </table>
+  </div>
+</div>`,
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #060b16; color: #e8edf5;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem; min-height: 100vh;
+}
+.demo { max-width: 560px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .5rem; letter-spacing: -.02em; }
+.demo > p { color: #7d9ab8; font-size: .84rem; line-height: 1.7; margin-bottom: 1.5rem; }
+code {
+  font-family: 'DM Mono', monospace; font-size: .72rem;
+  color: #5b8dee; background: rgba(91,141,238,.1);
+  padding: .1rem .3rem; border-radius: 4px; display: inline-block; margin-top: .35rem;
+}
+.ltr-section, .rtl-section { margin-bottom: 1rem; }
+.dir-label {
+  font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: #4a6080; margin-bottom: .45rem;
+}
+.card {
+  background: #0f1a2e;
+  border: 1px solid #1b2b45;
+  border-radius: 12px; padding: 1.1rem;
+  display: flex; gap: 1rem; align-items: flex-start;
+  /* Logical: border adapts to direction automatically */
+  border-inline-start: 3px solid #5b8dee;
+}
+.card[dir="rtl"] { border-inline-start-color: #a78bfa; }
+.icon {
+  font-size: 1.3rem; padding-block-start: .1rem;
+  background: linear-gradient(135deg, #5b8dee, #8b5cf6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; flex-shrink: 0;
+}
+h3 { font-size: .88rem; font-weight: 700; color: #e8edf5; margin-block-end: .35rem; }
+p  { font-size: .79rem; color: #7d9ab8; line-height: 1.6; }
+strong { color: #e8edf5; }
+.table-wrap {
+  background: #0f1a2e; border: 1px solid #1b2b45;
+  border-radius: 12px; padding: 1.1rem; margin-block-start: 1rem;
+}
+.table-title { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #4a6080; margin-block-end: .85rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: .45rem .6rem; text-align: start; font-size: .78rem; border-block-end: 1px solid #1b2b45; }
+th { color: #7d9ab8; font-weight: 600; }
+td { color: #e8edf5; }
+td code { color: #a78bfa; background: rgba(139,92,246,.1); }`
+},
+
+startingstyle: {
+html: `<div class="demo">
+  <h2>@starting-style</h2>
+  <p>Animate entry from <code>display: none</code> — no JS, no class toggling, no RAF hacks.</p>
+
+  <div class="controls">
+    <button class="btn" onclick="showToast()">Show Toast</button>
+    <button class="btn btn-sec" onclick="showDialog()">Show Dialog</button>
+  </div>
+
+  <div id="toast" class="toast hidden">
+    <span class="toast-icon">✓</span>
+    Animated with @starting-style — no JS animation!
+  </div>
+
+  <dialog id="dialog" class="dialog">
+    <h3>Dialog Entry</h3>
+    <p>This dialog fades and slides in from <code>display: none</code> using <code>@starting-style</code>.</p>
+    <button class="btn" onclick="document.getElementById('dialog').close()">Close</button>
+  </dialog>
+
+  <div class="code-note">
+    <code>@starting-style</code> defines initial styles <em>before</em> the element's first paint,
+    giving the browser a "from" state for the transition.
+  </div>
+</div>
+<script>
+  let toastTimer;
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.remove('hidden');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.add('hidden'), 3000);
+  }
+  function showDialog() {
+    document.getElementById('dialog').showModal();
+  }
+<\/script>`,
+css: `*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #060b16; color: #e8edf5;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem; min-height: 100vh;
+}
+.demo { max-width: 520px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .5rem; letter-spacing: -.02em; }
+.demo > p { color: #7d9ab8; font-size: .84rem; line-height: 1.7; margin-bottom: 1.5rem; }
+code {
+  font-family: 'DM Mono', monospace; font-size: .76rem;
+  color: #5b8dee; background: rgba(91,141,238,.1);
+  padding: .1rem .3rem; border-radius: 4px;
+}
+.controls { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.btn {
+  background: #5b8dee; color: white; border: none;
+  padding: .6rem 1.4rem; border-radius: 9px;
+  font-size: .85rem; font-weight: 600; cursor: pointer;
+  font-family: inherit; transition: background .2s;
+}
+.btn:hover { background: #4a7ddd; }
+.btn-sec { background: #162240; border: 1px solid #2a4070; color: #8ea3bf; }
+.btn-sec:hover { background: #1e2e4a; color: #e8edf5; }
+
+/* Toast with @starting-style entry */
+.toast {
+  display: flex; align-items: center; gap: .75rem;
+  background: #0f2d1a; border: 1px solid rgba(34,211,165,.3);
+  border-radius: 12px; padding: .85rem 1.1rem;
+  font-size: .84rem; color: #22d3a5; font-weight: 600;
+  margin-bottom: 1.25rem;
+
+  /* Animate entry */
+  opacity: 1; transform: translateX(0);
+  transition:
+    opacity .4s ease,
+    transform .4s ease,
+    display .4s ease allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+}
+.toast.hidden {
+  display: none;
+  opacity: 0;
+  transform: translateX(60px);
+}
+.toast-icon { font-size: 1rem; }
+
+/* Dialog with @starting-style */
+.dialog {
+  background: #0f1a2e; border: 1px solid #2a4070;
+  border-radius: 16px; padding: 2rem; max-width: 380px;
+  width: 90%; color: #e8edf5;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
+
+  opacity: 1; transform: translateY(0) scale(1);
+  transition:
+    opacity .35s ease,
+    transform .35s ease,
+    display .35s ease allow-discrete,
+    overlay .35s ease allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-20px) scale(.95);
+  }
+}
+.dialog:not([open]) {
+  display: none; opacity: 0; transform: translateY(-20px) scale(.95);
+}
+.dialog::backdrop { background: rgba(0,0,0,.55); backdrop-filter: blur(4px); }
+.dialog h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: .65rem; letter-spacing: -.02em; }
+.dialog p  { color: #7d9ab8; font-size: .84rem; line-height: 1.65; margin-bottom: 1.25rem; }
+
+.code-note {
+  background: rgba(91,141,238,.06); border: 1px solid rgba(91,141,238,.15);
+  border-radius: 9px; padding: .85rem 1rem;
+  font-size: .8rem; color: #7d9ab8; line-height: 1.65;
+}`
+},
+
+interpolatesize: {
+html: `<div class="demo">
+  <h2>interpolate-size: allow-keywords</h2>
+  <p>Animate to and from intrinsic sizing keywords like <code>height: auto</code> — the accordion devs always wanted.</p>
+
+  <div class="accordion">
+    <div class="item">
+      <button class="item-btn" onclick="toggle(this)">
+        What is interpolate-size?
+        <span class="chevron">›</span>
+      </button>
+      <div class="item-body">
+        <p><code>interpolate-size: allow-keywords</code> enables transitions to intrinsic sizing values.
+        No JS height measurement, no <code>max-height</code> hacks — just <code>height: auto</code>.</p>
+      </div>
+    </div>
+    <div class="item">
+      <button class="item-btn" onclick="toggle(this)">
+        Which keywords are supported?
+        <span class="chevron">›</span>
+      </button>
+      <div class="item-body">
+        <p>Supported keywords include: <code>auto</code>, <code>min-content</code>,
+        <code>max-content</code>, and <code>fit-content</code>.
+        Set on <code>:root</code> for global effect, or on a specific element.</p>
+      </div>
+    </div>
+    <div class="item">
+      <button class="item-btn" onclick="toggle(this)">
+        Browser support in 2027?
+        <span class="chevron">›</span>
+      </button>
+      <div class="item-body">
+        <p>Chrome 129+ ships it. Firefox and Safari have it behind a flag or in preview.
+        Pair with a <code>@supports</code> check for progressive enhancement.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="chip-demo">
+    <h3>fit-content chip expansion</h3>
+    <div class="chips">
+      <div class="chip">Hover me to expand width to max-content →</div>
+    </div>
+  </div>
+</div>
+<script>
+  function toggle(btn) {
+    const body = btn.nextElementSibling;
+    const chevron = btn.querySelector('.chevron');
+    const isOpen = body.classList.contains('open');
+    if (isOpen) {
+      body.style.height = body.scrollHeight + 'px';
+      requestAnimationFrame(() => { body.style.height = '0'; });
+      body.classList.remove('open');
+      chevron.classList.remove('rotated');
+    } else {
+      body.style.height = body.scrollHeight + 'px';
+      body.classList.add('open');
+      chevron.classList.add('rotated');
+      body.addEventListener('transitionend', () => {
+        if (body.classList.contains('open')) body.style.height = 'auto';
+      }, { once: true });
+    }
+  }
+<\/script>`,
+css: `/* Opt in globally */
+:root { interpolate-size: allow-keywords; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #060b16; color: #e8edf5;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  padding: 2rem; min-height: 100vh;
+}
+.demo { max-width: 540px; margin: 0 auto; }
+h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .5rem; letter-spacing: -.02em; }
+.demo > p { color: #7d9ab8; font-size: .84rem; line-height: 1.7; margin-bottom: 1.5rem; }
+code {
+  font-family: 'DM Mono', monospace; font-size: .75rem;
+  color: #5b8dee; background: rgba(91,141,238,.1);
+  padding: .1rem .3rem; border-radius: 4px;
+}
+.accordion { background: #0f1a2e; border: 1px solid #1b2b45; border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.item { border-bottom: 1px solid #1b2b45; }
+.item:last-child { border-bottom: none; }
+.item-btn {
+  width: 100%; text-align: left; padding: .9rem 1.1rem;
+  background: none; border: none; color: #e8edf5;
+  font-size: .88rem; font-weight: 600; font-family: inherit;
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  transition: background .15s;
+}
+.item-btn:hover { background: rgba(255,255,255,.03); }
+.chevron {
+  font-size: 1.1rem; color: #5b8dee;
+  transition: transform .35s ease;
+  display: inline-block;
+}
+.chevron.rotated { transform: rotate(90deg); }
+.item-body {
+  height: 0; overflow: hidden;
+  transition: height .4s ease;
+}
+.item-body p { padding: .2rem 1.1rem 1rem; font-size: .82rem; color: #7d9ab8; line-height: 1.65; }
+
+/* Chip — animates width to max-content on hover */
+.chip-demo { background: #0f1a2e; border: 1px solid #1b2b45; border-radius: 12px; padding: 1.2rem; }
+h3 { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #4a6080; margin-bottom: .85rem; }
+.chips { display: flex; }
+.chip {
+  width: fit-content; max-width: 200px;
+  background: rgba(91,141,238,.12); color: #5b8dee;
+  border: 1px solid rgba(91,141,238,.25);
+  border-radius: 99px; padding: .35rem .9rem;
+  font-size: .78rem; font-weight: 600; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+  transition: max-width .4s ease, background .2s;
+  cursor: default;
+}
+.chip:hover { max-width: max-content; background: rgba(91,141,238,.2); }`
 }
 
 }; // end SNIPPETS
+
+
 
 // ─── State ────────────────────────────────────────────────────────────────────
 let htmlEditor, cssEditor;
@@ -1289,24 +1840,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Load from URL hash or default snippet
-  const hash = window.location.hash.slice(1);
-  if (hash) {
-    try {
-      const data = JSON.parse(decodeURIComponent(atob(hash)));
-      if (data.html !== undefined) htmlEditor.setValue(data.html);
-      if (data.css  !== undefined) cssEditor.setValue(data.css);
-      document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
-      runPreview();
-      return;
-    } catch(e) {}
-  }
-  loadSnippet('welcome');
-
-  // Wire buttons
+  // Wire buttons — ALWAYS, before any early-return paths
   document.getElementById('btn-format').addEventListener('click', formatCode);
   document.getElementById('btn-clear').addEventListener('click', clearEditors);
-  document.getElementById('btn-save').addEventListener('click', saveToURL);
+  document.getElementById('btn-save').addEventListener('click', saveToStorage);
   document.getElementById('btn-share').addEventListener('click', shareLink);
   document.getElementById('btn-run').addEventListener('click', runPreview);
   document.getElementById('btn-fullscreen').addEventListener('click', openFullscreen);
@@ -1316,10 +1853,28 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('mobile-menu').classList.contains('hidden') ? '' : 'flex';
   });
 
-  // Snippet bar
+  // Snippet bar — wire ALL buttons (including newly added ones)
   document.querySelectorAll('.snip-btn').forEach(btn => {
     btn.addEventListener('click', () => loadSnippet(btn.dataset.snip));
   });
+
+  // Load from localStorage or default snippet
+  const saved = loadFromStorage();
+  if (saved && (saved.html || saved.css)) {
+    if (saved.html !== undefined) htmlEditor.setValue(saved.html);
+    if (saved.css  !== undefined) cssEditor.setValue(saved.css);
+    document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
+    if (saved.snip) {
+      const btn = document.querySelector(`.snip-btn[data-snip="${saved.snip}"]`);
+      if (btn) btn.classList.add('active');
+      currentSnip = saved.snip;
+    } else {
+      currentSnip = null;
+    }
+    runPreview();
+  } else {
+    loadSnippet('welcome');
+  }
 
   // Resize handle
   initResize();
@@ -1430,23 +1985,50 @@ function clearEditors() {
   htmlEditor.setValue('');
   cssEditor.setValue('');
   document.querySelectorAll('.snip-btn').forEach(b => b.classList.remove('active'));
+  currentSnip = null;
+  try { localStorage.removeItem(LS_KEY); } catch(e) {}
   runPreview();
 }
 
-// ─── Save to URL ──────────────────────────────────────────────────────────────
-function saveToURL() {
-  const data = { html: htmlEditor.getValue(), css: cssEditor.getValue() };
-  const hash = btoa(encodeURIComponent(JSON.stringify(data)));
-  history.replaceState(null, '', '#' + hash);
-  showToast('toast-save');
+// ─── localStorage persistence ─────────────────────────────────────────────────
+const LS_KEY = 'mastorscdn_playground';
+const LS_VER = 2; // bump to invalidate old saves
+
+function saveToStorage() {
+  try {
+    const data = {
+      v:    LS_VER,
+      html: htmlEditor.getValue(),
+      css:  cssEditor.getValue(),
+      snip: currentSnip || null,
+    };
+    localStorage.setItem(LS_KEY, JSON.stringify(data));
+    showToast('toast-save');
+  } catch(e) {
+    showNotif('<i class="fa-solid fa-xmark" style="color:#f4456b"></i> Storage full or unavailable');
+  }
 }
 
-// ─── Share link ───────────────────────────────────────────────────────────────
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    // Wipe and ignore any save from a previous incompatible version
+    if (!data || data.v !== LS_VER) {
+      localStorage.removeItem(LS_KEY);
+      return null;
+    }
+    return data;
+  } catch(e) {
+    localStorage.removeItem(LS_KEY);
+    return null;
+  }
+}
+
+// ─── Share link (copies current URL — no hash encoding) ───────────────────────
 function shareLink() {
-  const data = { html: htmlEditor.getValue(), css: cssEditor.getValue() };
-  const hash = btoa(encodeURIComponent(JSON.stringify(data)));
-  const url = location.origin + location.pathname + '#' + hash;
-  navigator.clipboard.writeText(url).then(() => showToast('toast-copy'));
+  navigator.clipboard.writeText(location.href).then(() => showToast('toast-copy'));
 }
 
 // ─── Reload preview ───────────────────────────────────────────────────────────
